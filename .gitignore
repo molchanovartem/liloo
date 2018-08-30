@@ -1,4 +1,7 @@
 .idea
 
 /common/vendor
+/common/composer.lock
+
 /lk/node_modules
+/lk/package-lock.json
