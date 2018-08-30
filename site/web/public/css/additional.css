@@ -1,0 +1,152 @@
+.mt-120 {
+    margin-top: 120px;
+}
+.mt-90 {
+    margin-top: 90px;
+}
+.mt-80 {
+    margin-top: 80px;
+}
+.mt-65 {
+    margin-top: 65px;
+}
+.mt-50 {
+    margin-top: 50px;
+}
+.mt-40 {
+    margin-top: 40px;
+}
+.mt-35 {
+    margin-top: 35px;
+}
+.mt-30 {
+    margin-top: 30px;
+}
+.mt-25 {
+    margin-top: 25px;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+.mt-5 {
+    margin-top: 5px;
+}
+
+.mtb-15 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}
+.mb-30 {
+    margin-bottom: 35px;
+}
+.mb-40 {
+    margin-bottom: 40px;
+}
+.mb-60 {
+    margin-bottom: 60px;
+}
+.mb-80 {
+    margin-bottom: 80px;
+}
+
+
+
+.pt-200 {
+    padding-top: 200px;
+}
+
+.p-40 {
+    padding: 40px;
+}
+
+.ptb-30 {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.pb-100 {
+    padding-bottom: 100px;
+}
+
+
+
+.between-10 > *:nth-child(n+2) {
+    margin-left: 10px;
+}
+.between-15 > *:nth-child(n+2) {
+    margin-left: 15px;
+}
+.between-20 > *:nth-child(n+2) {
+    margin-left: 20px;
+}
+
+
+
+.font_Gilroy-15-900-C0C7D4 {
+    color: #C0C7D4;
+    font-size: 17px;
+    font-weight: 800;
+    font-family: Gilroy, sans-serif;
+}
+.font_Gilroy-17-800-000000 {
+    color: #000;
+    font-size: 17px;
+    font-weight: 800;
+    font-family: Gilroy, sans-serif;
+}
+.font_Gilroy-18-800-000000 {
+    color: #000;
+    font-size: 18px;
+    font-weight: 800;
+    font-family: Gilroy, sans-serif;
+}
+/*a[class*="font_"] {
+    text-decoration: none;
+}
+a[class*="font_"]:hover {
+    text-decoration: underline;
+}*/
+.font_type_2 {
+    color: #000;
+    font-weight: 400;
+    font-size: 14.4px;
+    font-family: Gilroy, sans-serif;
+}
+.font_type_3 {
+    color: #818181;
+    font-weight: 400;
+    font-size: 14.4px;
+    font-family: Gilroy, sans-serif;
+}
+.font_type_4 {
+    color: #000;
+    font-weight: 800;
+    font-size: 12.8px;
+    font-family: Gilroy, sans-serif;
+}
+
+
+
+.bg_image_header-main {
+    background-image: url(../images/bg_header-page-main.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.bg_color_f8 {
+    background-color: #F8F8F8;
+}
+
+
+
+.j-c_s-b {
+    display: flex;
+    justify-content: space-between;
+}
+.t-a_c {
+    text-align: center;
+}

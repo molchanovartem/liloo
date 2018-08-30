@@ -1,0 +1,94 @@
+<?php
+
+/* @var $this \yii\web\View */
+
+/* @var $content string */
+
+use yii\helpers\Html;
+
+?>
+
+<?php $this->beginPage() ?>
+<!DOCTYPE html>
+<html lang="<?= Yii::$app->language ?>">
+<head>
+    <meta charset="<?= Yii::$app->charset ?>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <title>Элементы - Сервис Мастеров</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css"
+          href="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/css/uikit.css">
+    <link rel="stylesheet" type="text/css"
+          href="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/css/uikit-rtl.css">
+</head>
+<body>
+<?php $this->beginBody() ?>
+<div class="uk-container-fluid">
+    <nav class="uk-navbar-container uk-light" uk-navbar style="background-color: #1e87f0">
+        <div class="uk-navbar-left">
+            <div class="uk-navbar-item uk-logo">
+                <a href="#">liloo</a>
+            </div>
+
+            <ul class="uk-navbar-nav">
+                <li>
+                    <a href="#">
+                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
+                        Features
+                    </a>
+                </li>
+            </ul>
+
+            <div class="uk-navbar-item">
+                <div>Some <a href="#">Link</a></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="uk-grid uk-grid-collapse">
+        <div id="kek" class="uk-background-muted uk-width-1-6">
+            <div class="uk-background-muted uk-padding-small uk-height-max-large">
+                <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
+                    <li class="uk-active"><a href="#">Active</a></li>
+                    <li class="uk-parent">
+                        <a href="#">Parent</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="#">Sub item</a></li>
+                            <li>
+                                <a href="#">Sub item</a>
+                                <ul>
+                                    <li><a href="#">Sub item</a></li>
+                                    <li><a href="#">Sub item</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent">
+                        <a href="#">Parent</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="#">Sub item</a></li>
+                            <li><a href="#">Sub item</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="uk-width-5-6">
+            <div class="uk-padding-small">
+                <?= $content; ?>
+            </div>
+        </div>
+    </div>
+</div>
+<?php $this->endBody() ?>
+<script src="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/js/uikit.js"></script>
+<script src="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/js/uikit-icons.js"></script>
+</body>
+</html>

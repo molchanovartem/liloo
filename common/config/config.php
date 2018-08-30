@@ -1,11 +1,17 @@
 <?php
 Yii::setAlias('@common', dirname(__DIR__));
 Yii::setAlias('@api', dirname(dirname(__DIR__)) . '/api');
+Yii::setAlias('@site', dirname(dirname(__DIR__)) . '/site');
+Yii::setAlias('@admin', dirname(dirname(__DIR__)) . '/admin');
 
 $config = [
     'language' => 'ru-RU',
     'sourceLanguage' => 'en-US',
-
+    'vendorPath' => '@common/vendor',
+    'aliases' => [
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
+    ],
     'components' => [
 
         'account' => 'common\components\AccountComponent',
