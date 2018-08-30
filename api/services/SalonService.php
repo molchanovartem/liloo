@@ -261,6 +261,34 @@ class SalonService extends \api\services\Service
         return $this->saveSalonServices($items, self::SCENARIO_UPDATE);
     }
 
+    private function validateExistServices(array $servicesId)
+    {
+        $services = \api\models\Service::find()
+            ->select(['id'])
+            ->asArray()
+            ->byId($servicesId)
+            ->allByAccountId();
+
+        $notExist = array_unique(array_diff($servicesId, array_column($services, 'id')));
+
+        if (count($notExist) > 0) throw new NotFoundEntryError("Not found services '" . implode(', ', $notExist) . "'");
+        return true;
+    }
+
+    private function validateExistSalons(array $salonsId)
+    {
+        $salons = Salon::find()
+            ->select(['id'])
+            ->asArray()
+            ->byId($salonsId)
+            ->allByAccountId();
+
+        $notExist = array_unique(array_diff($salonsId, array_column($salons, 'id')));
+
+        if (count($notExist) > 0) throw new NotFoundEntryError("Not found salons '" . implode(', ', $notExist) . "'");
+        return true;
+    }
+
     /**
      * @param array $items
      * @param $scenario
@@ -295,7 +323,7 @@ class SalonService extends \api\services\Service
      */
     public function deleteSalonService(int $id): bool
     {
-        return (bool) SalonServiceModel::deleteById($id);
+        return (bool)SalonServiceModel::deleteById($id);
     }
 
     /**
@@ -405,7 +433,7 @@ class SalonService extends \api\services\Service
      */
     public function deleteSalonMaster(int $salonId, int $masterId): bool
     {
-        return (bool) SalonMaster::deleteOne($salonId, $masterId);
+        return (bool)SalonMaster::deleteOne($salonId, $masterId);
     }
 
     /**
