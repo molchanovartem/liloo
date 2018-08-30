@@ -1,40 +1,40 @@
 {
-    "name": "BD/lilu",
-    "description": "lilu",
-    "type": "project",
-    "license": "MIT",
-    "minimum-stability": "stable",
-    "require": {
-        "php": ">=7.0.0",
-        "yiisoft/yii2": ">=2.0.5",
-        "yiisoft/yii2-swiftmailer": "*",
-        "yiisoft/yii2-jui": "^2.0",
-        "yiisoft/yii2-debug": "^2.0",
-        "yiisoft/yii2-gii": "^2.0",
-        "yiisoft/yii2-imagine": "^2.1",
-        "webonyx/graphql-php": "^0.12.0"
-    },
-    "require-dev": {
-        "yiisoft/yii2-codeception": "*",
-        "yiisoft/yii2-debug": "*",
-        "yiisoft/yii2-gii": "*",
-        "yiisoft/yii2-faker": "*"
-    },
-    "config": {
-        "process-timeout": 1800,
-        "fxp-asset": {
-            "enabled": false
-        }
-    },
-    "scripts": {
-        "post-create-project-cmd": [
-            "yii\\composer\\Installer::postCreateProject"
-        ]
-    },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
+  "name": "BD/lilu",
+  "description": "lilu",
+  "type": "project",
+  "license": "MIT",
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.0.0",
+    "yiisoft/yii2": ">=2.0.5",
+    "yiisoft/yii2-swiftmailer": "*",
+    "yiisoft/yii2-jui": "^2.0",
+    "yiisoft/yii2-debug": "^2.0",
+    "yiisoft/yii2-gii": "^2.0",
+    "yiisoft/yii2-imagine": "^2.1",
+    "webonyx/graphql-php": "^0.12.0"
+  },
+  "require-dev": {
+    "yiisoft/yii2-codeception": "*",
+    "yiisoft/yii2-debug": "*",
+    "yiisoft/yii2-gii": "*",
+    "yiisoft/yii2-faker": "*"
+  },
+  "config": {
+    "process-timeout": 1800,
+    "fxp-asset": {
+      "enabled": false
+    }
+  },
+  "scripts": {
+    "post-create-project-cmd": [
+      "yii\\composer\\Installer::postCreateProject"
     ]
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://asset-packagist.org"
+    }
+  ]
 }
