@@ -1,0 +1,8 @@
+{
+    "name": "bmedia/liloo",
+    "require": {
+        "tuyakhov/yii2-json-api": "^0.1.6",
+        "zircote/swagger-php": "^2.0",
+        "webonyx/graphql-php": "^0.12.0"
+    }
+}

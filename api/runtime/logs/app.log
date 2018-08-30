@@ -1,0 +1,1012 @@
+2018-08-15 13:08:38 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-15 13:08:38 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '434'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8081'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8081/client/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '56684'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534331318.718
+    'REQUEST_TIME' => 1534331318
+]
+2018-08-15 13:09:09 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-15 13:09:09 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '434'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8081'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8081/client/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '56873'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534331349.282
+    'REQUEST_TIME' => 1534331349
+]
+2018-08-15 13:21:14 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-15 13:21:14 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '434'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8081'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8081/client/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '59554'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534332074.713
+    'REQUEST_TIME' => 1534332074
+]
+2018-08-15 13:27:43 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-15 13:27:43 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '444'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8081'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8081/client/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '61234'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534332463.437
+    'REQUEST_TIME' => 1534332463
+]
+2018-08-15 13:29:17 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-15 13:29:17 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '472'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8081'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8081/client/update/47'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '61619'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534332557.094
+    'REQUEST_TIME' => 1534332557
+]
+2018-08-16 06:58:24 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 06:58:24 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '313'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '50038'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534395504.309
+    'REQUEST_TIME' => 1534395504
+]
+2018-08-16 07:00:42 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:00:42 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '313'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '50720'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534395642.638
+    'REQUEST_TIME' => 1534395642
+]
+2018-08-16 07:03:27 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:03:27 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '342'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/update/25'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '51491'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534395807.839
+    'REQUEST_TIME' => 1534395807
+]
+2018-08-16 07:03:42 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:03:42 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '346'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/update/25'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '51595'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534395822.749
+    'REQUEST_TIME' => 1534395822
+]
+2018-08-16 07:03:56 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:03:55 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '355'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/update/25'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '51668'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534395835.956
+    'REQUEST_TIME' => 1534395835
+]
+2018-08-16 07:06:57 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:06:56 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '385'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '52604'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534396016.942
+    'REQUEST_TIME' => 1534396016
+]
+2018-08-16 07:07:43 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:07:42 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '408'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/update/26'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '52832'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534396062.911
+    'REQUEST_TIME' => 1534396062
+]
+2018-08-16 07:13:57 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:13:57 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '414'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/update/26'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '54517'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534396437.581
+    'REQUEST_TIME' => 1534396437
+]
+2018-08-16 07:15:16 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:15:16 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '420'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/update/26'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '54903'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534396516.115
+    'REQUEST_TIME' => 1534396516
+]
+2018-08-16 07:16:40 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:16:40 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '407'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '55273'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534396600.446
+    'REQUEST_TIME' => 1534396600
+]
+2018-08-16 07:19:53 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:19:53 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '439'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/client/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '56238'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534396793.612
+    'REQUEST_TIME' => 1534396793
+]
+2018-08-16 07:20:18 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api_test/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api_test/messages/ru/app.php
+2018-08-16 07:20:18 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '442'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8083'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8083/client/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api_test/index.php'
+    'REMOTE_PORT' => '56359'
+    'REDIRECT_URL' => '/api_test/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api_test/graphql/index'
+    'SCRIPT_NAME' => '/api_test/index.php'
+    'PHP_SELF' => '/api_test/index.php'
+    'REQUEST_TIME_FLOAT' => 1534396818.69
+    'REQUEST_TIME' => 1534396818
+]
+2018-08-24 10:48:51 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api/messages/ru/app.php
+2018-08-24 10:48:51 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '447'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/client/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api/index.php'
+    'REMOTE_PORT' => '51901'
+    'REDIRECT_URL' => '/api/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/graphql/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1535100531.767
+    'REQUEST_TIME' => 1535100531
+]
+2018-08-25 10:42:12 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api/messages/ru/app.php
+2018-08-25 10:42:12 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '344'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api/index.php'
+    'REMOTE_PORT' => '49469'
+    'REDIRECT_URL' => '/api/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/graphql/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1535186532.191
+    'REQUEST_TIME' => 1535186532
+]
+2018-08-25 10:42:39 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api/messages/ru/app.php
+2018-08-25 10:42:39 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '337'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api/index.php'
+    'REMOTE_PORT' => '49604'
+    'REDIRECT_URL' => '/api/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/graphql/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1535186559.668
+    'REQUEST_TIME' => 1535186559
+]
+2018-08-28 10:03:55 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api/messages/ru/app.php
+2018-08-28 10:03:55 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '328'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api/index.php'
+    'REMOTE_PORT' => '65489'
+    'REDIRECT_URL' => '/api/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/graphql/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1535443435.894
+    'REQUEST_TIME' => 1535443435
+]
+2018-08-28 10:06:17 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: /Users/kirill/Sites/lilu/api/messages/ru-RU/app.php Fallback file does not exist as well: /Users/kirill/Sites/lilu/api/messages/ru/app.php
+2018-08-28 10:06:17 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'lilu'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '328'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => '/usr/bin:/bin:/usr/sbin:/sbin'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache/2.4.25 (Unix) PHP/7.1.4'
+    'SERVER_NAME' => 'lilu'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => '/Users/kirill/Sites/lilu'
+    'SERVER_ADMIN' => 'you@example.com'
+    'SCRIPT_FILENAME' => '/Users/kirill/Sites/lilu/api/index.php'
+    'REMOTE_PORT' => '49775'
+    'REDIRECT_URL' => '/api/graphql/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/graphql/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1535443577.004
+    'REQUEST_TIME' => 1535443577
+]

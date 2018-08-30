@@ -1,0 +1,61 @@
+<?php
+
+namespace api\schema\type\mutation\master;
+
+use api\schema\registry\TypeRegistry;
+use api\schema\type\MutationFieldsTypeInterface;
+use api\services\MasterService;
+
+/**
+ * Class MasterServiceType
+ *
+ * @package api\schema\type\mutation\master
+ */
+class MasterServiceType implements MutationFieldsTypeInterface
+{
+    /**
+     * @param TypeRegistry $typeRegistry
+     * @return array
+     */
+    public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
+    {
+        return [
+            'masterServicesCreate' => [
+                'type' => $typeRegistry->boolean(),
+                'args' => [
+                    'master_id' => $typeRegistry->nonNull($typeRegistry->id()),
+                    'salon_id' => $typeRegistry->nonNull($typeRegistry->id()),
+                    'services_id' => $typeRegistry->nonNull($typeRegistry->listOff($typeRegistry->id()))
+                ],
+                'resolve' => function ($root, $args) {
+                    return (new MasterService())->createServices($args['master_id'], $args['salon_id'], $args['services_id']);
+                }
+            ],
+            'masterServicesUpdate' => [
+                'type' => $typeRegistry->boolean(),
+                'args' => [
+                    'master_id' => $typeRegistry->nonNull($typeRegistry->id()),
+                    'salon_id' => $typeRegistry->nonNull($typeRegistry->id()),
+                    'services_id' => $typeRegistry->nonNull($typeRegistry->listOff($typeRegistry->id()))
+                ],
+                'resolve' => function ($root, $args) {
+                    return (new MasterService())->updateServices($args['master_id'], $args['salon_id'], $args['services_id']);
+                }
+            ],
+            'masterServicesDelete' => [
+                'type' => $typeRegistry->boolean(),
+                'args' => [
+                    'master_id' => $typeRegistry->nonNull($typeRegistry->id()),
+                    'salon_id' => $typeRegistry->nonNull($typeRegistry->id()),
+                    'services_id' => [
+                        'type' => $typeRegistry->listOff($typeRegistry->id()),
+                        'defaultValue' => []
+                    ]
+                ],
+                'resolve' => function ($root, $args) {
+                    return (new MasterService())->deleteServices($args['master_id'], $args['salon_id'], $args['services_id']);
+                }
+            ]
+        ];
+    }
+}

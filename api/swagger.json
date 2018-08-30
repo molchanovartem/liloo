@@ -1,0 +1,32 @@
+{
+    "swagger": "2.0",
+    "paths": {
+        "/v1/users/{id}/profile": {
+            "put": {
+                "tags": [
+                    "Profile"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "type": "object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Profile update"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {}
+}
