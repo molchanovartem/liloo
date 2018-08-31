@@ -106,11 +106,17 @@ class MasterSchedule extends ActiveRecord
         ]);
     }
 
-    public function countDateInInterval($startDate, $endDate, $masterId)
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @param $masterId
+     * @return int|string
+     */
+    public function countDateInInterval($startDate, $endDate, int $masterId)
     {
-        return count(MasterSchedule::find()
+        return MasterSchedule::find()
             ->where(['between', 'end_date', "$startDate", "$endDate" ])
             ->andWhere(['master_id' => $masterId])
-            ->all());
+            ->countByAccountId();
     }
 }

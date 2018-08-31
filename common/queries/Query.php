@@ -106,6 +106,15 @@ class Query extends \yii\db\ActiveQuery
             ->all();
     }
 
+    /**
+     * @return int|string
+     */
+    public function countByAccountId()
+    {
+        return $this->byAccountId()
+            ->count();
+    }
+
     /*
     public function oneByUserId(int $userId)
     {
