@@ -62,10 +62,130 @@
             initScheduler() {
                 this.scheduler = Scheduler.getSchedulerInstance();
 
-                this.initSchedulerEvents();
-                this.initSchedulerConfig();
+                this.scheduler.locale.labels.matrix_tab = "Matrix";
+                this.scheduler.locale.labels.section_custom = "Section";
+                this.scheduler.config.details_on_create = true;
+                this.scheduler.config.details_on_dblclick = true;
+                this.scheduler.config.xml_date = "%Y-%m-%d %H:%i";
+                this.scheduler.config.multi_day = false;
+                var brief_mode = true;
 
-                this.scheduler.init('timeline', new Date(), "timeline");
+
+                //===============
+                //Configuration
+                //===============
+                var sections = [
+                    {key: 1, label: "Section A"},
+                    {key: 2, label: "Section B"},
+                    {key: 3, label: "Section C"},
+                    {key: 4, label: "Section D"}
+                ];
+
+                this.scheduler.createTimelineView({
+                    name: "matrix",
+                    x_unit: "day",
+                    x_date: "%d %M",
+                    x_step: 1,
+                    x_size: 15,
+                    y_unit: sections,
+                    y_property: "section_id"
+                });
+
+                //===============
+                //Customization
+                //===============
+
+                this.scheduler.templates.matrix_cell_class = function(evs,x,y){
+                        if (!evs) {
+                            var day = x.getDay();
+                            return (day==0 || day == 6) ? "yellow_cell" : "white_cell";
+                        }
+                        if (evs.length<3) return "green_cell";
+                        if (evs.length<5) return "yellow_cell";
+                        return "red_cell";
+                    };
+
+                this.scheduler.templates.matrix_scalex_class = function(date){
+                        if (date.getDay()==0 || date.getDay()==6)  return "yellow_cell";
+                        return "";
+                    };
+
+
+                /*
+                this.scheduler.templates.matrix_cell_value = function(evs, date){
+                    console.log(this);
+                    console.log(evs !== undefined ? evs.length : '');
+                    return '';
+                };
+                */
+
+                this.scheduler.templates.matrix_scale_text = function (key, label, unit) {
+                    return '<h1>' + 'sadad' + '</h1>';
+                };
+
+                this.scheduler.templates.timeline_scale_label = function (key, label, section) {
+                    console.log(this);
+                };
+
+                this.scheduler.init('timeline', new Date(2017, 5, 30), "matrix");
+                //this.scheduler.load("./data/units.json", "json");
+                this.scheduler.parse([
+                    {
+                        "id": "2",
+                        "start_date": "2017-06-30 12:00:00",
+                        "end_date": "2017-06-30 14:00:00",
+                        "text": "Section A test",
+                        "section_id": "1"
+                    },
+                    {
+                        "id": "3",
+                        "start_date": "2017-06-30 10:00:00",
+                        "end_date": "2017-06-30 11:00:00",
+                        "text": "Section B test",
+                        "section_id": "2"
+                    },
+                    {
+                        "id": "3",
+                        "start_date": "2017-06-1 10:00:00",
+                        "end_date": "2017-07-30 11:00:00",
+                        "text": "Section B test",
+                        "section_id": "2"
+                    },
+                    {
+                        "id": "4",
+                        "start_date": "2017-06-30 16:00:00",
+                        "end_date": "2017-06-30 18:00:00",
+                        "text": "Section C test",
+                        "section_id": "3"
+                    },
+                    {
+                        "id": "5",
+                        "start_date": "2017-06-30 10:00:00",
+                        "end_date": "2017-06-30 15:00:00",
+                        "text": "Section D test",
+                        "section_id": "4"
+                    },
+                    {
+                        "id": "6",
+                        "start_date": "2017-06-29 12:00:00",
+                        "end_date": "2017-06-29 14:00:00",
+                        "text": "day before test",
+                        "section_id": "1"
+                    },
+                    {
+                        "id": "7",
+                        "start_date": "2017-07-1 12:00:00",
+                        "end_date": "2017-07-1 14:00:00",
+                        "text": "day after test",
+                        "section_id": "1"
+                    }
+                ], 'json');
+
+
+                //this.initSchedulerEvents();
+                //this.initSchedulerConfig();
+
+                //this.scheduler.init('timeline', new Date(), "timeline");
             },
             initSchedulerConfig() {
                 this.scheduler.locale.labels.timeline_tab = "Timeline";

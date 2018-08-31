@@ -24,10 +24,6 @@ use api\models\SalonService as SalonServiceModel;
  */
 class SalonService extends \api\services\Service
 {
-    const SCENARIO_CREATE = 'create';
-    const SCENARIO_UPDATE = 'update';
-
-
     /**
      * @param array $data
      * @return Salon

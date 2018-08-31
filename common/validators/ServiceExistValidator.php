@@ -47,7 +47,9 @@ class ServiceExistValidator extends Validator
      */
     protected function validateValue($value)
     {
-        $value = (array)$value;
+        if (is_array($value)) {
+            $value = array_unique($value);
+        }
 
         $services = Service::find()
             ->select(['id'])
