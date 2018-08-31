@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\validators\MasterExistValidator;
 use Yii;
 use yii\db\ActiveRecord;
 use common\validators\SalonExistValidator;
@@ -41,6 +42,7 @@ class MasterSchedule extends ActiveRecord
             [['start_date', 'end_date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
             ['type', 'in', 'range' => array_keys(self::getTypeList())],
             ['salon_id', SalonExistValidator::class],
+            ['master_id', MasterExistValidator::class],
             ['start_date', function ($attribute, $params) {
                 if (date($this->$attribute) === date($this->end_date)) {
                     $this->addError($attribute, '"start_date" равна "end_date"');
@@ -54,6 +56,16 @@ class MasterSchedule extends ActiveRecord
             ['end_date', function ($attribute, $params) {
                 if (date($this->$attribute) < date($this->start_date)) {
                     $this->addError($attribute, '"end_date" меньше "start_date"');
+                }
+            }],
+            ['start_date', function ($attribute, $params) {
+                if ($this->countDateInInterval($this->$attribute, $this->end_date, $this->master_id) > 0) {
+                    $this->addError($attribute, 'Это время занято');
+                }
+            }],
+            ['end_date', function ($attribute, $params) {
+                if ($this->countDateInInterval($this->$attribute, $this->end_date, $this->master_id) > 0) {
+                    $this->addError($attribute, 'Это время занято');
                 }
             }],
         ];
@@ -92,5 +104,13 @@ class MasterSchedule extends ActiveRecord
             'id' => $id,
             'account_id' => Yii::$app->account->getId()
         ]);
+    }
+
+    public function countDateInInterval($startDate, $endDate, $masterId)
+    {
+        return count(MasterSchedule::find()
+            ->where(['between', 'end_date', "$startDate", "$endDate" ])
+            ->andWhere(['master_id' => $masterId])
+            ->all());
     }
 }

@@ -8,7 +8,7 @@ Vue.use(VueApollo);
 
 let httpLink = new HttpLink({
     // You should use an absolute URL here
-    uri: 'http://lilu/api/graphql/index',
+    uri: 'http://liloo/api/graphql/index',
     transportBatching: true,
 });
 
