@@ -3,6 +3,7 @@
 namespace common\models;
 
 use common\validators\MasterExistValidator;
+use common\validators\MasterScheduleExistValidator;
 use Yii;
 use yii\db\ActiveRecord;
 use common\validators\SalonExistValidator;
@@ -43,6 +44,7 @@ class MasterSchedule extends ActiveRecord
             ['type', 'in', 'range' => array_keys(self::getTypeList())],
             ['salon_id', SalonExistValidator::class],
             ['master_id', MasterExistValidator::class],
+            [['start_date', 'end_date', 'master_id'], MasterScheduleExistValidator::class],
             ['start_date', function ($attribute, $params) {
                 if (date($this->$attribute) === date($this->end_date)) {
                     $this->addError($attribute, '"start_date" равна "end_date"');
@@ -58,16 +60,16 @@ class MasterSchedule extends ActiveRecord
                     $this->addError($attribute, '"end_date" меньше "start_date"');
                 }
             }],
-            ['start_date', function ($attribute, $params) {
-                if ($this->countDateInInterval($this->$attribute, $this->end_date, $this->master_id) > 0) {
-                    $this->addError($attribute, 'Это время занято');
-                }
-            }],
-            ['end_date', function ($attribute, $params) {
-                if ($this->countDateInInterval($this->$attribute, $this->end_date, $this->master_id) > 0) {
-                    $this->addError($attribute, 'Это время занято');
-                }
-            }],
+//            ['start_date', function ($attribute, $params) {
+//                if ($this->countDateInInterval($this->$attribute, $this->end_date, $this->master_id) > 0) {
+//                    $this->addError($attribute, 'Это время занято');
+//                }
+//            }],
+//            ['end_date', function ($attribute, $params) {
+//                if ($this->countDateInInterval($this->$attribute, $this->end_date, $this->master_id) > 0) {
+//                    $this->addError($attribute, 'Это время занято');
+//                }
+//            }],
         ];
     }
 
@@ -115,7 +117,7 @@ class MasterSchedule extends ActiveRecord
     public function countDateInInterval($startDate, $endDate, int $masterId)
     {
         return MasterSchedule::find()
-            ->where(['between', 'end_date', "$startDate", "$endDate" ])
+            ->where(['between', 'end_date', "$startDate", "$endDate"])
             ->andWhere(['master_id' => $masterId])
             ->countByAccountId();
     }

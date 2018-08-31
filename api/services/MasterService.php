@@ -2,6 +2,8 @@
 
 namespace api\services;
 
+use common\validators\MasterScheduleExistValidator;
+use DateTime;
 use Yii;
 use yii\db\Expression;
 use api\exceptions\ValidationError;
@@ -221,6 +223,11 @@ class MasterService extends Service
         $attributes = ['account_id', 'master_id', 'salon_id', 'type', 'start_date', 'end_date'];
         $batch = [];
         $models = [];
+
+//        if (!(new MasterScheduleExistValidator())->validate($items)) {
+//            throw new AttributeValidationError(['Это время занято']);
+//        }
+
         foreach ($items as $key => $item) {
             $item['type'] = MasterSchedule::TYPE_WORKING;
             $models[$key] = new MasterSchedule($item);

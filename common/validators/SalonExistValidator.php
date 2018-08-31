@@ -49,6 +49,8 @@ class SalonExistValidator extends Validator
     {
         if (is_array($value)) {
             $value = array_unique($value);
+        } else {
+            $value = (array)$value;
         }
 
         $services = Salon::find()
