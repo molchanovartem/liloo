@@ -26,8 +26,7 @@ class SalonServiceQuery extends Query
     public function allById(array $id)
     {
         return $this->byId($id)
-            ->byAccountId()
             ->indexBy('id')
-            ->all();
+            ->allByAccountId();
     }
 }

@@ -16,6 +16,20 @@ use common\validators\ServiceExistValidator;
  */
 class SalonService extends ActiveRecord
 {
+    const SCENARIO_BATCH = 'batch';
+
+    /**
+     * @return array
+     */
+    public function scenarios()
+    {
+        $defaultAttributes = ['account_id', 'salon_id', 'service_id', 'service_price', 'service_duration'];
+        return [
+            self::SCENARIO_DEFAULT => $defaultAttributes,
+            self::SCENARIO_BATCH => $defaultAttributes
+        ];
+    }
+
     /**
      * @return string
      */
@@ -33,8 +47,8 @@ class SalonService extends ActiveRecord
             [['account_id', 'salon_id', 'service_id', 'service_price', 'service_duration'], 'required'],
             [['account_id', 'salon_id', 'service_id', 'service_duration'], 'integer'],
             [['service_price'], 'number'],
-            ['salon_id', SalonExistValidator::class],
-            ['service_id', ServiceExistValidator::class]
+            ['salon_id', SalonExistValidator::class, 'on' => self::SCENARIO_DEFAULT],
+            ['service_id', ServiceExistValidator::class, 'on' => self::SCENARIO_DEFAULT]
         ];
     }
 

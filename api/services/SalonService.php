@@ -5,6 +5,8 @@ namespace api\services;
 use Yii;
 use yii\db\Exception;
 use yii\db\Expression;
+use common\validators\SalonExistValidator;
+use common\validators\ServiceExistValidator;
 use common\models\SalonConvenience;
 use common\models\SalonSpecialization;
 use api\exceptions\ValidationError;
@@ -208,7 +210,23 @@ class SalonService extends \api\services\Service
      */
     public function createSalonService(array $attributes)
     {
-        return $this->saveSalonService(new SalonServiceModel(), $attributes);
+        return $this->saveSalonService(new SalonServiceModel(), $attributes, SalonServiceModel::SCENARIO_DEFAULT);
+    }
+
+    /**
+     * @param array $items
+     * @return array
+     * @throws Exception
+     */
+    public function createSalonServices(array $items): array
+    {
+        return $this->wrappedTransaction(function () use ($items) {
+            $this->validateSalonServices($items);
+
+            return array_map(function ($item) {
+                return $this->saveSalonService(new SalonServiceModel(), $item, SalonServiceModel::SCENARIO_BATCH);
+            }, $items);
+        });
     }
 
     /**
@@ -222,99 +240,60 @@ class SalonService extends \api\services\Service
     {
         if (!$model = SalonServiceModel::find()->oneById($id)) throw new NotFoundEntryError();
 
-        return $this->saveSalonService($model, $attributes);
+        return $this->saveSalonService($model, $attributes, SalonServiceModel::SCENARIO_DEFAULT);
+    }
+
+    /**
+     * @param array $items
+     * @return null
+     * @throws Exception
+     */
+    public function updateSalonServices(array $items)
+    {
+        return $this->wrappedTransaction(function () use ($items) {
+            $this->validateSalonServices($items);
+
+            $models = SalonServiceModel::find()->allById(array_column($items, 'id'));
+            foreach ($items as $index => $item) {
+                if (!$models[$item['id']]) throw new NotFoundEntryError();
+
+                $models[$item['id']] = $this->saveSalonService($models[$item['id']], $item['attributes'], SalonServiceModel::SCENARIO_BATCH);
+            }
+        });
+    }
+
+    /**
+     * @param array $items
+     * @throws AttributeValidationError
+     */
+    private function validateSalonServices(array $items)
+    {
+        $error = '';
+        if (!(new SalonExistValidator())->validate(array_column($items, 'salon_id'), $error)) {
+            throw new AttributeValidationError(['salon_id' => $error]);
+        }
+
+        if (!(new ServiceExistValidator())->validate(array_column($items, 'service_id'), $error)) {
+            throw new AttributeValidationError(['service_id' => $error]);
+        }
     }
 
     /**
      * @param SalonServiceModel $model
      * @param array $attributes
+     * @param $modelScenario
      * @return SalonServiceModel
      * @throws AttributeValidationError
      */
-    private function saveSalonService(SalonServiceModel $model, array $attributes)
+    private function saveSalonService(SalonServiceModel $model, array $attributes, $modelScenario)
     {
+        $model->setScenario($modelScenario);
         $model->setAttributes($attributes);
 
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
 
         $model->save(false);
         return $model;
-    }
-
-    /**
-     * @param array $items
-     * @return array|\yii\db\ActiveRecord[]
-     * @throws AttributeValidationError
-     */
-    public function createSalonServices(array $items)
-    {
-        return $this->saveSalonServices($items, self::SCENARIO_CREATE);
-    }
-
-    /**
-     * @param array $items
-     * @return array|\yii\db\ActiveRecord[]
-     * @throws AttributeValidationError
-     */
-    public function updateSalonServices(array $items)
-    {
-        return $this->saveSalonServices($items, self::SCENARIO_UPDATE);
-    }
-
-    private function validateExistServices(array $servicesId)
-    {
-        $services = \api\models\Service::find()
-            ->select(['id'])
-            ->asArray()
-            ->byId($servicesId)
-            ->allByAccountId();
-
-        $notExist = array_unique(array_diff($servicesId, array_column($services, 'id')));
-
-        if (count($notExist) > 0) throw new NotFoundEntryError("Not found services '" . implode(', ', $notExist) . "'");
-        return true;
-    }
-
-    private function validateExistSalons(array $salonsId)
-    {
-        $salons = Salon::find()
-            ->select(['id'])
-            ->asArray()
-            ->byId($salonsId)
-            ->allByAccountId();
-
-        $notExist = array_unique(array_diff($salonsId, array_column($salons, 'id')));
-
-        if (count($notExist) > 0) throw new NotFoundEntryError("Not found salons '" . implode(', ', $notExist) . "'");
-        return true;
-    }
-
-    /**
-     * @param array $items
-     * @param $scenario
-     * @return array|\yii\db\ActiveRecord[]
-     * @throws AttributeValidationError
-     */
-    private function saveSalonServices(array $items, $scenario)
-    {
-        $models = [];
-        if ($scenario === self::SCENARIO_CREATE) {
-            foreach ($items as $key => $item) {
-                $models[$key] = new SalonServiceModel($item);
-
-                if (!$models[$key]->validate()) throw new AttributeValidationError($models[$key]->getErrors());
-                $models[$key]->save(false);
-            }
-        } else {
-            $models = SalonServiceModel::find()->allById(array_column($items, 'id'));
-            foreach ($items as $key => $item) {
-                $models[$item['id']]->setAttributes($item['attributes']);
-
-                if (!$models[$item['id']]->validate()) throw new AttributeValidationError($models[$key]->getErrors());
-                $models[$item['id']]->save(false);
-            }
-        }
-        return $models;
     }
 
     /**
