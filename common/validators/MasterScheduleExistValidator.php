@@ -31,7 +31,18 @@ class MasterScheduleExistValidator extends Validator
         return false;
     }
 
-    protected function validateValue($items)
+    protected function validateValue(array $items)
+    {
+        if (!$badKeys = $this->getBadDate($items)) {
+            return null;
+        }
+
+        return [$this->message, [
+            'value' => json_encode($badKeys),
+        ]];
+    }
+
+    public function getBadDate(array $items)
     {
         $dates = [];
         $masters = [];
@@ -48,25 +59,18 @@ class MasterScheduleExistValidator extends Validator
             ->where(['in', 'master_id', array_unique($masters)])
             ->all();
 
-        foreach ($items as $item) {
+        foreach ($items as $key => $item) {
             foreach ($masterSchedulesCurrentDates as $masterSchedulesCurrentDate) {
                 if (date($item['start_date']) >= date($masterSchedulesCurrentDate['start_date']) and
                     date($item['start_date']) <= date($masterSchedulesCurrentDate['end_date']) and
                     date($item['end_date']) >= date($masterSchedulesCurrentDate['start_date']) and
                     date($item['end_date']) <= date($masterSchedulesCurrentDate['end_date'])
                 ) {
-                    $badKeys[] = $item;
+                    $badKeys[$key] = $item;
                 }
             }
         }
-        $badKeys = array_intersect_key($badKeys, array_unique(array_map('serialize', $badKeys)));
 
-        if (!empty($badKeys)) {
-            return [$this->message, [
-                'value' => json_encode($badKeys),
-            ]];
-        }
-
-        return null;
+        return $badKeys;
     }
 }
