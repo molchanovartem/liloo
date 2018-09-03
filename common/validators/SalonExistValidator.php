@@ -47,11 +47,7 @@ class SalonExistValidator extends Validator
      */
     protected function validateValue($value)
     {
-        if (is_array($value)) {
-            $value = array_unique($value);
-        } else {
-            $value = (array)$value;
-        }
+        $value = (array)$value;
 
         $services = Salon::find()
             ->select(['id'])
@@ -64,7 +60,7 @@ class SalonExistValidator extends Validator
         if (count($notExist) === 0) return null;
 
         return [$this->message, [
-            'value' => implode(', ', $notExist)
+            'value' => implode(', ', $notExist),
         ]];
     }
 }

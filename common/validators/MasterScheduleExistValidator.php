@@ -17,13 +17,11 @@ class MasterScheduleExistValidator extends Validator
      * @todo
      * Подкорректировать текст
      */
-    public $message = '{attribute} нет салона {value}';
+    public $message = '{value}';
 
     public function validate($value, &$error = null)
     {
-        if (!$result = $this->validateValue($value)) {
-            return true;
-        }
+        if (!$result = $this->validateValue($value)) return true;
 
         list($message, $params) = $result;
         $params['attribute'] = Yii::t('yii', 'the input value');
@@ -37,16 +35,10 @@ class MasterScheduleExistValidator extends Validator
     {
         $dates = [];
         $masters = [];
-//        $items = (array)$items;
-//
-//        foreach ($items as $key => $item) {
-//            return [$this->message, [
-//                'value' => $item['master_id'],
-//            ]];
-//        }
+        $badKeys = [];
 
-        foreach ($items as $key => $item) {
-            $date = new DateTime($item);
+        foreach ($items as $item) {
+            $date = new DateTime($item['start_date']);
             $dates[] = $date->format('Y-m-d');
             $masters[] = $item['master_id'];
         }
@@ -56,24 +48,23 @@ class MasterScheduleExistValidator extends Validator
             ->where(['in', 'master_id', array_unique($masters)])
             ->all();
 
-        foreach ($items as $key => $item) {
+        foreach ($items as $item) {
             foreach ($masterSchedulesCurrentDates as $masterSchedulesCurrentDate) {
                 if (date($item['start_date']) >= date($masterSchedulesCurrentDate['start_date']) and
-                    date($item['start_date']) <= date($masterSchedulesCurrentDate['end_date'])
-                ) {
-                    return [$this->message, [
-                        'value' => 'Это время занято',
-                    ]];
-                }
-
-                if (date($item['end_date']) >= date($masterSchedulesCurrentDate['start_date']) and
+                    date($item['start_date']) <= date($masterSchedulesCurrentDate['end_date']) and
+                    date($item['end_date']) >= date($masterSchedulesCurrentDate['start_date']) and
                     date($item['end_date']) <= date($masterSchedulesCurrentDate['end_date'])
                 ) {
-                    return [$this->message, [
-                        'value' => 'Это время занято',
-                    ]];
+                    $badKeys[] = $item;
                 }
             }
+        }
+        $badKeys = array_intersect_key($badKeys, array_unique(array_map('serialize', $badKeys)));
+
+        if (!empty($badKeys)) {
+            return [$this->message, [
+                'value' => json_encode($badKeys),
+            ]];
         }
 
         return null;

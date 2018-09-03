@@ -2,7 +2,9 @@
 
 namespace api\services;
 
+use common\validators\MasterExistValidator;
 use common\validators\MasterScheduleExistValidator;
+use common\validators\SalonExistValidator;
 use DateTime;
 use Yii;
 use yii\db\Expression;
@@ -174,12 +176,12 @@ class MasterService extends Service
      */
     public function createMasterSchedule(array $attributes)
     {
-        return $this->saveMasterSchedule(new MasterSchedule(), $attributes);
+        return $this->saveMasterSchedule(new MasterSchedule(), $attributes, \common\models\MasterSchedule::SCENARIO_DEFAULT);
     }
 
     public function createMasterSchedules(array $items)
     {
-        return $this->saveMasterSchedules($items);
+        return $this->saveMasterSchedules($items, \common\models\MasterSchedule::SCENARIO_BATCH);
     }
 
     /**
@@ -193,50 +195,68 @@ class MasterService extends Service
     {
         if (!$model = MasterSchedule::find()->oneById($id)) throw new NotFoundEntryError();
 
-        return $this->saveMasterSchedule($model, $attributes);
+        return $this->saveMasterSchedule($model, $attributes, \common\models\MasterSchedule::SCENARIO_DEFAULT);
     }
 
     /**
      * @param MasterSchedule $model
      * @param array $attributes
+     * @param $modelScenario
      * @return MasterSchedule
      * @throws AttributeValidationError
      */
-    private function saveMasterSchedule(MasterSchedule $model, array $attributes)
+    private function saveMasterSchedule(MasterSchedule $model, array $attributes, $modelScenario)
     {
         $model->setAttributes($attributes);
+        $model->setScenario($modelScenario);
 
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
-
         $model->save(false);
+
         return $model;
     }
 
     /**
      * @param array $items
+     * @param $modelScenario
      * @return bool
      * @throws AttributeValidationError
      * @throws \yii\db\Exception
      */
-    private function saveMasterSchedules(array $items): bool
+    private function saveMasterSchedules(array $items, $modelScenario): bool
     {
         $attributes = ['account_id', 'master_id', 'salon_id', 'type', 'start_date', 'end_date'];
         $batch = [];
         $models = [];
 
-//        if (!(new MasterScheduleExistValidator())->validate($items)) {
-//            throw new AttributeValidationError(['Это время занято']);
-//        }
+        $this->validateSalonServices($items);
 
         foreach ($items as $key => $item) {
             $item['type'] = MasterSchedule::TYPE_WORKING;
             $models[$key] = new MasterSchedule($item);
+            $models[$key]->setScenario($modelScenario);
 
             if (!$models[$key]->validate()) throw new AttributeValidationError($models[$key]->getErrors());
             $batch[] = $models[$key]->getAttributes($attributes);
         }
 
-        return (bool) Yii::$app->db->createCommand()->batchInsert(MasterSchedule::tableName(), $attributes, $batch)->execute();
+        return (bool)Yii::$app->db->createCommand()->batchInsert(MasterSchedule::tableName(), $attributes, $batch)->execute();
+    }
+
+    private function validateSalonServices(array $items)
+    {
+        $errors = '';
+        if (!(new MasterScheduleExistValidator())->validate($items, $errors)) {
+            throw new AttributeValidationError([$errors]);
+        }
+
+        if (!(new MasterExistValidator())->validate(ArrayHelper::getColumn($items, 'master_id'), $errors)) {
+            throw new AttributeValidationError([$errors]);
+        }
+
+        if (!(new SalonExistValidator())->validate(ArrayHelper::getColumn($items, 'salon_id'), $errors)) {
+            throw new AttributeValidationError([$errors]);
+        }
     }
 
     private function normalizeMasterSchedules($masterSchedules)
