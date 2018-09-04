@@ -3,7 +3,7 @@
 namespace admin\controllers;
 
 use common\models\Account;
-use common\models\LoginForm;
+use admin\models\LoginForm;
 use common\models\User;
 use common\models\UserProfile;
 use site\models\SignupForm;

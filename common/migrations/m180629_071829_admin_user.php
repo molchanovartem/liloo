@@ -3,11 +3,11 @@
 use yii\db\Migration;
 
 /**
- * Class m180416_071029_user
+ * Class m180416_071029_admin_user
  */
-class m180416_071029_user extends Migration
+class m180416_071029_admin_user extends Migration
 {
-    protected $tableName = '{{%user}}';
+    protected $tableName = '{{%admin_user}}';
 
     /**
      * {@inheritdoc}
@@ -16,14 +16,12 @@ class m180416_071029_user extends Migration
     {
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
-            'account_id' => $this->integer()->notNull(),
-            'type' => $this->integer()->notNull(),
             'login' => $this->string()->notNull(),
             'password' => $this->string()->notNull(),
+            'role' => $this->string()->notNull(),
+            'create_time' => $this->dateTime(),
+            'updated_time' => $this->dateTime(),
         ]);
-
-        $this->createIndex('ix-user-account_id', $this->tableName, 'account_id');
-        $this->addForeignKey('fk-user-account_id', $this->tableName, 'account_id', '{{%account}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     /**

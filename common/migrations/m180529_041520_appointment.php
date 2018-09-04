@@ -27,10 +27,6 @@ class m180529_041520_appointment extends Migration
             'end_date' => $this->dateTime()->notNull()
         ]);
 
-        $this->execute("ALTER TABLE {$this->tableName} ADD `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `end_date`;");
-        $this->execute("ALTER TABLE {$this->tableName} ADD `update_time` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `create_time`;");
-
-
         $this->createIndex('ix-appointment-account_id', $this->tableName, 'account_id');
         $this->addForeignKey('fk-appointment-account_id', $this->tableName, 'account_id', '{{%account}}', 'id', 'CASCADE', 'CASCADE');
 
