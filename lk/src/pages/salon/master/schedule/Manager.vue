@@ -9,16 +9,18 @@
 
         <v-master v-if="masterId" :salonId=" salonId" :masterId="masterId"/>
 
-        <div id="timeline" class="dhx_cal_container" style='width:100%; height:1000px;'>
-            <div class="dhx_cal_navline">
-                <div class="dhx_cal_prev_button">&nbsp;</div>
-                <div class="dhx_cal_next_button">&nbsp;</div>
-                <div class="dhx_cal_today_button"></div>
-                <div class="dhx_cal_date"></div>
-                <div class="dhx_cal_tab" name="timeline_tab" style="right:280px;"></div>
+        <div>
+            <div id="timeline" class="dhx_cal_container" style='width:100%; height:1000px;'>
+                <div class="dhx_cal_navline">
+                    <div class="dhx_cal_prev_button">&nbsp;</div>
+                    <div class="dhx_cal_next_button">&nbsp;</div>
+                    <div class="dhx_cal_today_button"></div>
+                    <div class="dhx_cal_date"></div>
+                    <div class="dhx_cal_tab" name="timeline_tab" style="right:280px;"></div>
+                </div>
+                <div class="dhx_cal_header"></div>
+                <div class="dhx_cal_data"></div>
             </div>
-            <div class="dhx_cal_header"></div>
-            <div class="dhx_cal_data"></div>
         </div>
     </div>
 </template>
@@ -47,7 +49,7 @@
         },
         mounted() {
             this.initScheduler();
-            this.changeMasterId();
+            //this.changeMasterId();
         },
         destroyed() {
             delete this.scheduler;
@@ -68,12 +70,7 @@
                 this.scheduler.config.details_on_dblclick = true;
                 this.scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                 this.scheduler.config.multi_day = false;
-                var brief_mode = true;
 
-
-                //===============
-                //Configuration
-                //===============
                 var sections = [
                     {key: 1, label: "Section A"},
                     {key: 2, label: "Section B"},
@@ -86,54 +83,66 @@
                     x_unit: "day",
                     x_date: "%d %M",
                     x_step: 1,
-                    x_size: 15,
+                    x_size: 7,
                     y_unit: sections,
                     y_property: "section_id"
                 });
 
-                //===============
-                //Customization
-                //===============
-
-                this.scheduler.templates.matrix_cell_class = function(evs,x,y){
-                        if (!evs) {
-                            var day = x.getDay();
-                            return (day==0 || day == 6) ? "yellow_cell" : "white_cell";
-                        }
-                        if (evs.length<3) return "green_cell";
-                        if (evs.length<5) return "yellow_cell";
-                        return "red_cell";
-                    };
-
-                this.scheduler.templates.matrix_scalex_class = function(date){
-                        if (date.getDay()==0 || date.getDay()==6)  return "yellow_cell";
-                        return "";
-                    };
-
-
                 /*
-                this.scheduler.templates.matrix_cell_value = function(evs, date){
-                    console.log(this);
-                    console.log(evs !== undefined ? evs.length : '');
-                    return '';
+                this.scheduler.templates.matrix_cell_value = function (evs, date) {
+                    let startDate, endDate;
+
+                    if (evs) {
+                        if (evs.length > 1) {
+                            let countEvent = evs.length;
+                            startDate = evs[0].start_date;
+                            endDate = evs[evs.length - 1].end_date;
+                        } else {
+                            startDate = evs[0].start_date;
+                            endDate = evs[0].end_date;
+                        }
+                    }
+
+                    return evs ? startDate.getHours() + ' - ' + endDate.getHours() : '';
                 };
                 */
 
-                this.scheduler.templates.matrix_scale_text = function (key, label, unit) {
-                    return '<h1>' + 'sadad' + '</h1>';
-                };
+                /*
+                this.scheduler.attachEvent("onBeforeViewChange", function(old_mode,old_date,mode,date){
 
-                this.scheduler.templates.timeline_scale_label = function (key, label, section) {
-                    console.log(this);
+                    var year = date.getFullYear();
+                    var month= (date.getMonth() + 1);
+                    var d = new Date(year, month, 0);
+                    var days = d.getDate();//numbers of day in month
+                    this.scheduler.matrix['matrix'].x_size = days;
+                    return true;
+                });
+                this.scheduler.date['add_' + 'matrix'] = function(date, step){
+                    if(step > 0){
+                        step = 1;
+                    }else if(step < 0){
+                        step = -1;
+                    }
+                    return this.scheduler.date.add(date, step, "month")
                 };
+                */
+                this.scheduler.date['matrix' + '_start'] = this.scheduler.date.week_start;
 
-                this.scheduler.init('timeline', new Date(2017, 5, 30), "matrix");
+                this.scheduler.init('timeline', new Date(), "matrix");
+
                 //this.scheduler.load("./data/units.json", "json");
                 this.scheduler.parse([
                     {
                         "id": "2",
                         "start_date": "2017-06-30 12:00:00",
                         "end_date": "2017-06-30 14:00:00",
+                        "text": "Section A test",
+                        "section_id": "1"
+                    },
+                    {
+                        "id": "213132",
+                        "start_date": "2017-06-30 15:00:00",
+                        "end_date": "2017-06-30 17:00:00",
                         "text": "Section A test",
                         "section_id": "1"
                     },
@@ -180,7 +189,6 @@
                         "section_id": "1"
                     }
                 ], 'json');
-
 
                 //this.initSchedulerEvents();
                 //this.initSchedulerConfig();

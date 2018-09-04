@@ -164,7 +164,7 @@
                 masters: [],
                 // Клиентов
                 clients: [],
-                // Услуг
+                // Услуги
                 services: [],
                 status: new Status,
                 currentAppointment: null,

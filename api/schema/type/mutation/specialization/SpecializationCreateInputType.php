@@ -3,6 +3,7 @@
 namespace api\schema\type\mutation\specialization;
 
 use api\schema\registry\TypeRegistry;
+use api\schema\type\UploadFileType;
 use GraphQL\Type\Definition\InputObjectType;
 
 /**
@@ -23,7 +24,7 @@ class SpecializationCreateInputType extends InputObjectType
             'fields' => function () use ($typeRegistry) {
                 return [
                     'name' => $typeRegistry->nonNull($typeRegistry->string()),
-                    'description' => $typeRegistry->string()
+                    'description' => $typeRegistry->string(),
                 ];
             }
         ]);

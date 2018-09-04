@@ -1,5 +1,6 @@
 <template>
     <v-app>
+        <button @click="upload">upload</button>
         <v-header/>
         <div class="content-width content-columns">
             <div class="content-columns__column content-column__column_main">
