@@ -22,54 +22,35 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </p>
 
-    <div class="uk-child-width-1-2">
+    <div>
         <?=
         DetailView::widget([
             'model' => $model,
             'attributes' => [
                 'id',
                 'login',
-                'role',
+                [
+                    'label' => 'Роль',
+                    'value' => $model->getRole($model->role),
+                ],
             ],
         ])
         ?>
     </div>
 
-    <div class="uk-grid uk-child-width-1-3@m uk-grid-small uk-grid-match" >
+    <?= Html::a('<span class="uk-margin-small-right" uk-icon="plus"></span> Комментарий', ['/user/create-interaction?userId=' . $model->id], ['class' => 'uk-button uk-button-default uk-button-small']) ?>
+
+    <div class="uk-grid uk-grid-small uk-child-width-1-6 uk-margin-top">
         <?php foreach ($interactions as $interaction): ?>
-        <div>
-            <div class="uk-card uk-card-primary uk-card-body uk-card-small uk-width-1-2 uk-border-rounded">
-                <p><?php echo $interaction->comment; ?></p>
-                <p class="uk-text-right">
-                    <sub><?php echo Yii::$app->formatter->format($interaction->created_at, 'date'); ?></sub>
-                </p>
+            <div>
+                <div class="uk-card uk-card-primary uk-card-small uk-card-body uk-border-rounded">
+                    <p><?php echo $interaction->comment; ?></p>
+                    <p class="uk-text-right">
+                        <sub><?php echo Yii::$app->formatter->format($interaction->create_time, 'date'); ?></sub>
+                    </p>
+                </div>
             </div>
-        </div>
         <?php endforeach; ?>
     </div>
-
-    <?php
-
-    use admin\widgets\activeForm\ActiveForm;
-
-    ?>
-
-<!--    <div class="user-form">-->
-<!---->
-<!--        --><?php //$form = ActiveForm::begin(['action' => ['user/createInteraction'],'options' => ['method' => 'post']]) ?>
-<!--        <div class="panel panel-default panel-body">-->
-<!---->
-<!--            --><?//= $form->field($model, 'user_id')->textInput(['maxlength' => true]) ?>
-<!---->
-<!--            --><?//= $form->field($model, 'comment')->textarea(['rows' => '6']) ?>
-<!---->
-<!--            --><?//= $form->field($model, 'role')->dropDownList(['0' => 'Суперадмин', '1' => 'Админ'], ['prompt' => 'Выберите роль...']); ?>
-<!---->
-<!--        </div>-->
-<!---->
-<!--        --><?php //ActiveForm::end(); ?>
-<!---->
-<!--    </div>-->
-
 
 </div>

@@ -14,7 +14,6 @@ class ActiveField extends \yii\widgets\ActiveField
      */
     public $containerInputOptions = ['class' => 'container-input'];
 
-
     public $inputOptions = ['class' => 'uk-form-small'];
     /**
      * @var string

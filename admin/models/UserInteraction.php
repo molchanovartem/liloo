@@ -3,10 +3,28 @@
 namespace admin\models;
 
 
+use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\Expression;
 
 class UserInteraction extends ActiveRecord
 {
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'create_time',
+                'updatedAtAttribute' => 'update_time',
+                'value' => new Expression('NOW()'),
+            ],
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -19,7 +37,8 @@ class UserInteraction extends ActiveRecord
      */
     public function rules() {
         return [
-            [['user_id', 'comment',], 'required'],
+            ['user_id', 'default', 'value' => Yii::$app->user->identity->id],
+            [['comment'], 'required'],
             [['comment'], 'string', 'max' => 255],
         ];
     }

@@ -18,8 +18,8 @@ class m180529_041521_admin_user_interaction extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'comment' => $this->string()->notNull(),
-            'created_time' => $this->dateTime(),
-            'updated_time' => $this->dateTime(),
+            'create_time' => $this->dateTime(),
+            'update_time' => $this->dateTime(),
         ]);
 
         $this->createIndex('ix-user-user_id', $this->tableName, 'user_id');

@@ -16,9 +16,10 @@ use yii\db\Expression;
  * @property string $registration_date
  * @property double $balance
  */
-class User extends ActiveRecord {
-
-    const ROLE_ADMIN = 'admin';
+class User extends ActiveRecord
+{
+    const ROLE_SUPERADMIN = 0;
+    const ROLE_ADMIN = 1;
 
     public function behaviors()
     {
@@ -35,14 +36,16 @@ class User extends ActiveRecord {
     /**
      * @inheritdoc
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return '{{%admin_user}}';
     }
 
     /**
      * @inheritdoc
      */
-    public function rules() {
+    public function rules()
+    {
         return [
             [['login', 'password', 'role',], 'required'],
             [['login', 'password'], 'string', 'max' => 255],
@@ -50,10 +53,24 @@ class User extends ActiveRecord {
         ];
     }
 
+    public function getRoles()
+    {
+        return [
+            self::ROLE_SUPERADMIN => 'Суперадмин',
+            self::ROLE_ADMIN => 'Админ',
+        ];
+    }
+
+    public function getRole($role)
+    {
+        return $this->getRoles()[$role];
+    }
+
     /**
      * @inheritdoc
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'login' => 'Login',
@@ -61,7 +78,8 @@ class User extends ActiveRecord {
         ];
     }
 
-    public static function isUserAdmin($userId) {
+    public static function isUserAdmin($userId)
+    {
         if (static::findOne(['id' => $userId, 'role' => self::ROLE_ADMIN])) {
             return true;
         } else {
@@ -72,7 +90,8 @@ class User extends ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public static function findIdentity($id) {
+    public static function findIdentity($id)
+    {
         return static::findOne($id);
     }
 
@@ -82,14 +101,16 @@ class User extends ActiveRecord {
      * @param string $username
      * @return static|null
      */
-    public static function findByLogin($login) {
+    public static function findByLogin($login)
+    {
         return static::findOne(['login' => $login]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -99,18 +120,21 @@ class User extends ActiveRecord {
      * @param string $password password to validate
      * @return bool if password provided is valid for current user
      */
-    public function validatePassword($password) {
+    public function validatePassword($password)
+    {
         return $this->password === md5($password);
     }
 
     /**
      * @param $password
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = md5($password);
     }
 
-    public function beforeSave($insert) {
+    public function beforeSave($insert)
+    {
 
         if (!parent::beforeSave($insert)) {
             return false;
@@ -122,5 +146,4 @@ class User extends ActiveRecord {
 
         return true;
     }
-
 }

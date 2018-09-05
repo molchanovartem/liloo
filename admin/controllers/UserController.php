@@ -2,24 +2,34 @@
 
 namespace admin\controllers;
 
-use admin\models\User;
-use admin\models\UserInteraction;
+use admin\services\UserService;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
+use admin\controllers\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use admin\models\User;
+use admin\models\UserInteraction;
 
 /**
  * Class UserController
  * @package app\modules\admin\controllers
  */
-class UserController extends Controller {
+class UserController extends \admin\controllers\Controller
+{
+
+    public function __construct(string $id, $module, UserService $userService, array $config = [])
+    {
+        $this->modelService = $userService;
+
+        parent::__construct($id, $module, $config);
+    }
 
     /**
      * @return array
      */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -33,7 +43,8 @@ class UserController extends Controller {
     /**
      * @return string
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
             'pagination' => ['pageSize' => 10],
@@ -49,44 +60,54 @@ class UserController extends Controller {
      * @return string
      * @throws NotFoundHttpException
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
         return $this->render('view', [
             'model' => $this->findModel($id),
             'interactions' => UserInteraction::find()->where(['user_id' => $id])->all(),
         ]);
     }
 
-    /**
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate() {
-        $model = new User();
 
-        $model->load(Yii::$app->request->post());
+    public function actionCreateInteraction($userId)
+    {
+        $model = new UserInteraction();
+        $model->user_id = $userId;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $userId]);
         }
 
-        return $this->render('create', [
+        return $this->render('create-interaction', [
             'model' => $model,
         ]);
     }
 
     /**
+     * @return string|\yii\web\Response
+     */
+    public function actionCreate()
+    {
+        return $this->create('create');
+    }
+
+    /**
      * @param $id
      * @return string|\yii\web\Response
-     * @throws NotFoundHttpException
      */
-    public function actionUpdate($id) {
-        $model = $this->findModel($id);
+    public function actionUpdate($id)
+    {
+        return $this->create('update', ['id' => $id]);
+    }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+    public function create($type, $params = [])
+    {
+        $result = $type == 'create' ? $this->modelService->create() : $this->modelService->update($params['id']);
+        $data = $this->modelService->getData();
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+        return $result ? $this->redirect(['view', 'id' => $data['model']->id]) :
+            $this->render($type, ['model' => $data['model']
+            ]);
     }
 
     /**
@@ -96,7 +117,8 @@ class UserController extends Controller {
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -107,7 +129,8 @@ class UserController extends Controller {
      * @return User|null
      * @throws NotFoundHttpException
      */
-    protected function findModel($id) {
+    protected function findModel($id)
+    {
         if (($model = User::findOne($id)) !== null) {
             return $model;
         }
