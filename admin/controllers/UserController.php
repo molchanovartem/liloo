@@ -71,10 +71,9 @@ class UserController extends \admin\controllers\Controller
 
     public function actionCreateInteraction($userId)
     {
-        $model = new UserInteraction();
-        $model->user_id = $userId;
+        $model = $this->modelService->createInteraction($userId);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model) {
             return $this->redirect(['view', 'id' => $userId]);
         }
 
@@ -119,7 +118,7 @@ class UserController extends \admin\controllers\Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $this->modelService->delete($id);
 
         return $this->redirect(['index']);
     }

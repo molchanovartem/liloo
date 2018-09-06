@@ -5,6 +5,7 @@ namespace admin\services;
 use admin\models\User;
 use admin\core\service\Service;
 use admin\models\UserInteraction;
+use yii\web\NotFoundHttpException;
 
 class UserService extends Service
 {
@@ -37,10 +38,25 @@ class UserService extends Service
     {
         $model = new UserInteraction();
         $model->user_id = $userId;
+
         $this->setData([
             'model' => $this->model = $model,
         ]);
 
         return $this->save();
+    }
+
+    public function delete($id)
+    {
+        return $this->findModel($id)->delete();
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = User::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
