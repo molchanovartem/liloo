@@ -6,6 +6,10 @@ use admin\models\Notice;
 use admin\core\service\ModelService;
 use yii\data\ActiveDataProvider;
 
+/**
+ * Class NoticeService
+ * @package admin\services
+ */
 class NoticeService extends ModelService
 {
     public function getDataProvider()
@@ -18,6 +22,11 @@ class NoticeService extends ModelService
         $this->setData(['provider' => $dataProvider]);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Exception
+     */
     public function delete($id)
     {
         $this->findNotice($id);
@@ -25,6 +34,10 @@ class NoticeService extends ModelService
         return $this->getData()['notice']->delete();
     }
 
+    /**
+     * @param $id
+     * @throws \Exception
+     */
     public function findNotice($id)
     {
         if (($model = Notice::findOne($id)) == null) throw new \Exception('Not find any notice');

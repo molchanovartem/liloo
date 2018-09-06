@@ -7,14 +7,8 @@ use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
- * This is the model class for table "user".
- *
- * @property int $id
- * @property string $email
- * @property string $name
- * @property string $password
- * @property string $registration_date
- * @property double $balance
+ * Class User
+ * @package admin\models
  */
 class User extends ActiveRecord
 {
@@ -34,7 +28,7 @@ class User extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * @return string
      */
     public static function tableName()
     {
@@ -42,7 +36,7 @@ class User extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * @return array
      */
     public function rules()
     {
@@ -53,6 +47,9 @@ class User extends ActiveRecord
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getRoles()
     {
         return [
@@ -61,13 +58,17 @@ class User extends ActiveRecord
         ];
     }
 
+    /**
+     * @param $role
+     * @return mixed
+     */
     public function getRole($role)
     {
         return $this->getRoles()[$role];
     }
 
     /**
-     * @inheritdoc
+     * @return array
      */
     public function attributeLabels()
     {
@@ -78,6 +79,10 @@ class User extends ActiveRecord
         ];
     }
 
+    /**
+     * @param $userId
+     * @return bool
+     */
     public static function isUserAdmin($userId)
     {
         if (static::findOne(['id' => $userId, 'role' => self::ROLE_ADMIN])) {
@@ -88,7 +93,8 @@ class User extends ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @param $id
+     * @return User|null
      */
     public static function findIdentity($id)
     {
@@ -96,10 +102,8 @@ class User extends ActiveRecord
     }
 
     /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
+     * @param $login
+     * @return User|null
      */
     public static function findByLogin($login)
     {
@@ -107,7 +111,7 @@ class User extends ActiveRecord
     }
 
     /**
-     * {@inheritdoc}
+     * @return mixed
      */
     public function getId()
     {
@@ -115,10 +119,8 @@ class User extends ActiveRecord
     }
 
     /**
-     * Validates password
-     *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
+     * @param $password
+     * @return bool
      */
     public function validatePassword($password)
     {
@@ -133,6 +135,10 @@ class User extends ActiveRecord
         $this->password = md5($password);
     }
 
+    /**
+     * @param bool $insert
+     * @return bool
+     */
     public function beforeSave($insert)
     {
 

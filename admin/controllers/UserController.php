@@ -2,7 +2,6 @@
 
 namespace admin\controllers;
 
-use yii\web\NotFoundHttpException;
 use admin\services\UserService;
 
 /**
@@ -11,7 +10,13 @@ use admin\services\UserService;
  */
 class UserController extends Controller
 {
-
+    /**
+     * UserController constructor.
+     * @param string $id
+     * @param $module
+     * @param UserService $userService
+     * @param array $config
+     */
     public function __construct(string $id, $module, UserService $userService, array $config = [])
     {
         $this->modelService = $userService;
@@ -35,7 +40,7 @@ class UserController extends Controller
     /**
      * @param $id
      * @return string
-     * @throws NotFoundHttpException
+     * @throws \Exception
      */
     public function actionView($id)
     {
@@ -83,6 +88,11 @@ class UserController extends Controller
         return $this->create('update', ['id' => $id]);
     }
 
+    /**
+     * @param $type
+     * @param array $params
+     * @return string|\yii\web\Response
+     */
     public function create($type, $params = [])
     {
         $result = $this->modelService->save($type, $params);
@@ -96,6 +106,7 @@ class UserController extends Controller
     /**
      * @param $id
      * @return \yii\web\Response
+     * @throws \Exception
      */
     public function actionDelete($id)
     {

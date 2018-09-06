@@ -54,7 +54,7 @@ AppAsset::register($this);
             <div class="uk-background-muted uk-padding-small uk-height-max-large">
                 <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
                     <li><a href="/admin/web/index.php/user">Пользователи</a></li>
-                    <li><a href="#">Уведомления</a></li>
+                    <li><a href="/admin/web/index.php/notice">Уведомления</a></li>
                     <li class="uk-parent">
                         <a href="#">Parent</a>
                         <ul class="uk-nav-sub">

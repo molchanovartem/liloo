@@ -23,10 +23,15 @@ class UserController extends Controller
     {
         parent::init();
         $this->on(self::EVENT_USER_REGISTRATION, function ($model) {
-            Yii::$app->admin_notice->createNotice(Notice::TYPE_USER_REGISTRATION, Notice::STATUS_UNREAD, 'text', $model->sender);
+            Yii::$app->adminNotice->createNotice(Notice::TYPE_USER_REGISTRATION, Notice::STATUS_UNREAD, 'text', $model->sender);
         });
     }
 
+    /**
+     * @return mixed
+     * @throws \yii\base\Exception
+     * @throws \yii\db\Exception
+     */
     public function actionSignup()
     {
         if (!Yii::$app->user->isGuest) {
@@ -50,11 +55,9 @@ class UserController extends Controller
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 $user->save(false);
-
                 $userProfile->user_id = $user->id;
                 $userProfile->phone = $model->phone;
                 $userProfile->save(false);
-
                 $transaction->commit();
 
                 $this->trigger(self::EVENT_USER_REGISTRATION, new Event(['sender' => $userProfile]));

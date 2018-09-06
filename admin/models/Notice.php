@@ -10,10 +10,9 @@ class Notice extends ActiveRecord
     const STATUS_READ = 1;
 
     const TYPE_USER_REGISTRATION = 0;
-//    const TYPE_USER_REGISTRATION = 1;
-//    const TYPE_USER_REGISTRATION = 2;
+
     /**
-     * @inheritdoc
+     * @return string
      */
     public static function tableName()
     {
@@ -21,35 +20,49 @@ class Notice extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * @return array
      */
     public function rules()
     {
         return [
             [['type', 'status', 'text', 'data'], 'required'],
-//            [['text'], 'string', 'max' => 255],
         ];
     }
 
-    public function getNotices()
+    /**
+     * @return array
+     */
+    public function getTypes()
     {
         return [
-            self::NEW_USER => 'Новый пользователь',
+            self::TYPE_USER_REGISTRATION => 'Регистрация',
         ];
     }
 
-    public function getNotice($notice)
+    /**
+     * @param $type
+     * @return mixed
+     */
+    public function getType($type)
     {
-        return $this->getNotices()[$notice];
+        return $this->getTypes()[$type];
     }
 
+    /**
+     * @return array
+     */
     public function getStatuses()
     {
         return [
-            self::NEW_USER => 'Новый пользователь',
+            self::STATUS_UNREAD => 'Не прочитано',
+            self::STATUS_READ => 'Прочитано',
         ];
     }
 
+    /**
+     * @param $status
+     * @return mixed
+     */
     public function getStatus($status)
     {
         return $this->getStatuses()[$status];

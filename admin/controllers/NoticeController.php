@@ -23,8 +23,8 @@ class NoticeController extends Controller
     /**
      * @return string
      */
-    public function actionIndex() {
-
+    public function actionIndex()
+    {
         $this->modelService->getDataProvider();
         $data = $this->modelService->getData();
 
@@ -37,7 +37,8 @@ class NoticeController extends Controller
      * @param $id
      * @return \yii\web\Response
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $this->modelService->delete($id);
 
         return $this->redirect(['index']);

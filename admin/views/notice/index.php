@@ -14,14 +14,23 @@ $this->params['breadcrumbs'][] = $this->title;
         GridView::widget([
             'dataProvider' => $dataProvider,
             'columns' => [
-                'type',
-                'status',
+                [
+                    'attribute' => 'type',
+                    'content' => function ($data) {
+                        return $data->getType($data->type);
+                    }
+                ],
+                [
+                    'attribute' => 'status',
+                    'content' => function ($data) {
+                        return $data->getStatus($data->status);
+                    }
+                ],
                 'text',
-//                'data',
                 [
                     'attribute' => 'data',
-                    'content' => function($data) {
-                        return $data->data;
+                    'content' => function ($data) {
+                        return json_encode($data->data);
                     }
                 ],
                 ['class' => 'admin\widgets\gridView\ActionColumn'],

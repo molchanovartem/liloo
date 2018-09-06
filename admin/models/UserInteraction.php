@@ -2,12 +2,15 @@
 
 namespace admin\models;
 
-
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
+/**
+ * Class UserInteraction
+ * @package admin\models
+ */
 class UserInteraction extends ActiveRecord
 {
     /**
@@ -26,14 +29,14 @@ class UserInteraction extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * @return string
      */
     public static function tableName() {
         return '{{%admin_user_interaction}}';
     }
 
     /**
-     * @inheritdoc
+     * @return array
      */
     public function rules() {
         return [
@@ -44,7 +47,7 @@ class UserInteraction extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
+     * @return array
      */
     public function attributeLabels() {
         return [
