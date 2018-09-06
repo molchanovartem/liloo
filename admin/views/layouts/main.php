@@ -50,7 +50,7 @@ AppAsset::register($this);
     </nav>
 
     <div class="uk-grid uk-grid-collapse">
-        <div id="kek" class="uk-background-muted uk-width-1-6">
+        <div class="uk-background-muted uk-width-1-6  uk-height-viewport">
             <div class="uk-background-muted uk-padding-small uk-height-max-large">
                 <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
                     <li><a href="/admin/web/index.php/user">Пользователи</a></li>

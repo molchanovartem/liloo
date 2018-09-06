@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'toolbar' => [
                 'items' => [
                     [
-                        'label' => 'Создать', 'url' => ['create'], 'linkOptions' => ['class' => 'uk-button uk-button-primary uk-light'],
+                        'label' => 'Создать', 'url' => ['create'], 'linkOptions' => ['class' => 'uk-button uk-button-primary'],
                     ],
                 ]
             ],

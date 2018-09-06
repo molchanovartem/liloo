@@ -33,7 +33,7 @@ class GridView extends \yii\grid\GridView
     /**
      * @var string
      */
-    public $toolbarCssClass = 'uk-subnav uk-margin-remove-bottom';
+    public $toolbarCssClass = 'uk-list uk-margin-remove-bottom';
     /**
      * @var array
      */
