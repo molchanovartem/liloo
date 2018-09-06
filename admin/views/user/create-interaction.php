@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <div class="panel panel-default panel-body">
 
-            <?= $form->field($model, 'user_id')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'user_id')->hiddenInput()->label(false); ?>
 
             <?= $form->field($model, 'comment')->textarea(['rows' => '6']) ?>
 

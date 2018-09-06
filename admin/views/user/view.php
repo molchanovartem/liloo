@@ -40,10 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= Html::a('<span class="uk-margin-small-right" uk-icon="plus"></span> Комментарий', ['/user/create-interaction?userId=' . $model->id], ['class' => 'uk-button uk-button-default uk-button-small']) ?>
 
-    <div class="uk-grid uk-grid-small uk-child-width-1-6 uk-margin-top">
+    <div class="uk-grid uk-grid-small uk-child-width-1-6 ">
         <?php foreach ($interactions as $interaction): ?>
             <div>
-                <div class="uk-card uk-card-primary uk-card-small uk-card-body uk-border-rounded">
+                <div class="uk-card uk-card-primary uk-card-small uk-card-body uk-border-rounded uk-margin-top">
                     <p><?php echo $interaction->comment; ?></p>
                     <p class="uk-text-right">
                         <sub><?php echo Yii::$app->formatter->format($interaction->create_time, 'date'); ?></sub>

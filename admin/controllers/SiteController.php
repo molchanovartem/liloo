@@ -2,14 +2,10 @@
 
 namespace admin\controllers;
 
-use common\models\Account;
-use admin\models\LoginForm;
-use common\models\User;
-use common\models\UserProfile;
-use site\models\SignupForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use admin\models\LoginForm;
 
 /**
  * Class SiteController
@@ -43,15 +39,16 @@ class SiteController extends Controller
         ];
     }
 
+    /**
+     * @return string
+     */
     public function actionIndex()
     {
         return $this->render('index');
     }
 
     /**
-     * Login action.
-     *
-     * @return Response|string
+     * @return string|\yii\web\Response
      */
     public function actionLogin()
     {
@@ -69,9 +66,7 @@ class SiteController extends Controller
     }
 
     /**
-     * Logout action.
-     *
-     * @return Response
+     * @return \yii\web\Response
      */
     public function actionLogout()
     {

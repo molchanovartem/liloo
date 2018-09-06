@@ -2,9 +2,14 @@
 
 namespace site\controllers;
 
+use admin\models\Notice;
 use common\models\Account;
+use common\models\User;
+use common\models\UserProfile;
+use Exception;
 use site\models\SignupForm;
 use Yii;
+use yii\base\Event;
 
 /**
  * Class UserController
@@ -18,13 +23,8 @@ class UserController extends Controller
     {
         parent::init();
         $this->on(self::EVENT_USER_REGISTRATION, function ($model) {
-        Yii::$app->notice->createNotice(1,1,1,1);
-    });
-    }
-
-    protected function initEvents()
-    {
-
+            Yii::$app->admin_notice->createNotice(Notice::TYPE_USER_REGISTRATION, Notice::STATUS_UNREAD, 'text', $model->sender);
+        });
     }
 
     public function actionSignup()
@@ -57,11 +57,12 @@ class UserController extends Controller
 
                 $transaction->commit();
 
-                $this->trigger(1, [$user, $userProfile]);
+                $this->trigger(self::EVENT_USER_REGISTRATION, new Event(['sender' => $userProfile]));
             } catch (Exception $exception) {
                 $transaction->rollBack();
                 throw $exception;
             }
+
             return $this->goHome();
         }
 

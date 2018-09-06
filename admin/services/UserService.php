@@ -3,60 +3,58 @@
 namespace admin\services;
 
 use admin\models\User;
-use admin\core\service\Service;
+use admin\core\service\ModelService;
 use admin\models\UserInteraction;
-use yii\web\NotFoundHttpException;
+use yii\data\ActiveDataProvider;
 
-class UserService extends Service
+class UserService extends ModelService
 {
-    protected $model;
-
-    public function create()
+    public function getDataProvider()
     {
-        $this->setData([
-            'model' => $this->model = new User()
+        $dataProvider = new ActiveDataProvider([
+            'query' => User::find(),
+            'pagination' => ['pageSize' => 10],
         ]);
 
-        return $this->save();
+        $this->setData(['provider' => $dataProvider]);
     }
 
-    public function update($id)
+    public function save($type, $params = [])
     {
+        $type == 'create' ? $model = new User() : $model = User::find()->one($params['id']);
         $this->setData([
-            'model' => $this->model = User::find()->one($id)
+            'model' => $model
         ]);
 
-        return $this->save();
+        return $model->load($this->getData('post')) && $model->save();
     }
 
-    private function save()
+    public function saveInteraction($userId)
     {
-        return $this->model->load($this->getData('post')) && $this->model->save();
-    }
-
-    public function createInteraction($userId)
-    {
-        $model = new UserInteraction();
-        $model->user_id = $userId;
-
+        $model = new UserInteraction(['user_id' => $userId]);
         $this->setData([
-            'model' => $this->model = $model,
+            'model' => $model,
         ]);
 
-        return $this->save();
+        return $model->load($this->getData('post')) && $model->save();
     }
 
     public function delete($id)
     {
-        return $this->findModel($id)->delete();
+        $this->findUser($id);
+
+        return $this->getData()['user']->delete();
     }
 
-    protected function findModel($id)
+    public function findUser($id)
     {
-        if (($model = User::findOne($id)) !== null) {
-            return $model;
-        }
+        if (($model = User::findOne($id)) == null) throw new \Exception('Not find any user');
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        $this->setData(['user' => $model]);
+    }
+
+    public function findUserInteraction($id)
+    {
+        $this->setData(['interactions' => UserInteraction::find()->where(['user_id' => $id])->all()]);
     }
 }

@@ -5,9 +5,6 @@ return [
     'controllerNamespace' => 'admin\controllers',
 
     'components' => [
-        'notice' => [
-            'class' => 'admin\components\NoticeComponent',
-        ],
         'request' => [
             'cookieValidationKey' => 'asdfjasdlczxcxzkjasdfj',
         ],

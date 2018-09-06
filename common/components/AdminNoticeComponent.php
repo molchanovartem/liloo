@@ -1,15 +1,15 @@
 <?php
 
-namespace admin\components;
+namespace common\components;
 
 use admin\models\Notice;
 use yii\base\Component;
 
 /**
- * Class NoticeComponent
+ * Class AdminNoticeComponent
  * @package admin\components
  */
-class NoticeComponent extends Component
+class AdminNoticeComponent extends Component
 {
     /**
      * @param int $type

@@ -13,7 +13,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-
+        'admin_notice' => 'common\components\AdminNoticeComponent',
         'account' => 'common\components\AccountComponent',
         
         'user' => [

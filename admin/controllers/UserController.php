@@ -2,20 +2,14 @@
 
 namespace admin\controllers;
 
-use admin\services\UserService;
-use Yii;
-use yii\data\ActiveDataProvider;
-use admin\controllers\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use admin\models\User;
-use admin\models\UserInteraction;
+use admin\services\UserService;
 
 /**
  * Class UserController
- * @package app\modules\admin\controllers
+ * @package admin\controllers
  */
-class UserController extends \admin\controllers\Controller
+class UserController extends Controller
 {
 
     public function __construct(string $id, $module, UserService $userService, array $config = [])
@@ -26,32 +20,15 @@ class UserController extends \admin\controllers\Controller
     }
 
     /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
-    /**
      * @return string
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => User::find(),
-            'pagination' => ['pageSize' => 10],
-        ]);
+        $this->modelService->getDataProvider();
+        $data = $this->modelService->getData();
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $data['provider'],
         ]);
     }
 
@@ -62,23 +39,30 @@ class UserController extends \admin\controllers\Controller
      */
     public function actionView($id)
     {
+        $this->modelService->findUser($id);
+        $this->modelService->findUserInteraction($id);
+        $data = $this->modelService->getData();
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
-            'interactions' => UserInteraction::find()->where(['user_id' => $id])->all(),
+            'model' => $data['user'],
+            'interactions' => $data['interactions'],
         ]);
     }
 
-
+    /**
+     * @param $userId
+     * @return string|\yii\web\Response
+     */
     public function actionCreateInteraction($userId)
     {
-        $model = $this->modelService->createInteraction($userId);
+        $model = $this->modelService->saveInteraction($userId);
 
         if ($model) {
             return $this->redirect(['view', 'id' => $userId]);
         }
 
         return $this->render('create-interaction', [
-            'model' => $model,
+            'model' => $this->modelService->getData()['model'],
         ]);
     }
 
@@ -101,7 +85,7 @@ class UserController extends \admin\controllers\Controller
 
     public function create($type, $params = [])
     {
-        $result = $type == 'create' ? $this->modelService->create() : $this->modelService->update($params['id']);
+        $result = $this->modelService->save($type, $params);
         $data = $this->modelService->getData();
 
         return $result ? $this->redirect(['view', 'id' => $data['model']->id]) :
@@ -112,28 +96,11 @@ class UserController extends \admin\controllers\Controller
     /**
      * @param $id
      * @return \yii\web\Response
-     * @throws NotFoundHttpException
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
         $this->modelService->delete($id);
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * @param $id
-     * @return User|null
-     * @throws NotFoundHttpException
-     */
-    protected function findModel($id)
-    {
-        if (($model = User::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }

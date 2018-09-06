@@ -6,7 +6,9 @@ use admin\widgets\activeForm\ActiveForm;
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php var_dump($model->getErrors()) ?>
+
+    <?php $form = ActiveForm::begin(['enableClientValidation' => false]); ?>
 
     <div class="panel panel-default panel-body">
 

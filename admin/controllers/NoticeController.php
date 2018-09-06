@@ -2,50 +2,44 @@
 
 namespace admin\controllers;
 
-use admin\models\Notice;
-use yii\data\ActiveDataProvider;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use admin\services\NoticeService;
 
 class NoticeController extends Controller
 {
     /**
+     * NoticeController constructor.
+     * @param string $id
+     * @param $module
+     * @param NoticeService $noticeService
+     * @param array $config
+     */
+    public function __construct(string $id, $module, NoticeService $noticeService, array $config = [])
+    {
+        $this->modelService = $noticeService;
+
+        parent::__construct($id, $module, $config);
+    }
+
+    /**
      * @return string
      */
     public function actionIndex() {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Notice::find(),
-            'pagination' => ['pageSize' => 10],
-        ]);
+
+        $this->modelService->getDataProvider();
+        $data = $this->modelService->getData();
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'dataProvider' => $data['provider'],
         ]);
     }
 
     /**
      * @param $id
      * @return \yii\web\Response
-     * @throws NotFoundHttpException
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id) {
-        $this->findModel($id)->delete();
+        $this->modelService->delete($id);
 
         return $this->redirect(['index']);
-    }
-
-    /**
-     * @param $id
-     * @return Notice|null
-     * @throws NotFoundHttpException
-     */
-    protected function findModel($id) {
-        if (($model = Notice::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
     }
 }
