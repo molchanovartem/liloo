@@ -8,7 +8,7 @@ import ServiceManager from '../../pages/salon/service/Manager.vue';
 import MasterManager from '../../pages/salon/master/Manager.vue';
 import MasterServiceManager from '../../pages/salon/master/service/Manager.vue';
 import MasterScheduleList from '../../pages/salon/master/schedule/List.vue';
-import MasterScheduleManager from '../../pages/salon/master/schedule/MasterSchedule.vue';
+import MasterScheduleManager from '../../pages/salon/master/schedule/Manager.vue';
 
 export default [
     {
@@ -93,7 +93,7 @@ export default [
         props(route) {
             return {
                 salonId: route.params.id,
-                masterId: route.params.master_id
+                masterId: route.params.masterId
             }
         },
     },

@@ -24,13 +24,12 @@
 <script>
     import 'dhtmlx-scheduler/codebase/dhtmlxscheduler_flat.css';
     import 'dhtmlx-scheduler/codebase/dhtmlxscheduler.js';
-    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_limit.js';
-    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_daytimeline.js';
+    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_timeline';
 
     import gql from 'graphql-tag';
-    import dateFormat from 'dateformat';
     import VMasterList from '../../components/MasterList.vue';
     import VMaster from './MasterSchedule.vue';
+    import commonMixin from './commonMixin';
 
     export default {
         name: "MasterSchedule",
@@ -40,6 +39,7 @@
                 required: true
             }
         },
+        mixins: [commonMixin],
         components: {
             VMasterList, VMaster
         },
@@ -93,7 +93,6 @@
                 this.scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                 this.scheduler.config.multi_day = false;
                 this.scheduler.xy.scale_height = 35;
-                this.scheduler.config.touch_tooltip = false;
 
                 this.scheduler.createTimelineView({
                     name: "matrix",
@@ -124,7 +123,7 @@
                     return this.formatTime(startDate, endDate);
                 };
 
-                this.scheduler.templates.matrix_scale_label = function(key, label, section){
+                this.scheduler.templates.matrix_scale_label = function (key, label, section) {
                     return '<img src="https://getuikit.com/docs/images/avatar.jpg" width="40px" class="uk-border-circle"/>' + label;
                 };
 
@@ -133,6 +132,13 @@
             initSchedulerEvents() {
                 this.scheduler.attachEvent("onViewChange", (new_mode, new_date) => {
                     this.loadData();
+                });
+
+                this.scheduler.attachEvent("onBeforeTooltip", function (id) {
+                    console.log(id);
+
+                    //any custom logic here
+                    return false;
                 });
             },
 
@@ -161,20 +167,6 @@
                         this.addEvent(item);
                     });
                 });
-            },
-            dateFormat(date) {
-                return dateFormat(date, 'yyyy-mm-dd HH:MM:ss')
-            },
-            formatTime(startDate, endDate) {
-                function formatNumber(number) {
-                    return +number < 10 ? '0' + number : number;
-                }
-
-                function getTime(date) {
-                    return formatNumber(date.getHours()) + ':' + formatNumber(date.getMinutes());
-                }
-
-                return getTime(startDate) + ' - ' + getTime(endDate);
             },
             addEvent(event) {
                 return this.scheduler.addEvent({

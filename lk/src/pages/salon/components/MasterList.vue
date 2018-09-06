@@ -48,7 +48,7 @@
                 this.masterSelected = this.$route.query.master_id || null;
             },
             selectedMaster(masterId) {
-                this.$router.push({query: {master_id: masterId}});
+                this.$router.push({name: 'masterScheduleManager', params: {masterId: masterId}});
             }
         },
         watch: {

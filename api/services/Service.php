@@ -40,4 +40,10 @@ class Service extends Component
         //return Yii::$app->user->getId();
         return 52;
     }
+
+    protected function getAccountId()
+    {
+//        return Yii::$app->account->getId();
+        return 1;
+    }
 }

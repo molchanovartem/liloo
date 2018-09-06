@@ -119,6 +119,7 @@
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_quick_info.js';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_limit.js';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_timeline';
+
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';
     import {formRules} from "../../../js/formRules";
