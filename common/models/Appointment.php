@@ -47,20 +47,6 @@ class Appointment extends ActiveRecord
     /**
      * @return array
      */
-    public function behaviors(): array
-    {
-        return [
-            [
-                'class' => UserId::class,
-                'attribute' => 'owner_id'
-            ],
-            AccountBehavior::class
-        ];
-    }
-
-    /**
-     * @return array
-     */
     public static function getStatusList(): array
     {
         return [

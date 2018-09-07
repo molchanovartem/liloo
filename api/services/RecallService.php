@@ -16,9 +16,9 @@ class RecallService extends Service
      * @return Recall
      * @throws AttributeValidationError
      */
-    public function create(array $attributes)
+    public function create(array $attributes, $type)
     {
-        return $this->save(new Recall(), $attributes);
+        return $this->save(new Recall(), $attributes, $type);
     }
 
     /**
@@ -27,9 +27,10 @@ class RecallService extends Service
      * @return Recall
      * @throws AttributeValidationError
      */
-    private function save(Recall $model, array $attributes)
+    private function save(Recall $model, array $attributes, $type)
     {
         $model->setAttributes($attributes);
+        $model->type = $type;
 
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
 

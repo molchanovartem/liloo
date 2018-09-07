@@ -25,7 +25,7 @@ class RecallType extends ObjectType implements QueryTypeInterface
             'fields' => function () use ($typeRegistry, $entityRegistry) {
                 return [
                     'id' => $typeRegistry->id(),
-                    'author_id' => $typeRegistry->id(),
+                    'user_id' => $typeRegistry->id(),
                     'appointment_id' => $typeRegistry->id(),
                     'parent_id' => $typeRegistry->id(),
                     'text' => $typeRegistry->string(),

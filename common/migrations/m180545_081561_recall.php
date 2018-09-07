@@ -17,7 +17,7 @@ class m180545_081561_recall extends Migration
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
             'account_id' => $this->integer()->notNull(),
-            'author_id' => $this->integer()->notNull(),
+            'user_id' => $this->integer()->notNull(),
             'appointment_id' => $this->integer()->notNull(),
             'parent_id' => $this->integer(),
             'text' => $this->string()->notNull(),
@@ -32,8 +32,8 @@ class m180545_081561_recall extends Migration
         $this->createIndex('ix-recall-appointment_id', $this->tableName, 'appointment_id');
         $this->addForeignKey('fk-recall-appointment_id', $this->tableName, 'appointment_id', '{{%appointment}}', 'id', 'CASCADE', 'CASCADE');
 
-        $this->createIndex('ix-recall-author_id', $this->tableName, 'author_id');
-        $this->addForeignKey('fk-recall-author_id', $this->tableName, 'author_id', '{{%user}}', 'id', 'NO ACTION', 'CASCADE');
+        $this->createIndex('ix-recall-user_id', $this->tableName, 'user_id');
+        $this->addForeignKey('fk-recall-user_id', $this->tableName, 'user_id', '{{%user}}', 'id', 'NO ACTION', 'CASCADE');
     }
 
     /**

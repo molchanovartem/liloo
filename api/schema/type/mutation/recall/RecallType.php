@@ -2,6 +2,7 @@
 
 namespace api\schema\type\mutation\recall;
 
+use api\models\Recall;
 use api\schema\registry\TypeRegistry;
 use api\schema\type\MutationFieldsTypeInterface;
 use api\services\RecallService;
@@ -28,7 +29,16 @@ class RecallType implements MutationFieldsTypeInterface
                     'attributes' => $typeRegistry->nonNull($inputRegistry->recallCreate())
                 ],
                 'resolve' => function ($root, $args) {
-                    return (new RecallService())->create($args['attributes']);
+                    return (new RecallService())->create($args['attributes'], Recall::RECALL_TYPE_USER);
+                }
+            ],
+            'recallResponseCreate' => [
+                'type' => $entityRegistry->recall(),
+                'args' => [
+                    'attributes' => $typeRegistry->nonNull($inputRegistry->recallCreate())
+                ],
+                'resolve' => function ($root, $args) {
+                    return (new RecallService())->create($args['attributes'], Recall::RECALL_TYPE_MASTER_RESPONSE);
                 }
             ],
             'recallDelete' => [

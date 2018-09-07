@@ -21,12 +21,11 @@ class RecallCreateInputType extends InputObjectType
             'fields' => function () use ($typeRegistry) {
                 return [
                     'appointment_id' => $typeRegistry->id(),
-                    'author_id' => $typeRegistry->id(),
+                    'user_id' => $typeRegistry->id(),
                     'assessment' => $typeRegistry->int(),
                     'parent_id' => $typeRegistry->int(),
                     'type' => $typeRegistry->int(),
                     'text' => $typeRegistry->string(),
-                    'create_time' => $typeRegistry->dateTime(),
                 ];
             }
         ]);
