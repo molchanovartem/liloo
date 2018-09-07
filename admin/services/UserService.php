@@ -30,7 +30,7 @@ class UserService extends ModelService
      */
     public function save($type, $params = [])
     {
-        $type == 'create' ? $model = new User() : $model = User::find()->one($params['id']);
+        $type == 'create' ? $model = new User() : $model = User::find()->where(['id' => $params['id']])->one();
         $this->setData([
             'model' => $model
         ]);
