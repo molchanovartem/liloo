@@ -10,7 +10,7 @@ class m180416_071029_admin_user extends Migration
     protected $tableName = '{{%admin_user}}';
 
     /**
-     * {@inheritdoc}
+     * @return bool|void
      */
     public function safeUp()
     {
@@ -25,7 +25,7 @@ class m180416_071029_admin_user extends Migration
     }
 
     /**
-     * {@inheritdoc}
+     * @return bool|void
      */
     public function safeDown()
     {

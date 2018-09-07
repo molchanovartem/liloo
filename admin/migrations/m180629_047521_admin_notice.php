@@ -10,8 +10,7 @@ class m180529_041521_admin_notice extends Migration
     protected $tableName = '{{%admin_notice}}';
 
     /**
-     * {@inheritdoc}
-     * @throws \yii\base\Exception
+     * @return bool|void
      */
     public function safeUp()
     {
@@ -26,7 +25,7 @@ class m180529_041521_admin_notice extends Migration
     }
 
     /**
-     * {@inheritdoc}
+     * @return bool|void
      */
     public function safeDown()
     {

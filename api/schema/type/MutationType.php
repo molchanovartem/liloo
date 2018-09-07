@@ -1,4 +1,5 @@
 <?php
+
 namespace api\schema\type;
 
 use api\schema\type\mutation\appointment\AppointmentType;
@@ -24,17 +25,16 @@ use api\schema\type\mutation\user\schedule\UserScheduleType;
 use api\schema\type\mutation\user\UserSpecializationType;
 use api\schema\type\mutation\user\UserType;
 use GraphQL\Type\Definition\ObjectType;
+use api\schema\type\mutation\recall\RecallType;
 
 /**
- * Class Mutation
- *
+ * Class MutationType
  * @package api\schema\type
  */
 class MutationType extends ObjectType
 {
     /**
      * MutationType constructor.
-     *
      * @param TypeRegistry $typeRegistry
      */
     public function __construct(TypeRegistry $typeRegistry)
@@ -62,7 +62,8 @@ class MutationType extends ObjectType
                     MasterType::getMutationFieldsType($typeRegistry),
                     MasterSpecializationType::getMutationFieldsType($typeRegistry),
                     MasterScheduleType::getMutationFieldsType($typeRegistry),
-                    MasterServiceType::getMutationFieldsType($typeRegistry)
+                    MasterServiceType::getMutationFieldsType($typeRegistry),
+                    RecallType::getMutationFieldsType($typeRegistry)
                 );
             }
         ]);

@@ -10,7 +10,7 @@ class m180529_041521_admin_user_interaction extends Migration
     protected $tableName = '{{%admin_user_interaction}}';
 
     /**
-     * {@inheritdoc}
+     * @return bool|void
      */
     public function safeUp()
     {
@@ -27,7 +27,7 @@ class m180529_041521_admin_user_interaction extends Migration
     }
 
     /**
-     * {@inheritdoc}
+     * @return bool|void
      */
     public function safeDown()
     {
