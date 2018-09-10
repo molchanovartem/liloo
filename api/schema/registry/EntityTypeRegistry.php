@@ -11,6 +11,7 @@ use api\schema\type\entity\CountryType;
 use api\schema\type\entity\MasterScheduleType;
 use api\schema\type\entity\MasterServiceType;
 use api\schema\type\entity\MasterType;
+use api\schema\type\entity\RecallType;
 use api\schema\type\entity\SalonServiceType;
 use api\schema\type\entity\SalonType;
 use api\schema\type\entity\SalonMasterType;
@@ -129,5 +130,10 @@ class EntityTypeRegistry
     public function salonMaster()
     {
         return $this->typeRegistry->get(SalonMasterType::class);
+    }
+
+    public function recall()
+    {
+        return $this->typeRegistry->get(RecallType::class);
     }
 }

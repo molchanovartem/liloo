@@ -35,16 +35,6 @@ class AppointmentItem extends ActiveRecord
     }
 
     /**
-     * @return array
-     */
-    public function behaviors(): array
-    {
-        return [
-            AccountBehavior::class
-        ];
-    }
-
-    /**
      * @return AppointmentItemQuery|\yii\db\ActiveQuery
      */
     public static function find()

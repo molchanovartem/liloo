@@ -165,4 +165,13 @@ class Query extends \yii\db\ActiveQuery
         //return Yii::$app->user->getId();
         return 52;
     }
+
+    /**
+     * @param int $appointmentId
+     * @return Query
+     */
+    public function byAppointmentId(int $appointmentId)
+    {
+        return $this->andWhere(['appointment_id' => $appointmentId]);
+    }
 }
