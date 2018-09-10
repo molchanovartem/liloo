@@ -18,18 +18,23 @@ class RecallService extends Service
      */
     public function create(array $attributes, $type)
     {
-        return $this->save(new Recall(), $attributes, $type);
+        return $this->save(new Recall(), $attributes, $type, Recall::SCENARIO_DEFAULT);
     }
 
     /**
      * @param Recall $model
-     * @param array $attributes
+     * @param array  $attributes
+     * @param        $type
+     *
+     * @param        $modelScenario
+     *
      * @return Recall
      * @throws AttributeValidationError
      */
-    private function save(Recall $model, array $attributes, $type)
+    private function save(Recall $model, array $attributes, $type, $modelScenario)
     {
         $model->setAttributes($attributes);
+        $model->setScenario($modelScenario);
         $model->type = $type;
 
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());

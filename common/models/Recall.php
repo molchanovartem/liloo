@@ -7,6 +7,11 @@ use common\validators\AppointmentExistValidator;
 use common\validators\UserExistValidator;
 use Yii;
 
+/**
+ * Class Recall
+ *
+ * @package common\models
+ */
 class Recall extends \yii\db\ActiveRecord
 {
     const RECALL_TYPE_USER = 0;
@@ -15,6 +20,21 @@ class Recall extends \yii\db\ActiveRecord
     const ASSESSMENT_LIKE = 1;
     const ASSESSMENT_DEFAULT = 0;
     const ASSESSMENT_DISLIKE = -1;
+
+    const SCENARIO_ANSWER = 'answer';
+
+    /**
+     * @return array
+     */
+    public function scenarios()
+    {
+        $defaultAttributes = ['account_id', 'user_id', 'appointment_id', 'type', 'parent_id', 'assessment', 'text', 'create_time'];
+
+        return [
+            self::SCENARIO_DEFAULT => $defaultAttributes,
+            self::SCENARIO_ANSWER => $defaultAttributes
+        ];
+    }
 
     /**
      * @return string
@@ -33,11 +53,13 @@ class Recall extends \yii\db\ActiveRecord
             [['account_id', 'user_id', 'appointment_id', 'type'], 'required'],
             [['account_id', 'user_id', 'appointment_id', 'type', 'parent_id', 'assessment'], 'integer'],
             [['assessment'], 'default', 'value' => 0],
+            [['user_id'], 'default', 'value' => 52],
             [['text'], 'string'],
             [['create_time'], 'date', 'format' => 'php:Y-m-d H:i:s'],
             ['assessment', 'in', 'range' => $this->getAssessments()],
             ['user_id', UserExistValidator::class],
             ['appointment_id', AppointmentExistValidator::class],
+            ['parent_id', 'validateParent', 'on' => self::SCENARIO_ANSWER, 'skipOnEmpty' => false, 'skipOnError' => false],
         ];
     }
     public function behaviors(): array
@@ -57,6 +79,18 @@ class Recall extends \yii\db\ActiveRecord
             self::ASSESSMENT_DEFAULT,
             self::ASSESSMENT_DISLIKE,
         ];
+    }
+
+    public function validateParent($attribute)
+    {
+        $recall = Recall::find()
+            ->where(['appointment_id' => $this->$attribute])
+            ->andWhere(['user_id' => Yii::$app->user->getId()])
+            ->all();
+
+        if (!empty($recall)) {
+            $this->addError($attribute, 'Невозможно добавить ответ');
+        }
     }
 
     /**
