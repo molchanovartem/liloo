@@ -17,15 +17,4 @@ class RecallQuery extends Query
     {
         return parent::oneById($id, $byAccountId);
     }
-
-    /**
-     * @param $appointmentId
-     * @return array|\yii\db\ActiveRecord[]
-     */
-    public function allByParams($appointmentId)
-    {
-        return $this->byAppointmentId($appointmentId)
-            ->byAccountId()
-            ->all();
-    }
 }

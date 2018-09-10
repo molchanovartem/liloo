@@ -21,8 +21,9 @@ class m180545_081561_recall extends Migration
             'appointment_id' => $this->integer()->notNull(),
             'parent_id' => $this->integer(),
             'text' => $this->string()->notNull(),
-            'assessment' => $this->integer()->notNull(),
+            'assessment' => $this->integer()->defaultValue(0),
             'type' => $this->integer()->notNull(),
+            'status' => $this->integer()->notNull(),
             'create_time' => $this->dateTime(),
         ]);
 

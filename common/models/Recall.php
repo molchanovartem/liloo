@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use common\behaviors\AccountBehavior;
+use common\queries\RecallQuery;
 use common\validators\AppointmentExistValidator;
 use common\validators\UserExistValidator;
 use Yii;
@@ -28,7 +28,7 @@ class Recall extends \yii\db\ActiveRecord
      */
     public function scenarios()
     {
-        $defaultAttributes = ['account_id', 'user_id', 'appointment_id', 'type', 'parent_id', 'assessment', 'text', 'create_time'];
+        $defaultAttributes = ['account_id', 'user_id', 'appointment_id', 'type', 'parent_id', 'assessment', 'text', 'status'];
 
         return [
             self::SCENARIO_DEFAULT => $defaultAttributes,
@@ -52,22 +52,20 @@ class Recall extends \yii\db\ActiveRecord
         return [
             [['account_id', 'user_id', 'appointment_id', 'type'], 'required'],
             [['account_id', 'user_id', 'appointment_id', 'type', 'parent_id', 'assessment'], 'integer'],
-            [['assessment'], 'default', 'value' => 0],
+            ['status', 'default', 'value' => 0],
             [['user_id'], 'default', 'value' => 52],
             [['text'], 'string'],
-            [['create_time'], 'date', 'format' => 'php:Y-m-d H:i:s'],
-            ['assessment', 'in', 'range' => $this->getAssessments()],
+            ['assessment', 'in', 'range' => $this->getAssessments(), 'on' => self::SCENARIO_DEFAULT],
             ['user_id', UserExistValidator::class],
             ['appointment_id', AppointmentExistValidator::class],
-            ['parent_id', 'validateParent', 'on' => self::SCENARIO_ANSWER, 'skipOnEmpty' => false, 'skipOnError' => false],
+            ['assessment', 'in', 'range' => [null], 'on' => self::SCENARIO_ANSWER],
+            ['parent_id', 'in', 'range' => [null], 'on' => self::SCENARIO_DEFAULT],
+            ['parent_id', 'validateParent', 'on' => self::SCENARIO_ANSWER],
+            ['parent_id', 'unique', 'on' => self::SCENARIO_ANSWER],
         ];
     }
-    public function behaviors(): array
-    {
-        return [
-            AccountBehavior::class
-        ];
-    }
+
+
 
     /**
      * @return array
@@ -81,14 +79,16 @@ class Recall extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @param $attribute
+     */
     public function validateParent($attribute)
     {
         $recall = Recall::find()
-            ->where(['appointment_id' => $this->$attribute])
-            ->andWhere(['user_id' => Yii::$app->user->getId()])
-            ->all();
+            ->byId($this->$attribute)
+            ->allByAccountId();
 
-        if (!empty($recall)) {
+        if (empty($recall)) {
             $this->addError($attribute, 'Невозможно добавить ответ');
         }
     }
@@ -104,4 +104,12 @@ class Recall extends \yii\db\ActiveRecord
             'account_id' => Yii::$app->account->getId()
         ]);
     }
+
+    /**
+     * @return RecallQuery|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new RecallQuery(get_called_class());
+}
 }

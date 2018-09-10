@@ -42,17 +42,21 @@ class AppointmentExistValidator extends Validator
      */
     protected function validateValue($value)
     {
+        $userId = Yii::$app->user->getId();
+
         $appointment = Appointment::find()
             ->leftJoin('lu_client', 'lu_client.id = lu_appointment.client_id')
             ->where(['lu_appointment.id' => $value])
-            ->andWhere(['lu_client.user_id' => Yii::$app->user->getId()])
+//            ->andWhere(['lu_client.user_id' => $userId])
+            ->andWhere(['lu_client.user_id' => 52])
             ->one();
 
         if (!empty($appointment)) return null;
 
         return [$this->message, [
             'appointment' => $value,
-            'client' => Yii::$app->user->getId(),
+            'client' => 52,
+//            'client' => $userId,
         ]];
     }
 }

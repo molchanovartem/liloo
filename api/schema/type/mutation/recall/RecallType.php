@@ -29,7 +29,7 @@ class RecallType implements MutationFieldsTypeInterface
                     'attributes' => $typeRegistry->nonNull($inputRegistry->recallCreate())
                 ],
                 'resolve' => function ($root, $args) {
-                    return (new RecallService())->create($args['attributes'], Recall::RECALL_TYPE_USER);
+                    return (new RecallService())->create($args['attributes'], Recall::RECALL_TYPE_USER, Recall::SCENARIO_DEFAULT);
                 }
             ],
             'recallResponseCreate' => [
@@ -38,7 +38,7 @@ class RecallType implements MutationFieldsTypeInterface
                     'attributes' => $typeRegistry->nonNull($inputRegistry->recallCreate())
                 ],
                 'resolve' => function ($root, $args) {
-                    return (new RecallService())->create($args['attributes'], Recall::RECALL_TYPE_MASTER_RESPONSE);
+                    return (new RecallService())->create($args['attributes'], Recall::RECALL_TYPE_MASTER_RESPONSE, Recall::SCENARIO_ANSWER);
                 }
             ],
             'recallDelete' => [
