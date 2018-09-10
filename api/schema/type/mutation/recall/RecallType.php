@@ -35,7 +35,7 @@ class RecallType implements MutationFieldsTypeInterface
             'recallResponseCreate' => [
                 'type' => $entityRegistry->recall(),
                 'args' => [
-                    'attributes' => $typeRegistry->nonNull($inputRegistry->recallCreate())
+                    'attributes' => $typeRegistry->nonNull($inputRegistry->recallResponseCreate())
                 ],
                 'resolve' => function ($root, $args) {
                     return (new RecallService())->create($args['attributes'], Recall::RECALL_TYPE_MASTER_RESPONSE, Recall::SCENARIO_ANSWER);

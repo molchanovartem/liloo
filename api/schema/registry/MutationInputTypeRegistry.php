@@ -16,6 +16,7 @@ use api\schema\type\mutation\master\MasterUpdateInputType;
 use api\schema\type\mutation\master\schedule\MasterScheduleCreateInputType;
 use api\schema\type\mutation\master\schedule\MasterScheduleUpdateInputType;
 use api\schema\type\mutation\recall\RecallCreateInputType;
+use api\schema\type\mutation\recall\RecallResponseCreateInputType;
 use api\schema\type\mutation\salon\SalonCreateInputType;
 use api\schema\type\mutation\salon\SalonUpdateInputType;
 use api\schema\type\mutation\salon\service\SalonServiceCreateInputType;
@@ -191,5 +192,10 @@ class MutationInputTypeRegistry
     public function recallCreate()
     {
         return $this->typeRegistry->get(RecallCreateInputType::class);
+    }
+
+    public function recallResponseCreate()
+    {
+        return $this->typeRegistry->get(RecallResponseCreateInputType::class);
     }
 }

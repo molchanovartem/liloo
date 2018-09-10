@@ -25,21 +25,34 @@ class NoticeController extends Controller
      */
     public function actionIndex()
     {
-        $this->modelService->getDataProvider();
+        $this->modelService->getAllNotices();
         $data = $this->modelService->getData();
 
         return $this->render('index', [
-            'dataProvider' => $data['provider'],
+            'notices' => $data['notices'],
         ]);
     }
 
     /**
      * @param $id
      * @return \yii\web\Response
+     * @throws \Exception
      */
     public function actionDelete($id)
     {
         $this->modelService->delete($id);
+
+        return $this->redirect(['index']);
+    }
+
+    /**
+     * @param $id
+     * @return \yii\web\Response
+     * @throws \Exception
+     */
+    public function actionCheck($id)
+    {
+        $this->modelService->check($id);
 
         return $this->redirect(['index']);
     }

@@ -22,6 +22,11 @@ class NoticeService extends ModelService
         $this->setData(['provider' => $dataProvider]);
     }
 
+    public function getAllNotices()
+    {
+        $this->setData(['notices' => Notice::find()->all()]);
+    }
+
     /**
      * @param $id
      * @return mixed
@@ -43,5 +48,17 @@ class NoticeService extends ModelService
         if (($model = Notice::findOne($id)) == null) throw new \Exception('Not find any notice');
 
         $this->setData(['notice' => $model]);
+    }
+
+    /**
+     * @param $id
+     * @throws \Exception
+     */
+    public function check($id)
+    {
+        $this->findNotice($id);
+        $data = $this->getData();
+        $data['notice']->status = Notice::STATUS_READ;
+        $data['notice']->save();
     }
 }

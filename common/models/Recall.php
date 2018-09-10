@@ -2,9 +2,9 @@
 
 namespace common\models;
 
+use common\behaviors\UserId;
 use common\queries\RecallQuery;
 use common\validators\AppointmentExistValidator;
-use common\validators\UserExistValidator;
 use Yii;
 
 /**
@@ -22,6 +22,9 @@ class Recall extends \yii\db\ActiveRecord
     const ASSESSMENT_DISLIKE = -1;
 
     const SCENARIO_ANSWER = 'answer';
+
+    const STATUS_NOT_VERIFIED = 0;
+    const STATUS_VERIFIED = 1;
 
     /**
      * @return array
@@ -50,22 +53,27 @@ class Recall extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['account_id', 'user_id', 'appointment_id', 'type'], 'required'],
+            [['text'], 'required'],
             [['account_id', 'user_id', 'appointment_id', 'type', 'parent_id', 'assessment'], 'integer'],
-            ['status', 'default', 'value' => 0],
+            ['status', 'default', 'value' => self::STATUS_NOT_VERIFIED],
             [['user_id'], 'default', 'value' => 52],
             [['text'], 'string'],
             ['assessment', 'in', 'range' => $this->getAssessments(), 'on' => self::SCENARIO_DEFAULT],
-            ['user_id', UserExistValidator::class],
             ['appointment_id', AppointmentExistValidator::class],
-            ['assessment', 'in', 'range' => [null], 'on' => self::SCENARIO_ANSWER],
-            ['parent_id', 'in', 'range' => [null], 'on' => self::SCENARIO_DEFAULT],
             ['parent_id', 'validateParent', 'on' => self::SCENARIO_ANSWER],
             ['parent_id', 'unique', 'on' => self::SCENARIO_ANSWER],
         ];
     }
 
-
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            UserId::class,
+        ];
+    }
 
     /**
      * @return array

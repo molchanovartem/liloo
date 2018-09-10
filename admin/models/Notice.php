@@ -10,6 +10,7 @@ class Notice extends ActiveRecord
     const STATUS_READ = 1;
 
     const TYPE_USER_REGISTRATION = 0;
+    const TYPE_USER_RECALL = 1;
 
     /**
      * @return string
@@ -36,6 +37,7 @@ class Notice extends ActiveRecord
     {
         return [
             self::TYPE_USER_REGISTRATION => 'Регистрация',
+            self::TYPE_USER_RECALL => 'Отзыв',
         ];
     }
 
