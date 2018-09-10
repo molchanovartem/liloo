@@ -22,12 +22,8 @@ class m180416_071029_user extends Migration
             'password' => $this->string()->notNull(),
         ]);
 
-        $this->execute("ALTER TABLE {$this->tableName} ADD `create_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `password`;");
-        $this->execute("ALTER TABLE {$this->tableName} ADD `update_time` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `create_time`;");
-
         $this->createIndex('ix-user-account_id', $this->tableName, 'account_id');
         $this->addForeignKey('fk-user-account_id', $this->tableName, 'account_id', '{{%account}}', 'id', 'CASCADE', 'CASCADE');
-
     }
 
     /**

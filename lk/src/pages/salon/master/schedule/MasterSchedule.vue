@@ -90,7 +90,7 @@
             return {
                 attributes: {
                     dateSelected: [],
-                    timeStart: '0800',
+                    timeStart: '0900',
                     timeEnd: '1800',
                     timeBreakStart: '1300',
                     timeBreakEnd: '1400',
@@ -125,6 +125,8 @@
         },
         methods: {
             onSubmit() {
+                if (this.attributes.dateSelected.length === 0) alert ('Выберите дни');
+
                 if (this.$refs.form.validate()) {
                     let items = this.attributes.dateSelected.map(item => {
                         return this.getFragmentsDateTime(item);
@@ -147,7 +149,10 @@
                         }`,
                         variables: {items: itemsOnSave}
                     }).then(({data}) => {
-                        this.$emit('save');
+                        if (data.masterSchedulesCreate) {
+                            this.$emit('save');
+                        }
+                        this.clearAttributes();
                     });
                 }
             },
@@ -194,7 +199,6 @@
                 }
                 return dateItems;
             },
-
             getStartHour() {
                 return this.attributes.timeStart.substr(0, 2) || '09';
             },
@@ -207,7 +211,6 @@
             getEndMinutes() {
                 return this.attributes.timeEnd.substr(2, 4) || '00';
             },
-
             getBreakStartHour() {
                 return this.attributes.timeBreakStart.substr(0, 2) || '13';
             },

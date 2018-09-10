@@ -18,7 +18,7 @@ class m180416_071042_user_profile extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'surname' => $this->string(),
-            'name' => $this->string(),
+            'name' => $this->string()->notNull(),
             'patronymic' => $this->string(),
             'date_birth' => $this->date(),
             'avatar' => $this->string(),

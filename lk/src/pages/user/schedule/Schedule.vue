@@ -1,29 +1,6 @@
 <template>
     <div>
         <h1>График работы</h1>
-        <router-link :to="{name: 'userScheduleCreate'}">Создать</router-link>
-        <table class="uk-table uk-table-striped uk-table-small">
-            <thead>
-            <tr>
-                <td>ID</td>
-                <td>Type</td>
-                <td>Start date</td>
-                <td>End date</td>
-                <td></td>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="item in items">
-                <td>{{item.id}}</td>
-                <td>{{item.type}}</td>
-                <td>{{item.start_date}}</td>
-                <td>{{item.end_date}}</td>
-                <td>
-                    <router-link :to="{name: 'userScheduleUpdate', params: {id: item.id}}">Edit</router-link>
-                </td>
-            </tr>
-            </tbody>
-        </table>
 
         <div id="timeline" class="dhx_cal_container" style='width:100%; height:1000px;'>
             <div class="dhx_cal_navline">

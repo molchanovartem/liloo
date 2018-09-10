@@ -54,7 +54,7 @@ use yii\helpers\Html;
                     <span class="choose-city__text">Москва</span>
                 </a>
 
-                <a href="signup"><button class="button button_color_blue button_in_header">Регистрация для исполнителя</button></a>
+                <a href="user/signup"><button class="button button_color_blue button_in_header">Регистрация для исполнителя</button></a>
 
                 <a href="" class="font_Gilroy-17-800-000000">Войти</a>
 

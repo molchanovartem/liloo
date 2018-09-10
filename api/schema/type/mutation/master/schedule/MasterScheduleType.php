@@ -57,7 +57,7 @@ class MasterScheduleType implements MutationFieldsTypeInterface
                     'id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args) {
-                    return (new MasterService())->deleteSchedule($args['id']);
+                    return (new MasterService())->deleteMasterSchedule($args['id']);
                 }
             ]
         ];

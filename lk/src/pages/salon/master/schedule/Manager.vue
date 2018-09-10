@@ -2,7 +2,12 @@
     <div class="content-block p-40 content-block_shadow">
         <h1>График работы</h1>
 
-        <v-master v-if="masterId" :salonId=" salonId" :masterId="masterId"/>
+        <ul>@todo
+            <li>event можно перенести за график, время не урезается</li>
+            <li>event каскадность</li>
+            <li>локализация</li>
+        </ul>
+        <v-master v-if="masterId" :salonId=" salonId" :masterId="masterId" @save="onMasterScheduleSave"/>
 
         <div>
             <div id="timeline" class="dhx_cal_container" style='width:100%; height:1000px;'>
@@ -11,7 +16,6 @@
                     <div class="dhx_cal_next_button">&nbsp;</div>
                     <div class="dhx_cal_today_button"></div>
                     <div class="dhx_cal_date"></div>
-                    <div class="dhx_cal_tab" name="timeline_tab" style="right:280px;"></div>
                 </div>
                 <div class="dhx_cal_header"></div>
                 <div class="dhx_cal_data"></div>
@@ -155,12 +159,6 @@
                 this.scheduler.attachEvent("onViewChange", (new_mode, new_date) => {
                     this.loadData();
                 });
-
-                /* что за бред
-                this.scheduler.attachEvent("onEventDeleted", function (id, ev) {
-                    this.deleteEvent(id);
-                });
-                */
             },
 
             loadData() {
@@ -190,17 +188,19 @@
                         endDate: this.dateFormat(endDate)
                     }
                 }).then(({data}) => {
-                    let events = [];
-                    Array.from(data.masterSchedules).forEach(item => {
-                        events.push({
-                            id: item.id,
-                            start_date: item.start_date,
-                            end_date: item.end_date,
-                            isNew: false
+                    if (data.masterSchedules) {
+                        let events = [];
+                        Array.from(data.masterSchedules).forEach(item => {
+                            events.push({
+                                id: item.id,
+                                start_date: item.start_date,
+                                end_date: item.end_date,
+                                isNew: false
+                            });
                         });
-                    });
 
-                    this.scheduler.parse(events, 'json');
+                        this.scheduler.parse(events, 'json');
+                    }
                 });
             },
             addEvent(event) {
@@ -227,9 +227,13 @@
                             start_date: this.dateFormat(event.start_date),
                             end_date: this.dateFormat(event.end_date)
                         }
-                    }
+                    },
                 }).then(({data}) => {
-                    this.addEvent(data.masterScheduleCreate);
+                    if (data.masterScheduleCreate) {
+                        this.$emit('save');
+
+                        this.addEvent(data.masterScheduleCreate);
+                    }
                 });
             },
             updateEvent(event) {
@@ -250,7 +254,11 @@
                         }
                     }
                 }).then(({data}) => {
-                    this.scheduler.updateEvent(this.addEvent(data.masterScheduleUpdate));
+                    if (data.masterScheduleUpdate) {
+                        this.$emit('save');
+
+                        this.scheduler.updateEvent(this.addEvent(data.masterScheduleUpdate));
+                    }
                 });
             },
             deleteEvent(id) {
@@ -260,9 +268,16 @@
                     }`,
                     variables: {id: id}
                 }).then(({data}) => {
-                    if (data.masterScheduleDelete) this.scheduler.deleteEvent(id);
+                    if (data.masterScheduleDelete) {
+                        this.$emit('delete');
+
+                        this.scheduler.deleteEvent(id);
+                    }
                 });
             },
+            onMasterScheduleSave() {
+                this.loadData();
+            }
         }
     }
 </script>

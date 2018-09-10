@@ -6,7 +6,7 @@
             </div>
             <div class="header__content-parts">
                 <div class="header__content-part">
-                    <form action="/site/web/index.php/site/signup" method="post">
+                    <form action="/site/web/index.php/user/signup" method="post">
                         <?php use yii\helpers\Html;
 
                         echo Html:: hiddenInput(\Yii:: $app->getRequest()->csrfParam, \Yii:: $app->getRequest()->getCsrfToken(), []); ?>

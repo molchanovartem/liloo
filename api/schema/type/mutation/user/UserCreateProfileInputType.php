@@ -26,7 +26,8 @@ class UserCreateProfileInputType extends InputObjectType
                     'name' => $typeRegistry->nonNull($typeRegistry->string()),
                     'patronymic' => $typeRegistry->string(),
                     'date_birth' => $typeRegistry->date(),
-                    'description' => $typeRegistry->string()
+                    'description' => $typeRegistry->string(),
+                    'phone' => $typeRegistry->nonNull($typeRegistry->string())
                 ];
             }
         ]);

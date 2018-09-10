@@ -4,8 +4,10 @@
 
 /* @var $content string */
 
+use admin\assets\AppAsset;
 use yii\helpers\Html;
 
+AppAsset::register($this);
 ?>
 
 <?php $this->beginPage() ?>
@@ -22,10 +24,6 @@ use yii\helpers\Html;
     <link rel="shortcut icon" href="/favicon.ico">
     <title>Элементы - Сервис Мастеров</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/css/uikit.css">
-    <link rel="stylesheet" type="text/css"
-          href="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/css/uikit-rtl.css">
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -55,7 +53,8 @@ use yii\helpers\Html;
         <div id="kek" class="uk-background-muted uk-width-1-6">
             <div class="uk-background-muted uk-padding-small uk-height-max-large">
                 <ul class="uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
-                    <li class="uk-active"><a href="#">Active</a></li>
+                    <li><a href="/admin/web/index.php/user">Пользователи</a></li>
+                    <li><a href="/admin/web/index.php/notice">Уведомления</a></li>
                     <li class="uk-parent">
                         <a href="#">Parent</a>
                         <ul class="uk-nav-sub">
@@ -82,13 +81,15 @@ use yii\helpers\Html;
 
         <div class="uk-width-5-6">
             <div class="uk-padding-small">
+                <div>
+                    <h1><?= $this->getTitle(); ?></h1>
+                </div>
                 <?= $content; ?>
             </div>
         </div>
     </div>
 </div>
 <?php $this->endBody() ?>
-<script src="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/js/uikit.js"></script>
-<script src="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/js/uikit-icons.js"></script>
 </body>
 </html>
+<?php $this->endPage() ?>

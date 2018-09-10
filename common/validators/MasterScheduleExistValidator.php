@@ -17,12 +17,13 @@ class MasterScheduleExistValidator extends Validator
     /**
      * @var string
      */
-    /*
-     * @todo
-     * Подкорректировать текст
-     */
     public $message = '{value}';
 
+    /**
+     * @param mixed $value
+     * @param null $error
+     * @return bool
+     */
     public function validate($value, &$error = null)
     {
         if (!$result = $this->validateValue($value)) return true;
@@ -41,9 +42,7 @@ class MasterScheduleExistValidator extends Validator
      */
     protected function validateValue($items)
     {
-        if (!$badKeys = $this->getBadDate($items)) {
-            return null;
-        }
+        if (!$badKeys = $this->getBadDate($items)) return null;
 
         return [$this->message, [
             'value' => json_encode($badKeys),
@@ -58,8 +57,6 @@ class MasterScheduleExistValidator extends Validator
     {
         $dates = [];
         $masters = [];
-        $badKeys = [];
-
         foreach ($items as $item) {
             $date = new DateTime($item['start_date']);
             $dates[] = $date->format('Y-m-d');
@@ -70,22 +67,31 @@ class MasterScheduleExistValidator extends Validator
             ->where(['in', 'date(start_date)', $dates])
             ->andWhere(['in', 'master_id', array_unique($masters)])
             ->indexBy('id')
+            ->asArray()
             ->all();
 
+        $badKeys = [];
         foreach ($items as $key => $item) {
-            foreach ($masterSchedulesCurrentDates as $masterSchedulesCurrentDate) {
+            foreach ($masterSchedulesCurrentDates as $id => $masterSchedulesCurrentDate) {
                 if (!empty($item['id']) && ($item['id'] == $masterSchedulesCurrentDate['id'])) continue;
 
-                if (date($item['start_date']) >= date($masterSchedulesCurrentDate['start_date']) and
-                    date($item['start_date']) <= date($masterSchedulesCurrentDate['end_date']) or
-                    date($item['end_date']) >= date($masterSchedulesCurrentDate['start_date']) and
-                    date($item['end_date']) <= date($masterSchedulesCurrentDate['end_date'])
-                ) {
-                    $badKeys[$key] = $item;
+                if ((
+                    (date($item['start_date']) >= date($masterSchedulesCurrentDate['start_date']) &&
+                        date($item['start_date']) <= date($masterSchedulesCurrentDate['end_date'])) ||
+
+                    (date($item['end_date']) >= date($masterSchedulesCurrentDate['start_date']) &&
+                        date($item['end_date']) <= date($masterSchedulesCurrentDate['end_date'])) ||
+
+                    (date($item['start_date']) <= date($masterSchedulesCurrentDate['start_date']) &&
+                        (date($item['end_date']) >= date($masterSchedulesCurrentDate['end_date']))) &&
+
+                    ($item['master_id'] == $masterSchedulesCurrentDate['master_id']) &&
+                    ($item['salon_id'] == $masterSchedulesCurrentDate['salon_id'])
+                )) {
+                    $badKeys[$id] = $item;
                 }
             }
         }
-
         return $badKeys;
     }
 }

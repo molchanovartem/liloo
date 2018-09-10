@@ -27,8 +27,8 @@ class UserProfile extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['user_id', 'phone'], 'required'],
-            [['user_id'], 'integer'],
+            [['user_id', 'name', 'phone'], 'required'],
+            [['user_id', 'phone'], 'integer'],
             [['date_birth'], 'date', 'format' => 'php: Y-m-d'],
             [['surname', 'name', 'patronymic'], 'string', 'max' => 255],
             [['avatar'], 'image'],

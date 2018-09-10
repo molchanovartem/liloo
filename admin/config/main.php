@@ -8,6 +8,9 @@ return [
         'request' => [
             'cookieValidationKey' => 'asdfjasdlczxcxzkjasdfj',
         ],
+        'view' => [
+            'class' => 'admin\core\web\View',
+        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'enableStrictParsing' => false,

@@ -3,9 +3,8 @@
 namespace admin\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
-use app\core\service\ModelService;
-use app\core\service\ViewService;
+use admin\core\service\ModelService;
+use admin\core\service\ViewService;
 
 /**
  * Class Controller

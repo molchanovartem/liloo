@@ -1,8 +1,6 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
         <h1>График работы</h1>
-        <v-master-list :salonId="salonId"/>
-
         <v-master v-if="masterId" :salonId=" salonId" :masterId="masterId"/>
 
         <div>
@@ -12,7 +10,6 @@
                     <div class="dhx_cal_next_button">&nbsp;</div>
                     <div class="dhx_cal_today_button"></div>
                     <div class="dhx_cal_date"></div>
-                    <div class="dhx_cal_tab" name="timeline_tab" style="right:280px;"></div>
                 </div>
                 <div class="dhx_cal_header"></div>
                 <div class="dhx_cal_data"></div>
@@ -27,9 +24,8 @@
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_timeline';
 
     import gql from 'graphql-tag';
-    import VMasterList from '../../components/MasterList.vue';
-    import VMaster from './MasterSchedule.vue';
     import commonMixin from './commonMixin';
+    import VMaster from './MasterSchedule.vue';
 
     export default {
         name: "MasterSchedule",
@@ -41,7 +37,7 @@
         },
         mixins: [commonMixin],
         components: {
-            VMasterList, VMaster
+            VMaster
         },
         mounted() {
             this.loadMasters().then(resolve => {
@@ -71,8 +67,10 @@
                         }`,
                         variables: {salonId: this.salonId}
                     }).then(({data}) => {
-                        this.masters = data.salon.masters;
-                        resolve(data);
+                        if (data.salon) {
+                            this.masters = data.salon.masters;
+                            resolve(data);
+                        }
                     });
                 });
             },
@@ -123,22 +121,24 @@
                     return this.formatTime(startDate, endDate);
                 };
 
-                this.scheduler.templates.matrix_scale_label = function (key, label, section) {
-                    return '<img src="https://getuikit.com/docs/images/avatar.jpg" width="40px" class="uk-border-circle"/>' + label;
+                this.scheduler.templates.matrix_scale_label = (key, label, section) => {
+                     return '<img src="https://getuikit.com/docs/images/avatar.jpg" width="40px" class="uk-border-circle"/>' + label;
                 };
 
                 this.scheduler.date['matrix' + '_start'] = this.scheduler.date.week_start;
+
+                this.scheduler.templates.matrix_tooltip =  function () {};
             },
             initSchedulerEvents() {
                 this.scheduler.attachEvent("onViewChange", (new_mode, new_date) => {
                     this.loadData();
                 });
 
-                this.scheduler.attachEvent("onBeforeTooltip", function (id) {
-                    console.log(id);
+                // Переопределяем функцию, иначе появляется tooltip при наведении
+                this.scheduler._init_matrix_tooltip = () => {};
 
-                    //any custom logic here
-                    return false;
+                this.scheduler.attachEvent("onYScaleClick", (index, section,e) => {
+                    this.$router.push({name: 'masterScheduleManager', params: {masterId: section.key}});
                 });
             },
 
@@ -163,9 +163,20 @@
                         endDate: this.dateFormat(endDate)
                     }
                 }).then(({data}) => {
-                    Array.from(data.masterSchedules).forEach(item => {
-                        this.addEvent(item);
-                    });
+                    if (data.masterSchedules) {
+                        let events = [];
+                        Array.from(data.masterSchedules).forEach(item => {
+                            events.push({
+                                id: item.id,
+                                type: item.type,
+                                master_id: item.master_id,
+                                start_date: item.start_date,
+                                end_date: item.end_date,
+                            });
+                        });
+
+                        this.scheduler.parse(events, 'json')
+                    }
                 });
             },
             addEvent(event) {
