@@ -61,7 +61,7 @@
                                         <v-list-tile @click="onServiceManager(item.master_id)">
                                             <v-list-tile-title>Услуги</v-list-tile-title>
                                         </v-list-tile>
-                                        <v-list-tile @click="onServiceSchedule(item.master_id)">
+                                        <v-list-tile @click="onScheduleManager(item.master_id)">
                                             <v-list-tile-title>График работы</v-list-tile-title>
                                         </v-list-tile>
                                     </v-list>
@@ -200,12 +200,8 @@
             onServiceManager(masterId) {
                 this.$router.push({name: 'masterServiceManager', params: {id: this.salonId, masterId: masterId}});
             },
-            onServiceSchedule(masterId) {
-                this.$router.push({
-                    name: 'masterScheduleManager',
-                    params: {id: this.salonId},
-                    query: {master_id: masterId}
-                });
+            onScheduleManager(masterId) {
+                this.$router.push({name: 'masterScheduleManager', params: {id: this.salonId, masterId: masterId}});
             },
             onDeleteServiceMaster(masterId) {
                 let index = this.getSalonMasterIndex(masterId);

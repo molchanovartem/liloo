@@ -26,7 +26,8 @@ class UserProfileUpdateInputType extends InputObjectType
                     'name' => $typeRegistry->string(),
                     'patronymic' => $typeRegistry->string(),
                     'date_birth' => $typeRegistry->date(),
-                    'description' => $typeRegistry->string()
+                    'description' => $typeRegistry->string(),
+                    'phone' => $typeRegistry->string()
                 ];
             }
         ]);

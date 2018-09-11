@@ -27,10 +27,10 @@
 </template>
 
 <script>
-    import 'dhtmlx-scheduler/codebase/dhtmlxscheduler_flat.css';
+/*    import 'dhtmlx-scheduler/codebase/dhtmlxscheduler_flat.css';
     import 'dhtmlx-scheduler/codebase/dhtmlxscheduler.js';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_quick_info.js';
-    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_limit.js';
+    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_limit.js';*/
     import UIkit from 'uikit/dist/js/uikit';
 
     import gql from 'graphql-tag';

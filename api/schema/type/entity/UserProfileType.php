@@ -26,7 +26,8 @@ class UserProfileType extends ObjectType implements QueryTypeInterface
                     'patronymic' => $typeRegistry->string(),
                     'date_birth' => $typeRegistry->date(),
                     'avatar' => $typeRegistry->string(),
-                    'description' => $typeRegistry->string()
+                    'description' => $typeRegistry->string(),
+                    'phone' => $typeRegistry->string()
                 ];
             }
         ]);

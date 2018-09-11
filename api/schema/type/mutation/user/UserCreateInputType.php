@@ -2,11 +2,21 @@
 
 namespace api\schema\type\mutation\user;
 
-use api\schema\registry\TypeRegistry;
 use GraphQL\Type\Definition\InputObjectType;
+use api\schema\registry\TypeRegistry;
 
+/**
+ * Class UserCreateInputType
+ *
+ * @package api\schema\type\mutation\user
+ */
 class UserCreateInputType extends InputObjectType
 {
+    /**
+     * UserCreateInputType constructor.
+     *
+     * @param TypeRegistry $typeRegistry
+     */
     public function __construct(TypeRegistry $typeRegistry)
     {
         $inputRegistry = $typeRegistry->getMutationInputRegistry();
@@ -17,7 +27,7 @@ class UserCreateInputType extends InputObjectType
                     'type' => $typeRegistry->nonNull($typeRegistry->int()),
                     'login' => $typeRegistry->nonNull($typeRegistry->string()),
                     'password' => $typeRegistry->nonNull($typeRegistry->string()),
-                    'specializations_id' => $typeRegistry->nonNull($typeRegistry->listOff($typeRegistry->id())),
+                    'specializations_id' => $typeRegistry->listOff($typeRegistry->id()),
                     'conveniences_id' => $typeRegistry->listOff($typeRegistry->id()),
                     'profile' => $typeRegistry->nonNull($inputRegistry->userCreateProfile())
                 ];

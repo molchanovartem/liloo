@@ -2,10 +2,10 @@
 
 namespace common\models;
 
-use common\validators\MasterExistValidator;
-use common\validators\MasterScheduleExistValidator;
 use Yii;
 use yii\db\ActiveRecord;
+use common\validators\MasterExistValidator;
+use common\validators\MasterScheduleExistValidator;
 use common\validators\SalonExistValidator;
 use common\behaviors\AccountBehavior;
 use common\queries\MasterScheduleQuery;
@@ -18,6 +18,7 @@ use common\queries\MasterScheduleQuery;
 class MasterSchedule extends ActiveRecord
 {
     const TYPE_WORKING = 1;
+
     const SCENARIO_BATCH = 'batch';
 
     /**
@@ -51,10 +52,10 @@ class MasterSchedule extends ActiveRecord
             [['account_id', 'master_id', 'salon_id', 'type'], 'integer'],
             [['start_date', 'end_date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
             ['type', 'in', 'range' => array_keys(self::getTypeList())],
-            ['salon_id', SalonExistValidator::class, 'on' => self::SCENARIO_DEFAULT],
-            ['master_id', MasterExistValidator::class, 'on' => self::SCENARIO_DEFAULT],
+            ['salon_id', SalonExistValidator::class],
+            ['master_id', MasterExistValidator::class],
             ['item', MasterScheduleExistValidator::class, 'on' => self::SCENARIO_DEFAULT],
-            ['start_date', function ($attribute) {
+            ['start_date', function ($attribute, $params) {
                 if (date($this->$attribute) === date($this->end_date)) {
                     $this->addError($attribute, '"start_date" равна "end_date"');
                 }
@@ -68,7 +69,7 @@ class MasterSchedule extends ActiveRecord
                 if (date($this->$attribute) < date($this->start_date)) {
                     $this->addError($attribute, '"end_date" меньше "start_date"');
                 }
-            }],
+            }]
         ];
     }
 
@@ -82,7 +83,10 @@ class MasterSchedule extends ActiveRecord
         ];
     }
 
-    public static function getTypeList()
+    /**
+     * @return array
+     */
+    public static function getTypeList(): array
     {
         return [
             self::TYPE_WORKING => 'working'
@@ -98,10 +102,12 @@ class MasterSchedule extends ActiveRecord
     /**
      * @return array
      */
-    public function getItem()
+    public function getItem(): array
     {
         return [[
+            'id' => $this->id,
             'master_id' => $this->master_id,
+            'salon_id' => $this->salon_id,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
         ]];
@@ -117,19 +123,5 @@ class MasterSchedule extends ActiveRecord
             'id' => $id,
             'account_id' => Yii::$app->account->getId()
         ]);
-    }
-
-    /**
-     * @param $startDate
-     * @param $endDate
-     * @param $masterId
-     * @return int|string
-     */
-    public function countDateInInterval($startDate, $endDate, int $masterId)
-    {
-        return MasterSchedule::find()
-            ->where(['between', 'end_date', "$startDate", "$endDate"])
-            ->andWhere(['master_id' => $masterId])
-            ->countByAccountId();
     }
 }
