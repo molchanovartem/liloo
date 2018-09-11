@@ -3,7 +3,7 @@
 namespace admin\services;
 
 use admin\models\Recall;
-use admin\core\service\ModelService;
+use common\core\service\ModelService;
 
 /**
  * Class RecallService

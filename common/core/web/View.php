@@ -1,6 +1,6 @@
 <?php
 
-namespace admin\core\web;
+namespace common\core\web;
 
 class View extends \yii\web\View
 {

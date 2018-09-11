@@ -3,8 +3,8 @@
 namespace admin\controllers;
 
 use Yii;
-use admin\core\service\ModelService;
-use admin\core\service\ViewService;
+use common\core\service\ModelService;
+use common\core\service\ViewService;
 
 /**
  * Class Controller

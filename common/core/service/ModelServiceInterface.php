@@ -1,6 +1,6 @@
 <?php
 
-namespace admin\core\service;
+namespace common\core\service;
 
 interface ModelServiceInterface
 {

@@ -3,7 +3,7 @@
 namespace admin\services;
 
 use admin\models\Notice;
-use admin\core\service\ModelService;
+use common\core\service\ModelService;
 use yii\data\ActiveDataProvider;
 
 /**

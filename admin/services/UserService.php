@@ -3,7 +3,7 @@
 namespace admin\services;
 
 use admin\models\User;
-use admin\core\service\ModelService;
+use common\core\service\ModelService;
 use admin\models\UserInteraction;
 use yii\data\ActiveDataProvider;
 

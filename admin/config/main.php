@@ -9,7 +9,7 @@ return [
             'cookieValidationKey' => 'asdfjasdlczxcxzkjasdfj',
         ],
         'view' => [
-            'class' => 'admin\core\web\View',
+            'class' => 'common\core\web\View',
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,
