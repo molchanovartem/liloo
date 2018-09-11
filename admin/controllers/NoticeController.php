@@ -4,6 +4,10 @@ namespace admin\controllers;
 
 use admin\services\NoticeService;
 
+/**
+ * Class NoticeController
+ * @package admin\controllers
+ */
 class NoticeController extends Controller
 {
     /**

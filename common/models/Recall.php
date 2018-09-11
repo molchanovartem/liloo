@@ -59,7 +59,7 @@ class Recall extends \yii\db\ActiveRecord
             [['user_id'], 'default', 'value' => 52],
             [['text'], 'string'],
             ['assessment', 'in', 'range' => $this->getAssessments(), 'on' => self::SCENARIO_DEFAULT],
-            ['appointment_id', AppointmentExistValidator::class],
+            ['appointment_id', AppointmentExistValidator::class, 'on' => self::SCENARIO_DEFAULT],
             ['parent_id', 'validateParent', 'on' => self::SCENARIO_ANSWER],
             ['parent_id', 'unique', 'on' => self::SCENARIO_ANSWER],
         ];
@@ -119,5 +119,5 @@ class Recall extends \yii\db\ActiveRecord
     public static function find()
     {
         return new RecallQuery(get_called_class());
-}
+    }
 }

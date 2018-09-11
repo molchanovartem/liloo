@@ -18,14 +18,15 @@ class m180545_081561_recall extends Migration
             'id' => $this->primaryKey(),
             'account_id' => $this->integer()->notNull(),
             'user_id' => $this->integer()->notNull(),
-            'appointment_id' => $this->integer()->notNull(),
+            'appointment_id' => $this->integer(),
             'parent_id' => $this->integer(),
             'text' => $this->string()->notNull(),
             'assessment' => $this->integer()->defaultValue(0),
             'type' => $this->integer()->notNull(),
             'status' => $this->integer()->notNull(),
-            'create_time' => $this->dateTime(),
         ]);
+
+        $this->execute("ALTER TABLE {$this->tableName} ADD `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `status`;");
 
         $this->createIndex('ix-recall-account_id', $this->tableName, 'account_id');
         $this->addForeignKey('fk-recall-account_id', $this->tableName, 'account_id', '{{%account}}', 'id', 'CASCADE', 'CASCADE');

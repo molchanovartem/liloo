@@ -1,33 +1,10 @@
 <?php
 
-use admin\widgets\gridView\GridView;
-
 $this->setTitle('Отзывы');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="notice-index">
-
-<!--    <div class="panel panel-default panel-body">-->
-<!---->
-<!--        --><?//=
-//        GridView::widget([
-//            'dataProvider' => $dataProvider,
-//            'columns' => [
-//                'text',
-//                'user_id',
-//                [
-//                    'attribute' => 'status',
-//                    'content' => function ($data) {
-//                        return $data->getStatus($data->status);
-//                    }
-//                ],
-//                ['class' => 'admin\widgets\gridView\ActionColumn'],
-//            ],
-//        ]);
-//        ?>
-<!---->
-<!--    </div>-->
 
 <?php foreach ($recalls as $recall) : ?>
     <div class="uk-card uk-card-default uk-width-1-4 uk-margin-bottom uk-float-left uk-margin-left">
@@ -54,4 +31,5 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 <?php endforeach; ?>
+
 </div>

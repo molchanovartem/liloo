@@ -49,22 +49,33 @@ class RecallService extends Service
         $model->setAttributes($attributes);
         $model->setScenario($modelScenario);
         $model->type = $type;
-        $model->account_id = $this->setAccountId($model->appointment_id);
+        $model->account_id = $this->setAccountId($model, $type);
 
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
 
         $model->save(false);
         $this->trigger(self::EVENT_USER_RECALL, new Event(['sender' => $model]));
+
         return $model;
     }
 
     /**
-     * @param $appointmentId
+     * @param $model
+     * @param $type
      * @return mixed
      */
-    private function setAccountId($appointmentId)
+    private function setAccountId($model, $type)
     {
-        return Appointment::find()->where(['id' => $appointmentId])->one()['account_id'];
+        if ($type) {
+            return Recall::find()
+                ->select('lu_appointment.account_id')
+                ->leftJoin('lu_appointment', 'lu_appointment.id = lu_recall.appointment_id')
+                ->where(['lu_recall.id' => $model->parent_id])
+                ->andWhere([])
+                ->one()['account_id'];
+        }
+
+        return Appointment::find()->where(['id' => $model->appointment_id])->one()['account_id'];
     }
 
     /**
