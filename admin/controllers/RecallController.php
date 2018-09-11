@@ -2,7 +2,6 @@
 
 namespace admin\controllers;
 
-use admin\models\Recall;
 use admin\services\RecallService;
 
 class RecallController extends Controller

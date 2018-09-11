@@ -12,9 +12,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="uk-grid uk-grid-small uk-flex-middle">
                 <div class="uk-width-auto">
                     <?php if ($recall->status) : ?>
-                        <a href="recall/check?id=<?php echo $recall->id; ?>" class="uk-icon-button uk-margin-small-right uk-background-primary uk-light" uk-icon="check"></a>
+                        <a href="/admin/web/index.php/recall/check?id=<?php echo $recall->id; ?>" class="uk-icon-button uk-margin-small-right uk-background-primary uk-light" uk-icon="check"></a>
                     <?php else: ?>
-                        <a href="recall/check?id=<?php echo $recall->id; ?>" class="uk-icon-button uk-margin-small-right" uk-icon="check"></a>
+                        <a href="/admin/web/index.php/recall/check?id=<?php echo $recall->id; ?>" class="uk-icon-button uk-margin-small-right" uk-icon="check"></a>
                     <?php endif; ?>
                 </div>
                 <div class="uk-width-expand">
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <p><?php echo $recall->text; ?></p>
         </div>
         <div class="uk-card-footer">
-            <a href="recall/view?id=<?php echo $recall->id; ?>" class="uk-button uk-button-text">Подробнее</a>
+            <a href="/admin/web/index.php/recall/view?id=<?php echo $recall->id; ?>" class="uk-button uk-button-text">Подробнее</a>
         </div>
     </div>
 <?php endforeach; ?>

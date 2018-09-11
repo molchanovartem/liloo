@@ -3,7 +3,6 @@
 namespace api\schema\type\mutation\specialization;
 
 use api\schema\registry\TypeRegistry;
-use api\schema\type\UploadFileType;
 use GraphQL\Type\Definition\InputObjectType;
 
 /**
