@@ -3,6 +3,7 @@
 namespace api\schema\type;
 
 use api\schema\registry\TypeRegistry;
+use api\schema\type\entity\AccountTariffType;
 use api\schema\type\entity\AppointmentItemType;
 use api\schema\type\entity\AppointmentType;
 use api\schema\type\entity\CityType;
@@ -19,6 +20,8 @@ use api\schema\type\entity\SalonType;
 use api\schema\type\entity\ServiceGroupType;
 use api\schema\type\entity\ServiceType;
 use api\schema\type\entity\SpecializationType;
+use api\schema\type\entity\TariffPriceType;
+use api\schema\type\entity\TariffType;
 use api\schema\type\entity\UserProfileType;
 use api\schema\type\entity\UserScheduleType;
 use api\schema\type\entity\UserType;
@@ -61,7 +64,10 @@ class QueryType extends ObjectType
                     MasterScheduleType::getFieldsQueryType($typeRegistry),
                     MasterServiceType::getFieldsQueryType($typeRegistry),
                     MasterSpecializationType::getFieldsQueryType($typeRegistry),
-                    RecallType::getFieldsQueryType($typeRegistry)
+                    RecallType::getFieldsQueryType($typeRegistry),
+                    TariffType::getFieldsQueryType($typeRegistry),
+                    TariffPriceType::getFieldsQueryType($typeRegistry),
+                    AccountTariffType::getFieldsQueryType($typeRegistry)
                     /*
                     UserType::getFieldsQueryType($typeRegistry),
                     UserScheduleType::getFieldsQueryType($typeRegistry),

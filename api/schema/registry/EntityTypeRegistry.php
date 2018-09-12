@@ -2,6 +2,7 @@
 
 namespace api\schema\registry;
 
+use api\schema\type\entity\AccountTariffType;
 use api\schema\type\entity\AppointmentItemType;
 use api\schema\type\entity\AppointmentType;
 use api\schema\type\entity\CityType;
@@ -18,10 +19,12 @@ use api\schema\type\entity\SalonMasterType;
 use api\schema\type\entity\ServiceGroupType;
 use api\schema\type\entity\ServiceType;
 use api\schema\type\entity\SpecializationType;
+use api\schema\type\entity\TariffType;
 use api\schema\type\entity\UserProfileType;
 use api\schema\type\entity\UserScheduleType;
 use api\schema\type\entity\UserType;
 use api\schema\type\entity\MasterSpecializationType;
+use api\schema\type\entity\TariffPriceType;
 
 /**
  * Class EntityTypeRegistry
@@ -135,5 +138,20 @@ class EntityTypeRegistry
     public function recall()
     {
         return $this->typeRegistry->get(RecallType::class);
+    }
+
+    public function tariff()
+    {
+        return $this->typeRegistry->get(TariffType::class);
+    }
+
+    public function tariffPrice()
+    {
+        return $this->typeRegistry->get(TariffPriceType::class);
+    }
+
+    public function accountTariff()
+    {
+        return $this->typeRegistry->get(AccountTariffType::class);
     }
 }

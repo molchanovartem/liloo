@@ -4,6 +4,10 @@ namespace admin\controllers;
 
 use admin\services\RecallService;
 
+/**
+ * Class RecallController
+ * @package admin\controllers
+ */
 class RecallController extends Controller
 {
     /**

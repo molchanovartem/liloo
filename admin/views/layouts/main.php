@@ -56,6 +56,7 @@ AppAsset::register($this);
                     <li><a href="/admin/web/index.php/user">Пользователи</a></li>
                     <li><a href="/admin/web/index.php/notice">Уведомления</a></li>
                     <li><a href="/admin/web/index.php/recall">Отзывы</a></li>
+                    <li><a href="/admin/web/index.php/tariff">Тарифы</a></li>
                     <li class="uk-parent">
                         <a href="#">Parent</a>
                         <ul class="uk-nav-sub">
