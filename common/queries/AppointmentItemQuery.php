@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class AppointmentItemQuery extends \common\queries\Query
+class AppointmentItemQuery extends \common\queries\AccountQuery
 {
     /**
      * @param array $id
@@ -16,17 +16,15 @@ class AppointmentItemQuery extends \common\queries\Query
     public function allById(array $id)
     {
         return $this->byId($id)
-            ->byAccountId()
-            ->all();
+            ->allByAccountId();
     }
 
     /**
      * @param int $id
-     * @param bool $byAccountId
      * @return array|null|\yii\db\ActiveRecord
      */
-    public function oneById(int $id, $byAccountId = true)
+    public function oneById(int $id)
     {
-        return parent::oneById($id, $byAccountId);
+        return parent::oneById($id);
     }
 }

@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class ServiceQuery extends Query
+class ServiceQuery extends AccountQuery
 {
     /**
      * @param array $id
@@ -16,7 +16,6 @@ class ServiceQuery extends Query
     public function allByIdInService(array $id)
     {
         return $this->byId($id)
-            ->byAccountId()
             ->isService()
             ->all();
     }
@@ -40,21 +39,14 @@ class ServiceQuery extends Query
     {
         return $this->byParentId($parentId)
             ->isService()
-            ->byAccountId()
-            ->all();
+            ->allByAccountId();
     }
 
     public function allGroupByParentId($parentId = null)
     {
         return $this->byParentId($parentId)
             ->isGroup()
-            ->byAccountId()
-            ->all();
-    }
-
-    public function oneById(int $id, $byAccountId = true)
-    {
-        return parent::oneById($id, $byAccountId);
+            ->allByAccountId();
     }
 
     public function isGroup()

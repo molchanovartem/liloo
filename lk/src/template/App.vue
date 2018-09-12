@@ -3,6 +3,7 @@
         <v-header/>
         <div class="content-width content-columns">
             <div class="content-columns__column content-column__column_main">
+                <v-breadcrumbs/>
                 <router-view></router-view>
             </div>
 
@@ -34,8 +35,6 @@
     import '../assets/css/init.css';
     import '../assets/css/main.css';
     import '../assets/css/responsive.css';
-
-    //import '../stylus/main.styl';
 
     export default {
         components: {

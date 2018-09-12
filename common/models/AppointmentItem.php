@@ -3,7 +3,6 @@
 namespace common\models;
 
 use yii\db\ActiveRecord;
-use common\behaviors\AccountBehavior;
 use common\queries\AppointmentItemQuery;
 
 /**
@@ -16,7 +15,7 @@ class AppointmentItem extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%appointment_item}}';
     }
@@ -26,10 +25,17 @@ class AppointmentItem extends ActiveRecord
      */
     public function rules(): array
     {
+        /*
+         * @todo
+         * service_id
+         * service_duration количество символов
+         */
+
         return [
-            [['appointment_id', 'service_id', 'service_name', 'service_price', 'service_duration', 'quantity'], 'required'],
-            [['appointment_id', 'service_id', 'service_duration', 'quantity'], 'integer'],
-            ['service_price', 'number'],
+            [['account_id', 'appointment_id', 'service_id', 'service_name', 'service_price', 'service_duration', 'quantity'], 'required'],
+            [['account_id', 'appointment_id', 'service_id', 'service_duration', 'quantity'], 'integer'],
+            [['service_price', 'service_duration'], 'number', 'min' => 0],
+            ['quantity', 'number', 'min' => 1],
             ['service_name', 'string', 'max' => 255]
         ];
     }

@@ -16,7 +16,8 @@ $config = [
         'adminNotice' => 'common\components\AdminNoticeComponent',
         'balance' => 'common\components\BalanceComponent',
         'account' => 'common\components\AccountComponent',
-        
+        'tariffAccess' => 'common\components\tariffAccess\TariffAccess',
+
         'user' => [
             'identityClass' => 'common\models\UserIdentity',
         ],

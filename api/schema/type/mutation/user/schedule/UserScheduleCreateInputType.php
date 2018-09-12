@@ -22,7 +22,6 @@ class UserScheduleCreateInputType extends InputObjectType
         parent::__construct([
             'fields' => function () use ($typeRegistry) {
                 return [
-                    'user_id' => $typeRegistry->nonNull($typeRegistry->id()),
                     'type' => $typeRegistry->nonNull($typeRegistry->int()),
                     'start_date' => $typeRegistry->nonNull($typeRegistry->dateTime()),
                     'end_date' => $typeRegistry->nonNull($typeRegistry->dateTime())

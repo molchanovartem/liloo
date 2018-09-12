@@ -1,10 +1,10 @@
-<!-- доделать отображение avatar -->
 <template>
-    <div>
+    <div class="content-block p-40 content-block_shadow">
         <v-form ref="form" v-model="valid">
             <v-text-field v-model="attributes.surname" label="Фамилия" :rules="rules.surname"/>
             <v-text-field v-model="attributes.name" label="Имя" :rules="rules.name"/>
             <v-text-field v-model="attributes.patronymic" label="Отчество" :rules="rules.patronymic"/>
+            <v-text-field v-model="attributes.phone" label="Телефон" :rules="rules.phone"/>
             <v-textarea rows="3" v-model="attributes.description" label="Описание"/>
 
             <v-select
@@ -73,6 +73,10 @@
                     status: [
                         v => formRules.required(v),
                     ],
+                    phone: [
+                        v => formRules.required(v),
+                        v => formRules.number(v, {strict: true}),
+                    ],
                     name: [
                         v => formRules.required(v),
                         v => formRules.length(v, {maximum: 255})
@@ -92,7 +96,7 @@
                     query: gql`query {
                             specializations {id, name},
                             conveniences {id, name},
-                            user {id, specializations {id}, conveniences {id}, profile {surname, name, patronymic, date_birth, description}}
+                            user {id, specializations {id}, conveniences {id}, profile {surname, name, patronymic, description, date_birth, phone}}
                         }`
 
                 }).then(({data}) => {
@@ -103,6 +107,7 @@
                     this.attributes.name = data.user.profile.name;
                     this.attributes.patronymic = data.user.profile.patronymic;
                     this.attributes.date_birth = data.user.profile.date_birth;
+                    this.attributes.phone = data.user.profile.phone;
                     this.attributes.description = data.user.profile.description;
                     this.attributes.specializations_id = Array.from(data.user.specializations).map(item => {
                         return item.id
@@ -130,7 +135,8 @@
                                 surname: this.attributes.surname,
                                 name: this.attributes.name,
                                 patronymic: this.attributes.patronymic,
-                                description: this.attributes.description
+                                description: this.attributes.description,
+                                phone: this.attributes.phone
                             }
                         }
                     }).then(({data}) => {

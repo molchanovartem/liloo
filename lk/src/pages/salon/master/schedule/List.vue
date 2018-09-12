@@ -4,7 +4,7 @@
         <v-master v-if="masterId" :salonId=" salonId" :masterId="masterId"/>
 
         <div>
-            <div id="timeline" class="dhx_cal_container" style='width:100%; height:1000px;'>
+            <div id="masterScheduleList" class="dhx_cal_container" style='width:100%; height:1000px;'>
                 <div class="dhx_cal_navline">
                     <div class="dhx_cal_prev_button">&nbsp;</div>
                     <div class="dhx_cal_next_button">&nbsp;</div>
@@ -79,7 +79,7 @@
 
                 this.initSchedulerConfig();
                 this.initSchedulerEvents();
-                this.scheduler.init('timeline', new Date(), "matrix");
+                this.scheduler.init('masterScheduleList', new Date(), "matrix");
             },
             initSchedulerConfig() {
                 this.scheduler.config.api_date = "%Y-%m-%d %H:%i";

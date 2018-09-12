@@ -6,15 +6,14 @@ namespace common\queries;
  * Class RecallQuery
  * @package common\queries
  */
-class RecallQuery extends Query
+class RecallQuery extends AccountQuery
 {
     /**
      * @param int $id
-     * @param bool $byAccountId
      * @return array|null|\yii\db\ActiveRecord
      */
-    public function oneById(int $id, $byAccountId = true)
+    public function oneById(int $id)
     {
-        return parent::oneById($id, $byAccountId);
+        return parent::oneById($id);
     }
 }

@@ -72,20 +72,10 @@
 <script>
     import gql from 'graphql-tag';
     import dateformat from 'dateformat';
-    import {formRules} from "../../../../js/formRules";
+    import {formRules} from "../../../js/formRules";
 
     export default {
-        name: "MasterSchedule",
-        props: {
-            salonId: {
-                type: String,
-                required: true
-            },
-            masterId: {
-                type: String,
-                required: true
-            }
-        },
+        name: "UserMasterSchedule",
         data() {
             return {
                 attributes: {
@@ -138,8 +128,6 @@
                     let itemsOnSave = [];
                     this.getNormalizeDateItems(items).forEach(item => {
                         itemsOnSave.push({
-                            master_id: this.masterId,
-                            salon_id: this.salonId,
                             type: 1,
                             start_date: dateformat(item.startDate, 'yyyy-mm-dd HH:MM:ss'),
                             end_date: dateformat(item.endDate, 'yyyy-mm-dd HH:MM:ss'),
@@ -147,12 +135,12 @@
                     });
 
                     this.$apollo.mutate({
-                        mutation: gql`mutation ($items: [MasterScheduleCreateInput]!) {
-                            masterSchedulesCreate(items: $items)
+                        mutation: gql`mutation ($items: [UserScheduleCreateInput]!) {
+                            userSchedulesCreate(items: $items)
                         }`,
                         variables: {items: itemsOnSave}
                     }).then(({data}) => {
-                        if (data.masterSchedulesCreate) {
+                        if (data.userSchedulesCreate) {
                             this.$emit('save');
                         }
                         this.clearAttributes();

@@ -3,7 +3,7 @@ import DashBoard from '../../components/Dashboard';
 export default [
     {
         path: '*',
-        component: DashBoard
+        component: DashBoard,
     },
     {
         path: '/',

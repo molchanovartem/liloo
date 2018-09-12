@@ -2,11 +2,13 @@
 
 namespace api\services;
 
+use GraphQL\Error\Error;
 use Yii;
+use yii\db\Exception;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use common\validators\MasterExistValidator;
-use common\validators\MasterScheduleExistValidator;
+use common\validators\MasterScheduleValidator;
 use common\validators\SalonExistValidator;
 use api\exceptions\ValidationError;
 use api\models\Salon;
@@ -24,6 +26,19 @@ use api\models\MasterService as MasterServiceModel;
  */
 class MasterService extends Service
 {
+
+    const ACTION_BEFORE_CREATE = 'beforeCreate';
+    const ACTION_CREATE = 'create';
+
+    public function init()
+    {
+        parent::init();
+
+        $this->on(self::ACTION_BEFORE_CREATE, function () {
+            Yii::$app->tariffAccess->master->beforeCreate();
+        });
+    }
+
     /**
      * @param array $attributes
      * @return Master
@@ -33,6 +48,8 @@ class MasterService extends Service
      */
     public function create(array $attributes)
     {
+        $this->trigger(self::ACTION_BEFORE_CREATE);
+
         return $this->save(new Master(), $attributes);
     }
 
@@ -198,7 +215,7 @@ class MasterService extends Service
             }
 
             // Удаляем записи если даты для сохранения совподают по дням
-            if ($repeatMasterSchedulesDate = (new MasterScheduleExistValidator())->getBadDate($items)) {
+            if ($repeatMasterSchedulesDate = (new MasterScheduleValidator())->getBadDate($items)) {
                 $this->deleteMasterSchedules(array_keys($repeatMasterSchedulesDate));
             }
 

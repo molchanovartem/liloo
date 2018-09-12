@@ -53,7 +53,7 @@ class MutationType extends ObjectType
                     ServiceType::getMutationFieldsType($typeRegistry),
                     ServiceGroupType::getMutationFieldsType($typeRegistry),
                     AppointmentType::getMutationFieldsType($typeRegistry),
-                    AppointmentItemType::getMutationFieldsType($typeRegistry),
+                    //AppointmentItemType::getMutationFieldsType($typeRegistry),
                     SalonType::getMutationFieldsType($typeRegistry),
                     SalonSpecializationType::getMutationFieldsType($typeRegistry),
                     SalonConvenienceType::getMutationFieldsType($typeRegistry),

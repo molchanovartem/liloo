@@ -23,7 +23,6 @@ class AppointmentQuery extends \common\queries\AppointmentQuery
             ->andFilterWhere(['user_id' => $userId])
             ->andFilterWhere(['salon_id' => $salonId])
             ->andFilterWhere(['master_id' => $masterId])
-            ->byAccountId()
-            ->all();
+            ->allByAccountId();
     }
 }

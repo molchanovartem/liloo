@@ -2,13 +2,12 @@
 
 namespace common\models;
 
-use common\behaviors\AccountBehavior;
-use common\behaviors\UserId;
-use common\queries\AppointmentQuery;
 use yii\db\ActiveRecord;
+use common\queries\AppointmentQuery;
 
 /**
  * Class Appointment
+ *
  * @package common\models
  */
 class Appointment extends ActiveRecord
@@ -21,7 +20,7 @@ class Appointment extends ActiveRecord
     /**
      * @return string
      */
-    public static function tableName()
+    public static function tableName(): string
     {
         return '{{%appointment}}';
     }
@@ -37,8 +36,8 @@ class Appointment extends ActiveRecord
  * start_date и end_date проверять промежуток
  */
         return [
-            [['account_id', 'owner_id', 'client_id', 'status', 'start_date', 'end_date'], 'required'],
-            [['account_id', 'user_id', 'salon_id', 'master_id', 'client_id', 'owner_id'], 'integer'],
+            [['account_id', 'client_id', 'status', 'start_date', 'end_date'], 'required'],
+            [['account_id', 'user_id', 'salon_id', 'master_id', 'client_id'], 'integer'],
             [['start_date', 'end_date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
             ['status', 'in', 'range' => array_keys(self::getStatusList())]
         ];

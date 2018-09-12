@@ -2,9 +2,9 @@
 
 namespace api\schema\registry;
 
+use GraphQL\Type\Definition\Type;
 use api\schema\type\MutationType;
 use api\schema\type\QueryType;
-use GraphQL\Type\Definition\Type;
 use api\schema\type\scalar\DateTimeType;
 use api\schema\type\scalar\DateType;
 use api\schema\type\scalar\DecimalType;

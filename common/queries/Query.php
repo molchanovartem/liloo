@@ -24,14 +24,12 @@ class Query extends \yii\db\ActiveQuery
     }
 
     /**
-     * @param null $alias
+     * @param int $appointmentId
      * @return Query
      */
-    public function byAccountId($alias = null)
+    public function byAppointmentId(int $appointmentId)
     {
-        $attribute = $alias ? $alias . '.account_id' : 'account_id';
-
-        return $this->andWhere([$attribute => Yii::$app->account->getId()]);
+        return $this->andWhere(['appointment_id' => $appointmentId]);
     }
 
     /**
@@ -87,32 +85,13 @@ class Query extends \yii\db\ActiveQuery
     }
 
     /**
-     * @return array|\yii\db\ActiveRecord[]
-     */
-    public function allByAccountId()
-    {
-        return $this->byAccountId()
-            ->all();
-    }
-
-    /**
      * @param int $salonId
      * @return array|\yii\db\ActiveRecord[]
      */
     public function allBySalonId(int $salonId)
     {
         return $this->bySalonId($salonId)
-            ->byAccountId()
             ->all();
-    }
-
-    /**
-     * @return int|string
-     */
-    public function countByAccountId()
-    {
-        return $this->byAccountId()
-            ->count();
     }
 
     /*
@@ -134,13 +113,10 @@ class Query extends \yii\db\ActiveQuery
 
     /**
      * @param int $id
-     * @param bool $byAccountId
      * @return array|null|\yii\db\ActiveRecord
      */
-    public function oneById(int $id, $byAccountId = false)
+    public function oneById(int $id)
     {
-        if ($byAccountId) $this->byAccountId();
-
         return $this->byId($id)
             ->one();
     }
@@ -149,10 +125,8 @@ class Query extends \yii\db\ActiveQuery
      * @param int $id
      * @return bool
      */
-    public function existsById(int $id, $byAccountId = false)
+    public function existsById(int $id)
     {
-        if ($byAccountId) $this->byAccountId();
-
         return $this->byId($id)
             ->exists();
     }
@@ -162,16 +136,6 @@ class Query extends \yii\db\ActiveQuery
      */
     protected function getUserId()
     {
-        //return Yii::$app->user->getId();
-        return 52;
-    }
-
-    /**
-     * @param int $appointmentId
-     * @return Query
-     */
-    public function byAppointmentId(int $appointmentId)
-    {
-        return $this->andWhere(['appointment_id' => $appointmentId]);
+        return Yii::$app->user->getId();
     }
 }

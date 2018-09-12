@@ -1,8 +1,7 @@
 import ProfileView from '../../pages/user/profile/View.vue';
 import ProfileUpdate from '../../pages/user/profile/Form.vue';
 
-import Schedule from '../../pages/user/schedule/Schedule.vue';
-import ScheduleForm from '../../pages/user/schedule/ScheduleForm.vue';
+import ScheduleManager from '../../pages/user/schedule/Manager.vue';
 
 export default [
     {
@@ -13,31 +12,27 @@ export default [
     {
         path: '/user/profile/update',
         component: ProfileUpdate,
-        name: 'userProfileUpdate'
+        name: 'userProfileUpdate',
+        meta: {
+            title: 'Редактирование профиля',
+            breadcrumbs(route) {
+                return [
+                    {label: 'Профиль', to: {name: 'userProfileView'}},
+                ];
+            }
+        },
     },
-
     {
         path: '/user/schedule',
-        component: Schedule,
-        name: 'userSchedule'
-    },
-    {
-        path: '/user/schedule/create',
-        component: ScheduleForm,
-        name: 'userScheduleCreate',
-        props: {
-            type: 'create'
-        }
-    },
-    {
-        path: '/user/schedule/update/:id',
-        component: ScheduleForm,
-        name: 'userScheduleUpdate',
-        props(route) {
-            return {
-                type: 'update',
-                id: route.params.id
+        component: ScheduleManager,
+        name: 'userScheduleManager',
+        meta: {
+            title: 'График работы',
+            breadcrumbs(route) {
+                return [
+                    {label: 'График работы'},
+                ];
             }
-        }
+        },
     },
 ];

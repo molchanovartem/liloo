@@ -23,7 +23,7 @@ class ServiceBuffer extends ServiceQuery
             $this->data = $this->where(['in', 'id', $this->getKeys()])
                 ->isService()
                 ->indexBy('id')
-                ->all();
+                ->allByAccountId();
         }
         return $this->data[$id] ?? null;
     }

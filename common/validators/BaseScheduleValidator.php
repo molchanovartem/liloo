@@ -4,18 +4,24 @@ namespace common\validators;
 
 use Yii;
 use yii\validators\Validator;
-use common\models\User;
 
 /**
- * Class UserExistValidator
+ * Class BaseScheduleValidator
+ *
  * @package common\validators
  */
-class UserExistValidator extends Validator
+abstract class BaseScheduleValidator extends Validator
 {
+    /**
+     * @param array $items
+     * @return mixed
+     */
+    abstract public function getBadDate(array $items);
+
     /**
      * @var string
      */
-    public $message = '{attribute} нет пользователя {value}';
+    public $message = '{value}';
 
     /**
      * @param mixed $value
@@ -24,9 +30,7 @@ class UserExistValidator extends Validator
      */
     public function validate($value, &$error = null)
     {
-        if (!$result = $this->validateValue($value)) {
-            return true;
-        }
+        if (!$result = $this->validateValue($value)) return true;
 
         list($message, $params) = $result;
         $params['attribute'] = Yii::t('yii', 'the input value');
@@ -37,15 +41,15 @@ class UserExistValidator extends Validator
     }
 
     /**
-     * @param mixed $value
+     * @param mixed $items
      * @return array|null
      */
-    protected function validateValue($value)
+    protected function validateValue($items)
     {
-        if (User::find()->existsById($value)) return null;
+        if (!$badKeys = $this->getBadDate($items)) return null;
 
         return [$this->message, [
-            'value' => $value,
+            'value' => json_encode($badKeys),
         ]];
     }
 }

@@ -25,7 +25,16 @@ class UserScheduleType implements MutationFieldsTypeInterface
                     'attributes' => $typeRegistry->nonNull($inputType->userScheduleCreate()),
                 ],
                 'resolve' => function ($root, $args, $context, $info) {
-                    return (new UserService())->createSchedule($args['attributes']);
+                    return (new UserService())->createUserSchedule($args['attributes']);
+                }
+            ],
+            'userSchedulesCreate' => [
+                'type' => $typeRegistry->boolean(),
+                'args' => [
+                    'items' => $typeRegistry->nonNull($typeRegistry->listOff($inputType->userScheduleCreate()))
+                ],
+                'resolve' => function ($root, $args) {
+                    return (new UserService())->createUserSchedules($args['items']);
                 }
             ],
             'userScheduleUpdate' => [
@@ -35,7 +44,7 @@ class UserScheduleType implements MutationFieldsTypeInterface
                     'attributes' => $typeRegistry->nonNull($inputType->userScheduleUpdate()),
                 ],
                 'resolve' => function ($root, $args, $context, $info) {
-                    return (new UserService())->updateSchedule($args['id'], $args['attributes']);
+                    return (new UserService())->updateUserSchedule($args['id'], $args['attributes']);
                 }
 
             ],
@@ -45,7 +54,7 @@ class UserScheduleType implements MutationFieldsTypeInterface
                     'id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args, $context, $info) {
-                    return (new UserService())->deleteSchedule($args['id']);
+                    return (new UserService())->deleteUserSchedule($args['id']);
                 }
             ],
         ];
