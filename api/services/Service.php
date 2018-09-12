@@ -37,13 +37,14 @@ class Service extends Component
      */
     protected function getUserId()
     {
-        //return Yii::$app->user->getId();
-        return 52;
+        return Yii::$app->user->getId();
     }
 
+    /**
+     * @return mixed
+     */
     protected function getAccountId()
     {
-//        return Yii::$app->account->getId();
-        return 1;
+        return Yii::$app->account->getId();
     }
 }

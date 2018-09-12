@@ -24,89 +24,7 @@
                     <v-icon class="uk-float-right" @click="modalClose()">mdi-close</v-icon>
                 </div>
                 <div class="uk-card-body uk-padding-small">
-                    <v-form v-model="valid" lazy-validation ref="form">
-                        <div class="uk-grid uk-grid-divider uk-grid-small">
-                            <div class="uk-width-1-4">
-                                <v-select
-                                        v-model="attributes.status"
-                                        :items="getStatusList()"
-                                        :rules="rules.status"
-                                        label="Статус"
-                                        required
-                                        outline
-                                />
-                                <v-select
-                                        v-model="attributes.client_id"
-                                        :items="clients"
-                                        :rules="rules.clientId"
-                                        label="Клиент"
-                                        item-text="name"
-                                        item-value="id"
-                                        required
-                                        outline
-                                />
-                                <v-text-field v-model="attributes.start_date" label="Date start" outline/>
-                                <v-text-field v-model="attributes.end_date" label="Date end" outline/>
-                            </div>
-                            <div class="uk-width-3-4">
-                                <h5>Услуги</h5>
-                                <div class="uk-grid uk-grid-small uk-width-2-3">
-                                    <div class="uk-width-expand">
-                                        <v-select
-                                                :items="services"
-                                                v-model="serviceSelect"
-                                                item-value="id"
-                                                item-text="name"
-                                                outline
-                                        />
-                                    </div>
-                                    <div class="uk-width-auto">
-                                        <v-btn @click="onAddItem()">
-                                            Добавить
-                                            <v-icon small right>mdi-plus</v-icon>
-                                        </v-btn>
-                                    </div>
-                                </div>
-
-                                <ul>
-                                    <li>Время: с {{ attributes.start_date | formatDate }} до {{ endDate | formatDate
-                                        }}
-                                    </li>
-                                    <li>Длительность: {{duration | formatDuration}}</li>
-                                    <li>Общая сумма: {{ commonSum | formatCurrency }}</li>
-                                </ul>
-
-                                <v-data-table
-                                        :headers="headers"
-                                        :items="attributes.items"
-                                        hide-actions
-                                >
-                                    <template slot="items" slot-scope="props, index">
-                                        <td>{{props.item.service_name}}</td>
-                                        <td>{{props.item.service_price | formatCurrency}}</td>
-                                        <td>{{props.item.service_duration}}</td>
-                                        <td>
-                                            <v-text-field
-                                                    v-model="props.item.quantity"
-                                                    :rules="rules.quantity"
-                                                    outline
-                                            />
-                                        </td>
-                                        <td>
-                                            <v-btn @click="deleteItem(props.index)" fab small flat>
-                                                <v-icon>mdi-minus</v-icon>
-                                            </v-btn>
-                                        </td>
-                                    </template>
-                                </v-data-table>
-                            </div>
-                        </div>
-                    </v-form>
-                </div>
-                <div class="uk-card-footer uk-padding-small">
-                    <v-btn color="primary" @click="submit()">Сохранить
-                        <v-icon right>mdi-content-save</v-icon>
-                    </v-btn>
+                    <v-form ref="form" :salonId="salonId" @created="onCreated" @updated="onUpdated"/>
                 </div>
             </div>
         </v-dialog>
@@ -122,13 +40,8 @@
 
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';
-    import {formRules} from "../../../js/formRules";
-
-    import Status from '../../appointment/components/Status';
     import VMasterList from './components/MasterList.vue';
-
-    const SCENARIO_CREATE = 'create',
-        SCENARIO_UPDATE = 'update';
+    import VForm from './Form.vue';
 
     export default {
         name: "SalonAppointment",
@@ -139,7 +52,7 @@
             }
         },
         components: {
-            VMasterList,
+            VMasterList, VForm
         },
         created() {
             this.$on('save', (appointment) => {
@@ -161,92 +74,11 @@
             return {
                 modal: false,
                 masterId: null,
-                // Мастера
                 masters: [],
-                // Клиентов
-                clients: [],
-                // Услуги
-                services: [],
-                status: new Status,
                 currentAppointment: null,
                 config: {
                     mode: 'week'
                 },
-
-                // form
-                valid: false,
-                headers: [
-                    {text: 'Название', value: 'service_name', sortable: false},
-                    {text: 'Цена', value: 'service_price', sortable: false},
-                    {text: 'Длительность', value: 'service_duration', sortable: false},
-                    {text: 'Количество', value: 'quantity', sortable: false},
-                    {text: null, value: null, sortable: false}
-                ],
-                attributes: {
-                    id: null,
-                    master_id: null,
-                    client_id: null,
-                    status: null,
-                    start_date: null,
-                    end_date: null,
-                    items: [
-                        {
-                            service_id: '1',
-                            service_name: 'test',
-                            service_price: '300',
-                            service_duration: '20',
-                            quantity: 1,
-                            discount: 0
-                        }
-                    ]
-                },
-                duration: 0,
-                serviceSelect: null,
-                rules: {
-                    status: [
-                        v => formRules.required(v),
-                    ],
-                    clientId: [
-                        v => formRules.required(v)
-                    ],
-                    quantity: [
-                        v => formRules.required(v),
-                        v => formRules.number(v, {numericality: true})
-                    ]
-                }
-                // end form
-            }
-        },
-        computed: {
-            // Вычисляемое свойство окончание даты
-            endDate() {
-                if (!this.attributes.start_date) return;
-
-                for (var index = 0, minutes = 0, item; item = this.attributes.items[index]; index++) {
-                    if (!isFinite(item.quantity) || !isFinite(item.service_duration)) continue;
-                    if (item.quantity > 1000 || item.quantity < 0) continue;
-
-                    minutes += +item.quantity * +item.service_duration;
-                }
-
-                let startDate = new Date(this.attributes.start_date),
-                    endDate = new Date(startDate);
-
-                endDate.setMinutes(startDate.getMinutes() + minutes);
-                this.attributes.end_date = dateFormat(endDate, 'yyyy-mm-dd HH:MM:ss');
-                this.duration = minutes;
-
-                return endDate;
-            },
-            // Вычисляемое свойство общая сумма
-            commonSum() {
-                for (var index = 0, sum = 0, item; item = this.attributes.items[index]; index++) {
-                    if (!isFinite(item.quantity) || !isFinite(item.service_price)) continue;
-                    if (item.quantity > 1000 || item.quantity < 0 || item.service_price < 0) continue;
-
-                    sum += +item.quantity * +item.service_duration;
-                }
-                return sum;
             }
         },
         methods: {
@@ -268,14 +100,12 @@
                             salon(id: $salonId) {
                                 id, name, masters {id, surname, name}
                             },
-                            clients {id, surname, name, patronymic, date_birth}
                         }`,
                         variables: {
                             salonId: self.salonId
                         }
                     }).then(({data}) => {
                         self.masters = Array.from(data.salon.masters);
-                        self.clients = data.clients;
 
                         resolve(true)
                     }).catch(({error}) => {
@@ -284,28 +114,6 @@
                 });
             },
 
-            loadServicesData(masterId) {
-                this.$apollo.query({
-                    query: gql`query ($salonId: ID!, $masterId: ID!) {
-                        salonServicesForMaster(salon_id: $salonId, master_id: $masterId) {
-                            id, salon_id, service_id, service_price, service_duration, service{id, name}
-                        }
-                    }`,
-                    variables: {
-                        salonId: this.salonId,
-                        masterId: masterId
-                    }
-                }).then(({data}) => {
-                    this.services = Array.from(data.salonServicesForMaster).map(item => {
-                        return {
-                            id: item.service.id,
-                            name: item.service.name,
-                            price: item.service_price,
-                            duration: item.service_duration
-                        }
-                    });
-                })
-            },
             /**
              * Загружает записи, время работы сотрудника
              */
@@ -342,11 +150,13 @@
                         endDate: this.dateFormat(endDate)
                     }
                 }).then(({data}) => {
-                    this.deleteAllAppointmentForSchedule();
+                    this.deleteAllAppointment();
 
+                    let appointments = [];
                     Array.from(data.appointments).forEach(appointment => {
-                        this.addAppointment(appointment);
+                        appointments.push(this.createEvent(appointment));
                     });
+                    this.scheduler.parse(appointments, 'json');
 
                     this.scheduler.deleteMarkedTimespan();
 
@@ -457,6 +267,7 @@
                 this.scheduler.config.drag_resize = false;
                 this.scheduler.config.quick_info_detached = true;
                 this.scheduler.config.icons_select = ['icon_edit', 'icon_delete'];
+                this.scheduler.xy.scale_height = 35;
 
                 this.scheduler.locale.labels.timeline_tab = "Timeline";
 
@@ -466,14 +277,16 @@
                     this.currentAppointment = appointment;
 
                     if (appointment.isNew) {
-                        this.modalOpen({
+                        this.formLoad({
                             start_date: this.dateFormat(appointment.start_date),
                             end_date: this.dateFormat(appointment.end_date),
                             master_id: appointment.master_id || this.masterId
-                        }, SCENARIO_CREATE);
+                        }, 'create');
                     } else {
                         this.loadAppointment(id).then(({data}) => {
-                            this.modalOpen(data.appointment, SCENARIO_UPDATE);
+                            if (data.appointment) {
+                                this.formLoad(data.appointment, 'update');
+                            }
                         });
                     }
                 };
@@ -537,7 +350,7 @@
                     let str = '<div>';
 
                     str += '<ul>' +
-                        '<li>Статус: ' + self.getStatusName(event.status) + '</li>' +
+                        '<li>Статус: ' + event.status + '</li>' +
                         '<li>Длительнось: 00:20 мин</li>' +
                         '<li>Сумма: 100500 руб.</li>' +
                         '</ul>';
@@ -623,21 +436,25 @@
                     return true;
                 });
             },
+
             addAppointment(appointment, isNew = false) {
-                return this.scheduler.addEvent({
-                    id: appointment.id,
-                    salon_id: appointment.salon_id || null,
-                    master_id: appointment.master_id || null,
-                    client_id: appointment.client_id,
-                    status: +appointment.status,
-                    start_date: appointment.start_date,
-                    end_date: appointment.end_date,
-                    client: appointment.client || null,
-                    items: appointment.items || [],
-                    isNew: isNew
-                });
+                return this.scheduler.addEvent(this.createEvent(appointment, isNew));
             },
-            deleteAllAppointmentForSchedule() {
+            createEvent(data, isNew = false) {
+                return {
+                    id: data.id,
+                    salon_id: data.salon_id || null,
+                    master_id: data.master_id || null,
+                    client_id: data.client_id,
+                    status: +data.status,
+                    start_date: data.start_date,
+                    end_date: data.end_date,
+                    client: data.client || null,
+                    items: data.items || [],
+                    isNew: isNew
+                }
+            },
+            deleteAllAppointment() {
                 this.scheduler.getEvents().forEach(appointment => {
                     this.scheduler.deleteEvent(appointment.id);
                 })
@@ -700,17 +517,15 @@
                 });
             },
 
-            createdAppointment(appointment) {
+            onCreated(appointment) {
                 this.addAppointment(appointment);
                 this.scheduler.updateView();
                 this.modalClose();
-                this.clearAttributes();
             },
-            updatedAppointment(appointment) {
+            onUpdated(appointment) {
                 this.scheduler.updateEvent(this.addAppointment(appointment));
                 this.scheduler.updateView();
                 this.modalClose();
-                this.clearAttributes();
             },
 
             /**
@@ -732,15 +547,6 @@
             },
 
             /**
-             * Возвращает название статуса
-             *
-             * @return String
-             */
-            getStatusName(status) {
-                return this.status.getStatusName(status);
-            },
-
-            /**
              * Форматирует дату для mysql
              *
              * @param date
@@ -749,209 +555,25 @@
                 return dateFormat(date, 'yyyy-mm-dd HH:MM:ss')
             },
 
-            // Modal and form
-            modalOpen(appointment, scenario) {
+            formLoad(attributes, scenario) {
+                if (scenario === 'create') this.$refs.form.scenarioCreate();
+                else this.$refs.form.scenarioUpdate();
+
+                this.$refs.form.setAttributes(attributes);
+                this.$refs.form.loadData();
                 this.modal = true;
-                this.scenario = scenario;
-                this.setAttributesForAppointment(appointment);
-                this.loadServicesData(appointment.master_id);
             },
+
             modalClose() {
                 this.modal = false;
+                this.$refs.form.clearData();
+
                 if (this.currentAppointment && this.currentAppointment.isNew) {
                     this.scheduler.deleteEvent(this.currentAppointment.id);
                 }
                 this.scheduler.endLightbox(false);
             },
-
-            onAddItem() {
-                let index = _.findIndex(this.services, {id: this.serviceSelect}),
-                    service = this.services[index];
-
-                this.addItem(service.id, service.name, service.price, service.duration, 1, null);
-            },
-            addItems(items = []) {
-                items.forEach(item => {
-                    this.addItem(
-                        item.service_id,
-                        item.service_name,
-                        item.service_price,
-                        item.service_duration,
-                        item.quantity,
-                        null
-                    )
-                });
-            },
-            // Добавляет услугу в список услуг
-            addItem(
-                serviceId,
-                serviceName,
-                servicePrice,
-                serviceDuration,
-                quantity,
-                discount
-            ) {
-                this.attributes.items.push({
-                    service_id: serviceId,
-                    service_name: serviceName,
-                    service_price: servicePrice,
-                    service_duration: serviceDuration,
-                    quantity: quantity,
-                    discount: discount
-                });
-            },
-            deleteItem(index) {
-                this.attributes.items.splice(index, 1);
-            },
-
-            setAttributesForAppointment(appointment) {
-                this.clearAttributes();
-
-                this.attributes.id = appointment.id || null;
-                this.attributes.master_id = appointment.master_id;
-                this.attributes.client_id = appointment.client_id || null;
-                this.attributes.status = appointment.status || null;
-                this.attributes.start_date = appointment.start_date;
-                this.attributes.end_date = appointment.end_date;
-
-                if (appointment.items !== undefined && Array.isArray(appointment.items)) this.addItems(appointment.items);
-            },
-
-            submit() {
-                if (this.attributes.items.length === 0) {
-                    alert('Нет услуг');
-                    return;
-                }
-
-                if (!this.$refs.form.validate()) {
-                    console.log(this.attributes);
-                    return;
-                }
-
-                let gl = null;
-
-                if (this.isScenarioCreate()) {
-                    gl = gql`mutation (
-                            $attributes: AppointmentCreateInput!
-                      ) {
-                        appointmentCreate(
-                            attributes: $attributes
-                          ) {
-                                id, user_id, master_id, salon_id, client_id, status, start_date, end_date,
-                                items {
-                                  id, appointment_id, service_id, service_name, service_price, service_duration, quantity
-                                },
-                                client {id, surname, name, patronymic, date_birth}
-                          }
-                    }`
-                } else if (this.isScenarioUpdate()) {
-                    gl = gql`mutation (
-                            $id: ID!,
-                            $attributes: AppointmentUpdateInput!
-                      ) {
-                        appointmentUpdate(
-                            id: $id,
-                            attributes: $attributes
-                          ) {
-                                id, user_id, master_id, salon_id, client_id, status, start_date, end_date,
-                                items {
-                                  id, appointment_id, service_id, service_name, service_price, service_duration, quantity
-                                },
-                                client {id, surname, name, patronymic, date_birth}
-                          }
-                    }`
-                }
-
-                this.$apollo.mutate({
-                    mutation: gl,
-                    variables: {
-                        id: this.attributes.id,
-                        attributes: {
-                            salon_id: this.salonId,
-                            master_id: this.attributes.master_id,
-                            client_id: this.attributes.client_id,
-                            status: this.attributes.status,
-                            start_date: this.attributes.start_date,
-                            end_date: this.attributes.end_date,
-                            items: this.attributes.items.map(item => {
-                                return {service_id: item.service_id, quantity: item.quantity}
-                            })
-                        }
-                    }
-                }).then(({data}) => {
-                    if (data.appointmentCreate || data.appointmentUpdate) this.$emit('save', data.appointmentCreate || data.appointmentUpdate);
-
-                    if (this.isScenarioCreate()) {
-                        this.createdAppointment(data.appointmentCreate);
-                    }
-                    if (this.isScenarioUpdate()) {
-                        this.updatedAppointment(data.appointmentUpdate);
-                    }
-                });
-            },
-
-            clearAttributes() {
-                this.attributes.master_id = null;
-                this.attributes.client_id = null;
-                this.attributes.status = null;
-                this.attributes.start_date = null;
-                this.attributes.end_date = null;
-                this.attributes.items = [];
-                this.services = [];
-            },
-            getStatusList() {
-                let statuses = this.status.getStatusList(),
-                    statusList = [];
-
-                for (let status in statuses) {
-                    statusList.push({value: +status, text: statuses[status]});
-                }
-                return statusList;
-            },
-            scenarioCreate() {
-                this.scenario = SCENARIO_CREATE;
-            },
-            scenarioUpdate() {
-                this.scenario = SCENARIO_UPDATE;
-            },
-            isScenarioCreate() {
-                return this.scenario === SCENARIO_CREATE;
-            },
-            isScenarioUpdate() {
-                return this.scenario === SCENARIO_UPDATE;
-            }
         },
-        filters: {
-            formatDate(value) {
-                var date = new Date(value);
-
-                function format(value) {
-                    return value < 10 ? '0' + value : value;
-                }
-
-                return format(date.getHours()) + ':' + format(date.getMinutes());
-            },
-            // Формаирует количество минут
-            formatDuration(minute) {
-                var seconds = minute * 60,
-                    minutes = Math.floor(seconds / 60 % 60),
-                    hours = Math.floor(seconds / 3600 % 24);
-
-                function format(value) {
-                    return value < 10 ? '0' + value : value;
-                }
-
-                return format(hours) + ':' + format(minutes);
-            },
-            // Форматирует число
-            formatCurrency(value) {
-                return new Intl.NumberFormat('ru-RU', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                }).format(value);
-            }
-        },
-
         watch: {
             '$route.query.master_id': function () {
                 this.setMasterId();

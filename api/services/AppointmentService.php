@@ -2,9 +2,10 @@
 
 namespace api\services;
 
-use GraphQL\Error\Error;
 use Yii;
 use yii\db\Exception;
+use api\models\Salon;
+use api\models\User;
 use api\exceptions\AttributeValidationError;
 use api\exceptions\NotFoundEntryError;
 use api\models\Appointment;
@@ -20,66 +21,64 @@ use api\models\SalonService;
 class AppointmentService extends \api\services\Service
 {
     /**
-     * Создает запись
-     *
-     * @param array $data
-     * @return Appointment
-     * @throws AttributeValidationError
+     * @param array $attributes
+     * @return null
      * @throws Exception
      */
-    public function create(array $data)
+    public function create(array $attributes)
     {
-        $model = new Appointment();
-        $model->setAttributes($data);
-
-        $this->validate($model);
-
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
-            $model->save(false);
-
-            if (!empty($data['items'])) $this->createItems($model->id, $data['items'], $model->salon_id);
-
-            $transaction->commit();
-        } catch (\Exception $exception) {
-            $transaction->rollBack();
-            throw $exception;
+        $accountId = null;
+        if (!empty($attributes['user_id'])) {
+            $accountId = ($user = User::find()->oneById($attributes['user_id'])) ? $user->account_id : null;
+        } else if ($attributes['salon_id']) {
+            $accountId = ($salon = Salon::find()->oneById($attributes['salon_id'])) ? $salon->account_id : null;
         }
 
-        return $model;
+        return $this->save(new Appointment([
+            'account_id' => $accountId
+        ]), $attributes);
     }
 
     /**
-     * Обновляет запись
-     *
      * @param int $id
-     * @param array $data
-     * @return array|null|\yii\db\ActiveRecord
-     * @throws AttributeValidationError
+     * @param array $attributes
+     * @return null
      * @throws Exception
      * @throws NotFoundEntryError
      */
-    public function update(int $id, array $data)
+    public function update(int $id, array $attributes)
     {
         if (!$model = Appointment::find()->oneById($id)) throw new NotFoundEntryError();
 
-        $model->setAttributes($data);
+        return $this->save($model, $attributes);
+    }
 
-        $this->validate($model);
+    /**
+     * @param Appointment $model
+     * @param array $attributes
+     * @return null
+     * @throws Exception
+     */
+    private function save(Appointment $model, array $attributes)
+    {
+        return $this->wrappedTransaction(function () use ($model, $attributes) {
+            $model->setAttributes($attributes);
 
-        $transaction = Yii::$app->db->beginTransaction();
-        try {
+            if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
+
             $model->save(false);
 
-            if (!empty($data['items'])) $this->createItems($model->id, $data['items'], $model->salon_id);
-
-            $transaction->commit();
-        } catch (\Exception $exception) {
-            $transaction->rollBack();
-            throw $exception;
-        }
-
-        return $model;
+            if (!empty($attributes['items'])) {
+                if (!$model->isNewRecord) {
+                    AppointmentItem::deleteAll([
+                        'appointment_id' => $model->id,
+                        'account_id' =>$model->account_id
+                    ]);
+                }
+                $this->saveItems($model, $attributes['items']);
+            }
+            return $model;
+        });
     }
 
     /**
@@ -97,122 +96,57 @@ class AppointmentService extends \api\services\Service
     }
 
     /**
-     * @param Appointment $model
+     * @param Appointment $appointment
+     * @param array $items
+     * @return bool
      * @throws AttributeValidationError
+     * @throws Exception
+     * @throws NotFoundEntryError
      */
-    private function validate(Appointment $model)
+    private function saveItems(Appointment $appointment, array $items): bool
     {
         /*
          * @todo
-         * Добавить проверку доступность времени в текущем аккаунте
+         * Не нравится, какой-то говнокод, отрефакторить
          */
-
-        if (!$result = $model->validate()) throw new AttributeValidationError($model->getErrors());
-    }
-
-    /**
-     * Сохраняет $items
-     *
-     * @param int $appointmentId
-     * @param array $items
-     * @param null $salonId
-     * @return array
-     * @throws AttributeValidationError
-     * @throws Error
-     * @throws Exception
-     */
-    public function createItems(int $appointmentId, array $items, $salonId = null)
-    {
         $services = Service::find()
             ->asArray()
             ->indexBy('id')
+            ->andWhere(['account_id' => $appointment->account_id])
             ->allByIdInService(array_column($items, 'service_id'));
 
         $salonServices = [];
-        if ($salonId !== null) {
+        if ($appointment->salon_id !== null) {
             $salonServices = SalonService::find()
-                ->where(['salon_id' => $salonId])
+                ->where(['salon_id' => $appointment->salon_id])
                 ->andWhere(['in', 'service_id', array_column($items, 'service_id')])
-                ->byAccountId()
+                ->andWhere(['account_id' => $appointment->account_id])
                 ->indexBy('service_id')
+                ->asArray()
                 ->all();
         }
 
+        $attributes = ['account_id', 'appointment_id', 'service_id', 'service_name', 'service_price', 'service_duration', 'quantity'];
+        $batch = [];
         $models = [];
         foreach ($items as $key => $item) {
-            if (empty($services[$item['service_id']])) throw new Error('Not exist service_id');
+            if (empty($services[$item['service_id']])) throw new NotFoundEntryError();
 
             $models[$key] = new AppointmentItem([
-                'appointment_id' => $appointmentId,
+                'account_id' => $appointment->account_id,
+                'appointment_id' => $appointment->id,
+                'service_id' => $item['service_id'],
                 'service_name' => $services[$item['service_id']]['name'],
-                'service_price' => $salonId ? $salonServices[$item['service_id']]['service_price'] : $services[$item['service_id']]['price'],
-                'service_duration' => $salonId ? $salonServices[$item['service_id']]['service_duration'] : $services[$item['service_id']]['duration'],
+                'service_price' => $appointment->salon_id ? $salonServices[$item['service_id']]['service_price'] : $services[$item['service_id']]['price'],
+                'service_duration' => $appointment->salon_id ? $salonServices[$item['service_id']]['service_duration'] : $services[$item['service_id']]['duration'],
+                'quantity' => $item['quantity']
             ]);
             $models[$key]->setAttributes($item);
+            if (!$models[$key]->validate()) throw new AttributeValidationError($models[$key]->getErrors());
+
+            $batch[] = $models[$key]->getAttributes($attributes);
         }
-
-        $this->saveItems($appointmentId, $models);
-
-        return $models;
-    }
-
-    /**
-     * @param array $models
-     * @param null $attribute
-     * @return bool
-     * @throws AttributeValidationError
-     */
-    private function validateItems($models = [], $attribute = null)
-    {
-        foreach ($models as $model) {
-            /**
-             * @var AppointmentItem $model
-             */
-            if (!$model->validate($attribute)) throw new AttributeValidationError($model->getErrors());
-        }
-        return true;
-    }
-
-    /**
-     * @param int $appointmentId
-     * @param array $models
-     * @throws AttributeValidationError
-     * @throws Exception
-     */
-    private function saveItems(int $appointmentId, array $models): void
-    {
-        if ($this->validateItems($models)) {
-
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
-                AppointmentItem::deleteAll(['appointment_id' => $appointmentId, 'account_id' => Yii::$app->account->getId()]);
-
-                foreach ($models as $model) $model->save(false);
-
-                $transaction->commit();
-            } catch (\Exception $exception) {
-                $transaction->rollBack();
-
-                throw $exception;
-            }
-        }
-    }
-
-    /**
-     * @param int $appointmentId
-     * @param array $data
-     * @return bool
-     */
-
-    /*
-     * @todo
-     */
-    public function deleteItems(int $appointmentId, array $data): bool
-    {
-        $services = AppointmentItem::find()->allById($data);
-
-        foreach ($services as $service) $service->delete();
-
-        return true;
+        return (bool) Yii::$app->db->createCommand()->batchInsert(AppointmentItem::tableName(), $attributes, $batch)
+            ->execute();
     }
 }

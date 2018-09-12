@@ -3,7 +3,7 @@
         <router-link :to="{name: 'appointmentManager'}" class="menu-blocks__item">
             <span class="menu-blocks__item-name">Журнал</span>
         </router-link>
-        <router-link :to="{name: 'userSchedule'}" class="menu-blocks__item">
+        <router-link :to="{name: 'userScheduleManager'}" class="menu-blocks__item">
             <span class="menu-blocks__item-name">График работы</span>
         </router-link>
         <router-link :to="{name: 'portfolioManager'}" class="menu-blocks__item">

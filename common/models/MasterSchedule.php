@@ -5,7 +5,7 @@ namespace common\models;
 use Yii;
 use yii\db\ActiveRecord;
 use common\validators\MasterExistValidator;
-use common\validators\MasterScheduleExistValidator;
+use common\validators\MasterScheduleValidator;
 use common\validators\SalonExistValidator;
 use common\behaviors\AccountBehavior;
 use common\queries\MasterScheduleQuery;
@@ -54,7 +54,7 @@ class MasterSchedule extends ActiveRecord
             ['type', 'in', 'range' => array_keys(self::getTypeList())],
             ['salon_id', SalonExistValidator::class],
             ['master_id', MasterExistValidator::class],
-            ['item', MasterScheduleExistValidator::class, 'on' => self::SCENARIO_DEFAULT],
+            ['item', MasterScheduleValidator::class, 'on' => self::SCENARIO_DEFAULT],
             ['start_date', function ($attribute, $params) {
                 if (date($this->$attribute) === date($this->end_date)) {
                     $this->addError($attribute, '"start_date" равна "end_date"');

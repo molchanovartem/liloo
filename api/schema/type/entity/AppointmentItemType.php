@@ -2,10 +2,10 @@
 
 namespace api\schema\type\entity;
 
+use GraphQL\Type\Definition\ObjectType;
 use api\models\Appointment;
 use api\models\AppointmentItem;
 use api\schema\registry\TypeRegistry;
-use GraphQL\Type\Definition\ObjectType;
 use api\schema\type\QueryTypeInterface;
 
 /**
@@ -26,7 +26,6 @@ class AppointmentItemType extends ObjectType implements QueryTypeInterface
             'fields' => function () use ($typeRegistry) {
                 return [
                     'id' => $typeRegistry->id(),
-                    'account_id' => $typeRegistry->id(),
                     'appointment_id' => $typeRegistry->id(),
                     'service_id' => $typeRegistry->id(),
                     'service_name' => $typeRegistry->string(),

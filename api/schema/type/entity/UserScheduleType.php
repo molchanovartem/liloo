@@ -46,7 +46,6 @@ class UserScheduleType extends ObjectType implements QueryTypeInterface
             'userSchedules' => [
                 'type' => $typeRegistry->listOff($entityRegistry->userSchedule()),
                 'args' => [
-                    'user_id' => $typeRegistry->nonNull($typeRegistry->id()),
                     'start_date' => [
                         'type' => $typeRegistry->dateTime(),
                         'description' => 'Дата начала, формат "Y-m-d H:i:s"',
@@ -59,7 +58,7 @@ class UserScheduleType extends ObjectType implements QueryTypeInterface
                     ],
                 ],
                 'resolve' => function ($root, $args) {
-                    return UserSchedule::find()->allByParams($args['user_id'], $args['start_date'], $args['end_date']);
+                    return UserSchedule::find()->allByParams($args['start_date'], $args['end_date']);
                 }
             ],
             'userSchedule' => [

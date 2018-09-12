@@ -1,6 +1,9 @@
 <template>
     <div>
-        <ul v-if="items" class="uk-breadcrumb">
+        <ul class="uk-breadcrumb">
+            <li>
+                <router-link :to="{name: 'home'}">Главная</router-link>
+            </li>
             <li v-for="item in items">
                 <router-link :to="item.to" v-if="item.to">{{item.label}}</router-link>
                 <span v-else>{{item.label}}</span>
@@ -20,14 +23,20 @@
               }}
           }
         },
-        data() {
-            return {}
+        mounted() {
+            console.log(this.$route);
         },
         computed: {
             items() {
-                let breadcrumbItems = this.$store.state.breadcrumbItems;
+                let breadcrumbs = this.$route.meta && this.$route.meta.breadcrumbs ? this.$route.meta.breadcrumbs : null,
+                    items = [];
 
-                return breadcrumbItems ? [this.main].concat(this.$store.state.breadcrumbItems) : null;
+                if (typeof breadcrumbs === 'function') {
+                    items = breadcrumbs(this.$route);
+                } else {
+                    items = breadcrumbs;
+                }
+                return items;
             }
         }
     }

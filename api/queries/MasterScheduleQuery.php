@@ -13,7 +13,6 @@ class MasterScheduleQuery extends \common\queries\MasterScheduleQuery
     {
         return $this->where(['between', 'start_date', $startDate, $endDate])
             ->andFilterWhere(['salon_id' => $salonId, 'master_id' => $masterId])
-            ->byAccountId()
-            ->all();
+            ->allByAccountId();
     }
 }

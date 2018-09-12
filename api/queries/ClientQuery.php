@@ -11,9 +11,8 @@ class ClientQuery extends \common\queries\ClientQuery
 {
     public function allByParams(int $limit, int $offset)
     {
-        return $this->byAccountId()
-            ->limit($limit)
+        return $this->limit($limit)
             ->offset($offset)
-            ->all();
+            ->allByAccountId();
     }
 }

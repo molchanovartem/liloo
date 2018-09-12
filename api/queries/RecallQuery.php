@@ -11,7 +11,6 @@ class RecallQuery extends \common\queries\RecallQuery
     public function allByParams($appointmentId)
     {
         return $this->byAppointmentId($appointmentId)
-            ->byAccountId()
-            ->all();
+            ->allByAccountId();
     }
 }

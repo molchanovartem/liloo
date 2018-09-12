@@ -169,13 +169,11 @@
             createEvent(event) {
                 this.$apollo.mutate({
                     mutation: gql`mutation (
-                            $userId: ID!,
                             $type: Int!,
                             $startDate: DateTime!,
                             $endDate: DateTime!
                         ) {
                         userScheduleCreate(attributes: {
-                            user_id: $userId,
                             type: $type,
                             start_date: $startDate,
                             end_date: $endDate
@@ -184,7 +182,6 @@
                         }
                     }`,
                     variables: {
-                        userId: 1,
                         type: 1,
                         startDate: this.dateFormat(event.start_date),
                         endDate: this.dateFormat(event.end_date)

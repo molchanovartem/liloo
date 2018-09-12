@@ -1,34 +1,36 @@
 <template>
-    <div>
+    <div class="content-block p-40 content-block_shadow">
         <div>
             <router-link :to="{name: 'userProfileUpdate'}"><i class="mdi mdi-pencil"></i></router-link>
         </div>
-        <div v-if="isAvatar()" class="uk-display-inline-block uk-overflow-hidden" style="width: 200px;">
-            <img :src="getAvatarUrl()" class="uk-border-circle" alt="" style="width: 100%"/>
-        </div>
-        <div class="uk-display-inline-block">
-        </div>
+        {{content}}
     </div>
 </template>
 
 <script>
-    import _ from 'lodash';
-
-    let text = 'Профиль';
+    import gql from 'graphql-tag';
 
     export default {
         mounted() {
-            this.$store.commit('setHeading', text);
-            this.$store.commit('addBreadcrumbItems', [{label: text}]);
-        },
-        components: {
+          this.loadData();
         },
         data() {
             return {
-                attributes: {surname: null, name: null, patronymic: null, avatar: null}
+                content: null
             }
         },
         methods: {
+            loadData() {
+                this.$apollo.query({
+                    query: gql`query {
+                        user {login, profile {surname, name, patronymic, phone, date_birth}}
+                    }`
+                }).then(({data}) => {
+                    if (data.user) {
+                        this.content = data.user;
+                    }
+                });
+            },
             isAvatar() {
                 return this.attributes.avatar !== null && this.attributes.avatar !== '';
             },

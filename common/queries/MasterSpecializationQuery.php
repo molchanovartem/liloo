@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class MasterSpecializationQuery extends Query
+class MasterSpecializationQuery extends AccountQuery
 {
     /**
      * @param int $masterId

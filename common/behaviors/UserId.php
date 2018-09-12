@@ -2,6 +2,7 @@
 
 namespace common\behaviors;
 
+use Yii;
 use yii\db\ActiveRecord;
 use yii\base\Model;
 
@@ -13,7 +14,10 @@ use yii\base\Model;
 class UserId extends \yii\base\Behavior
 {	
 	public $attribute = 'user_id';
-	
+
+    /**
+     * @return array
+     */
 	public function events()
 	{
 		return [
@@ -26,8 +30,7 @@ class UserId extends \yii\base\Behavior
 	public function recordUserId()
 	{
 	    if ($this->owner->{$this->attribute} == '') {
-            $this->owner->{$this->attribute} = 52;
-            //$this->owner->{$this->attribute} = Yii::$app->user->getId();
+            $this->owner->{$this->attribute} = Yii::$app->user->getId();
         }
 	}
 }

@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class MasterServiceQuery extends Query
+class MasterServiceQuery extends AccountQuery
 {
     /**
      * @param int $masterId

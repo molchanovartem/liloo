@@ -1,4 +1,3 @@
-
 import Manager from '../../pages/service/Manager.vue';
 import Form from '../../pages/service/Form.vue';
 
@@ -9,8 +8,10 @@ export default [
         name: 'serviceManager',
         meta: {
             title: 'Услуги',
-            breadcrumb($route) {
-                return {label: 'Услуги', to: {name: 'serviceManager'}};
+            breadcrumbs(route) {
+                return [
+                    {label: 'Услуги', to: {name: 'serviceManager'}}
+                ];
             }
         },
     },
@@ -23,8 +24,10 @@ export default [
         },
         meta: {
             title: 'Создание услуги',
-            breadcrumb($route) {
-                return {label: 'Создание услуги', to: {name: 'serviceCreate'}};
+            breadcrumbs(route) {
+                return [
+                    {label: 'Создание услуги', to: {name: 'serviceCreate'}}
+                ];
             }
         },
     },
@@ -40,8 +43,10 @@ export default [
         },
         meta: {
             title: 'Редактирование услуги',
-            breadcrumb($route) {
-                return {label: 'Редактирование услуги', to: {name: 'serviceUpdate'}};
+            breadcrumbs(route) {
+                return [
+                    {label: 'Редактирование услуги', to: {name: 'serviceUpdate'}}
+                ];
             }
         },
     }

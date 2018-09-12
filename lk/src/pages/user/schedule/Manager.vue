@@ -7,10 +7,11 @@
             <li>event каскадность</li>
             <li>локализация</li>
         </ul>
-        <v-master v-if="masterId" :salonId=" salonId" :masterId="masterId" @save="onMasterScheduleSave"/>
+
+        <v-master-schedule @save="onMasterScheduleSave"/>
 
         <div>
-            <div id="masterScheduleManager" class="dhx_cal_container" style='width:100%; height:1000px;'>
+            <div id="userScheduleManager" class="dhx_cal_container" style='width:100%; height:1000px;'>
                 <div class="dhx_cal_navline">
                     <div class="dhx_cal_prev_button">&nbsp;</div>
                     <div class="dhx_cal_next_button">&nbsp;</div>
@@ -32,23 +33,13 @@
 
     import gql from 'graphql-tag';
     import commonMixin from './commonMixin';
-    import VMaster from './MasterSchedule.vue';
+    import VMasterSchedule from './MasterSchedule.vue';
 
     export default {
-        name: "MasterSchedule",
-        props: {
-            salonId: {
-                type: String,
-                required: true
-            },
-            masterId: {
-                type: String,
-                required: true
-            }
-        },
+        name: "UserSchedule",
         mixins: [commonMixin],
         components: {
-            VMaster
+            VMasterSchedule
         },
         mounted() {
             this.initScheduler();
@@ -63,7 +54,7 @@
                 this.initSchedulerConfig();
                 this.initSchedulerEvents();
 
-                this.scheduler.init('masterScheduleManager', new Date(), "timeline");
+                this.scheduler.init('userScheduleManager', new Date(), "timeline");
             },
             initSchedulerConfig() {
                 this.scheduler.locale.labels.timeline_tab = "Timeline";
@@ -73,7 +64,6 @@
                 this.scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                 this.scheduler.config.dblclick_create = false;
                 this.scheduler.config.preserve_length = true;
-                this.scheduler.xy.scale_height = 35;
 
                 var viewName = 'timeline';
                 this.scheduler.createTimelineView({
@@ -173,26 +163,19 @@
                 });
 
                 this.$apollo.query({
-                    query: gql`query ($salonId: ID!, $masterId: ID!, $startDate: DateTime, $endDate: DateTime) {
-                        masterSchedules(
-                            salon_id: $salonId,
-                            master_id: $masterId,
-                            start_date: $startDate,
-                            end_date: $endDate
-                         ) {
+                    query: gql`query ($startDate: DateTime, $endDate: DateTime) {
+                        userSchedules(start_date: $startDate, end_date: $endDate) {
                             id, type, start_date, end_date
                         }
                     }`,
                     variables: {
-                        salonId: this.salonId,
-                        masterId: this.masterId,
                         startDate: this.dateFormat(startDate),
                         endDate: this.dateFormat(endDate)
                     }
                 }).then(({data}) => {
-                    if (data.masterSchedules) {
+                    if (data.userSchedules) {
                         let events = [];
-                        Array.from(data.masterSchedules).forEach(item => {
+                        Array.from(data.userSchedules).forEach(item => {
                             events.push({
                                 id: item.id,
                                 start_date: item.start_date,
@@ -216,25 +199,23 @@
             },
             createEvent(event) {
                 this.$apollo.mutate({
-                    mutation: gql`mutation ($attributes: MasterScheduleCreateInput!) {
-                        masterScheduleCreate(attributes: $attributes) {
-                            id, master_id, salon_id, type, start_date, end_date
+                    mutation: gql`mutation ($attributes: UserScheduleCreateInput!) {
+                        userScheduleCreate(attributes: $attributes) {
+                            id, type, start_date, end_date
                         }
                     }`,
                     variables: {
                         attributes: {
-                            master_id: this.masterId,
-                            salon_id: this.salonId,
                             type: 1,
                             start_date: this.dateFormat(event.start_date),
                             end_date: this.dateFormat(event.end_date)
                         }
                     },
                 }).then(({data}) => {
-                    if (data.masterScheduleCreate) {
+                    if (data.userScheduleCreate) {
                         this.$emit('save');
 
-                        this.addEvent(data.masterScheduleCreate);
+                        this.addEvent(data.userScheduleCreate);
                     }
                 });
             },
@@ -242,10 +223,10 @@
                 this.$apollo.mutate({
                     mutation: gql`mutation (
                             $id: ID!,
-                            $attributes: MasterScheduleUpdateInput!
+                            $attributes: UserScheduleUpdateInput!
                         ) {
-                        masterScheduleUpdate(id: $id, attributes: $attributes) {
-                            id, master_id, type, start_date, end_date
+                        userScheduleUpdate(id: $id, attributes: $attributes) {
+                            id, type, start_date, end_date
                         }
                     }`,
                     variables: {
@@ -256,21 +237,21 @@
                         }
                     }
                 }).then(({data}) => {
-                    if (data.masterScheduleUpdate) {
+                    if (data.userScheduleUpdate) {
                         this.$emit('save');
 
-                        this.scheduler.updateEvent(this.addEvent(data.masterScheduleUpdate));
+                        this.scheduler.updateEvent(this.addEvent(data.userScheduleUpdate));
                     }
                 });
             },
             deleteEvent(id) {
                 this.$apollo.mutate({
                     mutation: gql`mutation ($id: ID!) {
-                        masterScheduleDelete(id: $id)
+                        userScheduleDelete(id: $id)
                     }`,
                     variables: {id: id}
                 }).then(({data}) => {
-                    if (data.masterScheduleDelete) {
+                    if (data.userScheduleDelete) {
                         this.$emit('delete');
 
                         this.scheduler.deleteEvent(id);

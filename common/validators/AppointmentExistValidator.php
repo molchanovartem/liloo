@@ -44,6 +44,10 @@ class AppointmentExistValidator extends Validator
     {
         $userId = Yii::$app->user->getId();
 
+        /*
+         * @todo
+         * Перевести на prefix ({{%client}} . ' c', 'c'.'id' ...)
+         */
         $appointment = Appointment::find()
             ->leftJoin('lu_client', 'lu_client.id = lu_appointment.client_id')
             ->where(['lu_appointment.id' => $value])

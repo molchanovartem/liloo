@@ -3,8 +3,6 @@
 namespace common\validators;
 
 use DateTime;
-use Yii;
-use yii\validators\Validator;
 use common\models\MasterSchedule;
 
 /**
@@ -12,43 +10,8 @@ use common\models\MasterSchedule;
  *
  * @package common\validators
  */
-class MasterScheduleExistValidator extends Validator
+class MasterScheduleValidator extends BaseScheduleValidator
 {
-    /**
-     * @var string
-     */
-    public $message = '{value}';
-
-    /**
-     * @param mixed $value
-     * @param null $error
-     * @return bool
-     */
-    public function validate($value, &$error = null)
-    {
-        if (!$result = $this->validateValue($value)) return true;
-
-        list($message, $params) = $result;
-        $params['attribute'] = Yii::t('yii', 'the input value');
-
-        $error = $this->formatMessage($message, $params);
-
-        return false;
-    }
-
-    /**
-     * @param mixed $items
-     * @return array|null
-     */
-    protected function validateValue($items)
-    {
-        if (!$badKeys = $this->getBadDate($items)) return null;
-
-        return [$this->message, [
-            'value' => json_encode($badKeys),
-        ]];
-    }
-
     /**
      * @param array $items
      * @return array
@@ -68,7 +31,7 @@ class MasterScheduleExistValidator extends Validator
             ->andWhere(['in', 'master_id', array_unique($masters)])
             ->indexBy('id')
             ->asArray()
-            ->all();
+            ->allByAccountId();
 
         $badKeys = [];
         foreach ($items as $key => $item) {

@@ -21,7 +21,6 @@ class m180529_041520_appointment extends Migration
             'salon_id' => $this->integer(),
             'master_id' => $this->integer(),
             'client_id' => $this->integer()->notNull(),
-            'owner_id' => $this->integer()->notNull(),
             'status' => $this->integer()->notNull(),
             'start_date' => $this->dateTime()->notNull(),
             'end_date' => $this->dateTime()->notNull()
@@ -41,9 +40,6 @@ class m180529_041520_appointment extends Migration
 
         $this->createIndex('ix-appointment-client_id', $this->tableName, 'client_id');
         $this->addForeignKey('fk-appointment-client_id', $this->tableName, 'client_id', '{{%client}}', 'id', 'NO ACTION', 'CASCADE');
-
-        $this->createIndex('ix-appointment-owner_id', $this->tableName, 'owner_id');
-        $this->addForeignKey('fk-appointment-owner_id', $this->tableName, 'owner_id', '{{%user}}', 'id', 'NO ACTION', 'CASCADE');
     }
 
     /**

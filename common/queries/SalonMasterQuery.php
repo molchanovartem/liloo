@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class SalonMasterQuery extends Query
+class SalonMasterQuery extends AccountQuery
 {
     /**
      * @param int $salonId

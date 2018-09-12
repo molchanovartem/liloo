@@ -6,20 +6,41 @@ export default [
         path: '/client/manager',
         component: Manager,
         name: 'clientManager',
-        meta: {title: 'Клиеты'},
+        meta: {
+            title: 'Клиеты',
+            breadcrumbs(route) {
+                return [
+                    {label: 'Клиеты'},
+                ];
+            }
+        },
     },
     {
         path: '/client/create',
         component: Form,
         name: 'clientCreate',
-        meta: {title: 'Создание клиента'},
+        meta: {
+            title: 'Создание клиента',
+            breadcrumbs(route) {
+                return [
+                    {label: 'Клиеты', to: {name: 'clientManager'}},
+                ];
+            }
+        },
         props: {type: 'create'}
     },
     {
         path: '/client/update/:id',
         component: Form,
         name: 'clientUpdate',
-        meta: {title: 'Редактирование клиента'},
+        meta: {
+            title: 'Редактирование клиента',
+            breadcrumbs(route) {
+                return [
+                    {label: 'Клиеты', to: {name: 'clientManager'}},
+                ];
+            }
+        },
         props(route) {
             return {
                 type: 'update',

@@ -70,7 +70,7 @@ class UserType extends ObjectType implements QueryTypeInterface
                             ],
                         ],
                         'resolve' => function (User $user, $args, $context, $info) {
-                            return UserSchedule::find()->allByParams($user->id, $args['start_date'], $args['end_date']);
+                            return UserSchedule::find()->allByParams($args['start_date'], $args['end_date']);
                         }
                     ]
                 ];

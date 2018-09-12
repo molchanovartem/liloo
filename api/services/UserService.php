@@ -4,10 +4,10 @@ namespace api\services;
 
 use Yii;
 use yii\db\Expression;
+use common\validators\UserScheduleValidator;
 use common\models\Account;
 use common\models\UserSpecialization;
 use common\models\UserConvenience;
-use api\models\AccountUser;
 use api\exceptions\AttributeValidationError;
 use api\exceptions\NotFoundEntryError;
 use api\models\User;
@@ -259,12 +259,41 @@ class UserService extends Service
      * @return UserSchedule
      * @throws AttributeValidationError
      */
-    public function createSchedule(array $data)
+    public function createUserSchedule(array $data)
     {
         $model = new UserSchedule();
         $model->setAttributes($data);
 
-        return $this->saveSchedule($model);
+        return $this->saveUserSchedule($model);
+    }
+
+    /**
+     * @param array $items
+     * @return null
+     * @throws \yii\db\Exception
+     */
+    public function createUserSchedules(array $items)
+    {
+        return $this->wrappedTransaction(function () use ($items) {
+            $attributes = ['user_id', 'type', 'start_date', 'end_date'];
+            $batch = [];
+            $models = [];
+
+            foreach ($items as $key => $item) {
+                $models[$key] = new UserSchedule($item);
+                $models[$key]->setScenario(UserSchedule::SCENARIO_BATCH);
+
+                if (!$models[$key]->validate()) throw new AttributeValidationError($models[$key]->getErrors());
+                $batch[] = $models[$key]->getAttributes($attributes);
+            }
+
+            // Удаляем записи если даты для сохранения совподают по дням
+            if ($repeatUserSchedulesDate = (new UserScheduleValidator())->getBadDate($batch)) {
+                $this->deleteMasterSchedules(array_keys($repeatUserSchedulesDate));
+            }
+
+            return (bool)Yii::$app->db->createCommand()->batchInsert(UserSchedule::tableName(), $attributes, $batch)->execute();
+        });
     }
 
     /**
@@ -274,13 +303,13 @@ class UserService extends Service
      * @throws AttributeValidationError
      * @throws NotFoundEntryError
      */
-    public function updateSchedule(int $id, array $data)
+    public function updateUserSchedule(int $id, array $data)
     {
         if (!$model = UserSchedule::find()->oneById($id)) throw new NotFoundEntryError();
 
         $model->setAttributes($data);
 
-        return $this->saveSchedule($model);
+        return $this->saveUserSchedule($model);
     }
 
     /**
@@ -288,7 +317,7 @@ class UserService extends Service
      * @return UserSchedule
      * @throws AttributeValidationError
      */
-    private function saveSchedule(UserSchedule $model)
+    private function saveUserSchedule(UserSchedule $model)
     {
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
 
@@ -301,9 +330,28 @@ class UserService extends Service
      * @return bool
      * @throws NotFoundEntryError
      */
-    public function deleteSchedule(int $id)
+    public function deleteUserSchedule(int $id)
     {
-        if (($result = UserSchedule::deleteAll(['id' => $id])) == 0) throw new NotFoundEntryError();
-        return (bool)$result;
+        return (bool) UserSchedule::deleteById($id);
+    }
+
+    /**
+     * @param array $id
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public function deleteMasterSchedules(array $id): bool
+    {
+        /*
+         * @todo
+         *  Проверить id на injectSQL
+         */
+        return (bool)Yii::$app->db->createCommand()->delete(UserSchedule::tableName(), new Expression(
+                "FIND_IN_SET(`id`, :id) AND `user_id` = :userId",
+                [
+                    ':userId' => Yii::$app->user->getId(),
+                    ':id' => implode(',', $id),
+                ])
+        )->execute();
     }
 }
