@@ -6,7 +6,7 @@ namespace common\queries;
  * Class AccountTariffQuery
  * @package common\queries
  */
-class AccountTariffQuery extends Query
+class AccountTariffQuery extends AccountQuery
 {
 
 }

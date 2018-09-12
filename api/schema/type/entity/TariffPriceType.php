@@ -53,7 +53,7 @@ class TariffPriceType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return TariffPrice::find()->byId($args['id'])->one();
+                    return TariffPrice::find()->oneById($args['id']);
                 }
             ],
         ];

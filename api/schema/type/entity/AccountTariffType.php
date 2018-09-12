@@ -29,9 +29,7 @@ class AccountTariffType extends ObjectType implements QueryTypeInterface
                     'tariff' => [
                         'type' => $entityRegistry->tariff(),
                         'resolve' => function (AccountTariff $accountTariff, $args, $context, $info) {
-                            return Tariff::find()
-                                ->where(['id' => $accountTariff->tariff_id])
-                                ->one();
+                            return Tariff::find()->oneById($accountTariff->tariff_id);
                         }
                     ],
                 ];
