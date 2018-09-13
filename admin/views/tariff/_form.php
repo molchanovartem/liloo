@@ -23,6 +23,11 @@ use admin\widgets\activeForm\ActiveForm;
 
 
         <?= $form->field($model, 'quantity')->textInput(['maxlength' => true]) ?>
+
+        <?php $access->access = explode('/', $model->data); ?>
+
+        <?= $form->field($access, 'access')->checkboxList($access->getTariffAccessList(), ['separator' => '<br>']) ?>
+
     </div>
 
     <?php ActiveForm::end(); ?>

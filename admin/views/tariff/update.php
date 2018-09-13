@@ -9,6 +9,7 @@ $this->params['breadcrumbs'][] = 'Изменение';
 
     <?= $this->render('_form', [
         'model' => $model,
+        'access' => $access,
     ]) ?>
 
 </div>

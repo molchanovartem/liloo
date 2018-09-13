@@ -2,6 +2,7 @@
 
 namespace admin\services;
 
+use admin\forms\TariffForm;
 use common\core\service\ModelService;
 use common\models\Tariff;
 use common\models\TariffPrice;
@@ -28,8 +29,13 @@ class TariffService extends ModelService
     {
         $type == 'create' ? $model = new Tariff() : $model = Tariff::find()->where(['id' => $params['id']])->one();
         $this->setData([
+            'access' => new TariffForm,
             'model' => $model
         ]);
+
+        if ($this->getData('post')) {
+            $model->data = implode('/', $this->getData('post')['TariffForm']['access']);
+        }
 
         return $model->load($this->getData('post')) && $model->save();
     }

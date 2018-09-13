@@ -54,6 +54,7 @@ class TariffController extends Controller
             'prices' => $data['price'],
         ]);
     }
+
     /**
      * @return string|\yii\web\Response
      */
@@ -97,9 +98,10 @@ class TariffController extends Controller
     {
         $result = $this->modelService->save($type, $params);
         $data = $this->modelService->getData();
-
         return $result ? $this->redirect(['view', 'id' => $data['model']->id]) :
-            $this->render($type, ['model' => $data['model']
+            $this->render($type, [
+                'model' => $data['model'],
+                'access' => $data['access']
             ]);
     }
 
@@ -113,5 +115,10 @@ class TariffController extends Controller
         $this->modelService->delete($id);
 
         return $this->redirect(['index']);
+    }
+
+    public function actionCreateTariff()
+    {
+
     }
 }
