@@ -2,12 +2,12 @@
 
 namespace api\services;
 
+use Yii;
+use yii\base\Event;
 use admin\models\Notice;
 use api\exceptions\AttributeValidationError;
 use api\models\Recall;
 use common\models\Appointment;
-use Yii;
-use yii\base\Event;
 
 /**
  * Class RecallService
@@ -24,6 +24,7 @@ class RecallService extends Service
             Yii::$app->adminNotice->createNotice(Notice::TYPE_USER_RECALL, Notice::STATUS_UNREAD, 'text', $model->sender);
         });
     }
+
     /**
      * @param array $attributes
      * @param $type
@@ -71,7 +72,6 @@ class RecallService extends Service
                 ->select('lu_appointment.account_id')
                 ->leftJoin('lu_appointment', 'lu_appointment.id = lu_recall.appointment_id')
                 ->where(['lu_recall.id' => $model->parent_id])
-                ->andWhere([])
                 ->one()['account_id'];
         }
 

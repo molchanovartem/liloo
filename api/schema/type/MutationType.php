@@ -17,6 +17,7 @@ use api\schema\type\mutation\salon\SalonType;
 use api\schema\type\mutation\salon\service\SalonServiceType;
 use api\schema\type\mutation\service\ServiceType;
 use api\schema\type\mutation\serviceGroup\ServiceGroupType;
+use api\schema\type\mutation\tariff\TariffType;
 use api\schema\type\mutation\user\UserConvenienceType;
 use api\schema\type\mutation\specialization\SpecializationType;
 use api\schema\registry\TypeRegistry;
@@ -63,7 +64,8 @@ class MutationType extends ObjectType
                     MasterSpecializationType::getMutationFieldsType($typeRegistry),
                     MasterScheduleType::getMutationFieldsType($typeRegistry),
                     MasterServiceType::getMutationFieldsType($typeRegistry),
-                    RecallType::getMutationFieldsType($typeRegistry)
+                    RecallType::getMutationFieldsType($typeRegistry),
+                    TariffType::getMutationFieldsType($typeRegistry)
                 );
             }
         ]);

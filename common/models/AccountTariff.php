@@ -25,8 +25,8 @@ class AccountTariff extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'tariff_id', 'end_date'], 'required'],
-            [['account_id', 'tariff_id'], 'integer'],
+            [['account_id', 'tariff_id', 'price_id', 'end_date'], 'required'],
+            [['account_id', 'tariff_id', 'price_id'], 'integer'],
             [['end_date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
         ];
     }

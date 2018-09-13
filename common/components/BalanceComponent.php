@@ -13,22 +13,47 @@ use yii\base\Component;
  */
 class BalanceComponent extends Component
 {
-    public function increase($accountId, $sum, $reason): bool
+    /**
+     * @param $accountId
+     * @param $sum
+     * @param $typeReason
+     * @param $dataReason
+     * @return bool
+     * @throws \Exception
+     */
+    public function increase($accountId, $sum, $typeReason, $dataReason): bool
     {
-        return $this->execute($accountId, $sum, BalanceJournal::BALANCE_INCREASE, $reason);
+        return $this->execute($accountId, $sum, BalanceJournal::TYPE_OPERATION_INCREASE, $typeReason, $dataReason);
     }
 
-    public function decrease($accountId, $sum, $reason): bool
+    /**
+     * @param $accountId
+     * @param $sum
+     * @param $typeReason
+     * @param $dataReason
+     * @return bool
+     * @throws \Exception
+     */
+    public function decrease($accountId, $sum, $typeReason, $dataReason): bool
     {
-        return $this->execute($accountId, $sum, BalanceJournal::BALANCE_DECREASE, $reason);
+        return $this->execute($accountId, $sum, BalanceJournal::TYPE_OPERATION_DECREASE, $typeReason, $dataReason);
     }
 
-    public function execute($accountId, $sum, $typeOperation, $reason): bool
+    /**
+     * @param $accountId
+     * @param $sum
+     * @param $typeOperation
+     * @param $typeReason
+     * @param $dataReason
+     * @return bool
+     * @throws \yii\db\Exception
+     */
+    public function execute($accountId, $sum, $typeOperation, $typeReason, $dataReason): bool
     {
         $transaction = Yii::$app->db->beginTransaction();
         try {
             $this->executeDB($accountId, $sum, $typeOperation);
-            $this->writeJournal($accountId, $sum, $typeOperation, $reason);
+            $this->writeJournal($accountId, $sum, $typeOperation, $typeReason, $dataReason);
             $transaction->commit();
         } catch (\Exception $exception) {
             $transaction->rollBack();
@@ -38,12 +63,19 @@ class BalanceComponent extends Component
         return true;
     }
 
+    /**
+     * @param $accountId
+     * @param $sum
+     * @param $typeOperation
+     * @return bool
+     * @throws \yii\db\Exception
+     */
     protected function executeDB($accountId, $sum, $typeOperation): bool
     {
         $sql = '';
-        if ($typeOperation == BalanceJournal::BALANCE_INCREASE) {
+        if ($typeOperation == BalanceJournal::TYPE_OPERATION_INCREASE) {
             $sql = 'UPDATE ' . Account::tableName() . ' SET `balance` = `balance` + :sum WHERE `id` = :accountId';
-        } elseif ($typeOperation == BalanceJournal::BALANCE_DECREASE) {
+        } elseif ($typeOperation == BalanceJournal::TYPE_OPERATION_DECREASE) {
             $sql = 'UPDATE ' . Account::tableName() . ' SET `balance` = `balance` - :sum WHERE `id` = :accountId';
         }
 
@@ -53,14 +85,22 @@ class BalanceComponent extends Component
             ->execute();
     }
 
-    protected function writeJournal(int $accountId, $sum, int $typeOperation, $reason)
+    /**
+     * @param int $accountId
+     * @param $sum
+     * @param int $typeOperation
+     * @param int $typeReason
+     * @param $dataReason
+     */
+    protected function writeJournal(int $accountId, $sum, int $typeOperation, int $typeReason, $dataReason)
     {
         $balanceJournal = new BalanceJournal();
 
         $balanceJournal->account_id = $accountId;
-        $balanceJournal->type_operation = $typeOperation;
         $balanceJournal->sum = $sum;
-        $balanceJournal->reason = $reason;
+        $balanceJournal->type_operation = $typeOperation;
+        $balanceJournal->type_reason = $typeReason;
+        $balanceJournal->data_reason = $dataReason;
 
         $balanceJournal->save();
     }
