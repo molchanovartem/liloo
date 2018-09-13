@@ -6,6 +6,7 @@ use api\schema\registry\TypeRegistry;
 use api\schema\type\entity\AccountTariffType;
 use api\schema\type\entity\AppointmentItemType;
 use api\schema\type\entity\AppointmentType;
+use api\schema\type\entity\BalanceJournalType;
 use api\schema\type\entity\CityType;
 use api\schema\type\entity\ConvenienceType;
 use api\schema\type\entity\CountryType;
@@ -67,7 +68,8 @@ class QueryType extends ObjectType
                     RecallType::getFieldsQueryType($typeRegistry),
                     TariffType::getFieldsQueryType($typeRegistry),
                     TariffPriceType::getFieldsQueryType($typeRegistry),
-                    AccountTariffType::getFieldsQueryType($typeRegistry)
+                    AccountTariffType::getFieldsQueryType($typeRegistry),
+                    BalanceJournalType::getFieldsQueryType($typeRegistry)
                     /*
                     UserType::getFieldsQueryType($typeRegistry),
                     UserScheduleType::getFieldsQueryType($typeRegistry),

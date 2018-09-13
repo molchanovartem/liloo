@@ -68,7 +68,7 @@ class Tariff extends \yii\db\ActiveRecord
     /**
      * @return array
      */
-    public function getTypes()
+    public static function getTypes()
     {
         return [
             self::TARIFF_TYPE_MASTER => 'Мастер',
@@ -82,6 +82,6 @@ class Tariff extends \yii\db\ActiveRecord
      */
     public function getType($type)
     {
-        return $this->getTypes()[$type];
+        return self::getTypes()[$type];
     }
 }

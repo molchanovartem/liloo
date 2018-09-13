@@ -58,12 +58,11 @@ class BalanceJournal extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $typeOperation
      * @return mixed
      */
-    public function getTypeOperation($typeOperation)
+    public function getTypeOperationName()
     {
-        return $this->getTypesOperation()[$typeOperation];
+        return $this->getTypesOperation()[$this->type_operation];
     }
 
     /**
@@ -77,11 +76,10 @@ class BalanceJournal extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $typeReason
      * @return mixed
      */
-    public function getTypeReason($typeReason)
+    public function getTypeReasonName()
     {
-        return $this->getTypesOperation()[$typeReason];
+        return $this->getTypesReason()[$this->type_reason];
     }
 }
