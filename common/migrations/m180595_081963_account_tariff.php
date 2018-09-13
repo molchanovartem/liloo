@@ -18,6 +18,7 @@ class m180595_081963_account_tariff extends Migration
             'id' => $this->primaryKey(),
             'account_id' => $this->integer()->notNull(),
             'tariff_id' => $this->integer()->notNull(),
+            'price_id' => $this->integer()->notNull(),
             'end_date' => $this->dateTime()->notNull(),
         ]);
 

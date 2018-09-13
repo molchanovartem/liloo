@@ -26,6 +26,7 @@ use api\schema\type\mutation\service\ServiceCreateInputType;
 use api\schema\type\mutation\service\ServiceUpdateInputType;
 use api\schema\type\mutation\serviceGroup\ServiceGroupCreateInputType;
 use api\schema\type\mutation\serviceGroup\ServiceGroupUpdateInputType;
+use api\schema\type\mutation\tariff\AccountTariffCreateInputType;
 use api\schema\type\mutation\user\schedule\UserScheduleCreateInputType;
 use api\schema\type\mutation\user\schedule\UserScheduleUpdateInputType;
 use api\schema\type\mutation\user\UserCreateInputType;
@@ -197,5 +198,10 @@ class MutationInputTypeRegistry
     public function recallResponseCreate()
     {
         return $this->typeRegistry->get(RecallResponseCreateInputType::class);
+    }
+
+    public function accountTariffCreate()
+    {
+        return $this->typeRegistry->get(AccountTariffCreateInputType::class);
     }
 }

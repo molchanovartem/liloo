@@ -33,9 +33,9 @@ class GraphqlController extends Controller
                 ]
                 */
             ],
-            'bearerAuth' => [
-                'class' => HttpBearerAuth::class,
-            ],
+//            'bearerAuth' => [
+//                'class' => HttpBearerAuth::class,
+//            ],
         ]);
     }
 

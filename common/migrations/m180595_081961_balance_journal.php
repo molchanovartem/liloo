@@ -18,11 +18,14 @@ class m180595_081961_balance_journal extends Migration
             'id' => $this->primaryKey(),
             'account_id' => $this->integer()->notNull(),
             'type_operation' => $this->integer()->notNull(),
+            'type_reason' => $this->integer()->notNull(),
             'sum' => $this->decimal(18, 2)->defaultValue(0.00),
-            'reason' => $this->string()->notNull(),
+            'data_reason' => $this->string()->notNull(),
         ]);
 
-        $this->execute("ALTER TABLE {$this->tableName} ADD `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `reason`;");
+        $this->execute("ALTER TABLE {$this->tableName} ADD `data_reason` JSON NULL AFTER `sum`;");
+        $this->execute("ALTER TABLE {$this->tableName} ADD `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `data_reason`;");
+
 
         $this->createIndex('ix-balance_journal-account_id', $this->tableName, 'account_id');
         $this->addForeignKey('fk-balance_journal-account_id', $this->tableName, 'account_id', '{{%account}}', 'id', 'CASCADE', 'CASCADE');

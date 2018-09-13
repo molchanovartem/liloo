@@ -12,8 +12,7 @@ use GraphQL\Type\Definition\InputObjectType;
 class AccountTariffCreateInputType extends InputObjectType
 {
     /**
-     * SpecializationCreateInputType constructor.
-     *
+     * AccountTariffCreateInputType constructor.
      * @param TypeRegistry $typeRegistry
      */
     public function __construct(TypeRegistry $typeRegistry)
@@ -21,8 +20,8 @@ class AccountTariffCreateInputType extends InputObjectType
         parent::__construct([
             'fields' => function () use ($typeRegistry) {
                 return [
-                    'name' => $typeRegistry->nonNull($typeRegistry->string()),
-                    'description' => $typeRegistry->string(),
+                    'tariff_id' => $typeRegistry->nonNull($typeRegistry->id()),
+                    'price_id' => $typeRegistry->nonNull($typeRegistry->id()),
                 ];
             }
         ]);

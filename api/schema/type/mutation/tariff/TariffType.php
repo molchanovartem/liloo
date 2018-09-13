@@ -4,7 +4,12 @@ namespace api\schema\type\mutation\tariff;
 
 use api\schema\registry\TypeRegistry;
 use api\schema\type\MutationFieldsTypeInterface;
+use api\services\TariffService;
 
+/**
+ * Class TariffType
+ * @package api\schema\type\mutation\tariff
+ */
 class TariffType implements MutationFieldsTypeInterface
 {
     /**
@@ -20,10 +25,10 @@ class TariffType implements MutationFieldsTypeInterface
             'tariffBuy' => [
                 'type' => $entityRegistry->accountTariff(),
                 'args' => [
-                    'attributes' => $typeRegistry->nonNull($inputRegistry->recallCreate())
+                    'attributes' => $typeRegistry->nonNull($inputRegistry->accountTariffCreate())
                 ],
                 'resolve' => function ($root, $args) {
-                    return (new RecallService())->create($args['attributes'], Recall::RECALL_TYPE_USER, Recall::SCENARIO_DEFAULT);
+                    return (new TariffService())->buyTariff($args['attributes']);
                 }
             ],
         ];
