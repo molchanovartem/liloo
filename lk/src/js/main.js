@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import {router} from './router.js';
 import {store} from './store.js';
-import App from '../template/App.vue'
+import App from '../template/App.vue';
 import {apolloProvider} from "./apolloProvider";
 
 import VueGoodTable from 'vue-good-table';
