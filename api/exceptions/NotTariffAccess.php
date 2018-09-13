@@ -6,14 +6,14 @@ use GraphQL\Error\Error;
 use GraphQL\Language\Source;
 
 /**
- * Class ValidationError
+ * Class NotTariffAccess
  *
  * @package api\exceptions
  */
-class ValidationError extends Error
+class NotTariffAccess extends Error
 {
     /**
-     * ValidationError constructor.
+     * ForbiddenError constructor.
      *
      * @param string $message
      * @param null $nodes
@@ -23,8 +23,10 @@ class ValidationError extends Error
      * @param \Throwable|null $previous
      * @param array $extensions
      */
-    public function __construct(string $message, $nodes = null, Source $source = null, array $positions = null, array $path = null, \Throwable $previous = null, array $extensions = [])
+    public function __construct(string $message = '', $nodes = null, Source $source = null, array $positions = null, array $path = null, \Throwable $previous = null, array $extensions = [])
     {
+        $message = $message !== '' ? $message : 'Not access';
+
         parent::__construct($message, $nodes, $source, $positions, $path, $previous, $extensions);
     }
 
@@ -33,6 +35,6 @@ class ValidationError extends Error
      */
     public function getCategory()
     {
-        return 'validation';
+        return 'tariff access'; // ???
     }
 }

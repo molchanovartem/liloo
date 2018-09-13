@@ -2,9 +2,7 @@
 
 namespace api\services;
 
-use GraphQL\Error\Error;
 use Yii;
-use yii\db\Exception;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use common\validators\MasterExistValidator;

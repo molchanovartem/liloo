@@ -12,22 +12,23 @@ use common\components\tariffAccess\Rule;
 class MasterRule extends Rule
 {
     const RULE_MASTER_CREATE = 'm1';
+    const RULE_MASTER_UPDATE = 'm2';
 
     /**
      * @return string
      */
     public static function getName(): string
     {
-       return 'master';
+        return 'master';
     }
 
     public function beforeCreate()
     {
         $this->checkAccess([
             self::RULE_MASTER_CREATE => true,
-            self::RULE_MASTER_CREATE => function () {
+            self::RULE_MASTER_UPDATE => function () {
                 return true;
-            }
+            },
         ]);
     }
 

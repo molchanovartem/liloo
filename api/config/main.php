@@ -4,7 +4,6 @@ return [
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'api\controllers',
 
-
     'components' => [
         'request' => [
             'enableCookieValidation' => false

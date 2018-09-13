@@ -2,7 +2,7 @@
 
 namespace common\components\tariffAccess;
 
-use GraphQL\Error\Error;
+use api\exceptions\NotTariffAccess;
 
 /**
  * Class Rule
@@ -26,8 +26,25 @@ abstract class Rule implements RuleInterface
         $this->tariffAccess = $tariffAccess;
     }
 
+    /**
+     * @param array $accessList
+     * @throws NotTariffAccess
+     */
     protected function checkAccess(array $accessList)
     {
-        throw new Error('error tariff access');
+        $success = true;
+        $existAccess = false;
+        foreach ($this->tariffAccess->getTariffs() as $tariff) {
+            foreach ($accessList as $name => $access) {
+                if ($success === false) break;
+
+                if (in_array($name, $tariff['access'])) {
+                    $existAccess = true;
+
+                    $success = is_callable($access) ? $access() : $access;
+                }
+            }
+        }
+        if (!$existAccess || !$success) throw new NotTariffAccess();
     }
 }

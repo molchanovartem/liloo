@@ -1,6 +1,8 @@
 <?php
+
 namespace common\components\tariffAccess;
 
+use Yii;
 use yii\base\Component;
 
 /**
@@ -28,11 +30,12 @@ class TariffAccess extends Component
         parent::init();
 
         $this->loadRulesClass();
+        $this->tariffs = Yii::$app->account->getTariffs();
     }
 
     private function loadRulesClass()
     {
-       foreach (scandir(__DIR__  . DIRECTORY_SEPARATOR . 'rules') as $fileName) {
+        foreach (scandir(__DIR__ . DIRECTORY_SEPARATOR . 'rules') as $fileName) {
             if (substr($fileName, -8, 8) == 'Rule.php') {
                 $className = __NAMESPACE__ . '\\rules\\' . pathinfo($fileName, PATHINFO_FILENAME);
 

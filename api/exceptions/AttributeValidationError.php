@@ -9,6 +9,11 @@ namespace api\exceptions;
  */
 class AttributeValidationError extends ValidationError
 {
+    /**
+     * AttributeValidationError constructor.
+     *
+     * @param array $extensions
+     */
     public function __construct(array $extensions)
     {
         parent::__construct('Attributes error', null, null, null, null, null, ['extensions' => $extensions]);
