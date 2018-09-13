@@ -18,11 +18,10 @@ class m180595_081962_tariff extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
             'description' => $this->string(),
-//            'price' => $this->decimal(18, 2)->notNull(),
             'type' => $this->integer()->notNull(),
             'status' => $this->integer()->notNull(),
-//            'days' => $this->integer()->notNull(),
             'quantity' => $this->integer(),
+            'data' => $this->string()->notNull(),
         ]);
     }
 

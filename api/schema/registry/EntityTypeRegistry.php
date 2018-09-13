@@ -5,6 +5,7 @@ namespace api\schema\registry;
 use api\schema\type\entity\AccountTariffType;
 use api\schema\type\entity\AppointmentItemType;
 use api\schema\type\entity\AppointmentType;
+use api\schema\type\entity\BalanceJournalType;
 use api\schema\type\entity\CityType;
 use api\schema\type\entity\ClientType;
 use api\schema\type\entity\ConvenienceType;
@@ -153,5 +154,10 @@ class EntityTypeRegistry
     public function accountTariff()
     {
         return $this->typeRegistry->get(AccountTariffType::class);
+    }
+
+    public function balanceJournal()
+    {
+        return $this->typeRegistry->get(BalanceJournalType::class);
     }
 }
