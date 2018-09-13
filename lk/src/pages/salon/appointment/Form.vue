@@ -228,10 +228,13 @@
                 return this.scenario === 'update';
             },
             onAddItem() {
-                let index = _.findIndex(this.services, {id: this.serviceSelect}),
-                    service = this.services[index];
+                let service = this.services.find(item => {
+                    return +item.id === +this.serviceSelect;
+                });
 
-                this.addItem(service.id, service.name, service.price, service.duration, 1, null);
+                if (service) {
+                    this.addItem(service.id, service.name, service.price, service.duration, 1, null);
+                }
             },
             addItems(items = []) {
                 items.forEach(item => {
