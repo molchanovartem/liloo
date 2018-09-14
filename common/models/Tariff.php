@@ -58,6 +58,16 @@ class Tariff extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getAccessArray($data)
+    {
+        return explode('/', $data);
+    }
+
+    public function getTariffAccessName($tariff)
+    {
+        return TariffForm::getTariffAccessList()[$tariff];
+    }
+
     /**
      * @return array
      */
@@ -112,13 +122,5 @@ class Tariff extends \yii\db\ActiveRecord
     public function getType($type)
     {
         return self::getTypes()[$type];
-    }
-
-    /**
-     * @return array
-     */
-    public function getTariffAccessName($access)
-    {
-        return TariffForm::getTariffAccessList()[$access];
     }
 }

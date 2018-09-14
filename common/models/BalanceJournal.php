@@ -4,7 +4,7 @@ namespace common\models;
 
 /**
  * Class BalanceJournal
- * @package app\components\balance
+ * @package common\models
  */
 class BalanceJournal extends \yii\db\ActiveRecord
 {

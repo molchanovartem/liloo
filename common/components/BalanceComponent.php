@@ -20,7 +20,7 @@ class BalanceComponent extends Component
      * @param $typeReason
      * @param $dataReason
      * @return bool
-     * @throws \Exception
+     * @throws \yii\db\Exception
      */
     public function increase($accountId, $sum, $typeReason, $dataReason): bool
     {
@@ -33,7 +33,7 @@ class BalanceComponent extends Component
      * @param $typeReason
      * @param $dataReason
      * @return bool
-     * @throws \Exception
+     * @throws \yii\db\Exception
      */
     public function decrease($accountId, $sum, $typeReason, $dataReason): bool
     {
