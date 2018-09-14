@@ -4,6 +4,10 @@ namespace common\models;
 
 use admin\forms\TariffForm;
 
+/**
+ * Class Tariff
+ * @package common\models
+ */
 class Tariff extends \yii\db\ActiveRecord
 {
     const TARIFF_STATUS_INACTIVE = 0;
@@ -11,8 +15,6 @@ class Tariff extends \yii\db\ActiveRecord
 
     const TARIFF_TYPE_MASTER = 0;
     const TARIFF_TYPE_SALON = 1;
-
-    private $access;
 
     /**
      * @return string
@@ -58,11 +60,19 @@ class Tariff extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @param $data
+     * @return array
+     */
     public function getAccessArray($data)
     {
         return explode('/', $data);
     }
 
+    /**
+     * @param $tariff
+     * @return mixed
+     */
     public function getTariffAccessName($tariff)
     {
         return TariffForm::getTariffAccessList()[$tariff];

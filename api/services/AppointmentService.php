@@ -3,6 +3,7 @@
 namespace api\services;
 
 use Yii;
+use yii\db\Query;
 use yii\db\Exception;
 use api\models\Salon;
 use api\models\User;
@@ -23,11 +24,15 @@ class AppointmentService extends \api\services\Service
     /**
      * @param array $attributes
      * @return null
+     * @throws AttributeValidationError
      * @throws Exception
      */
     public function create(array $attributes)
     {
         $accountId = null;
+        if (!$this->validateSchedulesDate($attributes)) throw new AttributeValidationError(['В это время мастер не работает']);
+        if (!$this->validateAppointmentDate($attributes)) throw new AttributeValidationError(['Это время занято']);
+
         if (!empty($attributes['user_id'])) {
             $accountId = ($user = User::find()->oneById($attributes['user_id'])) ? $user->account_id : null;
         } else if ($attributes['salon_id']) {
@@ -37,6 +42,93 @@ class AppointmentService extends \api\services\Service
         return $this->save(new Appointment([
             'account_id' => $accountId
         ]), $attributes);
+    }
+
+    /**
+     * @param $attributes
+     * @return bool
+     */
+    public function validateSchedulesDate($attributes)
+    {
+        if (!empty($attributes['user_id'])) {
+            $schedules = (new Query())->select(['start_date', 'end_date'])
+                ->from('{{%user_schedule}}')
+                ->where(['user_id' => $attributes['user_id']])
+                ->andWhere(['and',
+                    ['>=', 'start_date', $attributes['start_date']],
+                    ['<=', 'end_date', $attributes['start_date']],
+                ])
+                ->orWhere(['and',
+                    ['>=', 'start_date', $attributes['end_date']],
+                    ['<=', 'end_date', $attributes['end_date']],
+                ])
+                ->all();
+        } else {
+            $schedules = (new Query())->select(['start_date', 'end_date'])
+                ->from('{{%master_schedule}}')
+                ->where(['master_id' => $attributes['master_id']])
+                ->andWhere(['salon_id' => $attributes['salon_id']])
+                ->andWhere(['and',
+                    ['>=', 'start_date', $attributes['start_date']],
+                    ['<=', 'end_date', $attributes['start_date']],
+                ])
+                ->orWhere(['and',
+                    ['>=', 'start_date', $attributes['end_date']],
+                    ['<=', 'end_date', $attributes['end_date']],
+                ])
+                ->all();
+        }
+
+        foreach ($schedules as $schedule) {
+            if (
+                (date($attributes['start_date']) >= date($schedule['start_date']) &&
+                    date($attributes['start_date']) <= date($schedule['end_date'])) ||
+
+                (date($attributes['end_date']) >= date($schedule['start_date']) &&
+                    date($attributes['end_date']) <= date($schedule['end_date']))
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $attributes
+     * @return bool
+     */
+    public function validateAppointmentDate($attributes)
+    {
+        if (!empty($attributes['user_id'])) {
+            $appointmentDates = (new Query())->select(['start_date', 'end_date'])
+                ->from('{{%appointment}}')
+                ->where(['user_id' => $attributes['user_id']])
+                ->all();
+        } else {
+            $appointmentDates = (new Query())->select(['start_date', 'end_date'])
+                ->from('{{%appointment}}')
+                ->where(['master_id' => $attributes['master_id']])
+                ->andWhere(['salon_id' => $attributes['salon_id']])
+                ->all();
+        }
+
+        foreach ($appointmentDates as $appointmentDate) {
+            if (
+                (date($attributes['start_date']) >= date($appointmentDate['start_date']) &&
+                    date($attributes['start_date']) <= date($appointmentDate['end_date'])) ||
+
+                (date($attributes['end_date']) >= date($appointmentDate['start_date']) &&
+                    date($attributes['end_date']) <= date($appointmentDate['end_date'])) ||
+
+                (date($attributes['start_date']) <= date($appointmentDate['start_date']) &&
+                    (date($attributes['end_date']) >= date($appointmentDate['end_date'])))
+            ) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -72,7 +164,7 @@ class AppointmentService extends \api\services\Service
                 if (!$model->isNewRecord) {
                     AppointmentItem::deleteAll([
                         'appointment_id' => $model->id,
-                        'account_id' =>$model->account_id
+                        'account_id' => $model->account_id
                     ]);
                 }
                 $this->saveItems($model, $attributes['items']);
@@ -146,7 +238,7 @@ class AppointmentService extends \api\services\Service
 
             $batch[] = $models[$key]->getAttributes($attributes);
         }
-        return (bool) Yii::$app->db->createCommand()->batchInsert(AppointmentItem::tableName(), $attributes, $batch)
+        return (bool)Yii::$app->db->createCommand()->batchInsert(AppointmentItem::tableName(), $attributes, $batch)
             ->execute();
     }
 }
