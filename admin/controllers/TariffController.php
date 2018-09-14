@@ -99,10 +99,7 @@ class TariffController extends Controller
         $result = $this->modelService->save($type, $params);
         $data = $this->modelService->getData();
         return $result ? $this->redirect(['view', 'id' => $data['model']->id]) :
-            $this->render($type, [
-                'model' => $data['model'],
-                'access' => $data['access']
-            ]);
+            $this->render($type, $data);
     }
 
     /**

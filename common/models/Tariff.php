@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use admin\forms\TariffForm;
+
 class Tariff extends \yii\db\ActiveRecord
 {
     const TARIFF_STATUS_INACTIVE = 0;
@@ -9,6 +11,8 @@ class Tariff extends \yii\db\ActiveRecord
 
     const TARIFF_TYPE_MASTER = 0;
     const TARIFF_TYPE_SALON = 1;
+
+    private $access;
 
     /**
      * @return string
@@ -24,9 +28,9 @@ class Tariff extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'type', 'status'], 'required'],
+            [['name', 'type', 'status', 'access'], 'required'],
             [['type', 'status', 'quantity'], 'integer'],
-            [['name', 'description'], 'string', 'max' => 255],
+            [['name', 'description', 'access'], 'string', 'max' => 255],
         ];
     }
 
@@ -35,6 +39,14 @@ class Tariff extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
+        return self::getAttributeLabels();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAttributeLabels()
+    {
         return [
             'id' => 'ID',
             'name' => 'Название тарифа',
@@ -42,6 +54,7 @@ class Tariff extends \yii\db\ActiveRecord
             'type' => 'Тип',
             'status' => 'Статус',
             'quantity' => 'Количество использований',
+            'access' => 'Доступы',
         ];
     }
 
@@ -49,6 +62,14 @@ class Tariff extends \yii\db\ActiveRecord
      * @return array
      */
     public function getStatuses()
+    {
+        return self::getStatusList();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getStatusList()
     {
         return [
             self::TARIFF_STATUS_INACTIVE => 'Неактивный',
@@ -68,7 +89,15 @@ class Tariff extends \yii\db\ActiveRecord
     /**
      * @return array
      */
-    public static function getTypes()
+    public function getTypes()
+    {
+        return self::getTypeList();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTypeList()
     {
         return [
             self::TARIFF_TYPE_MASTER => 'Мастер',
@@ -83,5 +112,13 @@ class Tariff extends \yii\db\ActiveRecord
     public function getType($type)
     {
         return self::getTypes()[$type];
+    }
+
+    /**
+     * @return array
+     */
+    public function getTariffAccessName($access)
+    {
+        return TariffForm::getTariffAccessList()[$access];
     }
 }

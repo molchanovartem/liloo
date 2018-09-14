@@ -8,8 +8,10 @@ $this->params['breadcrumbs'][] = 'Изменение';
 <div class="tariff-update">
 
     <?= $this->render('_form', [
-        'model' => $model,
-        'access' => $access,
+        'data' => [
+            'model' => $model,
+            'form' => $form,
+        ],
     ]) ?>
 
 </div>

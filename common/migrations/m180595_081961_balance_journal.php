@@ -20,6 +20,8 @@ class m180595_081961_balance_journal extends Migration
             'type_operation' => $this->integer()->notNull(),
             'type_reason' => $this->integer()->notNull(),
             'sum' => $this->decimal(18, 2)->defaultValue(0.00),
+            'start_sum' => $this->decimal(18, 2)->defaultValue(0.00),
+            'end_sum' => $this->decimal(18, 2)->defaultValue(0.00),
             'data_reason' => $this->string()->notNull(),
         ]);
 
