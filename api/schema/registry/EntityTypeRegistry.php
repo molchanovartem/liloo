@@ -26,6 +26,7 @@ use api\schema\type\entity\UserScheduleType;
 use api\schema\type\entity\UserType;
 use api\schema\type\entity\MasterSpecializationType;
 use api\schema\type\entity\TariffPriceType;
+use api\schema\type\mutation\user\login\UserLoginType;
 
 /**
  * Class EntityTypeRegistry
@@ -159,5 +160,10 @@ class EntityTypeRegistry
     public function balanceJournal()
     {
         return $this->typeRegistry->get(BalanceJournalType::class);
+    }
+
+    public function userLogin()
+    {
+        return $this->typeRegistry->get(UserLoginType::class);
     }
 }
