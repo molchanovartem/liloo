@@ -2,9 +2,7 @@
 
 namespace api\models;
 
-use Yii;
 use api\queries\MasterScheduleQuery;
-use common\behaviors\AccountBehavior;
 
 /**
  * Class MasterSchedule

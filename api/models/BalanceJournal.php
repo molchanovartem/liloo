@@ -4,6 +4,10 @@ namespace api\models;
 
 use api\queries\BalanceJournalQuery;
 
+/**
+ * Class BalanceJournal
+ * @package api\models
+ */
 class BalanceJournal extends \common\models\BalanceJournal
 {
     /**

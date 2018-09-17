@@ -55,7 +55,7 @@ class ServiceExistValidator extends Validator
             ->select(['id'])
             ->asArray()
             ->byId($value)
-            ->allByAccountId();
+            ->allByCurrentAccountId();
 
         $notExist = array_unique(array_diff($value, array_column($services, 'id')));
 

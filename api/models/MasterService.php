@@ -3,7 +3,6 @@
 namespace api\models;
 
 use api\queries\MasterServiceQuery;
-use common\behaviors\AccountBehavior;
 
 /**
  * Class MasterService

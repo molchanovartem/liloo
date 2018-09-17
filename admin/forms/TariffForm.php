@@ -2,8 +2,9 @@
 
 namespace admin\forms;
 
-use common\components\tariffAccess\rules\MasterRule;
 use yii\base\Model;
+use common\components\tariffAccess\rules\MasterRule;
+use common\models\Tariff;
 
 /**
  * Class TariffForm
@@ -11,16 +12,23 @@ use yii\base\Model;
  */
 class TariffForm extends Model
 {
-    public $access;
+    private $access;
+
+    public $name;
+    public $description;
+    public $type;
+    public $status;
+    public $quantity;
 
     /**
      * @return array
      */
-    public function getTariffAccessList()
+    public function rules(): array
     {
         return [
-            MasterRule::RULE_MASTER_CREATE => 'Создание мастера',
-            MasterRule::RULE_MASTER_UPDATE => 'Обновление мастера',
+            [['name', 'type', 'status'], 'required'],
+            [['type', 'status', 'quantity'], 'integer'],
+            [['name', 'description', 'access'], 'string', 'max' => 255],
         ];
     }
 
@@ -29,8 +37,53 @@ class TariffForm extends Model
      */
     public function attributeLabels()
     {
+        return Tariff::getAttributeLabels();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTariffAccessList()
+    {
         return [
-            'access' => 'Доступы',
+            MasterRule::RULE_MASTER_CREATE => 'Создание мастера',
+            MasterRule::RULE_MASTER_UPDATE => 'Обновление мастера',
         ];
+    }
+
+    /**
+     * @param $data
+     */
+    public function setAccess($data)
+    {
+        if (is_array($data)) {
+            $this->access = $data;
+        } else {
+            $this->access = explode('/', $data);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getAccess()
+    {
+        return implode('/', $this->access ?? []);
+    }
+
+    /**
+     * @return array
+     */
+    public function getTypes()
+    {
+        return Tariff::getTypeList();
+    }
+
+    /**
+     * @return array
+     */
+    public function getStatuses()
+    {
+        return Tariff::getStatusList();
     }
 }

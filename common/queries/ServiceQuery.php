@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class ServiceQuery extends AccountQuery
+class ServiceQuery extends Query
 {
     /**
      * @param array $id
@@ -20,7 +20,10 @@ class ServiceQuery extends AccountQuery
             ->all();
     }
 
-
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function oneServiceById(int $id)
     {
         return $this->byId($id)
@@ -28,6 +31,10 @@ class ServiceQuery extends AccountQuery
             ->oneById($id);
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function oneGroupById(int $id)
     {
         return $this->byId($id)
@@ -35,27 +42,41 @@ class ServiceQuery extends AccountQuery
             ->oneById($id);
     }
 
+    /**
+     * @param null $parentId
+     * @return mixed
+     */
     public function allByParentId($parentId = null)
     {
         return $this->byParentId($parentId)
             ->isService()
-            ->allByAccountId();
+            ->allByCurrentAccountId();
     }
 
+    /**
+     * @param null $parentId
+     * @return mixed
+     */
     public function allGroupByParentId($parentId = null)
     {
         return $this->byParentId($parentId)
             ->isGroup()
-            ->allByAccountId();
+            ->allByCurrentAccountId();
     }
 
+    /**
+     * @return ServiceQuery
+     */
     public function isGroup()
     {
-        return $this->andWhere(['is_group' => (int) true]);
+        return $this->andWhere(['is_group' => (int)true]);
     }
 
+    /**
+     * @return ServiceQuery
+     */
     public function isService()
     {
-        return $this->andWhere(['is_group' => (int) false]);
+        return $this->andWhere(['is_group' => (int)false]);
     }
 }

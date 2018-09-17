@@ -4,7 +4,7 @@ namespace common\models;
 
 /**
  * Class BalanceJournal
- * @package app\components\balance
+ * @package common\models
  */
 class BalanceJournal extends \yii\db\ActiveRecord
 {
@@ -27,9 +27,9 @@ class BalanceJournal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'type_operation', 'sum', 'type_reason', 'data_reason'], 'required'],
+            [['account_id', 'type_operation', 'sum', 'type_reason', 'data_reason', 'start_sum', 'end_sum'], 'required'],
             [['account_id', 'type_operation', 'type_reason'], 'integer'],
-            [['sum'], 'number'],
+            [['sum', 'start_sum', 'end_sum'], 'number'],
         ];
     }
 

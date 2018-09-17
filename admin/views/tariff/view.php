@@ -44,7 +44,19 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
     </div>
 
-    <?= Html::a('<span class="uk-margin-small-right" uk-icon="plus"></span> Добавить цену', ['/tariff/create-price?tariffId=' . $model->id], ['class' => 'uk-button uk-button-default uk-button-small']) ?>
+    <h3 class="uk-margin-remove-top">Доступы</h3>
+
+    <div class="uk-grid uk-grid-small uk-child-width-1-4 uk-margin-top">
+        <ul class="uk-list uk-list-striped">
+            <?php foreach ($model->getAccessArray($model->access) as $access): ?>
+                <li><?php echo $model->getTariffAccessName($access); ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+    <div class="uk-margin-top">
+        <?= Html::a('<span class="uk-margin-small-right" uk-icon="plus"></span> Добавить цену', ['/tariff/create-price?tariffId=' . $model->id], ['class' => 'uk-button uk-button-default uk-button-small']) ?>
+    </div>
 
     <div class="uk-grid uk-grid-small uk-child-width-1-4 uk-margin-top">
         <ul class="uk-list uk-list-striped">
@@ -53,5 +65,4 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php endforeach; ?>
         </ul>
     </div>
-
 </div>

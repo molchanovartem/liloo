@@ -2,12 +2,16 @@
 
 namespace admin\services;
 
+use yii\data\ActiveDataProvider;
 use admin\forms\TariffForm;
 use common\core\service\ModelService;
 use common\models\Tariff;
 use common\models\TariffPrice;
-use yii\data\ActiveDataProvider;
 
+/**
+ * Class TariffService
+ * @package admin\services
+ */
 class TariffService extends ModelService
 {
     public function getDataProvider()
@@ -28,16 +32,22 @@ class TariffService extends ModelService
     public function save($type, $params = [])
     {
         $type == 'create' ? $model = new Tariff() : $model = Tariff::find()->where(['id' => $params['id']])->one();
+        $form = new TariffForm;
+        $form->setAttributes($model->getAttributes());
+
         $this->setData([
-            'access' => new TariffForm,
+            'form' => $form,
             'model' => $model
         ]);
+        if ($form->load($this->getData('post')) && $form->validate()) {
+            $model->setAttributes($form->getAttributes());
+            $model->access = $form->access;
+            $model->save(false);
 
-        if ($this->getData('post')) {
-            $model->data = implode('/', $this->getData('post')['TariffForm']['access']);
+            return true;
         }
 
-        return $model->load($this->getData('post')) && $model->save();
+        return false;
     }
 
     /**

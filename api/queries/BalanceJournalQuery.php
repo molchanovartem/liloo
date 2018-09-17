@@ -8,5 +8,5 @@ namespace api\queries;
  */
 class BalanceJournalQuery extends \common\queries\BalanceJournalQuery
 {
-
+    use AccountQueryTrait;
 }

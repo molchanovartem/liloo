@@ -50,7 +50,7 @@ class AccountTariffType extends ObjectType implements QueryTypeInterface
                 'type' => $typeRegistry->listOff($entityRegistry->accountTariff()),
                 'description' => 'Коллекция цен тарифов',
                 'resolve' => function ($root, $args) {
-                    return AccountTariff::find()->allByAccountId();
+                    return AccountTariff::find()->allByCurrentAccountId();
                 }
             ],
         ];

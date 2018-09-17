@@ -1,19 +1,18 @@
 <?php
 
-namespace common\queries;
+namespace api\queries;
 
 use Yii;
 
 /**
- * Class AccountQuery
- *
- * @package common\queries
+ * Trait AccountQuery
+ * @package api\queries
  */
-class AccountQuery extends Query
+trait AccountQueryTrait
 {
     /**
      * @param null $alias
-     * @return Query
+     * @return mixed
      */
     public function byAccountId($alias = null)
     {
@@ -25,7 +24,7 @@ class AccountQuery extends Query
     /**
      * @return array|\yii\db\ActiveRecord[]
      */
-    public function allByAccountId()
+    public function allByCurrentAccountId()
     {
         return $this->byAccountId()
             ->all();

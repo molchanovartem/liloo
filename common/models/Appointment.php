@@ -30,16 +30,53 @@ class Appointment extends ActiveRecord
      */
     public function rules(): array
     {
-        /*
- * @todo
- * Валидация client_id, salon_id, start_date, end_date
- * start_date и end_date проверять промежуток
- */
         return [
             [['account_id', 'client_id', 'status', 'start_date', 'end_date'], 'required'],
             [['account_id', 'user_id', 'salon_id', 'master_id', 'client_id'], 'integer'],
             [['start_date', 'end_date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
-            ['status', 'in', 'range' => array_keys(self::getStatusList())]
+            ['status', 'in', 'range' => array_keys(self::getStatusList())],
+            ['start_date', function ($attribute, $params) {
+                if (date($this->$attribute) === date($this->end_date)) {
+                    $this->addError($attribute, '"start_date" равна "end_date"');
+                }
+            }],
+            ['start_date', function ($attribute) {
+                if (date($this->$attribute) > date($this->end_date)) {
+                    $this->addError($attribute, '"start_date" больше "end_date"');
+                }
+            }],
+            ['end_date', function ($attribute) {
+                if (date($this->$attribute) < date($this->start_date)) {
+                    $this->addError($attribute, '"end_date" меньше "start_date"');
+                }
+            }],
+            ['client_id', function ($attribute) {
+                $client = Client::find()
+                    ->where(['id' => $this->$attribute])
+                    ->andWhere(['account_id' => $this->account_id])
+                    ->one();
+                if (empty($client)) {
+                    $this->addError($attribute, 'Данному аккаунту не принадлежит этот клиент');
+                }
+            }],
+            ['master_id', function ($attribute) {
+                $client = Master::find()
+                    ->where(['id' => $this->$attribute])
+                    ->andWhere(['account_id' => $this->account_id])
+                    ->one();
+                if (empty($client)) {
+                    $this->addError($attribute, 'Данному аккаунту не принадлежит этот мастер');
+                }
+            }],
+            ['salon_id', function ($attribute) {
+                $client = Salon::find()
+                    ->where(['id' => $this->$attribute])
+                    ->andWhere(['account_id' => $this->account_id])
+                    ->one();
+                if (empty($client)) {
+                    $this->addError($attribute, 'Данному аккаунту не принадлежит этот салон');
+                }
+            }],
         ];
     }
 

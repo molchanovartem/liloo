@@ -11,6 +11,9 @@ use api\queries\SalonQuery;
  */
 class Salon extends \common\models\Salon
 {
+    /**
+     * @return SalonQuery|\common\queries\SalonQuery|\yii\db\ActiveQuery
+     */
     public static function find()
     {
         return new SalonQuery(get_called_class());

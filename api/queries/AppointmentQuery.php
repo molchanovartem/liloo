@@ -9,6 +9,7 @@ namespace api\queries;
  */
 class AppointmentQuery extends \common\queries\AppointmentQuery
 {
+    use AccountQueryTrait;
     /**
      * @param $startDate
      * @param $endDate
@@ -23,6 +24,6 @@ class AppointmentQuery extends \common\queries\AppointmentQuery
             ->andFilterWhere(['user_id' => $userId])
             ->andFilterWhere(['salon_id' => $salonId])
             ->andFilterWhere(['master_id' => $masterId])
-            ->allByAccountId();
+            ->allByCurrentAccountId();
     }
 }

@@ -2,6 +2,12 @@
 
 namespace common\models;
 
+use admin\forms\TariffForm;
+
+/**
+ * Class Tariff
+ * @package common\models
+ */
 class Tariff extends \yii\db\ActiveRecord
 {
     const TARIFF_STATUS_INACTIVE = 0;
@@ -24,9 +30,9 @@ class Tariff extends \yii\db\ActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'type', 'status'], 'required'],
+            [['name', 'type', 'status', 'access'], 'required'],
             [['type', 'status', 'quantity'], 'integer'],
-            [['name', 'description'], 'string', 'max' => 255],
+            [['name', 'description', 'access'], 'string', 'max' => 255],
         ];
     }
 
@@ -35,6 +41,14 @@ class Tariff extends \yii\db\ActiveRecord
      */
     public function attributeLabels()
     {
+        return self::getAttributeLabels();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAttributeLabels()
+    {
         return [
             'id' => 'ID',
             'name' => 'Название тарифа',
@@ -42,13 +56,40 @@ class Tariff extends \yii\db\ActiveRecord
             'type' => 'Тип',
             'status' => 'Статус',
             'quantity' => 'Количество использований',
+            'access' => 'Доступы',
         ];
+    }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    public function getAccessArray($data)
+    {
+        return explode('/', $data);
+    }
+
+    /**
+     * @param $tariff
+     * @return mixed
+     */
+    public function getTariffAccessName($tariff)
+    {
+        return TariffForm::getTariffAccessList()[$tariff];
     }
 
     /**
      * @return array
      */
     public function getStatuses()
+    {
+        return self::getStatusList();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getStatusList()
     {
         return [
             self::TARIFF_STATUS_INACTIVE => 'Неактивный',
@@ -68,7 +109,15 @@ class Tariff extends \yii\db\ActiveRecord
     /**
      * @return array
      */
-    public static function getTypes()
+    public function getTypes()
+    {
+        return self::getTypeList();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTypeList()
     {
         return [
             self::TARIFF_TYPE_MASTER => 'Мастер',

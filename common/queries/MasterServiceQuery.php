@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class MasterServiceQuery extends AccountQuery
+class MasterServiceQuery extends Query
 {
     /**
      * @param int $masterId
@@ -18,6 +18,6 @@ class MasterServiceQuery extends AccountQuery
     {
         return $this->byMasterId($masterId)
             ->bySalonId($salonId)
-            ->allByAccountId();
+            ->allByCurrentAccountId();
     }
 }

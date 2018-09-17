@@ -1,6 +1,7 @@
 <?php
 
 use admin\widgets\activeForm\ActiveForm;
+use admin\forms\TariffForm;
 
 ?>
 
@@ -10,23 +11,21 @@ use admin\widgets\activeForm\ActiveForm;
 
     <div class="panel panel-default panel-body">
 
-        <?= $form->errorSummary($model); ?>
+        <?= $form->errorSummary($data['form']); ?>
 
-        <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($data['form'], 'name')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'description')->textarea(['rows' => '3']) ?>
-
-
-        <?= $form->field($model, 'type')->dropDownList($model->getTypes(), ['prompt' => 'Выберите тип...']); ?>
-
-        <?= $form->field($model, 'status')->dropDownList($model->getStatuses(), ['prompt' => 'Выберите статус...']); ?>
+        <?= $form->field($data['form'], 'description')->textarea(['rows' => '3']) ?>
 
 
-        <?= $form->field($model, 'quantity')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($data['form'], 'type')->dropDownList($data['form']->getTypes(), ['prompt' => 'Выберите тип...']); ?>
 
-        <?php $access->access = explode('/', $model->data); ?>
+        <?= $form->field($data['form'], 'status')->dropDownList($data['form']->getStatuses(), ['prompt' => 'Выберите статус...']); ?>
 
-        <?= $form->field($access, 'access')->checkboxList($access->getTariffAccessList(), ['separator' => '<br>']) ?>
+
+        <?= $form->field($data['form'], 'quantity')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($data['form'], 'access')->checkboxList(TariffForm::getTariffAccessList(), ['separator' => '<br>']) ?>
 
     </div>
 

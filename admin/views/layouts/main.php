@@ -30,21 +30,8 @@ AppAsset::register($this);
 <div class="uk-container-fluid">
     <nav class="uk-navbar-container uk-light" uk-navbar style="background-color: #1e87f0">
         <div class="uk-navbar-left">
-            <div class="uk-navbar-item uk-logo">
-                <a href="#">liloo</a>
-            </div>
-
-            <ul class="uk-navbar-nav">
-                <li>
-                    <a href="#">
-                        <span class="uk-icon uk-margin-small-right" uk-icon="icon: star"></span>
-                        Features
-                    </a>
-                </li>
-            </ul>
-
-            <div class="uk-navbar-item">
-                <div>Some <a href="#">Link</a></div>
+            <div class="uk-navbar-item uk-logo uk-margin-left">
+                <a href="#">Liloo</a>
             </div>
         </div>
     </nav>
@@ -57,26 +44,6 @@ AppAsset::register($this);
                     <li><a href="/admin/web/index.php/notice">Уведомления</a></li>
                     <li><a href="/admin/web/index.php/recall">Отзывы</a></li>
                     <li><a href="/admin/web/index.php/tariff">Тарифы</a></li>
-                    <li class="uk-parent">
-                        <a href="#">Parent</a>
-                        <ul class="uk-nav-sub">
-                            <li><a href="#">Sub item</a></li>
-                            <li>
-                                <a href="#">Sub item</a>
-                                <ul>
-                                    <li><a href="#">Sub item</a></li>
-                                    <li><a href="#">Sub item</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="uk-parent">
-                        <a href="#">Parent</a>
-                        <ul class="uk-nav-sub">
-                            <li><a href="#">Sub item</a></li>
-                            <li><a href="#">Sub item</a></li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
         </div>

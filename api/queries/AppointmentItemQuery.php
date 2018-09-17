@@ -9,4 +9,5 @@ namespace api\queries;
  */
 class AppointmentItemQuery extends \common\queries\AppointmentItemQuery
 {
+    use AccountQueryTrait;
 }

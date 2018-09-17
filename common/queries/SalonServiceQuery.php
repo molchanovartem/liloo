@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class SalonServiceQuery extends AccountQuery
+class SalonServiceQuery extends Query
 {
     /**
      * @param int $id
@@ -26,6 +26,6 @@ class SalonServiceQuery extends AccountQuery
     {
         return $this->byId($id)
             ->indexBy('id')
-            ->allByAccountId();
+            ->allByCurrentAccountId();
     }
 }

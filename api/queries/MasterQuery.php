@@ -9,4 +9,5 @@ namespace api\queries;
  */
 class MasterQuery extends \common\queries\MasterQuery
 {
+    use AccountQueryTrait;
 }

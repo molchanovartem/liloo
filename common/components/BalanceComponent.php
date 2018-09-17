@@ -6,6 +6,7 @@ use common\models\Account;
 use common\models\BalanceJournal;
 use Yii;
 use yii\base\Component;
+use yii\db\Query;
 
 /**
  * Class BalanceComponent
@@ -19,7 +20,7 @@ class BalanceComponent extends Component
      * @param $typeReason
      * @param $dataReason
      * @return bool
-     * @throws \Exception
+     * @throws \yii\db\Exception
      */
     public function increase($accountId, $sum, $typeReason, $dataReason): bool
     {
@@ -32,7 +33,7 @@ class BalanceComponent extends Component
      * @param $typeReason
      * @param $dataReason
      * @return bool
-     * @throws \Exception
+     * @throws \yii\db\Exception
      */
     public function decrease($accountId, $sum, $typeReason, $dataReason): bool
     {
@@ -52,8 +53,9 @@ class BalanceComponent extends Component
     {
         $transaction = Yii::$app->db->beginTransaction();
         try {
+            $currentBalance = $this->getAccountBalance($accountId);
             $this->executeDB($accountId, $sum, $typeOperation);
-            $this->writeJournal($accountId, $sum, $typeOperation, $typeReason, $dataReason);
+            $this->writeJournal($accountId, $sum, $currentBalance, $typeOperation, $typeReason, $dataReason);
             $transaction->commit();
         } catch (\Exception $exception) {
             $transaction->rollBack();
@@ -61,6 +63,15 @@ class BalanceComponent extends Component
         }
 
         return true;
+    }
+
+    /**
+     * @param $accountId
+     * @return mixed
+     */
+    private function getAccountBalance($accountId)
+    {
+        return (new Query())->select('balance')->from('{{%account}}')->where(['id' => $accountId])->one()['balance'];
     }
 
     /**
@@ -88,16 +99,20 @@ class BalanceComponent extends Component
     /**
      * @param int $accountId
      * @param $sum
+     * @param $currentBalance
      * @param int $typeOperation
      * @param int $typeReason
      * @param $dataReason
      */
-    protected function writeJournal(int $accountId, $sum, int $typeOperation, int $typeReason, $dataReason)
+    protected function writeJournal(int $accountId, $sum, $currentBalance, int $typeOperation, int $typeReason, $dataReason)
     {
         $balanceJournal = new BalanceJournal();
 
         $balanceJournal->account_id = $accountId;
         $balanceJournal->sum = $sum;
+        $balanceJournal->start_sum = $currentBalance;
+        $typeOperation == BalanceJournal::TYPE_OPERATION_DECREASE ? $end_sum = $currentBalance - $sum : $end_sum = $currentBalance + $sum;
+        $balanceJournal->end_sum = $end_sum;
         $balanceJournal->type_operation = $typeOperation;
         $balanceJournal->type_reason = $typeReason;
         $balanceJournal->data_reason = $dataReason;

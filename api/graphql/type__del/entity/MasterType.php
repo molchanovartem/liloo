@@ -58,7 +58,7 @@ class MasterType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Master::find()->allByAccountId();
+                    return Master::find()->allByCurrentAccountId();
                 }
             ],
             'master' => [
