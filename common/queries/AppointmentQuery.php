@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class AppointmentQuery extends AccountQuery
+class AppointmentQuery extends Query
 {
     /**
      * @param int $id

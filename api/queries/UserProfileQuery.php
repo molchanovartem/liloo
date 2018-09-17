@@ -9,4 +9,5 @@ namespace api\queries;
  */
 class UserProfileQuery extends \common\queries\UserProfileQuery
 {
+    use AccountQueryTrait;
 }

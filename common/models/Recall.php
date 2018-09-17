@@ -94,7 +94,7 @@ class Recall extends \yii\db\ActiveRecord
     {
         $recall = Recall::find()
             ->byId($this->$attribute)
-            ->allByAccountId();
+            ->allByCurrentAccountId();
 
         if (empty($recall)) {
             $this->addError($attribute, 'Невозможно добавить ответ');

@@ -3,7 +3,6 @@
 namespace api\models;
 
 use api\queries\MasterSpecializationQuery;
-use common\behaviors\AccountBehavior;
 
 /**
  * Class MasterSpecialization

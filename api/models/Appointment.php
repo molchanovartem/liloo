@@ -3,8 +3,6 @@
 namespace api\models;
 
 use api\queries\AppointmentQuery;
-use common\behaviors\AccountBehavior;
-use common\behaviors\UserId;
 
 /**
  * Class Appointment

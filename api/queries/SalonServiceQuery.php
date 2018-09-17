@@ -9,4 +9,5 @@ namespace api\queries;
  */
 class SalonServiceQuery extends \common\queries\SalonServiceQuery
 {
+    use AccountQueryTrait;
 }

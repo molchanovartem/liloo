@@ -8,5 +8,5 @@ namespace api\queries;
  */
 class AccountTariffQuery extends \common\queries\AccountTariffQuery
 {
-
+    use AccountQueryTrait;
 }

@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class MasterSpecializationQuery extends AccountQuery
+class MasterSpecializationQuery extends Query
 {
     /**
      * @param int $masterId
@@ -16,6 +16,6 @@ class MasterSpecializationQuery extends AccountQuery
     public function allByMasterId(int $masterId)
     {
         return $this->byMasterId($masterId)
-            ->allByAccountId();
+            ->allByCurrentAccountId();
     }
 }

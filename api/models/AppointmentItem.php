@@ -14,11 +14,17 @@ class AppointmentItem extends \common\models\AppointmentItem implements BufferIn
 {
     private static $buffer = null;
 
+    /**
+     * @return AppointmentItemQuery|\common\queries\AppointmentItemQuery|\yii\db\ActiveQuery
+     */
     public static function find()
     {
         return new AppointmentItemQuery(get_called_class());
     }
 
+    /**
+     * @return AppointmentItemBuffer|null
+     */
     public static function buffer()
     {
         return self::$buffer ?? (self::$buffer = new AppointmentItemBuffer(self::find()));

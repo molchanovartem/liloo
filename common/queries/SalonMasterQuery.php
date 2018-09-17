@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class SalonMasterQuery extends AccountQuery
+class SalonMasterQuery extends Query
 {
     /**
      * @param int $salonId
@@ -16,6 +16,6 @@ class SalonMasterQuery extends AccountQuery
     public function allBySalonId(int $salonId)
     {
         return $this->bySalonId($salonId)
-            ->allByAccountId();
+            ->allByCurrentAccountId();
     }
 }

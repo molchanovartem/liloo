@@ -6,7 +6,7 @@ namespace common\queries;
  * Class RecallQuery
  * @package common\queries
  */
-class RecallQuery extends AccountQuery
+class RecallQuery extends Query
 {
     /**
      * @param int $id

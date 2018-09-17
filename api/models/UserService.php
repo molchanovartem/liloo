@@ -3,7 +3,6 @@
 namespace api\models;
 
 use api\queries\UserServiceQuery;
-use common\behaviors\AccountBehavior;
 
 /**
  * Class UserService

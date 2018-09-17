@@ -380,7 +380,7 @@ class SalonService extends \api\services\Service
         $masters = Master::find()
             ->select(['id'])
             ->indexBy('id')
-            ->allByAccountId();
+            ->allByCurrentAccountId();
 
         $batch = [];
         foreach ($mastersId as $masterId) {

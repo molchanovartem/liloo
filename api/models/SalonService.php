@@ -3,7 +3,6 @@
 namespace api\models;
 
 use api\queries\SalonServiceQuery;
-use common\behaviors\AccountBehavior;
 
 /**
  * Class SalonService

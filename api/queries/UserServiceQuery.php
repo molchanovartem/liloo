@@ -9,5 +9,5 @@ namespace api\queries;
  */
 class UserServiceQuery extends \common\queries\UserServiceQuery
 {
-
+    use AccountQueryTrait;
 }

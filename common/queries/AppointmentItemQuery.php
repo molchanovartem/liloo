@@ -7,7 +7,7 @@ namespace common\queries;
  *
  * @package common\queries
  */
-class AppointmentItemQuery extends \common\queries\AccountQuery
+class AppointmentItemQuery extends Query
 {
     /**
      * @param array $id
@@ -16,7 +16,7 @@ class AppointmentItemQuery extends \common\queries\AccountQuery
     public function allById(array $id)
     {
         return $this->byId($id)
-            ->allByAccountId();
+            ->allByCurrentAccountId();
     }
 
     /**

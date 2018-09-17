@@ -31,7 +31,7 @@ class MasterScheduleValidator extends BaseScheduleValidator
             ->andWhere(['in', 'master_id', array_unique($masters)])
             ->indexBy('id')
             ->asArray()
-            ->allByAccountId();
+            ->allByCurrentAccountId();
 
         $badKeys = [];
         foreach ($items as $key => $item) {

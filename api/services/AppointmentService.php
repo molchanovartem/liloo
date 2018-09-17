@@ -55,12 +55,12 @@ class AppointmentService extends \api\services\Service
                 ->from('{{%user_schedule}}')
                 ->where(['user_id' => $attributes['user_id']])
                 ->andWhere(['and',
-                    ['>=', 'start_date', $attributes['start_date']],
-                    ['<=', 'end_date', $attributes['start_date']],
+                    ['<=', 'start_date', $attributes['start_date']],
+                    ['>=', 'end_date', $attributes['start_date']],
                 ])
-                ->orWhere(['and',
-                    ['>=', 'start_date', $attributes['end_date']],
-                    ['<=', 'end_date', $attributes['end_date']],
+                ->andWhere(['and',
+                    ['<=', 'start_date', $attributes['end_date']],
+                    ['>=', 'end_date', $attributes['end_date']],
                 ])
                 ->all();
         } else {
@@ -69,26 +69,18 @@ class AppointmentService extends \api\services\Service
                 ->where(['master_id' => $attributes['master_id']])
                 ->andWhere(['salon_id' => $attributes['salon_id']])
                 ->andWhere(['and',
-                    ['>=', 'start_date', $attributes['start_date']],
-                    ['<=', 'end_date', $attributes['start_date']],
+                    ['<=', 'start_date', $attributes['start_date']],
+                    ['>=', 'end_date', $attributes['start_date']],
                 ])
-                ->orWhere(['and',
-                    ['>=', 'start_date', $attributes['end_date']],
-                    ['<=', 'end_date', $attributes['end_date']],
+                ->andWhere(['and',
+                    ['<=', 'start_date', $attributes['end_date']],
+                    ['>=', 'end_date', $attributes['end_date']],
                 ])
                 ->all();
         }
 
-        foreach ($schedules as $schedule) {
-            if (
-                (date($attributes['start_date']) >= date($schedule['start_date']) &&
-                    date($attributes['start_date']) <= date($schedule['end_date'])) ||
-
-                (date($attributes['end_date']) >= date($schedule['start_date']) &&
-                    date($attributes['end_date']) <= date($schedule['end_date']))
-            ) {
-                return true;
-            }
+        if (count($schedules)) {
+            return true;
         }
 
         return false;
@@ -103,29 +95,44 @@ class AppointmentService extends \api\services\Service
         if (!empty($attributes['user_id'])) {
             $appointmentDates = (new Query())->select(['start_date', 'end_date'])
                 ->from('{{%appointment}}')
-                ->where(['user_id' => $attributes['user_id']])
+                ->where(['and',
+                    ['<=', 'start_date', $attributes['start_date']],
+                    ['>=', 'end_date', $attributes['start_date']],
+                ])
+                ->orWhere(['and',
+                    ['<=', 'start_date', $attributes['end_date']],
+                    ['>=', 'end_date', $attributes['end_date']],
+                ])
+                ->orWhere(['and',
+                    ['>=', 'start_date', $attributes['start_date']],
+                    ['<=', 'end_date', $attributes['end_date']],
+                ])
+                ->andWhere(['user_id' => $attributes['user_id']])
                 ->all();
         } else {
             $appointmentDates = (new Query())->select(['start_date', 'end_date'])
                 ->from('{{%appointment}}')
-                ->where(['master_id' => $attributes['master_id']])
-                ->andWhere(['salon_id' => $attributes['salon_id']])
+                ->where(['and',
+                    ['<=', 'start_date', $attributes['start_date']],
+                    ['>=', 'end_date', $attributes['start_date']],
+                ])
+                ->orWhere(['and',
+                    ['<=', 'start_date', $attributes['end_date']],
+                    ['>=', 'end_date', $attributes['end_date']],
+                ])
+                ->orWhere(['and',
+                    ['>=', 'start_date', $attributes['start_date']],
+                    ['<=', 'end_date', $attributes['end_date']],
+                ])
+                ->andWhere(['and',
+                    ['master_id' => $attributes['master_id']],
+                    ['salon_id' => $attributes['salon_id']],
+                ])
                 ->all();
         }
 
-        foreach ($appointmentDates as $appointmentDate) {
-            if (
-                (date($attributes['start_date']) >= date($appointmentDate['start_date']) &&
-                    date($attributes['start_date']) <= date($appointmentDate['end_date'])) ||
-
-                (date($attributes['end_date']) >= date($appointmentDate['start_date']) &&
-                    date($attributes['end_date']) <= date($appointmentDate['end_date'])) ||
-
-                (date($attributes['start_date']) <= date($appointmentDate['start_date']) &&
-                    (date($attributes['end_date']) >= date($appointmentDate['end_date'])))
-            ) {
-                return false;
-            }
+        if (count($appointmentDates)) {
+            return false;
         }
 
         return true;

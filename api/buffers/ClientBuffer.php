@@ -14,7 +14,7 @@ class ClientBuffer extends Buffer
         if (!$this->data) {
             $this->data = $this->where(['in', 'id', $this->getKeys()])
                 ->indexBy('id')
-                ->allByaccountId();
+                ->allByCurrentAccountId();
         }
         return $this->data[$id] ?? null;
     }
