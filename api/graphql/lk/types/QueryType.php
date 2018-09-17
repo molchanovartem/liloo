@@ -1,38 +1,38 @@
 <?php
 
-namespace api\schema\type;
+namespace api\graphql\lk\types;
 
-use api\schema\registry\TypeRegistry;
-use api\schema\type\entity\AccountTariffType;
-use api\schema\type\entity\AppointmentItemType;
-use api\schema\type\entity\AppointmentType;
-use api\schema\type\entity\BalanceJournalType;
-use api\schema\type\entity\CityType;
-use api\schema\type\entity\ConvenienceType;
-use api\schema\type\entity\CountryType;
-use api\schema\type\entity\MasterScheduleType;
-use api\schema\type\entity\MasterServiceType;
-use api\schema\type\entity\MasterSpecializationType;
-use api\schema\type\entity\MasterType;
-use api\schema\type\entity\RecallType;
-use api\schema\type\entity\SalonMasterType;
-use api\schema\type\entity\SalonServiceType;
-use api\schema\type\entity\SalonType;
-use api\schema\type\entity\ServiceGroupType;
-use api\schema\type\entity\ServiceType;
-use api\schema\type\entity\SpecializationType;
-use api\schema\type\entity\TariffPriceType;
-use api\schema\type\entity\TariffType;
-use api\schema\type\entity\UserProfileType;
-use api\schema\type\entity\UserScheduleType;
-use api\schema\type\entity\UserType;
-use api\schema\type\entity\ClientType;
 use GraphQL\Type\Definition\ObjectType;
+use api\graphql\TypeRegistry;
+use api\graphql\lk\types\entity\AccountTariffType;
+use api\graphql\lk\types\entity\AppointmentItemType;
+use api\graphql\lk\types\entity\AppointmentType;
+use api\graphql\lk\types\entity\BalanceJournalType;
+use api\graphql\lk\types\entity\CityType;
+use api\graphql\lk\types\entity\ConvenienceType;
+use api\graphql\lk\types\entity\CountryType;
+use api\graphql\lk\types\entity\MasterScheduleType;
+use api\graphql\lk\types\entity\MasterServiceType;
+use api\graphql\lk\types\entity\MasterSpecializationType;
+use api\graphql\lk\types\entity\MasterType;
+use api\graphql\lk\types\entity\RecallType;
+use api\graphql\lk\types\entity\SalonMasterType;
+use api\graphql\lk\types\entity\SalonServiceType;
+use api\graphql\lk\types\entity\SalonType;
+use api\graphql\lk\types\entity\ServiceGroupType;
+use api\graphql\lk\types\entity\ServiceType;
+use api\graphql\lk\types\entity\SpecializationType;
+use api\graphql\lk\types\entity\TariffPriceType;
+use api\graphql\lk\types\entity\TariffType;
+use api\graphql\lk\types\entity\UserProfileType;
+use api\graphql\lk\types\entity\UserScheduleType;
+use api\graphql\lk\types\entity\UserType;
+use api\graphql\lk\types\entity\ClientType;
 
 /**
  * Class QueryType
  *
- * @package api\schema\type
+ * @package api\graphql\lk\types
  */
 class QueryType extends ObjectType
 {
@@ -70,18 +70,6 @@ class QueryType extends ObjectType
                     TariffPriceType::getFieldsQueryType($typeRegistry),
                     AccountTariffType::getFieldsQueryType($typeRegistry),
                     BalanceJournalType::getFieldsQueryType($typeRegistry)
-                    /*
-                    UserType::getFieldsQueryType($typeRegistry),
-                    UserScheduleType::getFieldsQueryType($typeRegistry),
-                    SpecializationType::getFieldsQueryType($typeRegistry),
-                    ConvenienceType::getFieldsQueryType($typeRegistry),
-                    ClientType::getFieldsQueryType($typeRegistry),
-                    ServiceType::getFieldsQueryType($typeRegistry),
-                    ServiceGroupType::getFieldsQueryType($typeRegistry),
-                    SalonType::getFieldsQueryType($typeRegistry),
-                    SalonUserServiceType::getFieldsQueryType($typeRegistry),
-                    AppointmentType::getFieldsQueryType($typeRegistry)
-                    */
                 );
             }
         ]);

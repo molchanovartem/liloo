@@ -1,15 +1,15 @@
 <?php
 
-namespace api\schema\type\mutation\user;
+namespace api\graphql\lk\types\mutation\user;
 
-use api\schema\registry\TypeRegistry;
-use api\schema\type\MutationFieldsTypeInterface;
+use api\graphql\TypeRegistry;
+use api\graphql\MutationFieldsTypeInterface;
 use api\services\UserService;
 
 /**
  * Class UserType
  *
- * @package api\schema\type\mutation\user
+ * @package api\graphql\lk\types\mutation\user
  */
 class UserType implements MutationFieldsTypeInterface
 {

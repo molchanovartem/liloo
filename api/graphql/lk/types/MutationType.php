@@ -1,36 +1,37 @@
 <?php
 
-namespace api\schema\type;
+namespace api\graphql\lk\types;
 
-use api\schema\type\mutation\appointment\AppointmentType;
-use api\schema\type\mutation\appointment\item\AppointmentItemType;
-use api\schema\type\mutation\client\ClientType;
-use api\schema\type\mutation\convenience\ConvenienceType;
-use api\schema\type\mutation\master\MasterServiceType;
-use api\schema\type\mutation\master\MasterSpecializationType;
-use api\schema\type\mutation\master\MasterType;
-use api\schema\type\mutation\master\schedule\MasterScheduleType;
-use api\schema\type\mutation\salon\SalonConvenienceType;
-use api\schema\type\mutation\salon\SalonMasterType;
-use api\schema\type\mutation\salon\SalonSpecializationType;
-use api\schema\type\mutation\salon\SalonType;
-use api\schema\type\mutation\salon\service\SalonServiceType;
-use api\schema\type\mutation\service\ServiceType;
-use api\schema\type\mutation\serviceGroup\ServiceGroupType;
-use api\schema\type\mutation\tariff\TariffType;
-use api\schema\type\mutation\user\UserConvenienceType;
-use api\schema\type\mutation\specialization\SpecializationType;
-use api\schema\registry\TypeRegistry;
-use api\schema\type\mutation\user\profile\UserProfileType;
-use api\schema\type\mutation\user\schedule\UserScheduleType;
-use api\schema\type\mutation\user\UserSpecializationType;
-use api\schema\type\mutation\user\UserType;
 use GraphQL\Type\Definition\ObjectType;
-use api\schema\type\mutation\recall\RecallType;
+use api\graphql\TypeRegistry;
+use api\graphql\lk\types\mutation\appointment\AppointmentType;
+use api\graphql\lk\types\mutation\appointment\item\AppointmentItemType;
+use api\graphql\lk\types\mutation\client\ClientType;
+use api\graphql\lk\types\mutation\convenience\ConvenienceType;
+use api\graphql\lk\types\mutation\master\MasterServiceType;
+use api\graphql\lk\types\mutation\master\MasterSpecializationType;
+use api\graphql\lk\types\mutation\master\MasterType;
+use api\graphql\lk\types\mutation\master\schedule\MasterScheduleType;
+use api\graphql\lk\types\mutation\salon\SalonConvenienceType;
+use api\graphql\lk\types\mutation\salon\SalonMasterType;
+use api\graphql\lk\types\mutation\salon\SalonSpecializationType;
+use api\graphql\lk\types\mutation\salon\SalonType;
+use api\graphql\lk\types\mutation\salon\service\SalonServiceType;
+use api\graphql\lk\types\mutation\service\ServiceType;
+use api\graphql\lk\types\mutation\serviceGroup\ServiceGroupType;
+use api\graphql\lk\types\mutation\tariff\TariffType;
+use api\graphql\lk\types\mutation\user\UserConvenienceType;
+use api\graphql\lk\types\mutation\specialization\SpecializationType;
+use api\graphql\lk\types\mutation\user\profile\UserProfileType;
+use api\graphql\lk\types\mutation\user\schedule\UserScheduleType;
+use api\graphql\lk\types\mutation\user\UserSpecializationType;
+use api\graphql\lk\types\mutation\user\UserType;
+use api\graphql\lk\types\mutation\recall\RecallType;
 
 /**
  * Class MutationType
- * @package api\schema\type
+ *
+ * @package api\graphql\lk\types
  */
 class MutationType extends ObjectType
 {

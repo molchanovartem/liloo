@@ -2,20 +2,33 @@
 
 namespace api\controllers;
 
-use yii\filters\auth\HttpBearerAuth;
 use yii\rest\Controller;
 use yii\helpers\Json;
 use yii\filters\Cors;
-use api\schema\GraphQL;
-use HttpInvalidParamException;
+use api\graphql\TypeRegistry;
+use api\graphql\GraphQL;
 
 /**
  * Class GraphqlController
  *
  * @package api\controllers
  */
-class GraphqlController extends Controller
+abstract class GraphqlController extends Controller
 {
+    /**
+     * @var TypeRegistry;
+     */
+    protected $typeRegistry;
+
+    /**
+     * @throws \Exception
+     */
+    public function init()
+    {
+        if (!$this->typeRegistry instanceof TypeRegistry) throw new \Exception('No instance typeRegistry');
+
+        parent::init();
+    }
     /**
      * @return array
      */
@@ -33,9 +46,6 @@ class GraphqlController extends Controller
                 ]
                 */
             ],
-//            'bearerAuth' => [
-//                'class' => HttpBearerAuth::class,
-//            ],
         ]);
     }
 
@@ -78,12 +88,11 @@ class GraphqlController extends Controller
         if (!empty($variables) && !is_array($variables)) {
             try {
                 $variables = Json::decode($variables);
-            } catch (HttpInvalidParamException $e) {
+            } catch (\HttpInvalidParamException $e) {
                 $variables = null;
             }
         }
-
-        $graphQl = new GraphQL($query, $variables, $operation);
+        $graphQl = new GraphQL($query, $variables, $operation, $this->typeRegistry);
 
         $result = $graphQl->getResult();
         $result['data']['profiling'] = [
