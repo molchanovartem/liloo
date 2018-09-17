@@ -1,15 +1,14 @@
 <?php
 
-namespace api\schema;
+namespace api\graphql;
 
 use GraphQL\Error\Debug;
 use GraphQL\Type\Schema;
-use api\schema\registry\TypeRegistry;
 
 /**
  * Class GraphQL
  *
- * @package api\schema
+ * @package api\graphql
  */
 class GraphQL
 {
@@ -21,13 +20,12 @@ class GraphQL
 
     private $typeRegistry;
 
-    public function __construct($query, $variables = null, $operation = null)
+    public function __construct($query, $variables = null, $operation = null, TypeRegistry $typeRegistry)
     {
         $this->query = $query;
         $this->variables = $variables;
         $this->operation = $operation;
-
-        $this->typeRegistry = new TypeRegistry();
+        $this->typeRegistry = $typeRegistry;
     }
 
     public function getResult()

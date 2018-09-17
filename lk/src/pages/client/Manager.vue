@@ -23,10 +23,13 @@
                 </td>
             </template>
         </v-data-table>
+
+        <input type="file" @change="processData($event)">
     </div>
 </template>
 
 <script>
+    import axios from 'axios';
     import gql from 'graphql-tag';
 
     export default {
@@ -39,10 +42,27 @@
                     {text: "Имя", value: 'name'},
                     {text: null, value: null, sortable: false}
                 ],
-                items: []
+                items: [],
+
+                file: null
             }
         },
         methods: {
+            processData(event) {
+                let form = new FormData;
+
+                form.append("query", 'mutation {' +
+                    'convenienceCreate(attributes: {name: "asdasdasd", file: "123123"}) {id, name}' +
+                    '}');
+                form.append("file", event.target.files[0]);
+
+                let res = axios.post('http://liloo/api/graphql/index', form, {
+                    headers: {'Authorization': "Bearer " + 12345}
+                });
+
+                console.log(res);
+            },
+
             onCreate() {
               this.$router.push({name: 'clientCreate'});
             },

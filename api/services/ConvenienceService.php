@@ -5,6 +5,7 @@ namespace api\services;
 use api\exceptions\AttributeValidationError;
 use api\exceptions\NotFoundEntryError;
 use api\models\Convenience;
+use yii\web\UploadedFile;
 
 /**
  * Class ConvenienceService
@@ -22,6 +23,9 @@ class ConvenienceService
     {
         $model = new Convenience();
         $model->setAttributes($data);
+        //$data['file'] = UploadedFile::getInstanceByName('file');
+
+        throw new \Error(json_encode($data));
 
         return $this->save($model);
     }

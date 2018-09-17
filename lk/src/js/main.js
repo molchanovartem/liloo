@@ -2,17 +2,19 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import {router} from './router.js';
 import {store} from './store.js';
-import App from '../template/App.vue';
 import {apolloProvider} from "./apolloProvider";
-
-import VueGoodTable from 'vue-good-table';
+import Settings from './plugins/settings.js';
+import App from '../template/App.vue';
+import 'uikit';
 
 Vue.use(Vuetify);
-Vue.use(VueGoodTable);
+Vue.use(Settings);
 
 new Vue({
     router, store,
     provide: apolloProvider.provide(),
     el: '#app',
-    render: createElement => createElement(App)
+    render: createElement => {
+        return createElement(App);
+    }
 });

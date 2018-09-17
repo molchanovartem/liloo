@@ -18,7 +18,6 @@
 </template>
 
 <script>
-    import 'uikit';
     import VHeader from './Header.vue'
     import VSidebar from './components/Sidebar.vue';
     import VHeading from './components/Heading.vue';
@@ -41,7 +40,9 @@
             VHeader, VSidebar, VHeading, VBreadcrumbs
         },
         mounted() {
-            document.body.style.opacity = 1;
+            // Загрузка настроек
+            // Сетим настройки
+            //
         }
     }
 </script>
