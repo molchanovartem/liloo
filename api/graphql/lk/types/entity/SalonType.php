@@ -64,7 +64,7 @@ class SalonType extends ObjectType implements QueryTypeInterface
                                 ->alias('m')
                                 ->leftJoin(SalonMaster::tableName() . ' sm', '`m`.`id` = `sm`.`master_id`')
                                 ->where(['sm.salon_id' => $model->id])
-                                ->byAccountId('m')
+                                ->byCurrentAccountId('m')
                                 ->all();
                         }
                     ]

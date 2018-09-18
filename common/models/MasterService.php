@@ -2,9 +2,8 @@
 
 namespace common\models;
 
-use common\behaviors\AccountBehavior;
-use common\queries\MasterServiceQuery;
 use yii\db\ActiveRecord;
+use common\queries\Query;
 
 /**
  * Class MasterService
@@ -32,18 +31,8 @@ class MasterService extends ActiveRecord
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function behaviors(): array
-    {
-        return [
-            AccountBehavior::class
-        ];
-    }
-
     public static function find()
     {
-        return new MasterServiceQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

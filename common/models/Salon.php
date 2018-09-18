@@ -2,10 +2,8 @@
 
 namespace common\models;
 
-use common\behaviors\AccountBehavior;
-use common\behaviors\UserId;
-use common\queries\SalonQuery;
 use Yii;
+use common\queries\Query;
 
 /**
  * Class Salon
@@ -39,17 +37,6 @@ class Salon extends \yii\db\ActiveRecord
             [['account_id', 'user_id', 'country_id', 'city_id', 'status'], 'integer'],
             [['name', 'address'], 'string', 'max' => 255],
             ['status', 'in', 'range' => array_keys(self::getStatusList())]
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function behaviors(): array
-    {
-        return [
-            UserId::class,
-            AccountBehavior::class,
         ];
     }
 
@@ -104,14 +91,6 @@ class Salon extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getOwner()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getSalonSpecializations()
     {
         return $this->hasMany(SalonSpecialization::className(), ['salon_id' => 'id']);
@@ -152,18 +131,10 @@ class Salon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return SalonQuery|\yii\db\ActiveQuery
+     * @return Query|\yii\db\ActiveQuery
      */
     public static function find()
     {
-        return new SalonQuery(get_called_class());
-    }
-
-    public static function deleteById(int $id)
-    {
-        return self::deleteAll([
-            'id' => $id,
-            'account_id' => Yii::$app->account->getId()
-        ]);
+        return new Query(get_called_class());
     }
 }

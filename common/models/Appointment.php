@@ -3,7 +3,7 @@
 namespace common\models;
 
 use yii\db\ActiveRecord;
-use common\queries\AppointmentQuery;
+use common\queries\Query;
 
 /**
  * Class Appointment
@@ -50,33 +50,6 @@ class Appointment extends ActiveRecord
                     $this->addError($attribute, '"end_date" меньше "start_date"');
                 }
             }],
-            ['client_id', function ($attribute) {
-                $client = Client::find()
-                    ->where(['id' => $this->$attribute])
-                    ->andWhere(['account_id' => $this->account_id])
-                    ->one();
-                if (empty($client)) {
-                    $this->addError($attribute, 'Данному аккаунту не принадлежит этот клиент');
-                }
-            }],
-            ['master_id', function ($attribute) {
-                $client = Master::find()
-                    ->where(['id' => $this->$attribute])
-                    ->andWhere(['account_id' => $this->account_id])
-                    ->one();
-                if (empty($client)) {
-                    $this->addError($attribute, 'Данному аккаунту не принадлежит этот мастер');
-                }
-            }],
-            ['salon_id', function ($attribute) {
-                $client = Salon::find()
-                    ->where(['id' => $this->$attribute])
-                    ->andWhere(['account_id' => $this->account_id])
-                    ->one();
-                if (empty($client)) {
-                    $this->addError($attribute, 'Данному аккаунту не принадлежит этот салон');
-                }
-            }],
         ];
     }
 
@@ -94,10 +67,10 @@ class Appointment extends ActiveRecord
     }
 
     /**
-     * @return AppointmentQuery|\yii\db\ActiveQuery
+     * @return Query|\yii\db\ActiveQuery
      */
     public static function find()
     {
-        return new AppointmentQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

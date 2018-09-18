@@ -2,8 +2,8 @@
 
 namespace common\models;
 
-use common\queries\UserScheduleQuery;
 use Yii;
+use common\queries\Query;
 
 /**
  * Class UserSpecialization
@@ -50,15 +50,10 @@ class UserSpecialization extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
+     * @return Query|\yii\db\ActiveQuery
      */
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
     public static function find()
     {
-        return new UserScheduleQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

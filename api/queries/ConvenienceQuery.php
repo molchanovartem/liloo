@@ -2,13 +2,17 @@
 
 namespace api\queries;
 
+use common\queries\CommonQueryTrait;
+use yii\db\ActiveQuery;
+
 /**
  * Class ConvenienceQuery
+ *
  * @package api\queries
  */
-class ConvenienceQuery extends \common\queries\ConvenienceQuery
+class ConvenienceQuery extends ActiveQuery
 {
-    use AccountQueryTrait;
+    use CommonQueryTrait;
 
     /**
      * @param int $limit

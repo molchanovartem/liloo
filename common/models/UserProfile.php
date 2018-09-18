@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use common\queries\UserProfileQuery;
+use common\queries\Query;
 
 /**
  * Class UserProfile
@@ -38,22 +38,7 @@ class UserProfile extends \yii\db\ActiveRecord
         ];
     }
 
-    public function behaviors()
-    {
-        return [
-            /*
-            [
-                'class' => ActionImage::class,
-                'attribute' => 'avatar',
-                'deleteAttribute' => 'avatarDelete',
-                'path' => '@webroot/public/uploads',
-                'pathUrl' => '@web/public/uploads'
-            ]
-            */
-        ];
-    }
-
-    /**
+     /**
      * @return array
      */
     public static function modelAttributeLabels(): array
@@ -84,31 +69,9 @@ class UserProfile extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    /*
-    public function getSpecializations()
-    {
-        return $this->hasMany(Specialization::className(), ['id' => 'specialization_id'])
-            ->viaTable('{{%user_specialization}}', ['user_id' => 'user_id']);
-    }
-    */
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    /*
-    public function getConveniences()
-    {
-        return $this->hasMany(Convenience::className(), ['id' => 'convenience_id'])
-            ->viaTable('{{%user_convenience}}', ['user_id' => 'user_id']);
-    }
-    */
-
     public static function find()
     {
-        return new UserProfileQuery(get_called_class());
+        return new Query(get_called_class());
     }
 
 }

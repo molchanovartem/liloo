@@ -2,8 +2,8 @@
 
 namespace common\models;
 
-use common\queries\ConvenienceQuery;
 use Yii;
+use common\queries\Query;
 
 /**
  * Class Convenience
@@ -53,6 +53,6 @@ class Convenience extends \yii\db\ActiveRecord
 
     public static function find()
     {
-        return new ConvenienceQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

@@ -2,8 +2,8 @@
 
 namespace common\models;
 
-use common\queries\SpecializationQuery;
 use Yii;
+use common\queries\Query;
 
 /**
  * Class Specialization
@@ -51,24 +51,8 @@ class Specialization extends \yii\db\ActiveRecord
         return self::modelAttributeLabels();
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getServices()
-    {
-        return $this->hasMany(Service::className(), ['specialization_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUserSpecializations()
-    {
-        return $this->hasMany(UserSpecialization::className(), ['specialization_id' => 'id']);
-    }
-
     public static function find()
     {
-        return new SpecializationQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

@@ -23,9 +23,6 @@ class ConvenienceService
     {
         $model = new Convenience();
         $model->setAttributes($data);
-        //$data['file'] = UploadedFile::getInstanceByName('file');
-
-        throw new \Error(json_encode($data));
 
         return $this->save($model);
     }

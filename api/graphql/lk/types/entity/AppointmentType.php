@@ -51,7 +51,6 @@ class AppointmentType extends ObjectType implements QueryTypeInterface
                     ],
                     'items' => [
                         'type' => $typeRegistry->listOff($entityRegistry->appointmentItem()),
-                        'description' => 'Коллекция услуг',
                         'resolve' => function ($model, $args, $context, $info) {
                             AppointmentItem::buffer()->addKey($model->id);
 

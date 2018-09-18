@@ -14,34 +14,27 @@ use api\models\Service;
 class ServiceService
 {
     /**
-     * @param $data
+     * @param $attributes
      * @return Service
      * @throws AttributeValidationError
      */
-    public function create($data)
+    public function create($attributes)
     {
-        $model = new Service();
-        $model->setScenario(Service::SCENARIO_SERVICE);
-        $model->setAttributes($data);
-
-        return $this->save($model);
+        return $this->save(new Service(), Service::SCENARIO_SERVICE, $attributes);
     }
 
     /**
      * @param int $id
-     * @param $data
+     * @param $attributes
      * @return Service
      * @throws AttributeValidationError
      * @throws NotFoundEntryError
      */
-    public function update(int $id, $data)
+    public function update(int $id, $attributes)
     {
         if (!$model = Service::find()->oneServiceById($id)) throw new NotFoundEntryError();
 
-        $model->setScenario(Service::SCENARIO_SERVICE);
-        $model->setAttributes($data);
-
-        return $this->save($model);
+        return $this->save($model, Service::SCENARIO_SERVICE, $attributes);
     }
 
     /**
@@ -61,30 +54,23 @@ class ServiceService
      * @return Service
      * @throws AttributeValidationError
      */
-    public function createGroup($data)
+    public function createGroup($attributes)
     {
-        $model = new Service();
-        $model->setScenario(Service::SCENARIO_GROUP);
-        $model->setAttributes($data);
-
-        return $this->save($model);
+        return $this->save(new Service(), Service::SCENARIO_GROUP, $attributes);
     }
 
     /**
      * @param int $id
-     * @param $data
+     * @param $attributes
      * @return Service
      * @throws AttributeValidationError
      * @throws NotFoundEntryError
      */
-    public function updateGroup(int $id, $data)
+    public function updateGroup(int $id, $attributes)
     {
         if (!$model = Service::find()->oneGroupById($id)) throw new NotFoundEntryError();
 
-        $model->setScenario(Service::SCENARIO_GROUP);
-        $model->setAttributes($data);
-
-        return $this->save($model);
+        return $this->save($model, Service::SCENARIO_GROUP, $attributes);
     }
 
     /**
@@ -101,11 +87,16 @@ class ServiceService
 
     /**
      * @param Service $model
+     * @param $scenario
+     * @param array $attributes
      * @return Service
      * @throws AttributeValidationError
      */
-    private function save(Service $model)
+    private function save(Service $model, $scenario, array $attributes)
     {
+        $model->setScenario($scenario);
+        $model->setAttributes($attributes);
+
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
 
         $model->save(false);

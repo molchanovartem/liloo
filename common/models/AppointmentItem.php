@@ -3,7 +3,7 @@
 namespace common\models;
 
 use yii\db\ActiveRecord;
-use common\queries\AppointmentItemQuery;
+use common\queries\Query;
 
 /**
  * Class AppointmentItem
@@ -25,12 +25,6 @@ class AppointmentItem extends ActiveRecord
      */
     public function rules(): array
     {
-        /*
-         * @todo
-         * service_id
-         * service_duration количество символов
-         */
-
         return [
             [['account_id', 'appointment_id', 'service_id', 'service_name', 'service_price', 'service_duration', 'quantity'], 'required'],
             [['account_id', 'appointment_id', 'service_id', 'service_duration', 'quantity'], 'integer'],
@@ -41,10 +35,10 @@ class AppointmentItem extends ActiveRecord
     }
 
     /**
-     * @return AppointmentItemQuery|\yii\db\ActiveQuery
+     * @return Query|\yii\db\ActiveQuery
      */
     public static function find()
     {
-        return new AppointmentItemQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

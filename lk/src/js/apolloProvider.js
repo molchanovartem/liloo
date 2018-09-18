@@ -36,7 +36,7 @@ const authLink = setContext((_, { headers }) => {
 
 const httpLink = new HttpLink({
     // You should use an absolute URL here
-    uri: 'http://liloo/api/graphql/index',
+    uri: 'http://liloo/api/lk/index',
     transportBatching: true,
 });
 

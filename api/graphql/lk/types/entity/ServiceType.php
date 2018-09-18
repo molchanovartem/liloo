@@ -35,8 +35,6 @@ class ServiceType extends ObjectType implements QueryTypeInterface
                     /*
                      * @todo
                      */
-                            $repository = SpecializationRepository::getInstance();
-                            return $repository->findByIdFromAll($service['specialization_id']);
                         }
                     ]
                 ];

@@ -52,11 +52,15 @@ class AppointmentItemType extends ObjectType implements QueryTypeInterface
                     'appointment_id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args) {
+            /*
+             * @todo
+             * account_id ???
+             */
                     return AppointmentItem::find()
                         ->alias('ai')
                         ->leftJoin(Appointment::tableName(). ' a', '`a`.`id` = `ai`.`appointment_id`')
                         ->where(['ai.id' => $args['appointment_id']])
-                        ->byAccountId('ai')
+                        //->byAccountId('ai')
                         ->all();
                 }
             ],
@@ -66,7 +70,7 @@ class AppointmentItemType extends ObjectType implements QueryTypeInterface
                     'id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args) {
-                    return AppointmentItem::find()->oneById($args['id']);
+                    return AppointmentItem::find()->oneById($args['id']); // ? account_id чей
                 }
             ]
         ];

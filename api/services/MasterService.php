@@ -5,9 +5,9 @@ namespace api\services;
 use Yii;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
-use common\validators\MasterExistValidator;
-use common\validators\MasterScheduleValidator;
-use common\validators\SalonExistValidator;
+use api\validators\MasterExistValidator;
+use api\validators\MasterScheduleValidator;
+use api\validators\SalonExistValidator;
 use api\exceptions\ValidationError;
 use api\models\Salon;
 use api\models\MasterSchedule;
@@ -24,7 +24,6 @@ use api\models\MasterService as MasterServiceModel;
  */
 class MasterService extends Service
 {
-
     const ACTION_BEFORE_CREATE = 'beforeCreate';
     const ACTION_CREATE = 'create';
 
@@ -272,7 +271,7 @@ class MasterService extends Service
      */
     public function deleteMasterSchedule(int $id): bool
     {
-        return (bool)MasterSchedule::deleteOneById($id);
+        return (bool)MasterSchedule::deleteById($id);
     }
 
     /**

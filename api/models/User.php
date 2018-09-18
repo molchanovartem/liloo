@@ -11,7 +11,7 @@ use api\queries\UserQuery;
 class User extends \common\models\User
 {
     /**
-     * @return UserQuery|\common\queries\UserQuery|\yii\db\ActiveQuery
+     * @return UserQuery|\common\queries\Query|\yii\db\ActiveQuery
      */
     public static function find()
     {

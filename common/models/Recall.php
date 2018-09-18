@@ -2,10 +2,7 @@
 
 namespace common\models;
 
-use common\behaviors\UserId;
-use common\queries\RecallQuery;
-use common\validators\AppointmentExistValidator;
-use Yii;
+use common\queries\Query;
 
 /**
  * Class Recall
@@ -21,23 +18,8 @@ class Recall extends \yii\db\ActiveRecord
     const ASSESSMENT_DEFAULT = 0;
     const ASSESSMENT_DISLIKE = -1;
 
-    const SCENARIO_ANSWER = 'answer';
-
     const STATUS_NOT_VERIFIED = 0;
     const STATUS_VERIFIED = 1;
-
-    /**
-     * @return array
-     */
-    public function scenarios()
-    {
-        $defaultAttributes = ['account_id', 'user_id', 'appointment_id', 'type', 'parent_id', 'assessment', 'text', 'status'];
-
-        return [
-            self::SCENARIO_DEFAULT => $defaultAttributes,
-            self::SCENARIO_ANSWER => $defaultAttributes
-        ];
-    }
 
     /**
      * @return string
@@ -55,23 +37,9 @@ class Recall extends \yii\db\ActiveRecord
         return [
             [['text'], 'required'],
             [['account_id', 'user_id', 'appointment_id', 'type', 'parent_id', 'assessment'], 'integer'],
-            ['status', 'default', 'value' => self::STATUS_NOT_VERIFIED],
+            [['assessment'], 'in', 'range' => $this->getAssessments()],
             [['user_id'], 'default', 'value' => 52],
             [['text'], 'string'],
-            ['assessment', 'in', 'range' => $this->getAssessments(), 'on' => self::SCENARIO_DEFAULT],
-            ['appointment_id', AppointmentExistValidator::class, 'on' => self::SCENARIO_DEFAULT],
-            ['parent_id', 'validateParent', 'on' => self::SCENARIO_ANSWER],
-            ['parent_id', 'unique', 'on' => self::SCENARIO_ANSWER],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function behaviors(): array
-    {
-        return [
-            UserId::class,
         ];
     }
 
@@ -88,36 +56,10 @@ class Recall extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $attribute
-     */
-    public function validateParent($attribute)
-    {
-        $recall = Recall::find()
-            ->byId($this->$attribute)
-            ->allByCurrentAccountId();
-
-        if (empty($recall)) {
-            $this->addError($attribute, 'Невозможно добавить ответ');
-        }
-    }
-
-    /**
-     * @param int $id
-     * @return int
-     */
-    public static function deleteById(int $id)
-    {
-        return self::deleteAll([
-            'id' => $id,
-            'account_id' => Yii::$app->account->getId()
-        ]);
-    }
-
-    /**
-     * @return RecallQuery|\yii\db\ActiveQuery
+     * @return Query|\yii\db\ActiveQuery
      */
     public static function find()
     {
-        return new RecallQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

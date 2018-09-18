@@ -2,13 +2,17 @@
 
 namespace api\queries;
 
+use yii\db\ActiveQuery;
+use common\queries\CommonQueryTrait;
+
 /**
  * Class SpecializationQuery
+ *
  * @package api\queries
  */
-class SpecializationQuery extends \common\queries\SpecializationQuery
+class SpecializationQuery extends ActiveQuery
 {
-    use AccountQueryTrait;
+    use CommonQueryTrait;
 
     /**
      * @param int $limit

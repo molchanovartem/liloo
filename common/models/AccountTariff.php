@@ -2,11 +2,11 @@
 
 namespace common\models;
 
-use common\behaviors\AccountBehavior;
 use common\queries\Query;
 
 /**
  * Class AccountTariff
+ *
  * @package common\models
  */
 class AccountTariff extends \yii\db\ActiveRecord
@@ -28,16 +28,6 @@ class AccountTariff extends \yii\db\ActiveRecord
             [['account_id', 'tariff_id', 'price_id', 'end_date'], 'required'],
             [['account_id', 'tariff_id', 'price_id'], 'integer'],
             [['end_date'], 'date', 'format' => 'php:Y-m-d H:i:s'],
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function behaviors(): array
-    {
-        return [
-            AccountBehavior::class
         ];
     }
 

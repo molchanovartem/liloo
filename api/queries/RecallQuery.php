@@ -2,7 +2,15 @@
 
 namespace api\queries;
 
-class RecallQuery extends \common\queries\RecallQuery
+use api\queries\traits\AccountQueryTrait;
+use yii\db\ActiveQuery;
+
+/**
+ * Class RecallQuery
+ *
+ * @package api\queries
+ */
+class RecallQuery extends ActiveQuery
 {
     use AccountQueryTrait;
 

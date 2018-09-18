@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\queries\Query;
+
 /**
  * Class BalanceJournal
  * @package common\models
@@ -81,5 +83,13 @@ class BalanceJournal extends \yii\db\ActiveRecord
     public function getTypeReasonName()
     {
         return $this->getTypesReason()[$this->type_reason];
+    }
+
+    /**
+     * @return Query|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
     }
 }

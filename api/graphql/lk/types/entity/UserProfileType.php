@@ -45,7 +45,7 @@ class UserProfileType extends ObjectType implements QueryTypeInterface
             'userProfile' => [
                 'type' => $entityRegistry->userProfile(),
                  'resolve' => function ($root, $args) {
-                    return UserProfile::find()->oneByUserIdCurrentUser();
+                    return UserProfile::find()->oneByCurrentUserId();
                 }
             ]
         ];

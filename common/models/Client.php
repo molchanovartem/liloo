@@ -2,11 +2,8 @@
 
 namespace common\models;
 
-use common\queries\ClientQuery;
 use Yii;
-use common\behaviors\AccountBehavior;
-use common\validators\CityExistValidator;
-use common\validators\CountryExistValidator;
+use common\queries\Query;
 
 /**
  * Class Client
@@ -37,19 +34,7 @@ class Client extends \yii\db\ActiveRecord
             [['surname', 'name', 'patronymic', 'address'], 'string', 'max' => 255],
             ['phone', 'string', 'max' => 20],
             [['date_birth', 'date_last_appointment'], 'date', 'format' => 'php:Y-m-d'],
-            ['country_id', CountryExistValidator::class],
-            ['city_id', CityExistValidator::class],
             ['status', 'in', 'range' => array_keys(self::getStatusList())]
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public function behaviors()
-    {
-        return [
-            AccountBehavior::class
         ];
     }
 
@@ -92,20 +77,8 @@ class Client extends \yii\db\ActiveRecord
         return self::getStatusList()[$this->status];
     }
 
-    /**
-     * @param int $id
-     * @return int
-     */
-    public static function deleteOneById(int $id)
-    {
-        return self::deleteAll([
-            'id' => $id,
-            'account_id' => Yii::$app->account->getId()
-        ]);
-    }
-
     public static function find()
     {
-        return new ClientQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

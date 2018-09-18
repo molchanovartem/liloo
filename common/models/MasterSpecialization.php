@@ -2,8 +2,7 @@
 
 namespace common\models;
 
-use common\behaviors\AccountBehavior;
-use common\queries\MasterSpecializationQuery;
+use common\queries\Query;
 
 /**
  * Class MasterSpecialization
@@ -32,17 +31,10 @@ class MasterSpecialization extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return array
+     * @return Query|\yii\db\ActiveQuery
      */
-    public function behaviors(): array
-    {
-        return [
-            AccountBehavior::class
-        ];
-    }
-
     public static function find()
     {
-        return new MasterSpecializationQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

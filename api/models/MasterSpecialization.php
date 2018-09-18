@@ -2,6 +2,7 @@
 
 namespace api\models;
 
+use common\behaviors\AccountBehavior;
 use api\queries\MasterSpecializationQuery;
 
 /**
@@ -11,6 +12,16 @@ use api\queries\MasterSpecializationQuery;
  */
 class MasterSpecialization extends \common\models\MasterSpecialization
 {
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            AccountBehavior::class
+        ];
+    }
+
     /**
      * @return MasterSpecializationQuery|\yii\db\ActiveQuery
      */

@@ -4,10 +4,10 @@ namespace api\services;
 
 use Yii;
 use yii\db\Expression;
-use common\validators\UserScheduleValidator;
-use common\models\Account;
-use common\models\UserSpecialization;
-use common\models\UserConvenience;
+use api\validators\UserScheduleValidator;
+use api\models\Account;
+use api\models\UserSpecialization;
+use api\models\UserConvenience;
 use api\exceptions\AttributeValidationError;
 use api\exceptions\NotFoundEntryError;
 use api\models\User;
@@ -243,7 +243,7 @@ class UserService extends Service
      */
     public function updateProfile(array $attributes)
     {
-        if (!$model = UserProfile::find()->oneByUserIdCurrentUser()) throw new NotFoundEntryError();
+        if (!$model = UserProfile::find()->oneByCurrentUserId()) throw new NotFoundEntryError();
 
         $model->setAttributes($attributes);
 
@@ -255,16 +255,13 @@ class UserService extends Service
     }
 
     /**
-     * @param array $data
+     * @param array $attributes
      * @return UserSchedule
      * @throws AttributeValidationError
      */
-    public function createUserSchedule(array $data)
+    public function createUserSchedule(array $attributes)
     {
-        $model = new UserSchedule();
-        $model->setAttributes($data);
-
-        return $this->saveUserSchedule($model);
+        return $this->saveUserSchedule(new UserSchedule(), $attributes);
     }
 
     /**
@@ -298,27 +295,28 @@ class UserService extends Service
 
     /**
      * @param int $id
-     * @param array $data
+     * @param array $attributes
      * @return UserSchedule
      * @throws AttributeValidationError
      * @throws NotFoundEntryError
      */
-    public function updateUserSchedule(int $id, array $data)
+    public function updateUserSchedule(int $id, array $attributes)
     {
         if (!$model = UserSchedule::find()->oneById($id)) throw new NotFoundEntryError();
 
-        $model->setAttributes($data);
-
-        return $this->saveUserSchedule($model);
+        return $this->saveUserSchedule($model, $attributes);
     }
 
     /**
      * @param UserSchedule $model
+     * @param array $attributes
      * @return UserSchedule
      * @throws AttributeValidationError
      */
-    private function saveUserSchedule(UserSchedule $model)
+    private function saveUserSchedule(UserSchedule $model, array $attributes)
     {
+        $model->setAttributes($attributes);
+
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
 
         $model->save(false);

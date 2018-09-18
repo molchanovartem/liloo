@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\queries\Query;
 use admin\forms\TariffForm;
 
 /**
@@ -132,5 +133,13 @@ class Tariff extends \yii\db\ActiveRecord
     public function getType($type)
     {
         return self::getTypes()[$type];
+    }
+
+    /**
+     * @return Query|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
     }
 }

@@ -2,12 +2,15 @@
 
 namespace api\queries;
 
+use yii\db\ActiveQuery;
+use api\queries\traits\AccountQueryTrait;
+
 /**
  * Class ClientQuery
  *
  * @package api\queries
  */
-class ClientQuery extends \common\queries\ClientQuery
+class ClientQuery extends ActiveQuery
 {
     use AccountQueryTrait;
 

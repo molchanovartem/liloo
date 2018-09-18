@@ -3,9 +3,11 @@
 namespace common\models;
 
 use Yii;
+use common\queries\Query;
 
 /**
  * Class Account
+ *
  * @package common\models
  */
 class Account extends \yii\db\ActiveRecord
@@ -34,5 +36,13 @@ class Account extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
         ];
+    }
+
+    /**
+     * @return Query|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
     }
 }

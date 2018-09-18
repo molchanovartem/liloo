@@ -14,6 +14,12 @@ class AppointmentItem extends \common\models\AppointmentItem implements BufferIn
 {
     private static $buffer = null;
 
+    /*
+         * @todo
+         * service_id
+         * service_duration количество символов
+         */
+
     /**
      * @return AppointmentItemQuery|\common\queries\AppointmentItemQuery|\yii\db\ActiveQuery
      */

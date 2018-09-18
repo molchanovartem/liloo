@@ -33,6 +33,9 @@ class AccountTariffType extends ObjectType implements QueryTypeInterface
                     'end_date' => $typeRegistry->string(),
                     'tariff' => [
                         'type' => $entityRegistry->tariff(),
+                        /*
+                         * @todo buffer
+                         */
                         'resolve' => function (AccountTariff $accountTariff, $args, $context, $info) {
                             return Tariff::find()->oneById($accountTariff->tariff_id);
                         }
@@ -55,7 +58,7 @@ class AccountTariffType extends ObjectType implements QueryTypeInterface
                 'type' => $typeRegistry->listOff($entityRegistry->accountTariff()),
                 'description' => 'Коллекция цен тарифов',
                 'resolve' => function ($root, $args) {
-                    return AccountTariff::find()->allByAccountId();
+                    return AccountTariff::find()->allByCurrentAccountId();
                 }
             ],
         ];

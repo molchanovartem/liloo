@@ -62,7 +62,7 @@ class BalanceJournalType extends ObjectType implements QueryTypeInterface
                 'type' => $typeRegistry->listOff($entityRegistry->balanceJournal()),
                 'description' => 'Журнал',
                 'resolve' => function ($root, $args) {
-                    return BalanceJournal::find()->allByAccountId();
+                    return BalanceJournal::find()->allByCurrentAccountId();
                 }
             ],
         ];

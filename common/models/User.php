@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use common\queries\UserQuery;
+use common\queries\Query;
 
 /**
  * Class User
@@ -96,6 +96,6 @@ class User extends \yii\db\ActiveRecord
 
     public static function find()
     {
-        return new UserQuery(get_called_class());
+        return new Query(get_called_class());
     }
 }

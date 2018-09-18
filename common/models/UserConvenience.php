@@ -2,8 +2,8 @@
 
 namespace common\models;
 
-use common\queries\Query;
 use Yii;
+use common\queries\Query;
 
 /**
  * Class UserConvenience

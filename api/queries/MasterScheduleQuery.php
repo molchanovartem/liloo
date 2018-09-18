@@ -2,12 +2,15 @@
 
 namespace api\queries;
 
+use yii\db\ActiveQuery;
+use api\queries\traits\AccountQueryTrait;
+
 /**
  * Class MasterScheduleQuery
  *
  * @package api\queries
  */
-class MasterScheduleQuery extends \common\queries\MasterScheduleQuery
+class MasterScheduleQuery extends ActiveQuery
 {
     use AccountQueryTrait;
 

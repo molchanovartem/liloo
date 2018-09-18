@@ -2,6 +2,7 @@
 
 namespace api\models;
 
+use common\behaviors\AccountBehavior;
 use api\queries\AccountTariffQuery;
 
 /**
@@ -17,4 +18,15 @@ class AccountTariff extends \common\models\AccountTariff
     {
         return new AccountTariffQuery(get_called_class());
     }
+
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            AccountBehavior::class
+        ];
+    }
+
 }

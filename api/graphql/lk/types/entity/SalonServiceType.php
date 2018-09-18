@@ -92,7 +92,7 @@ class SalonServiceType extends ObjectType implements QueryTypeInterface
                                 'ms.master_id' => $args['master_id']
                             ]
                         )
-                        ->byAccountId('ss')
+                        ->byCurrentAccountId('ss')
                         ->all();
                 }
             ]

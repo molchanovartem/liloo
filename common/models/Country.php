@@ -2,8 +2,8 @@
 
 namespace common\models;
 
-use common\queries\Query;
 use yii\db\ActiveRecord;
+use common\queries\Query;
 
 /**
  * Class Country

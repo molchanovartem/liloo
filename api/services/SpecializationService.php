@@ -14,39 +14,36 @@ use api\models\Specialization;
 class SpecializationService
 {
     /**
-     * @param $data
+     * @param $attributes
      * @return Specialization
      * @throws AttributeValidationError
      */
-    public function create($data)
+    public function create($attributes)
     {
-        $model = new Specialization();
-        $model->setAttributes($data);
-
-        return $this->save($model);
+        return $this->save(new Specialization(), $attributes);
     }
 
     /**
      * @param int $id
-     * @param $data
+     * @param $attributes
      * @return Specialization
      * @throws AttributeValidationError
      */
-    public function update(int $id, $data)
+    public function update(int $id, $attributes)
     {
-        $model = Specialization::findOne($id);
-        $model->setAttributes($data);
-
-        return $this->save($model);
+        return $this->save(Specialization::findOne($id), $attributes);
     }
 
     /**
      * @param Specialization $model
+     * @param $attributes
      * @return Specialization
      * @throws AttributeValidationError
      */
-    protected function save(Specialization $model)
+    protected function save(Specialization $model, $attributes)
     {
+        $model->setAttributes($attributes);
+
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
 
         $model->save(false);
@@ -61,8 +58,8 @@ class SpecializationService
      */
     public function delete(int $id)
     {
-       if (($result = Specialization::deleteAll(['id' => $id])) == 0) throw new NotFoundEntryError();
+        if (($result = Specialization::deleteAll(['id' => $id])) == 0) throw new NotFoundEntryError();
 
-       return (bool)$result;
+        return (bool)$result;
     }
 }

@@ -2,12 +2,15 @@
 
 namespace api\queries;
 
+use api\queries\traits\AccountQueryTrait;
+use yii\db\ActiveQuery;
+
 /**
  * Class AppointmentQuery
  *
  * @package api\queries
  */
-class AppointmentQuery extends \common\queries\AppointmentQuery
+class AppointmentQuery extends ActiveQuery
 {
     use AccountQueryTrait;
     /**

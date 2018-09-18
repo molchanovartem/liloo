@@ -2,10 +2,8 @@
 
 namespace common\models;
 
-use Yii;
 use yii\db\ActiveRecord;
-use common\behaviors\AccountBehavior;
-use common\queries\MasterQuery;
+use common\queries\Query;
 
 /**
  * Class Master
@@ -36,29 +34,10 @@ class Master extends ActiveRecord
     }
 
     /**
-     * @return array
+     * @return Query|\yii\db\ActiveQuery
      */
-    public function behaviors()
-    {
-        return [
-            AccountBehavior::class
-        ];
-    }
-
     public static function find()
     {
-        return new MasterQuery(get_called_class());
-    }
-
-    /**
-     * @param int $id
-     * @return int
-     */
-    public static function deleteById(int $id)
-    {
-        return self::deleteAll([
-            'id' => $id,
-            'account_id' => Yii::$app->account->getId()
-        ]);
+        return new Query(get_called_class());
     }
 }

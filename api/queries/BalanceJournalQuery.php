@@ -2,11 +2,15 @@
 
 namespace api\queries;
 
+use api\queries\traits\AccountQueryTrait;
+use yii\db\ActiveQuery;
+
 /**
  * Class BalanceJournalQuery
+ *
  * @package api\queries
  */
-class BalanceJournalQuery extends \common\queries\BalanceJournalQuery
+class BalanceJournalQuery extends ActiveQuery
 {
     use AccountQueryTrait;
 }
