@@ -20,6 +20,7 @@ class m180416_071029_user extends Migration
             'type' => $this->integer()->notNull(),
             'login' => $this->string()->notNull(),
             'password' => $this->string()->notNull(),
+            'city_id' => $this->integer()->notNull(),
         ]);
 
         $this->createIndex('ix-user-account_id', $this->tableName, 'account_id');

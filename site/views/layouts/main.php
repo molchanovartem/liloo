@@ -34,6 +34,8 @@ use yii\helpers\Html;
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web');?>/public/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web');?>/public/css/responsive.css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css">
 </head>
 <body>
 <header class="header bg_image_header-main">
@@ -55,6 +57,7 @@ use yii\helpers\Html;
                 </a>
 
                 <a href="user/signup"><button class="button button_color_blue button_in_header">Регистрация для исполнителя</button></a>
+                <a href="appointment/create"><button class="button button_color_blue button_in_header">Запись</button></a>
 
                 <a href="" class="font_Gilroy-17-800-000000">Войти</a>
 
@@ -309,5 +312,8 @@ use yii\helpers\Html;
 <script src="<?php echo Yii::getAlias('@web');?>/public/js/jquery-3.3.1.min.js"></script>
 <script src="<?php echo Yii::getAlias('@web');?>/public/js/slick.min.js"></script>
 <script src="<?php echo Yii::getAlias('@web');?>/public/js/main.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
 </body>
 </html>
