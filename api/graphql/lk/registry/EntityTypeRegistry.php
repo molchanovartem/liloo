@@ -154,4 +154,9 @@ class EntityTypeRegistry extends AdditionalTypeRegistry
     {
         return $this->typeRegistry->get(BalanceJournalType::class);
     }
+
+    public function userLogin()
+    {
+        return $this->typeRegistry->get(UserLoginType::class);
+    }
 }

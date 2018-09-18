@@ -198,4 +198,9 @@ class MutationInputTypeRegistry extends AdditionalTypeRegistry
     {
         return $this->typeRegistry->get(AccountTariffCreateInputType::class);
     }
+
+    public function userLogin()
+    {
+        return $this->typeRegistry->get(UserFormLoginType::class);
+    }
 }
