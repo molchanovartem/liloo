@@ -101,7 +101,7 @@
                 <h4 class="uk-margin-top"><?php echo $specialization->name; ?></h4>
                 <?php foreach ($specialization->getServiceByAccount($model->account_id) as $service): ?>
                     <li><?php echo $service->name; ?> - <?php echo $service->duration; ?>
-                        - <?php echo $service->price; ?></li>
+                                                      - <?php echo $service->price; ?></li>
                 <?php endforeach; ?>
             <?php endforeach; ?>
         </ul>
@@ -121,25 +121,27 @@
     <br>
 
     <h4>Отзывы</h4>
-    <?php foreach ($model->recalls as $recall): ?>
-        <div class="uk-card uk-card-default uk-width-1-2 uk-margin-top ">
-            <div class="uk-card-header">
-                <div class="uk-grid uk-grid-small uk-flex-middle">
-                    <div class="uk-width-auto">
-                        <img class="uk-border-circle" width="60" height="60"
-                             src="http://mycs.net.au/wp-content/uploads/2016/03/person-icon-flat.png">
-                    </div>
-                    <div class="uk-width-expand">
-                        <h3 class="uk-card-title uk-margin-remove-bottom">Title</h3>
-                        <p class="uk-text-meta uk-margin-remove-top">
-                            <time datetime="2016-04-01T19:00"><?php echo $recall->create_time; ?></time>
-                        </p>
+    <div class="uk-grid">
+        <?php foreach ($model->recalls as $recall): ?>
+            <div class="uk-card uk-card-default uk-width-1-3 uk-margin-top">
+                <div class="uk-card-header">
+                    <div class="uk-grid uk-grid-small uk-flex-middle">
+                        <div class="uk-width-auto">
+                            <img class="uk-border-circle" width="60" height="60"
+                                 src="http://mycs.net.au/wp-content/uploads/2016/03/person-icon-flat.png">
+                        </div>
+                        <div class="uk-width-expand">
+                            <h3 class="uk-card-title uk-margin-remove-bottom">Title</h3>
+                            <p class="uk-text-meta uk-margin-remove-top">
+                                <time datetime="2016-04-01T19:00"><?php echo $recall->create_time; ?></time>
+                            </p>
+                        </div>
                     </div>
                 </div>
+                <div class="uk-card-body">
+                    <p><?php echo $recall->text; ?></p>
+                </div>
             </div>
-            <div class="uk-card-body">
-                <p><?php echo $recall->text; ?></p>
-            </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 </div>

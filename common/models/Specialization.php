@@ -67,4 +67,12 @@ class Specialization extends \yii\db\ActiveRecord
     {
         return Service::find()->bySpecializationId($this->id)->andWhere(['account_id' => $accountId])->all();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMinPrice()
+    {
+        return Service::find()->bySpecializationId($this->id)->min('price');
+    }
 }
