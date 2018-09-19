@@ -81,4 +81,13 @@ trait CommonByQueryTrait
     {
         return $this->andWhere(['country_id' => $countryId]);
     }
+
+    /**
+     * @param int $specializationId
+     * @return mixed
+     */
+    public function bySpecializationId(int $specializationId)
+    {
+        return $this->andWhere(['specialization_id' => $specializationId]);
+    }
 }

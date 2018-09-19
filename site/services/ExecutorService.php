@@ -3,14 +3,7 @@
 namespace site\services;
 
 use common\core\service\ModelService;
-use common\models\Salon;
-use common\models\Specialization;
 use common\models\User;
-use common\models\UserProfile;
-use common\models\UserSpecialization;
-use site\forms\FilterForm;
-use yii\data\ActiveDataProvider;
-use yii\data\ArrayDataProvider;
 
 class ExecutorService extends ModelService
 {
@@ -32,13 +25,18 @@ class ExecutorService extends ModelService
         $this->setData(['provider' => $arrayProvider]);
     }
 
-    public function getExecutors()
+    /**
+     * @param $id
+     * @throws \Exception
+     */
+    public function findExecutor($id)
     {
-        $query = $query = User::find()
-            ->select('*')
-            ->alias('u')
-            ->joinWith('specializations')->all();
+        if (($model = User::find()
+                ->with(['specializations'])
+                ->with(['profile'])
+                ->where(['id' => $id])
+                ->one()) == null) throw new \Exception('Not find any recall');
 
-        $this->setData(['executors' => $query]);
+        $this->setData(['executor' => $model]);
     }
 }

@@ -51,8 +51,20 @@ class Specialization extends \yii\db\ActiveRecord
         return self::modelAttributeLabels();
     }
 
+    /**
+     * @return Query|\yii\db\ActiveQuery
+     */
     public static function find()
     {
         return new Query(get_called_class());
+    }
+
+    /**
+     * @param $accountId
+     * @return mixed
+     */
+    public function getServiceByAccount($accountId)
+    {
+        return Service::find()->bySpecializationId($this->id)->andWhere(['account_id' => $accountId])->all();
     }
 }

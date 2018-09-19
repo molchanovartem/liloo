@@ -5,6 +5,7 @@ namespace site\forms;
 use common\models\City;
 use yii\base\Model;
 use common\models\Specialization;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class FilterForm
@@ -24,8 +25,8 @@ class FilterForm extends Model
     {
         return [
             [['specialization', 'city'], 'integer'],
-            [['start_date', 'date'], 'date', 'format' => 'php:Y-m-d'],
-            [['start_date', 'time'], 'date', 'format' => 'php:H:i:s'],
+            [['date'], 'date', 'format' => 'php:Y-m-d'],
+            [['time'], 'date', 'format' => 'php:H:i:s'],
         ];
     }
 
@@ -34,7 +35,9 @@ class FilterForm extends Model
      */
     public function getSpecialization()
     {
-        return Specialization::find()->select('*')->asArray()->all();
+        $array = Specialization::find()->select('*')->asArray()->all();
+
+        return ArrayHelper::map($array, 'id', 'name');
     }
 
     /**
@@ -42,6 +45,24 @@ class FilterForm extends Model
      */
     public function getCities()
     {
-        return City::find()->select('name')->asArray()->all();
+        $array = City::find()
+            ->select(['id as value', 'name as label'])
+            ->asArray()
+            ->all();
+
+        return $array;
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'specialization' => 'Выбор специализации мастера',
+            'city' => 'Выбор города',
+            'date' => 'Выбор даты',
+            'time' => 'Выбор времени',
+        ];
     }
 }

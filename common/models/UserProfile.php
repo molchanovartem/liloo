@@ -69,9 +69,17 @@ class UserProfile extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
+    /**
+     * @return Query|\yii\db\ActiveQuery
+     */
     public static function find()
     {
         return new Query(get_called_class());
     }
 
+    public function getCity()
+    {
+//        return City::findOne();
+        return $this->hasOne(City::class, ['id' => 'city_id']);
+    }
 }

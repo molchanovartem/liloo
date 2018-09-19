@@ -1,51 +1,44 @@
-<!--<form class="uk-grid uk-grid-small uk-margin-top">-->
-<!---->
-<!--    <legend class="uk-legend">Фильтр</legend>-->
-<!---->
-<!--    <div class="uk-width-1-4@s uk-margin-top">-->
-<!--        <input class="uk-input" type="text" placeholder="Специализация">-->
-<!--    </div>-->
-<!--    <div class="uk-width-1-4@s uk-margin-top">-->
-<!--        <input class="uk-input" type="text" placeholder="Город">-->
-<!--    </div>-->
-<!--    <div class="uk-width-1-4@s uk-margin-top">-->
-<!--        <input class="uk-input" type="text" placeholder="Дата">-->
-<!--    </div>-->
-<!--    <div class="uk-width-1-4@s uk-margin-top">-->
-<!--        <input class="uk-input" type="text" placeholder="Время">-->
-<!--    </div>-->
-<!--    -->
-<!--</form>-->
+<div class="uk-container">
+    <div class="user-form">
 
+        <?php
 
-<div class="user-form">
+        use admin\widgets\activeForm\ActiveForm;
+        use yii\jui\DatePicker;
+        use yii\jui\AutoComplete;
 
-    <?php use admin\widgets\activeForm\ActiveForm;
+        $form = ActiveForm::begin(['enableClientValidation' => false,'method' => 'get']); ?>
 
-    $form = ActiveForm::begin(['enableClientValidation' => false]); ?>
+        <div class="panel panel-default panel-body">
 
-    <div class="panel panel-default panel-body">
+            <?= $form->errorSummary($model); ?>
 
-        <?= $form->errorSummary($model); ?>
+            <?= $form->field($model, 'specialization')->dropDownList($model->getSpecialization(), ['value' => Yii::$app->request->get('specialization'), 'prompt' => 'Выберите специализацию...']); ?>
 
-        <?= $form->field($model, 'specialization')->dropDownList($model->getSpecialization(), ['prompt' => 'Выберите специализацию...']); ?>
+            <?= $form->field($model, 'city')->widget(
+                AutoComplete::class, [
+                'clientOptions' => [
+                    'source' => $model->getCities(),
+                ],
+                'options' => [
+                    'class' => 'form-control',
+                ],
+            ]);
+            ?>
 
-        <?= $form->field($model, 'specialization')->dropDownList($model->getCities(), ['prompt' => 'Выберите город...']); ?>
+            <?= $form->field($model, 'date')->widget(DatePicker::class, [
+                'dateFormat' => 'MM-dd-yyyy',
+            ]) ?>
 
-        <?= $form->field($model, 'date')->widget(\yii\jui\DatePicker::class, [
-            'language' => 'ru',
-            'dateFormat' => 'yyyy-MM-dd',
-        ]) ?>
+            <?= $form->field($model, 'time')->textInput(['maxlength' => true]) ?>
 
+        </div>
+
+        <?php ActiveForm::end(); ?>
 
     </div>
 
-    <?php ActiveForm::end(); ?>
-
+    <div class="uk-margin-top">
+        <?= $this->render('_listView', ['provider' => $provider]); ?>
+    </div>
 </div>
-
-<div class="uk-margin-top">
-    <?= $this->render('_listView', ['provider' => $provider]); ?>
-</div>
-
-<?php var_dump($provider) ?>

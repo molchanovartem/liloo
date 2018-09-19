@@ -1,408 +1,136 @@
+<?php use yii\helpers\Html; ?>
+<div class="header__content header__content_page_main content-width">
+
+    <h1 class="h1 h1_page_main">Записывайтесь к лучшим и&nbsp;проверенным мастерам</h1>
+
+    <div class="header__content-parts">
+
+        <div class="header__content-part">
+
+            <form action="" method="post">
+
+                <div class="input-box">
+                    <div class="input-box__wrap">
+                        <input type="text" id="input_1" class="input-box__input">
+                        <label for="input_1" class="input-box__label">Введите название услуги или специалиста</label>
+                    </div>
+                </div>
+
+                <div class="input-boxes mt-20">
+
+                    <div class="input-box">
+                        <div class="input-box__wrap">
+                            <input type="email" id="input_2" class="input-box__input">
+                            <label for="input_2" class="input-box__label">Ваш город</label>
+                        </div>
+                        <div class="input-box__additional">
+                            <span class="far fa-calendar-alt"></span>
+                        </div>
+                    </div>
+
+                    <div class="input-box">
+                        <div class="input-box__wrap">
+                            <input type="email" id="input_3" class="input-box__input">
+                            <label for="input_3" class="input-box__label">Желаемая дата записи</label>
+                        </div>
+                        <div class="input-box__additional">
+                            <span class="far fa-calendar-alt"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-35 between-15">
+
+                    <input type="submit" class="button button_color_red" value="Начать поиск">
+
+                    <a href="" class="button button_color_blue-empty">Мастер рядом</a>
+
+                </div>
+
+            </form>
+
+            <a href="" class="anchor-more mt-65">
+                <span class="anchor-more__arrow fas fa-arrow-down"></span>
+                <span class="anchor-more__text">Все услуги</span>
+            </a>
+
+        </div>
+
+        <div class="header__content-part">
+
+            <div class="services-slider">
+
+                <a href="" class="service-popular">
+                    <span class="service-popular__tip">Популярная услуга в вашем городе</span>
+                    <div class="service-popular__wrap">
+                        <div class="service-popular__img"
+                             style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
+                        <div class="service-popular__row">
+                            <span class="service-popular__name">Ресницы, брови</span>
+                            <span class="service-popular__prices">Цены: от 300 руб.</span>
+                        </div>
+                    </div>
+                    <span class="service-popular__more">Подробнее</span>
+                </a>
+
+                <a href="" class="service-popular">
+                    <span class="service-popular__tip">Популярная услуга в вашем городе</span>
+                    <div class="service-popular__wrap">
+                        <div class="service-popular__img"
+                             style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
+                        <div class="service-popular__row">
+                            <span class="service-popular__name">Ресницы, брови</span>
+                            <span class="service-popular__prices">Цены: от 300 руб.</span>
+                        </div>
+                    </div>
+                    <span class="service-popular__more">Подробнее</span>
+                </a>
+
+                <a href="" class="service-popular">
+                    <span class="service-popular__tip">Популярная услуга в вашем городе</span>
+                    <div class="service-popular__wrap">
+                        <div class="service-popular__img"
+                             style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
+                        <div class="service-popular__row">
+                            <span class="service-popular__name">Ресницы, брови</span>
+                            <span class="service-popular__prices">Цены: от 300 руб.</span>
+                        </div>
+                    </div>
+                    <span class="service-popular__more">Подробнее</span>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <div class="service-list-wrap content-width">
     <div class="service-list">
 
-        <a href="" class="service-list__item">
-            <div class="service-list-item">
-                <div class="service-list-item__img"
-                     style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                <div class="service-list-item__wrap">
-                    <span class="service-list-item__name">Ресницы, брови</span>
-                    <div class="service-list-item__row">
-                        <span class="service-list-item__prices">Цены: от 300 руб.</span>
-                        <span class="service-list-item__more">Подробнее</span>
+        <?php foreach ($specializations as $specialization): ?>
+            <a href="/site/web/executor?specialization=<?php echo $specialization->id; ?>"
+               class="service-list__item">
+                <div class="service-list-item">
+                    <div class="service-list-item__img"
+                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
+                    <div class="service-list-item__wrap">
+                        <span class="service-list-item__name"><?php echo $specialization->name ?></span>
+                        <div class="service-list-item__row">
+                            <span class="service-list-item__prices">Цены: от 300 руб.</span>
+                            <span class="service-list-item__more">Подробнее</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </a>
-
-        <a href="" class="service-list__item">
-            <div class="service-list-item">
-                <div class="service-list-item__img"
-                     style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                <div class="service-list-item__wrap">
-                    <span class="service-list-item__name">Ресницы, брови</span>
-                    <div class="service-list-item__row">
-                        <span class="service-list-item__prices">Цены: от 300 руб.</span>
-                        <span class="service-list-item__more">Подробнее</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="" class="service-list__item">
-            <div class="service-list-item">
-                <div class="service-list-item__img"
-                     style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                <div class="service-list-item__wrap">
-                    <span class="service-list-item__name">Ресницы, брови</span>
-                    <div class="service-list-item__row">
-                        <span class="service-list-item__prices">Цены: от 300 руб.</span>
-                        <span class="service-list-item__more">Подробнее</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="" class="service-list__item">
-            <div class="service-list-item">
-                <div class="service-list-item__img"
-                     style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                <div class="service-list-item__wrap">
-                    <span class="service-list-item__name">Ресницы, брови</span>
-                    <div class="service-list-item__row">
-                        <span class="service-list-item__prices">Цены: от 300 руб.</span>
-                        <span class="service-list-item__more">Подробнее</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="" class="service-list__item">
-            <div class="service-list-item">
-                <div class="service-list-item__img"
-                     style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                <div class="service-list-item__wrap">
-                    <span class="service-list-item__name">Ресницы, брови</span>
-                    <div class="service-list-item__row">
-                        <span class="service-list-item__prices">Цены: от 300 руб.</span>
-                        <span class="service-list-item__more">Подробнее</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <a href="" class="service-list__item">
-            <div class="service-list-item">
-                <div class="service-list-item__img"
-                     style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                <div class="service-list-item__wrap">
-                    <span class="service-list-item__name">Ресницы, брови</span>
-                    <div class="service-list-item__row">
-                        <span class="service-list-item__prices">Цены: от 300 руб.</span>
-                        <span class="service-list-item__more">Подробнее</span>
-                    </div>
-                </div>
-            </div>
-        </a>
+            </a>
+        <?php endforeach; ?>
 
     </div>
 </div>
-
-<div class="bg_color_f8">
-
-    <div class="j-c_s-b pt-200 content-width">
-
-        <div class="h2">Лучшие исполнители</div>
-
-        <div class="title-tip">
-            <span class="title-tip__text">БОЛЕЕ 230 РЕКОММЕНДОВАННЫХ СПЕЦИАЛИСТА В Г.</span>
-            <a href="" class="choose-city title-tip__city">
-                <span class="choose-city__fa fas fa-map-marker-alt"></span>
-                <span class="choose-city__text">Москва</span>
-            </a>
-        </div>
-
-    </div>
-
-    <div class="best-performers-list-container content-width">
-        <div class="best-performers-list">
-
-            <a href="" class="best-performers-list__item">
-                <div class="performer">
-                    <div class="performer__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                    <div class="performer__info">
-                        <div class="label-status label-status_bg_black label-status_fz_14">Profi</div>
-                        <div class="performer__name">Мария Семечкина</div>
-                        <div class="performer__profession">Стилист</div>
-                        <div class="performer__extra">
-                            <div class="stars">
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                            </div>
-                            <div class="vote">
-                                <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
-                                <span class="vote__digits">
-                            <span class="vote__digit vote__digit_color_green">+6</span>
-                            <span class="vote__digit vote__digit_color_red">-1</span>
-                        </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="" class="best-performers-list__item">
-                <div class="performer">
-                    <div class="performer__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                    <div class="performer__info">
-                        <div class="label-status label-status_bg_black label-status_fz_14">Profi</div>
-                        <div class="performer__name">Мария Семечкина</div>
-                        <div class="performer__profession">Стилист</div>
-                        <div class="performer__extra">
-                            <div class="stars">
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                            </div>
-                            <div class="vote">
-                                <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
-                                <span class="vote__digits">
-                            <span class="vote__digit vote__digit_color_green">+6</span>
-                            <span class="vote__digit vote__digit_color_red">-1</span>
-                        </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="" class="best-performers-list__item">
-                <div class="performer">
-                    <div class="performer__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                    <div class="performer__info">
-                        <div class="label-status label-status_bg_black label-status_fz_14">Profi</div>
-                        <div class="performer__name">Мария Семечкина</div>
-                        <div class="performer__profession">Стилист</div>
-                        <div class="performer__extra">
-                            <div class="stars">
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                            </div>
-                            <div class="vote">
-                                <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
-                                <span class="vote__digits">
-                            <span class="vote__digit vote__digit_color_green">+6</span>
-                            <span class="vote__digit vote__digit_color_red">-1</span>
-                        </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="" class="best-performers-list__item">
-                <div class="performer">
-                    <div class="performer__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                    <div class="performer__info">
-                        <div class="label-status label-status_bg_black label-status_fz_14">Profi</div>
-                        <div class="performer__name">Мария Семечкина</div>
-                        <div class="performer__profession">Стилист</div>
-                        <div class="performer__extra">
-                            <div class="stars">
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                            </div>
-                            <div class="vote">
-                                <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
-                                <span class="vote__digits">
-                            <span class="vote__digit vote__digit_color_green">+6</span>
-                            <span class="vote__digit vote__digit_color_red">-1</span>
-                        </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="" class="best-performers-list__item">
-                <div class="performer">
-                    <div class="performer__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                    <div class="performer__info">
-                        <div class="label-status label-status_bg_black label-status_fz_14">Profi</div>
-                        <div class="performer__name">Мария Семечкина</div>
-                        <div class="performer__profession">Стилист</div>
-                        <div class="performer__extra">
-                            <div class="stars">
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                            </div>
-                            <div class="vote">
-                                <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
-                                <span class="vote__digits">
-                            <span class="vote__digit vote__digit_color_green">+6</span>
-                            <span class="vote__digit vote__digit_color_red">-1</span>
-                        </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-            <a href="" class="best-performers-list__item">
-                <div class="performer">
-                    <div class="performer__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
-                    <div class="performer__info">
-                        <div class="label-status label-status_bg_black label-status_fz_14">Profi</div>
-                        <div class="performer__name">Мария Семечкина</div>
-                        <div class="performer__profession">Стилист</div>
-                        <div class="performer__extra">
-                            <div class="stars">
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                                <div class="fas fa-star stars__star stars__star_active"></div>
-                            </div>
-                            <div class="vote">
-                                <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
-                                <span class="vote__digits">
-                            <span class="vote__digit vote__digit_color_green">+6</span>
-                            <span class="vote__digit vote__digit_color_red">-1</span>
-                        </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </a>
-
-        </div>
-        <div class="mt-90 pb-100">
-            <a href="" class="font_Gilroy-17-800-000000">Смотреть всех</a>
-        </div>
-    </div>
-
-</div>
-
-<div class="content-width">
-    <div class="articles-list">
-
-        <div class="h2 mt-80 mb-80">Акции</div>
-
-        <div class="articles-items">
-
-            <div class="articles-items__item">
-                <a href="" class="articles-item">
-                    <div class="articles-item__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/);">
-                        <div class="articles-item__label articles-item__label_bg_red">Акция</div>
-                    </div>
-                    <div class="articles-item__details">
-                        <div class="articles-item__date">21.07.2018</div>
-                        <div class="articles-item__name">Ребрендинг или рестайлинг: в чем разница?</div>
-                        <div class="articles-item__excerpt">В 2012 году мы провели рестайлинг Alawar Entertainment, а в
-                            СМИ прочиталио ребрендинге издателя казуальных игр.
-                        </div>
-                        <div class="articles-item__more">Подробнее</div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="articles-items__item">
-                <a href="" class="articles-item">
-                    <div class="articles-item__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/);">
-                        <div class="articles-item__label articles-item__label_bg_red">Акция</div>
-                    </div>
-                    <div class="articles-item__details">
-                        <div class="articles-item__date">21.07.2018</div>
-                        <div class="articles-item__name">Ребрендинг или рестайлинг: в чем разница?</div>
-                        <div class="articles-item__excerpt">В 2012 году мы провели рестайлинг Alawar Entertainment, а в
-                            СМИ прочиталио ребрендинге издателя казуальных игр.
-                        </div>
-                        <div class="articles-item__more">Подробнее</div>
-                    </div>
-                </a>
-            </div>
-
-        </div>
-
-        <div class="mt-80 mb-80">
-            <a href="" class="font_Gilroy-17-800-000000">Смотреть все акции</a>
-        </div>
-
-    </div>
-</div>
-
-<hr class="content-width">
-
-<div class="content-width">
-    <div class="articles-list">
-
-        <div class="h2 mt-80 mb-80">Новости и статьи</div>
-
-        <div class="articles-items">
-
-            <div class="articles-items__item">
-                <a href="" class="articles-item">
-                    <div class="articles-item__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/);">
-                        <div class="articles-item__label articles-item__label_bg_black">Акция</div>
-                    </div>
-                    <div class="articles-item__details">
-                        <div class="articles-item__date">21.07.2018</div>
-                        <div class="articles-item__name">Ребрендинг или рестайлинг: в чем разница?</div>
-                        <div class="articles-item__excerpt">В 2012 году мы провели рестайлинг Alawar Entertainment, а в
-                            СМИ прочиталио ребрендинге издателя казуальных игр.
-                        </div>
-                        <div class="articles-item__more">Подробнее</div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="articles-items__item">
-                <a href="" class="articles-item">
-                    <div class="articles-item__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/);">
-                        <div class="articles-item__label articles-item__label_bg_black">Акция</div>
-                    </div>
-                    <div class="articles-item__details">
-                        <div class="articles-item__date">21.07.2018</div>
-                        <div class="articles-item__name">Ребрендинг или рестайлинг: в чем разница?</div>
-                        <div class="articles-item__excerpt">В 2012 году мы провели рестайлинг Alawar Entertainment, а в
-                            СМИ прочиталио ребрендинге издателя казуальных игр.
-                        </div>
-                        <div class="articles-item__more">Подробнее</div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="articles-items__item">
-                <a href="" class="articles-item">
-                    <div class="articles-item__img"
-                         style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/);">
-                        <div class="articles-item__label articles-item__label_bg_black">Акция</div>
-                    </div>
-                    <div class="articles-item__details">
-                        <div class="articles-item__date">21.07.2018</div>
-                        <div class="articles-item__name">Ребрендинг или рестайлинг: в чем разница?</div>
-                        <div class="articles-item__excerpt">В 2012 году мы провели рестайлинг Alawar Entertainment, а в
-                            СМИ прочиталио ребрендинге издателя казуальных игр.
-                        </div>
-                        <div class="articles-item__more">Подробнее</div>
-                    </div>
-                </a>
-            </div>
-
-        </div>
-
-        <div class="mt-80 mb-80">
-            <a href="" class="font_Gilroy-17-800-000000">Смотреть все новости</a>
-        </div>
-
-    </div>
-</div>
-
-<hr class="content-width">
 
 <div class="content-width">
 
