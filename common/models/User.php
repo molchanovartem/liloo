@@ -110,6 +110,9 @@ class User extends \yii\db\ActiveRecord
         return $this->hasOne(Account::class, ['id' => 'account_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getRecalls()
     {
         return $this->hasMany(Recall::class, ['user_id' => 'id']);

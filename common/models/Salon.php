@@ -34,7 +34,7 @@ class Salon extends \yii\db\ActiveRecord
 
         return [
             [['account_id', 'user_id', 'country_id', 'city_id', 'status', 'name'], 'required'],
-            [['account_id', 'user_id', 'country_id', 'city_id', 'status'], 'integer'],
+            [['account_id', 'user_id', 'country_id', 'city_id', 'status', 'phone'], 'integer'],
             [['name', 'address'], 'string', 'max' => 255],
             ['status', 'in', 'range' => array_keys(self::getStatusList())]
         ];
@@ -110,7 +110,7 @@ class Salon extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('{{%salon_user}}', ['salon_id' => 'id']);
+        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('{{%salon_master}}', ['salon_id' => 'id']);
     }
 
     /**
@@ -136,5 +136,30 @@ class Salon extends \yii\db\ActiveRecord
     public static function find()
     {
         return new Query(get_called_class());
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCity()
+    {
+        return $this->hasOne(City::class, ['id' => 'city_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSchedules()
+    {
+        return $this->hasMany(MasterSchedule::class, ['master_id' => 'master_id'])
+            ->viaTable('{{%salon_master}}', ['salon_id' => 'id']);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRecalls()
+    {
+        return Recall::find()->byAccountId($this->account_id)->all();
     }
 }

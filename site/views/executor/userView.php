@@ -81,9 +81,11 @@
                          src="http://mycs.net.au/wp-content/uploads/2016/03/person-icon-flat.png">
                 </div>
                 <div class="uk-width-expand">
-                    <h3 class="uk-card-title uk-margin-remove-bottom"><?php echo $model->profile->name ?><?php echo $model->profile->surname ?></h3>
+                    <h3 class="uk-card-title uk-margin-remove-bottom">
+                        <?php echo $model->profile->name ?> <?php echo $model->profile->surname ?>
+                    </h3>
                     <p class="uk-text-meta uk-margin-remove-top">
-                        <time datetime="2016-04-01T19:00">April 01, 2016</time>
+                        <time datetime="2016-04-01T19:00">На сайте с <?php echo $model->create_time ?></time>
                     </p>
                 </div>
             </div>
@@ -101,7 +103,7 @@
                 <h4 class="uk-margin-top"><?php echo $specialization->name; ?></h4>
                 <?php foreach ($specialization->getServiceByAccount($model->account_id) as $service): ?>
                     <li><?php echo $service->name; ?> - <?php echo $service->duration; ?>
-                                                      - <?php echo $service->price; ?></li>
+                        - <?php echo $service->price; ?></li>
                 <?php endforeach; ?>
             <?php endforeach; ?>
         </ul>
@@ -131,7 +133,10 @@
                                  src="http://mycs.net.au/wp-content/uploads/2016/03/person-icon-flat.png">
                         </div>
                         <div class="uk-width-expand">
-                            <h3 class="uk-card-title uk-margin-remove-bottom">Title</h3>
+                            <h3 class="uk-card-title uk-margin-remove-bottom">
+                                <?php echo $recall->appointment->client->user->profile->name; ?>
+                                <?php echo $recall->appointment->client->user->profile->surname; ?>
+                            </h3>
                             <p class="uk-text-meta uk-margin-remove-top">
                                 <time datetime="2016-04-01T19:00"><?php echo $recall->create_time; ?></time>
                             </p>
@@ -140,6 +145,11 @@
                 </div>
                 <div class="uk-card-body">
                     <p><?php echo $recall->text; ?></p>
+                    <?php if ($recall->assessment == \common\models\Recall::ASSESSMENT_DISLIKE): ?>
+                        <p><img src="https://png.icons8.com/material-outlined/50/000000/thumbs-down.png"></p>
+                    <?php else: ?>
+                        <p><img src="https://png.icons8.com/material-outlined/50/000000/facebook-like.png"></p>
+                    <?php endif; ?>
                 </div>
             </div>
         <?php endforeach; ?>

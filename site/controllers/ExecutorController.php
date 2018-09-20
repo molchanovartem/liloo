@@ -2,7 +2,6 @@
 
 namespace site\controllers;
 
-use site\forms\FilterForm;
 use site\services\ExecutorService;
 
 /**
@@ -30,18 +29,16 @@ class ExecutorController extends Controller
      */
     public function actionIndex()
     {
-        $this->modelService->getArrayProvider();
+        $this->modelService->index();
         $data = $this->modelService->getData();
 
         if (\Yii::$app->request->isAjax) {
-            return $this->renderAjax('_listView');
+            return $this->renderAjax('_listView', ['data' => $data]);
         }
-
-        $form = new FilterForm();
 
         return $this->render('index', [
             'provider' => $data['provider'],
-            'model' => $form
+            'model' => $data['form']
         ]);
     }
 
@@ -50,12 +47,27 @@ class ExecutorController extends Controller
      * @return string
      * @throws \Exception
      */
-    public function actionView($id)
+    public function actionUserView($id)
     {
-        $this->modelService->findExecutor($id);
+        $this->modelService->findUser($id);
         $data = $this->modelService->getData();
 
-        return $this->render('view', [
+        return $this->render('userView', [
+            'model' => $data['executor'],
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return string
+     * @throws \Exception
+     */
+    public function actionSalonView($id)
+    {
+        $this->modelService->findSalon($id);
+        $data = $this->modelService->getData();
+
+        return $this->render('salonView', [
             'model' => $data['executor'],
         ]);
     }

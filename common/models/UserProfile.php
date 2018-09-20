@@ -28,9 +28,9 @@ class UserProfile extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'name', 'phone'], 'required'],
-            [['user_id', 'phone'], 'integer'],
+            [['user_id', 'phone', 'city_id', 'country_id'], 'integer'],
             [['date_birth'], 'date', 'format' => 'php: Y-m-d'],
-            [['surname', 'name', 'patronymic'], 'string', 'max' => 255],
+            [['surname', 'name', 'patronymic', 'address'], 'string', 'max' => 255],
             [['avatar'], 'image'],
             [['avatarDelete'], 'integer'],
             ['description', 'string'],

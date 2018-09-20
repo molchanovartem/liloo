@@ -73,4 +73,12 @@ class Appointment extends ActiveRecord
     {
         return new Query(get_called_class());
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getClient()
+    {
+        return $this->hasOne(Client::class, ['id' => 'client_id']);
+    }
 }

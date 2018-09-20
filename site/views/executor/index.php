@@ -7,7 +7,7 @@
         use yii\jui\DatePicker;
         use yii\jui\AutoComplete;
 
-        $form = ActiveForm::begin(['enableClientValidation' => false,'method' => 'get']); ?>
+        $form = ActiveForm::begin(['enableClientValidation' => false,'method' => 'post']); ?>
 
         <div class="panel panel-default panel-body">
 

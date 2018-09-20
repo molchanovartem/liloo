@@ -62,4 +62,12 @@ class Recall extends \yii\db\ActiveRecord
     {
         return new Query(get_called_class());
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAppointment()
+    {
+        return $this->hasOne(Appointment::class, ['id' => 'appointment_id']);
+    }
 }
