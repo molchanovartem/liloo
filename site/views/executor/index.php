@@ -1,3 +1,9 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
+<?php
+$time
+?>
+
 <div class="uk-container">
     <div class="user-form">
 
@@ -5,40 +11,73 @@
 
         use admin\widgets\activeForm\ActiveForm;
         use yii\jui\DatePicker;
-        use yii\jui\AutoComplete;
 
-        $form = ActiveForm::begin(['enableClientValidation' => false,'method' => 'post']); ?>
+        $form = ActiveForm::begin([
+            'enableClientValidation' => false,
+            'method' => 'get',
+            'action' => \yii\helpers\Url::to(['executor/index']),
+        ]); ?>
 
         <div class="panel panel-default panel-body">
 
-            <?= $form->errorSummary($model); ?>
+            <?= $form->errorSummary($data['form']); ?>
 
-            <?= $form->field($model, 'specialization')->dropDownList($model->getSpecialization(), ['value' => Yii::$app->request->get('specialization'), 'prompt' => 'Выберите специализацию...']); ?>
+            <div class="uk-width-1-5 uk-float-left">
+                <?= $form->field($data['form'], 'specialization')
+                    ->dropDownList($data['form']->getSpecialization(), [
+                        'class' => 'uk-input uk-form-small',
+                        'prompt' => '  Выберите специализацию...',
+                        'id' => 'specialization-id'
+                    ]); ?>
+            </div>
 
-            <?= $form->field($model, 'city')->widget(
-                AutoComplete::class, [
-                'clientOptions' => [
-                    'source' => $model->getCities(),
-                ],
-                'options' => [
-                    'class' => 'form-control',
-                ],
-            ]);
-            ?>
+            <div class="uk-width-1-5 uk-float-left uk-margin-left">
+                <?= $form->field($data['form'], 'city')
+                    ->dropDownList($data['form']->getCities(), [
+                        'class' => 'uk-input uk-form-small',
+                        'prompt' => '  Выберите специализацию...',
+                        'id' => 'city-id'
+                    ]); ?>
+            </div>
 
-            <?= $form->field($model, 'date')->widget(DatePicker::class, [
-                'dateFormat' => 'MM-dd-yyyy',
-            ]) ?>
+            <div class="uk-width-1-5 uk-float-left uk-margin-left">
+                <?= $form->field($data['form'], 'date')->widget(DatePicker::class, [
+                    'options' => [
+                        'class' => 'uk-input uk-form-small',
+                    ],
+                    'dateFormat' => 'yyyy-MM-dd',
+                ]) ?>
+            </div>
 
-            <?= $form->field($model, 'time')->textInput(['maxlength' => true]) ?>
-
+            <div class="uk-width-1-5 uk-float-left uk-margin-left">
+                <?= $form->field($data['form'], 'time')
+                    ->dropDownList($data['form']->getTime(), [
+                        'class' => 'uk-input uk-form-small',
+                        'prompt' => '  Выберите специализацию...',
+                        'id' => 'time',
+                        'multiple' => 'multiple',
+                    ]); ?>
+            </div>
+            <br><br><br>
         </div>
-
         <?php ActiveForm::end(); ?>
 
     </div>
 
     <div class="uk-margin-top">
-        <?= $this->render('_listView', ['provider' => $provider]); ?>
+        <?= $this->render('_listView', ['data' => $data]); ?>
     </div>
 </div>
+
+<script>
+    $("#specialization-id").select2({
+        selectOnClose: true
+    });
+    $("#city-id").select2({
+        selectOnClose: true
+    });
+    $('#time').select2({
+        placeholder: 'Время',
+        allowClear: true
+    });
+</script>

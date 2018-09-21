@@ -8,16 +8,17 @@
             <div class="uk-width-expand">
                 <h3 class="uk-card-title uk-margin-remove-bottom"><?= $model['name']; ?></h3>
                 <p class="uk-text-meta uk-margin-remove-top">
-                    <time datetime="2016-04-01T19:00">April 01, 2016</time>
+                    <span class="uk-label uk-label-success">+<?php echo $model['like']; ?></span>
+                    <span class="uk-label uk-label-danger">-<?php echo $model['dislike']; ?></span>
                 </p>
             </div>
         </div>
     </div>
     <div class="uk-card-body">
         <p><?php echo $model['address']; ?></p>
-<!--        --><?php //foreach ($model['specializations'] as $specialization): ?>
-<!--            <p>--><?//= $specialization['name']; ?><!--</p>-->
-<!--        --><?php //endforeach; ?>
+        <?php foreach ($model['service'] as $service): ?>
+            <p><?= $service['name']; ?> - <?= $service['price']; ?> руб.</p>
+        <?php endforeach; ?>
     </div>
     <div class="uk-card-footer">
         <?php if ($model['isSalon']): ?>
@@ -27,4 +28,3 @@
         <?php endif; ?>
     </div>
 </div>
-

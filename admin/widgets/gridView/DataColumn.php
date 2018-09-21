@@ -11,5 +11,5 @@ namespace admin\widgets\gridView;
 
 class DataColumn extends \yii\grid\DataColumn
 {
-    public $filterInputOptions = ['class' => 'uk-input uk-form-small', 'id' => null];
+    public $filterInputOptions = ['class' => 'uk-input', 'id' => null];
 }

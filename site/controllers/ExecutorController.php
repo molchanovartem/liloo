@@ -33,13 +33,10 @@ class ExecutorController extends Controller
         $data = $this->modelService->getData();
 
         if (\Yii::$app->request->isAjax) {
-            return $this->renderAjax('_listView', ['data' => $data]);
+            return $this->renderAjax('_listView', $data);
         }
 
-        return $this->render('index', [
-            'provider' => $data['provider'],
-            'model' => $data['form']
-        ]);
+        return $this->render('index', ['data' => $data]);
     }
 
     /**
