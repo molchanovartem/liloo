@@ -77,8 +77,19 @@ class Client extends \yii\db\ActiveRecord
         return self::getStatusList()[$this->status];
     }
 
+    /**
+     * @return Query|\yii\db\ActiveQuery
+     */
     public static function find()
     {
         return new Query(get_called_class());
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 }

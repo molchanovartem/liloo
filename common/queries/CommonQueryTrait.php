@@ -37,7 +37,6 @@ trait CommonQueryTrait
      */
     public function allByCountryId(int $countryId)
     {
-        return $this->byCountryId($countryId)
-            ->all();
+        return $this->byCountryId($countryId)->all();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace site\controllers;
 
+use common\models\Specialization;
+
 /**
  * Class SiteController
  *
@@ -14,6 +16,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $specializations = Specialization::find()->all();
+
+        return $this->render('index', [
+            'specializations' => $specializations,
+        ]);
+    }
+
+    public function actionLogin()
+    {
+        return $this->render('login');
     }
 }

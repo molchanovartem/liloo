@@ -94,8 +94,27 @@ class User extends \yii\db\ActiveRecord
         return $this->hasMany(UserSchedule::class, ['user_id' => 'id']);
     }
 
+    /**
+     * @return Query|\yii\db\ActiveQuery
+     */
     public static function find()
     {
         return new Query(get_called_class());
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::class, ['id' => 'account_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecalls()
+    {
+        return $this->hasMany(Recall::class, ['user_id' => 'id']);
     }
 }

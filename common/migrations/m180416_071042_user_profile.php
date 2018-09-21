@@ -23,7 +23,10 @@ class m180416_071042_user_profile extends Migration
             'date_birth' => $this->date(),
             'avatar' => $this->string(),
             'description' => $this->text(),
-            'phone' => $this->string(15)->notNull()
+            'phone' => $this->bigInteger(20)->notNull(),
+            'city_id' => $this->integer()->notNull(),
+            'country_id' => $this->integer()->notNull(),
+            'address' => $this->string()->notNull(),
         ]);
 
         $this->createIndex('ix-user_profile-user_id', $this->tableName,'user_id');
