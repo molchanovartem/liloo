@@ -18,4 +18,12 @@ class AttributeValidationError extends ValidationError
     {
         parent::__construct('Attributes error', null, null, null, null, null, ['extensions' => $extensions]);
     }
+
+    /**
+     * @return string
+     */
+    public function getCategory()
+    {
+        return 'attributeValidation';
+    }
 }

@@ -37,9 +37,9 @@ class LkController extends GraphqlController
     public function behaviors(): array
     {
         return array_merge_recursive(parent::behaviors(), [
-           /* 'bearerAuth' => [
+            'bearerAuth' => [
                 'class' => HttpBearerAuth::class,
-            ],*/
+            ]
         ]);
     }
 }

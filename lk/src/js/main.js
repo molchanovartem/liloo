@@ -5,7 +5,6 @@ import {store} from './store.js';
 import {apolloProvider} from "./apolloProvider";
 import Settings from './plugins/settings.js';
 import App from '../template/App.vue';
-import 'uikit';
 
 Vue.use(Vuetify);
 Vue.use(Settings);

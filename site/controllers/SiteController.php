@@ -4,6 +4,7 @@ namespace site\controllers;
 
 /**
  * Class SiteController
+ *
  * @package site\controllers
  */
 class SiteController extends Controller

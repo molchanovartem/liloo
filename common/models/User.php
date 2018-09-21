@@ -33,9 +33,9 @@ class User extends \yii\db\ActiveRecord
          */
 
         return [
-            [['account_id', 'type', 'login', 'password'], 'required'],
+            [['account_id', 'type', 'login', 'password', 'refresh_token'], 'required'],
             [['account_id', 'type'], 'integer'],
-            [['login', 'password'], 'string', 'max' => 255],
+            [['login', 'password', 'token', 'refresh_token'], 'string', 'max' => 255],
         ];
     }
 

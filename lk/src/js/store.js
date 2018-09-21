@@ -5,11 +5,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        breadcrumbItems: [],
     },
     actions: {
-        addBreadcrumbItems(state, items) {
-            state.breadcrumbItems = items;
-        },
     }
 });

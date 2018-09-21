@@ -25,7 +25,6 @@ use api\graphql\lk\types\mutation\service\ServiceCreateInputType;
 use api\graphql\lk\types\mutation\service\ServiceUpdateInputType;
 use api\graphql\lk\types\mutation\serviceGroup\ServiceGroupCreateInputType;
 use api\graphql\lk\types\mutation\serviceGroup\ServiceGroupUpdateInputType;
-use api\graphql\lk\types\mutation\tariff\AccountTariffCreateInputType;
 use api\graphql\lk\types\mutation\user\schedule\UserScheduleCreateInputType;
 use api\graphql\lk\types\mutation\user\schedule\UserScheduleUpdateInputType;
 use api\graphql\lk\types\mutation\user\UserCreateInputType;
@@ -190,15 +189,5 @@ class MutationInputTypeRegistry extends AdditionalTypeRegistry
     public function recallResponseCreate()
     {
         return $this->typeRegistry->get(RecallResponseCreateInputType::class);
-    }
-
-    public function accountTariffCreate()
-    {
-        return $this->typeRegistry->get(AccountTariffCreateInputType::class);
-    }
-
-    public function userLogin()
-    {
-        return $this->typeRegistry->get(UserFormLoginType::class);
     }
 }

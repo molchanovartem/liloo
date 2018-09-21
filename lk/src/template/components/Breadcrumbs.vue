@@ -1,14 +1,14 @@
 <template>
     <div>
-        <ul class="uk-breadcrumb">
-            <li>
-                <router-link :to="{name: 'home'}">Главная</router-link>
-            </li>
-            <li v-for="item in items">
-                <router-link :to="item.to" v-if="item.to">{{item.label}}</router-link>
-                <span v-else>{{item.label}}</span>
-            </li>
-        </ul>
+        <div class="row-categories">
+            <div class="row-categories__item">
+                <router-link :to="{name: 'home'}" class="row-categories__link">Главная</router-link>
+            </div>
+            <div class="row-categories__item" v-for="item in items">
+                <router-link :to="item.to" v-if="item.to" class="row-categories__link">{{item.label}}</router-link>
+                <a @click.prevent href="#" v-else class="row-categories__link">{{item.label}}</a>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -22,9 +22,6 @@
                   url: '/'
               }}
           }
-        },
-        mounted() {
-            console.log(this.$route);
         },
         computed: {
             items() {

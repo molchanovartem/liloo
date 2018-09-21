@@ -27,7 +27,7 @@ class TariffPriceType extends ObjectType implements QueryTypeInterface
                     'id' => $typeRegistry->id(),
                     'tariff_id' => $typeRegistry->id(),
                     'price' => $typeRegistry->float(),
-                    'days' => $typeRegistry->int(),
+                    'day' => $typeRegistry->int(),
                 ];
             }
         ]);
@@ -51,7 +51,7 @@ class TariffPriceType extends ObjectType implements QueryTypeInterface
             ],
             'tariffPrice' => [
                 'type' => $entityRegistry->tariffPrice(),
-                'description' => 'Цены тарифа',
+                'description' => 'Цена тарифа',
                 'args' => [
                     'id' => [
                         'type' => $typeRegistry->nonNull($typeRegistry->id()),

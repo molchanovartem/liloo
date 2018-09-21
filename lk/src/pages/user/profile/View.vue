@@ -1,9 +1,29 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
         <div>
-            <router-link :to="{name: 'userProfileUpdate'}"><i class="mdi mdi-pencil"></i></router-link>
+            <v-btn @click="$router.push({name: 'userProfileUpdate'})" round outline color="primary" depressed>
+                Редактировать
+            </v-btn>
         </div>
-        {{content}}
+        <table class="uk-table uk-table-small uk-table-divider">
+            <tbody>
+            <tr>
+                <td>Фамилия</td><td>{{data.profile.surname}}</td>
+            </tr>
+            <tr>
+                <td>Имя</td><td>{{data.profile.name}}</td>
+            </tr>
+            <tr>
+                <td>Отчество</td><td>{{data.profile.patronymic}}</td>
+            </tr>
+            <tr>
+                <td>Телефон</td><td>{{data.profile.phone}}</td>
+            </tr>
+            <tr>
+                <td>Дата рождения</td><td>{{data.profile.date_birth}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
@@ -11,12 +31,21 @@
     import gql from 'graphql-tag';
 
     export default {
-        mounted() {
-          this.loadData();
+        name: 'UserProfileView',
+        created() {
+            this.loadData();
         },
         data() {
             return {
-                content: null
+                data: {
+                    profile: {
+                        surname: null,
+                        name: null,
+                        patronymic: null,
+                        phone: null,
+                        date_birth: null
+                    }
+                }
             }
         },
         methods: {
@@ -27,7 +56,7 @@
                     }`
                 }).then(({data}) => {
                     if (data.user) {
-                        this.content = data.user;
+                        this.data = data.user;
                     }
                 });
             },

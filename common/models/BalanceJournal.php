@@ -14,6 +14,7 @@ class BalanceJournal extends \yii\db\ActiveRecord
     const TYPE_OPERATION_INCREASE = 2;
 
     const TYPE_REASON_SELL_TARIFF = 1;
+    const TYPE_REASON_INCREASE_BALANCE = 2;
 
     /**
      * @return string
@@ -29,7 +30,7 @@ class BalanceJournal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['account_id', 'type_operation', 'sum', 'type_reason', 'data_reason', 'start_sum', 'end_sum'], 'required'],
+            [['account_id', 'type_operation', 'sum', 'type_reason', 'start_sum', 'end_sum'], 'required'],
             [['account_id', 'type_operation', 'type_reason'], 'integer'],
             [['sum', 'start_sum', 'end_sum'], 'number'],
         ];
@@ -74,6 +75,7 @@ class BalanceJournal extends \yii\db\ActiveRecord
     {
         return [
             self::TYPE_REASON_SELL_TARIFF => 'Покупка тарифа',
+            self::TYPE_REASON_INCREASE_BALANCE => 'Пополнение баланса',
         ];
     }
 

@@ -1,28 +1,12 @@
 <template>
     <v-app>
-        <v-header/>
-        <div class="content-width content-columns">
-            <div class="content-columns__column content-column__column_main">
-                <v-breadcrumbs/>
-                <router-view></router-view>
-            </div>
-
-            <div class="content-columns__column content-column__column_side">
-
-                <div class="content-block content-block_shadow">
-                    <v-sidebar/>
-                </div>
-            </div>
-        </div>
+        <router-view></router-view>
     </v-app>
 </template>
 
 <script>
-    import VHeader from './Header.vue'
-    import VSidebar from './components/Sidebar.vue';
-    import VHeading from './components/Heading.vue';
-    import VBreadcrumbs from './components/Breadcrumbs.vue';
-
+    import {errorCollection} from "../js/errorCollection";
+    import 'uikit';
     import 'uikit/dist/css/uikit.min.css';
     import '@mdi/font/css/materialdesignicons.min.css';
     import 'vuetify/dist/vuetify.min.css';
@@ -36,8 +20,40 @@
     import '../assets/css/responsive.css';
 
     export default {
-        components: {
-            VHeader, VSidebar, VHeading, VBreadcrumbs
+        created() {
+            // Вешаем обработчик
+            errorCollection.subscribe((category, error) => {
+                if (category === errorCollection.CATEGORY_UNAUTHORIZED) {
+                    this.$router.push({name: 'login'});
+                }
+
+                if (category === errorCollection.CATEGORY_GRAPHQL) {
+                    alert('Ошибка запроса');
+                }
+
+                if (category === errorCollection.CATEGORY_VALIDATION) {
+                    alert(error);
+                }
+
+                if (category === errorCollection.CATEGORY_ATTRIBUTE_VALIDATION) {
+                    if (Array.isArray(error) && error.length > 0) {
+                        error.forEach(item => {
+                            if (typeof item === 'string') alert(item);
+                        });
+                    } else {
+                        for (let param in error) {
+                            if (typeof error[param] === 'string') alert(error[param]);
+
+                            if (Array.isArray(error[param]) && error[param].length > 0) {
+                                error[param].forEach(item => {
+                                    if (typeof item === 'string') alert(item);
+                                });
+                            }
+                        }
+                    }
+                }
+
+            });
         },
         mounted() {
             // Загрузка настроек

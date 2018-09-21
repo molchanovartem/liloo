@@ -2,6 +2,7 @@
 
 namespace api\graphql\lk\types;
 
+use api\graphql\lk\types\entity\AccountType;
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\lk\types\entity\AccountTariffType;
@@ -46,6 +47,9 @@ class QueryType extends ObjectType
         parent::__construct([
             'fields' => function () use ($typeRegistry) {
                 return array_merge(
+                    AccountType::getFieldsQueryType($typeRegistry),
+                    AccountTariffType::getFieldsQueryType($typeRegistry),
+                    BalanceJournalType::getFieldsQueryType($typeRegistry),
                     CountryType::getFieldsQueryType($typeRegistry),
                     CityType::getFieldsQueryType($typeRegistry),
                     SpecializationType::getFieldsQueryType($typeRegistry),
@@ -67,9 +71,7 @@ class QueryType extends ObjectType
                     MasterSpecializationType::getFieldsQueryType($typeRegistry),
                     RecallType::getFieldsQueryType($typeRegistry),
                     TariffType::getFieldsQueryType($typeRegistry),
-                    TariffPriceType::getFieldsQueryType($typeRegistry),
-                    AccountTariffType::getFieldsQueryType($typeRegistry),
-                    BalanceJournalType::getFieldsQueryType($typeRegistry)
+                    TariffPriceType::getFieldsQueryType($typeRegistry)
                 );
             }
         ]);
