@@ -22,12 +22,15 @@ class UserCreateProfileInputType extends InputObjectType
         parent::__construct([
             'fields' => function () use ($typeRegistry) {
                 return [
+                    'country_id' => $typeRegistry->id(),
+                    'city_id' => $typeRegistry->id(),
                     'surname' => $typeRegistry->string(),
                     'name' => $typeRegistry->nonNull($typeRegistry->string()),
                     'patronymic' => $typeRegistry->string(),
                     'date_birth' => $typeRegistry->date(),
                     'description' => $typeRegistry->string(),
-                    'phone' => $typeRegistry->nonNull($typeRegistry->string())
+                    'phone' => $typeRegistry->nonNull($typeRegistry->string()),
+                    'address' => $typeRegistry->string(),
                 ];
             }
         ]);

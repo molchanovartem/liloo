@@ -27,6 +27,7 @@ class SalonCreateInputType extends InputObjectType
                     'status' => $typeRegistry->nonNull($typeRegistry->int()),
                     'name' => $typeRegistry->nonNull($typeRegistry->string()),
                     'address' => $typeRegistry->string(),
+                    'phone' => $typeRegistry->string(),
                     'specializations_id' => $typeRegistry->nonNull($typeRegistry->listOff($typeRegistry->id())),
                     'conveniences_id' => $typeRegistry->nonNull($typeRegistry->listOff($typeRegistry->id()))
                 ];

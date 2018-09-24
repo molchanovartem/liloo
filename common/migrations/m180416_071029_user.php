@@ -18,6 +18,7 @@ class m180416_071029_user extends Migration
             'id' => $this->primaryKey(),
             'account_id' => $this->integer()->notNull(),
             'type' => $this->integer()->notNull(),
+            'status' => $this->integer()->notNull(),
             'login' => $this->string()->notNull(),
             'password' => $this->string()->notNull(),
             'token' => $this->string()->notNull(),

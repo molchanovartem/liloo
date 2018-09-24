@@ -23,7 +23,7 @@ class m180416_071062_salon extends Migration
             'status' => $this->integer()->notNull(),
             'name' => $this->string()->notNull(),
             'address' => $this->string(),
-            'phone' => $this->bigInteger(20)
+            'phone' => $this->string(15)
         ]);
 
         $this->createIndex('ix-salon-user_id', $this->tableName, 'user_id');

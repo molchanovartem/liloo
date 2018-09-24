@@ -17,16 +17,16 @@ class m180416_071042_user_profile extends Migration
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
+            'country_id' => $this->integer(),
+            'city_id' => $this->integer(),
             'surname' => $this->string(),
             'name' => $this->string()->notNull(),
             'patronymic' => $this->string(),
             'date_birth' => $this->date(),
             'avatar' => $this->string(),
             'description' => $this->text(),
-            'phone' => $this->bigInteger(20)->notNull(),
-            'city_id' => $this->integer()->notNull(),
-            'country_id' => $this->integer()->notNull(),
-            'address' => $this->string()->notNull(),
+            'phone' => $this->string(15)->notNull(),
+            'address' => $this->string(),
         ]);
 
         $this->createIndex('ix-user_profile-user_id', $this->tableName,'user_id');

@@ -14,6 +14,9 @@ class User extends \yii\db\ActiveRecord
     const TYPE_MASTER = 1;
     const TYPE_CLIENT = 2;
 
+    const STATUS_ACTIVE = 1;
+    const STATUS_NOT_ACTIVE = 0;
+
     /**
      * @return string
      */
@@ -29,13 +32,14 @@ class User extends \yii\db\ActiveRecord
     {
         /*
          * @todo
-         * Доьбавить проверку: type
+         * Доьбавить проверку: type, status range
          */
 
         return [
-            [['account_id', 'type', 'login', 'password', 'refresh_token'], 'required'],
-            [['account_id', 'type'], 'integer'],
+            [['account_id', 'type', 'status', 'login', 'password', 'refresh_token'], 'required'],
+            [['account_id', 'type', 'status'], 'integer'],
             [['login', 'password', 'token', 'refresh_token'], 'string', 'max' => 255],
+            ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE]
         ];
     }
 
