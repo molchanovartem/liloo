@@ -3,6 +3,8 @@
 namespace site\forms;
 
 use common\models\City;
+use common\models\CommonService;
+use common\models\Service;
 use yii\base\Model;
 use common\models\Specialization;
 use yii\helpers\ArrayHelper;
@@ -13,6 +15,7 @@ use yii\helpers\ArrayHelper;
  */
 class FilterForm extends Model
 {
+    public $service;
     public $specialization;
     public $city;
     public $date;
@@ -25,7 +28,7 @@ class FilterForm extends Model
     {
         return [
             [['city'], 'required'],
-            [['specialization', 'city'], 'integer'],
+            [['city', 'service', 'specialization'], 'integer'],
             [['date'], 'date', 'format' => 'php:Y-m-d'],
             [['time'], 'date', 'format' => 'php:H:i:s'],
         ];
@@ -36,9 +39,30 @@ class FilterForm extends Model
      */
     public function getSpecialization()
     {
-        $array = Specialization::find()->select('*')->asArray()->all();
+        $array = Specialization::find()
+            ->asArray()
+            ->all();
 
         return ArrayHelper::map($array, 'id', 'name');
+    }
+
+    /**
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getService()
+    {
+        $array = CommonService::find()
+            ->asArray()
+            ->all();
+
+        return ArrayHelper::map($array, 'id', 'name');
+    }
+
+    public function getServices()
+    {
+        return CommonService::find()
+            ->asArray()
+            ->all();
     }
 
     /**
@@ -47,7 +71,8 @@ class FilterForm extends Model
     public function attributeLabels()
     {
         return [
-            'specialization' => 'Выбор специализации мастера',
+            'service' => 'Выбор услуги',
+            'specialization' => 'Выбор специализыции',
             'city' => 'Выбор города',
             'date' => 'Выбор даты',
             'time' => 'Выбор времени',

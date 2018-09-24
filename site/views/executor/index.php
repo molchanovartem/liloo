@@ -32,6 +32,17 @@ $time
             </div>
 
             <div class="uk-width-1-5 uk-float-left uk-margin-left">
+                <?= $form->field($data['form'], 'service')
+                    ->dropDownList($data['form']->getService(), [
+                        'class' => 'uk-input uk-form-small',
+                        'prompt' => '  Выберите услугу...',
+                        'id' => 'service-id'
+                    ]); ?>
+
+                <select id="testService"></select>
+            </div>
+
+            <div class="uk-width-1-5 uk-float-left uk-margin-left">
                 <?= $form->field($data['form'], 'city')
                     ->dropDownList($data['form']->getCities(), [
                         'class' => 'uk-input uk-form-small',
@@ -70,7 +81,32 @@ $time
 </div>
 
 <script>
-    $("#specialization-id").select2({
+    var $specialization = $("#specialization-id").select2({
+        selectOnClose: true
+    });
+    $specialization.on('select2:select', function (e) {
+       console.log(e);
+
+       var select = document.getElementById('testService');
+
+       console.log(select.options);
+
+        $("#testService").val(null);
+
+    });
+    //$specialization.trigger('select2:change');
+
+    var services  = <?= json_encode($data['form']->getServices(), true);?>;
+
+    $("#testService").select2({
+        selectOnClose: true,
+        data: services.map(item => {
+            return {id: item.id, text: item.name};
+        })
+    });
+
+
+    $("#service-id").select2({
         selectOnClose: true
     });
     $("#city-id").select2({

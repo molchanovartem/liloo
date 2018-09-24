@@ -20,6 +20,7 @@ class m180416_071228_service extends Migration
             'parent_id' => $this->integer(),
             'is_group' => $this->integer()->notNull(),
             'specialization_id' => $this->integer(),
+            'common_service_id' => $this->integer(),
             'name' => $this->string()->notNull(),
             'price' => $this->decimal('18', '2'),
             'duration' => $this->integer()
@@ -30,6 +31,9 @@ class m180416_071228_service extends Migration
 
         $this->createIndex('ix-service-specialization_id', $this->tableName, 'specialization_id');
         $this->addForeignKey('fk-service-specialization_id', $this->tableName, 'specialization_id', '{{%specialization}}', 'id', 'CASCADE', 'CASCADE');
+
+        $this->createIndex('ix-service-common_service_id', $this->tableName, 'common_service_id');
+        $this->addForeignKey('fk-service-common_service_id', $this->tableName, 'common_service_id', '{{%common_service}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     /**

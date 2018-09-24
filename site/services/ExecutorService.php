@@ -32,7 +32,7 @@ class ExecutorService extends ModelService
         $queryUsers = User::find()
             ->select(['u.*', 'up.name', 'up.surname', 'up.address', 'up.city_id'])
             ->alias('u')
-            ->leftJoin(UserSpecialization::tableName() . ' us', '`u`.`id` = `us`.`user_id`')
+            ->leftJoin(Service::tableName() . ' ser', 'ser.account_id = u.account_id')
             ->leftJoin(UserProfile::tableName() . ' up', '`u`.`id` = `up`.`user_id`')
             ->leftJoin(UserSchedule::tableName() . ' usch', '`u`.`id` = `usch`.`user_id`')
             ->with(['schedules']);
@@ -40,16 +40,17 @@ class ExecutorService extends ModelService
         $querySalons = Salon::find()
             ->select('s.*')
             ->alias('s')
-            ->leftJoin(SalonSpecialization::tableName() . ' ss', '`s`.`id` = `ss`.`salon_id`')
+            ->leftJoin(SalonService::tableName() . ' sser', 'sser.salon_id = s.id')
             ->leftJoin(MasterSchedule::tableName() . ' ms', '`s`.`id` = `ms`.`salon_id`')
             ->with(['schedules']);
 
         if ($form->validate()) {
-            $queryUsers->filterWhere(['us.specialization_id' => $form->specialization])
+            $queryUsers
+                ->filterWhere(['ser.id' => $form->service])
                 ->andFilterWhere(['up.city_id' => $form->city])
                 ->andFilterWhere(['date(usch.start_date)' => $form->date]);
 
-            $querySalons->filterWhere(['ss.specialization_id' => $form->specialization])
+            $querySalons->filterWhere(['sser.service_id' => $form->service])
                 ->filterWhere(['s.city_id' => $form->city])
                 ->andFilterWhere(['date(ms.start_date)' => $form->date]);
         }
