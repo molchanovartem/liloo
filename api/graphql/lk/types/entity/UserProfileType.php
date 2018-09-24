@@ -21,12 +21,15 @@ class UserProfileType extends ObjectType implements QueryTypeInterface
                 return [
                     'id' => $typeRegistry->id(),
                     'user_id' => $typeRegistry->id(),
+                    'country_id' => $typeRegistry->id(),
+                    'city_id' => $typeRegistry->id(),
                     'surname' => $typeRegistry->string(),
                     'name' => $typeRegistry->string(),
                     'patronymic' => $typeRegistry->string(),
                     'date_birth' => $typeRegistry->date(),
                     'avatar' => $typeRegistry->string(),
                     'description' => $typeRegistry->string(),
+                    'address' => $typeRegistry->string(),
                     'phone' => $typeRegistry->string()
                 ];
             }

@@ -13,4 +13,14 @@ use common\queries\CommonQueryTrait;
 class TariffQuery extends ActiveQuery
 {
     use CommonQueryTrait;
+
+    /**
+     * @param null $status
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function allByParams($status = null)
+    {
+        return $this->andFilterWhere(['status' => $status])
+            ->all();
+    }
 }

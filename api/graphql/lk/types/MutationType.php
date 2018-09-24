@@ -4,8 +4,8 @@ namespace api\graphql\lk\types;
 
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
+use api\graphql\lk\types\mutation\balance\BalanceType;
 use api\graphql\lk\types\mutation\appointment\AppointmentType;
-use api\graphql\lk\types\mutation\appointment\item\AppointmentItemType;
 use api\graphql\lk\types\mutation\client\ClientType;
 use api\graphql\lk\types\mutation\convenience\ConvenienceType;
 use api\graphql\lk\types\mutation\master\MasterServiceType;
@@ -44,6 +44,7 @@ class MutationType extends ObjectType
         parent::__construct([
             'fields' => function () use ($typeRegistry) {
                 return array_merge(
+                    BalanceType::getMutationFieldsType($typeRegistry),
                     SpecializationType::getMutationFieldsType($typeRegistry),
                     ConvenienceType::getMutationFieldsType($typeRegistry),
                     UserType::getMutationFieldsType($typeRegistry),

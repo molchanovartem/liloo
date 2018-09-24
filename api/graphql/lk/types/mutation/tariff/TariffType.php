@@ -20,16 +20,15 @@ class TariffType implements MutationFieldsTypeInterface
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
         $entityRegistry = $typeRegistry->getEntityRegistry();
-        $inputRegistry = $typeRegistry->getMutationInputRegistry();
 
         return [
             'tariffBuy' => [
                 'type' => $entityRegistry->accountTariff(),
                 'args' => [
-                    'attributes' => $typeRegistry->nonNull($inputRegistry->accountTariffCreate())
+                    'price_id' => $typeRegistry->nonNull($typeRegistry->id()),
                 ],
                 'resolve' => function ($root, $args) {
-                    return (new TariffService())->buyTariff($args['attributes']);
+                    return (new TariffService())->buyTariff($args['price_id']);
                 }
             ],
         ];

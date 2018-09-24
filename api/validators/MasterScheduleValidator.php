@@ -20,15 +20,18 @@ class MasterScheduleValidator extends BaseScheduleValidator
     {
         $dates = [];
         $masters = [];
+        $salons = [];
         foreach ($items as $item) {
             $date = new DateTime($item['start_date']);
             $dates[] = $date->format('Y-m-d');
             $masters[] = $item['master_id'];
+            $salons[] = $item['salon_id'];
         }
 
         $masterSchedulesCurrentDates = MasterSchedule::find()
             ->where(['in', 'date(start_date)', $dates])
             ->andWhere(['in', 'master_id', array_unique($masters)])
+            ->andWhere(['in', 'salon_id', array_unique($salons)])
             ->indexBy('id')
             ->asArray()
             ->allByCurrentAccountId();

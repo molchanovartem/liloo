@@ -191,7 +191,7 @@ class MasterService extends Service
      */
     public function createMasterSchedule(array $attributes)
     {
-        return $this->saveMasterSchedule(new MasterSchedule(), $attributes, \common\models\MasterSchedule::SCENARIO_DEFAULT);
+        return $this->saveMasterSchedule(new MasterSchedule(), $attributes, MasterSchedule::SCENARIO_DEFAULT);
     }
 
     /**
@@ -219,7 +219,6 @@ class MasterService extends Service
             $attributes = ['account_id', 'master_id', 'salon_id', 'type', 'start_date', 'end_date'];
             $batch = [];
             $models = [];
-
             foreach ($items as $key => $item) {
                 $item['type'] = MasterSchedule::TYPE_WORKING;
                 $models[$key] = new MasterSchedule($item);
@@ -256,8 +255,8 @@ class MasterService extends Service
      */
     private function saveMasterSchedule(MasterSchedule $model, array $attributes, $modelScenario)
     {
-        $model->setAttributes($attributes);
         $model->setScenario($modelScenario);
+        $model->setAttributes($attributes);
 
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
         $model->save(false);

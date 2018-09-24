@@ -27,6 +27,7 @@ class SalonUpdateInputType extends InputObjectType
                     'status' => $typeRegistry->int(),
                     'name' => $typeRegistry->string(),
                     'address' => $typeRegistry->string(),
+                    'phone' => $typeRegistry->string(),
                     'specializations_id' => $typeRegistry->listOff($typeRegistry->id()),
                     'conveniences_id' => $typeRegistry->listOff($typeRegistry->id())
                 ];

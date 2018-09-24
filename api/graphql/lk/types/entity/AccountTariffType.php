@@ -2,6 +2,7 @@
 
 namespace api\graphql\lk\types\entity;
 
+use api\models\TariffPrice;
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
@@ -28,7 +29,7 @@ class AccountTariffType extends ObjectType implements QueryTypeInterface
                 return [
                     'id' => $typeRegistry->id(),
                     'tariff_id' => $typeRegistry->id(),
-                    'account_id' => $typeRegistry->id(),
+                    'price_id' => $typeRegistry->id(),
                     'start_date' => $typeRegistry->string(),
                     'end_date' => $typeRegistry->string(),
                     'tariff' => [

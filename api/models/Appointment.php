@@ -3,6 +3,8 @@
 namespace api\models;
 
 use api\queries\AppointmentQuery;
+use common\behaviors\AccountBehavior;
+use common\behaviors\UserId;
 
 /**
  * Class Appointment
@@ -46,6 +48,16 @@ class Appointment extends \common\models\Appointment
         ]);
     }
 
+    /**
+     * @return array
+     */
+    public function behaviors()
+    {
+        return [
+            UserId::class,
+            AccountBehavior::class
+        ];
+    }
 
     /**
      * @return AppointmentQuery|\yii\db\ActiveQuery

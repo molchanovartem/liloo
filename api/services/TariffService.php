@@ -2,11 +2,11 @@
 
 namespace api\services;
 
+use Yii;
+use common\models\BalanceJournal;
+use api\models\TariffPrice;
 use api\exceptions\AttributeValidationError;
 use api\models\AccountTariff;
-use common\models\BalanceJournal;
-use common\models\TariffPrice;
-use Yii;
 
 /**
  * Class TariffService
@@ -15,14 +15,25 @@ use Yii;
 class TariffService extends Service
 {
     /**
-     * @param array $attributes
+     * @param int $priceId
      * @return null
+     * @throws AttributeValidationError
      * @throws \yii\db\Exception
      */
-    public function buyTariff(array $attributes)
+    public function buyTariff(int $priceId)
     {
-        //TODO: нельзя создать тариф без валидации
-        return $this->save(new AccountTariff(), $attributes);
+        $price = TariffPrice::find()->oneById($priceId);
+
+        if ($price->price > Yii::$app->account->getBalance()) throw new AttributeValidationError(['Недостаточно средств']);
+        /*
+         * @todo
+         * Проверка на количество использований (Tariff::quantity)
+         */
+
+        return $this->save(new AccountTariff(), [
+            'tariff_id' => $price->tariff_id,
+            'price_id' => $price->id
+        ]);
     }
 
     /**
@@ -53,7 +64,7 @@ class TariffService extends Service
     {
         return TariffPrice::find()
             ->where(['id' => $priceId])
-            ->one()['days'];
+            ->one()['day'];
     }
 
     /**

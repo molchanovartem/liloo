@@ -4,6 +4,7 @@ namespace api\graphql\lk\registry;
 
 use api\graphql\AdditionalTypeRegistry;
 use api\graphql\lk\types\entity\AccountTariffType;
+use api\graphql\lk\types\entity\AccountType;
 use api\graphql\lk\types\entity\AppointmentItemType;
 use api\graphql\lk\types\entity\AppointmentType;
 use api\graphql\lk\types\entity\BalanceJournalType;
@@ -35,6 +36,11 @@ use api\graphql\lk\types\entity\TariffPriceType;
  */
 class EntityTypeRegistry extends AdditionalTypeRegistry
 {
+    public function account()
+    {
+        return $this->typeRegistry->get(AccountType::class);
+    }
+
     public function country()
     {
         return $this->typeRegistry->get(CountryType::class);

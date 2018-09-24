@@ -21,6 +21,11 @@ class AccountComponent extends BaseObject
         return 1;
     }
 
+    public function getBalance()
+    {
+        return 1750.00;
+    }
+
     /**
      * @return array
      */

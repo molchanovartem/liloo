@@ -3,7 +3,7 @@
 namespace api\graphql\lk\types\entity;
 
 use GraphQL\Type\Definition\ObjectType;
-use common\models\TariffPrice;
+use api\models\TariffPrice;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
 use api\models\Tariff;
@@ -31,6 +31,19 @@ class TariffType extends ObjectType implements QueryTypeInterface
                     'description' => $typeRegistry->string(),
                     'type' => $typeRegistry->int(),
                     'status' => $typeRegistry->int(),
+                    'quantity' => $typeRegistry->int(),
+                    'price' => [
+                        'type' => $entityRegistry->tariffPrice(),
+                        'args' => [
+                            'id' => $typeRegistry->nonNull($typeRegistry->id())
+                        ],
+                        'resolve' => function (Tariff $model, $args) {
+                            return TariffPrice::find()
+                                ->byId($args['id'])
+                                ->byTariffId($model->id)
+                                ->one();
+                        }
+                    ],
                     'prices' => [
                         'type' => $typeRegistry->listOff($entityRegistry->tariffPrice()),
                         'resolve' => function (Tariff $tariff, $args, $context, $info) {
@@ -56,8 +69,14 @@ class TariffType extends ObjectType implements QueryTypeInterface
             'tariffs' => [
                 'type' => $typeRegistry->listOff($entityRegistry->tariff()),
                 'description' => 'Коллекция тарифов',
+                'args' => [
+                    'status' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => null
+                    ]
+                ],
                 'resolve' => function ($root, $args) {
-                    return Tariff::find()->all();
+                    return Tariff::find()->allByParams($args['status']);
                 }
             ],
             'tariff' => [

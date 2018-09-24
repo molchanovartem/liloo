@@ -18,7 +18,7 @@ class m180595_081964_tariff_price extends Migration
             'id' => $this->primaryKey(),
             'tariff_id' => $this->integer()->notNull(),
             'price' => $this->decimal(18, 2)->notNull(),
-            'days' => $this->integer()->notNull(),
+            'day' => $this->integer()->notNull(),
         ]);
     }
 
