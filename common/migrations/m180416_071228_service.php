@@ -17,10 +17,10 @@ class m180416_071228_service extends Migration
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
             'account_id' => $this->integer()->notNull(),
+            'common_service_id' => $this->integer(),
             'parent_id' => $this->integer(),
             'is_group' => $this->integer()->notNull(),
             'specialization_id' => $this->integer(),
-            'common_service_id' => $this->integer(),
             'name' => $this->string()->notNull(),
             'price' => $this->decimal('18', '2'),
             'duration' => $this->integer()

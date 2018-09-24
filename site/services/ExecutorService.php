@@ -28,10 +28,10 @@ class ExecutorService extends ModelService
         $form = new FilterForm();
         $form->load($this->getData('get'));
 
-
         $queryUsers = User::find()
             ->select(['u.*', 'up.name', 'up.surname', 'up.address', 'up.city_id'])
             ->alias('u')
+            ->leftJoin(UserSpecialization::tableName() . ' us', '`u`.`id` = `us`.`user_id`')
             ->leftJoin(Service::tableName() . ' ser', 'ser.account_id = u.account_id')
             ->leftJoin(UserProfile::tableName() . ' up', '`u`.`id` = `up`.`user_id`')
             ->leftJoin(UserSchedule::tableName() . ' usch', '`u`.`id` = `usch`.`user_id`')
@@ -40,18 +40,22 @@ class ExecutorService extends ModelService
         $querySalons = Salon::find()
             ->select('s.*')
             ->alias('s')
-            ->leftJoin(SalonService::tableName() . ' sser', 'sser.salon_id = s.id')
+            ->leftJoin(SalonSpecialization::tableName() . ' ss', '`s`.`id` = `ss`.`salon_id`')
+            ->leftJoin(Service::tableName() . ' ser', 'ser.account_id = s.account_id')
             ->leftJoin(MasterSchedule::tableName() . ' ms', '`s`.`id` = `ms`.`salon_id`')
             ->with(['schedules']);
 
         if ($form->validate()) {
             $queryUsers
-                ->filterWhere(['ser.id' => $form->service])
+                ->filterWhere(['us.specialization_id' => $form->specialization])
+                ->andFilterWhere(['ser.common_service_id' => $form->service])
                 ->andFilterWhere(['up.city_id' => $form->city])
                 ->andFilterWhere(['date(usch.start_date)' => $form->date]);
 
-            $querySalons->filterWhere(['sser.service_id' => $form->service])
-                ->filterWhere(['s.city_id' => $form->city])
+            $querySalons
+                ->filterWhere(['ss.specialization_id' => $form->specialization])
+                ->andFilterWhere(['ser.common_service_id' => $form->service])
+                ->andFilterWhere(['s.city_id' => $form->city])
                 ->andFilterWhere(['date(ms.start_date)' => $form->date]);
         }
 
