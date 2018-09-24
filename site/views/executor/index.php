@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
 <?php
-$time
+use yii\helpers\Html;
 ?>
 
 <div class="uk-container">
@@ -27,7 +27,7 @@ $time
                     ->dropDownList($data['form']->getSpecialization(), [
                         'class' => 'uk-input uk-form-small',
                         'prompt' => '  Выберите специализацию...',
-                        'id' => 'specialization-id'
+                        'id' => 'specialization-id',
                     ]); ?>
             </div>
 
@@ -35,7 +35,8 @@ $time
                 <?= $form->field($data['form'], 'service')
                     ->dropDownList([], [
                         'class' => 'uk-input uk-form-small',
-                        'id' => 'service-id'
+                        'id' => 'service-id',
+                        'data-selected' => $data['form']->service
                     ]); ?>
             </div>
 
@@ -119,7 +120,9 @@ $time
 
         $service.append(new Option('Выберите услугу...', '', true));
         services.forEach(item => {
-            $service.append(new Option(item.text, item.id, false, false));
+            let selected = +item.id === $service.data('selected');
+
+            $service.append(new Option(item.text, item.id, false, selected));
         });
     }
 </script>
