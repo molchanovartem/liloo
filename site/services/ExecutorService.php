@@ -3,11 +3,17 @@
 namespace site\services;
 
 use common\core\service\ModelService;
+use common\models\Appointment;
+use common\models\MasterSchedule;
+use common\models\Recall;
 use common\models\Salon;
+use common\models\SalonService;
 use common\models\SalonSpecialization;
+use common\models\Service;
 use common\models\Specialization;
 use common\models\User;
 use common\models\UserProfile;
+use common\models\UserSchedule;
 use common\models\UserSpecialization;
 use site\forms\FilterForm;
 
@@ -20,31 +26,37 @@ class ExecutorService extends ModelService
     public function index()
     {
         $form = new FilterForm();
+        $form->load($this->getData('get'));
 
-        if (!$form->validate()) {
-            return false;
+
+        $queryUsers = User::find()
+            ->select(['u.*', 'up.name', 'up.surname', 'up.address', 'up.city_id'])
+            ->alias('u')
+            ->leftJoin(Service::tableName() . ' ser', 'ser.account_id = u.account_id')
+            ->leftJoin(UserProfile::tableName() . ' up', '`u`.`id` = `up`.`user_id`')
+            ->leftJoin(UserSchedule::tableName() . ' usch', '`u`.`id` = `usch`.`user_id`')
+            ->with(['schedules']);
+
+        $querySalons = Salon::find()
+            ->select('s.*')
+            ->alias('s')
+            ->leftJoin(SalonService::tableName() . ' sser', 'sser.salon_id = s.id')
+            ->leftJoin(MasterSchedule::tableName() . ' ms', '`s`.`id` = `ms`.`salon_id`')
+            ->with(['schedules']);
+
+        if ($form->validate()) {
+            $queryUsers
+                ->filterWhere(['ser.id' => $form->service])
+                ->andFilterWhere(['up.city_id' => $form->city])
+                ->andFilterWhere(['date(usch.start_date)' => $form->date]);
+
+            $querySalons->filterWhere(['sser.service_id' => $form->service])
+                ->filterWhere(['s.city_id' => $form->city])
+                ->andFilterWhere(['date(ms.start_date)' => $form->date]);
         }
 
-        $users = User::find()
-            ->select('u.*, up.name, up.surname, up.address, up.city_id')
-            ->alias('u')
-            ->leftJoin(UserSpecialization::tableName() . ' us', '`u`.`id` = `us`.`user_id`')
-            ->leftJoin(UserProfile::tableName() . ' up', '`u`.`id` = `up`.`user_id`')
-            ->filterWhere(['us.specialization_id' => $this->getData('get')['specialization']])
-            ->andFilterWhere(['up.city_id' => $this->getData('get')['city']])
-            ->with(['schedules'])
-            ->asArray()
-            ->all();
-
-        $salons = Salon::find()
-            ->select('*')
-            ->alias('s')
-            ->leftJoin(SalonSpecialization::tableName() . ' ss', '`s`.`id` = `ss`.`salon_id`')
-            ->filterWhere(['ss.specialization_id' => $this->getData('get')['specialization']])
-//            ->where(['s.city_id' => $city_id])
-            ->with(['schedules'])
-            ->asArray()
-            ->all();
+        $users = $queryUsers->asArray()->all();
+        $salons = $querySalons->asArray()->all();
 
         $data = [];
 
@@ -56,6 +68,9 @@ class ExecutorService extends ModelService
                 'city_id' => $user['city_id'],
                 'schedules' => $user['schedules'],
                 'specializations' => $this->getUserSpecialization($user['id']),
+                'service' => $this->getUserService($user['id']),
+                'like' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_LIKE),
+                'dislike' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_DISLIKE),
                 'isSalon' => false,
             ];
         }
@@ -67,6 +82,9 @@ class ExecutorService extends ModelService
                 'address' => $salon['address'],
                 'city_id' => $salon['city_id'],
                 'schedules' => $salon['schedules'],
+                'service' => $this->getSalonService($salon['id']),
+                'like' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_LIKE),
+                'dislike' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_DISLIKE),
                 'isSalon' => true,
             ];
         }
@@ -81,7 +99,7 @@ class ExecutorService extends ModelService
 
         $this->setData([
             'form' => $form,
-            'provider' => $dataProvider
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -115,6 +133,10 @@ class ExecutorService extends ModelService
         $this->setData(['executor' => $model]);
     }
 
+    /**
+     * @param $userId
+     * @return array|\yii\db\ActiveRecord[]
+     */
     public function getUserSpecialization($userId)
     {
         return Specialization::find()
@@ -123,5 +145,56 @@ class ExecutorService extends ModelService
             ->where(['us.user_id' => $userId])
             ->asArray()
             ->all();
+    }
+
+    /**
+     * @param $userId
+     * @return mixed
+     */
+    public function getNearTimeUser($userId)
+    {
+        return Appointment::find()->where(['user_id' => $userId])->max('end_date');
+    }
+
+    /**
+     * @param $userId
+     * @param $assessment
+     * @return int|string
+     */
+    public function getUserAssessment($userId, $assessment)
+    {
+        return Recall::find()->where(['user_id' => $userId])->andWhere(['assessment' => $assessment])->count();
+    }
+
+    /**
+     * @param $userId
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getUserService($userId)
+    {
+        $accountId = User::find()->select('account_id')->where(['id' => $userId])->one()['account_id'];
+
+        return Service::find()->where(['account_id' => $accountId])->asArray()->all();
+    }
+
+    /**
+     * @param $salonId
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getSalonService($salonId)
+    {
+        return SalonService::find()->where(['salon_id' => $salonId])->asArray()->all();
+    }
+
+    /**
+     * @param $salonId
+     * @param $assessment
+     * @return int|string
+     */
+    public function getSalonAssessment($salonId, $assessment)
+    {
+        $accountId = Salon::find()->select('account_id')->where(['id' => $salonId])->one()['account_id'];
+
+        return Recall::find()->where(['account_id' => $accountId])->andWhere(['assessment' => $assessment])->count();
     }
 }
