@@ -33,13 +33,10 @@ $time
 
             <div class="uk-width-1-5 uk-float-left uk-margin-left">
                 <?= $form->field($data['form'], 'service')
-                    ->dropDownList($data['form']->getService(), [
+                    ->dropDownList([], [
                         'class' => 'uk-input uk-form-small',
-                        'prompt' => '  Выберите услугу...',
                         'id' => 'service-id'
                     ]); ?>
-
-                <select id="testService"></select>
             </div>
 
             <div class="uk-width-1-5 uk-float-left uk-margin-left">
@@ -81,34 +78,18 @@ $time
 </div>
 
 <script>
-    var $specialization = $("#specialization-id").select2({
+    'use strict';
+
+    const commonServices = <?= json_encode($data['form']->getServices(), true);?>;
+
+    let $specialization = $("#specialization-id").select2({
         selectOnClose: true
     });
-    $specialization.on('select2:select', function (e) {
-       console.log(e);
 
-       var select = document.getElementById('testService');
-
-       console.log(select.options);
-
-        $("#testService").val(null);
-
-    });
-    //$specialization.trigger('select2:change');
-
-    var services  = <?= json_encode($data['form']->getServices(), true);?>;
-
-    $("#testService").select2({
+    let $service = $("#service-id").select2({
         selectOnClose: true,
-        data: services.map(item => {
-            return {id: item.id, text: item.name};
-        })
     });
 
-
-    $("#service-id").select2({
-        selectOnClose: true
-    });
     $("#city-id").select2({
         selectOnClose: true
     });
@@ -116,4 +97,29 @@ $time
         placeholder: 'Время',
         allowClear: true
     });
+
+    $specialization.on('change.select2', function (e) {
+        appendServices(getServices(e.target.value || null));
+    });
+    $specialization.trigger('change.select2');
+
+    function getServices(specializationId = null) {
+        let services = commonServices.filter(items => {
+            if (specializationId === null) return true;
+
+            return +items.specialization_id === +specializationId;
+        });
+        return services.map(item => {
+            return {id: item.id, text: item.name};
+        });
+    }
+
+    function appendServices(services) {
+        $service.html('');
+
+        $service.append(new Option('Выберите услугу...', null, true));
+        services.forEach(item => {
+            $service.append(new Option(item.text, item.id, false, false));
+        });
+    }
 </script>
