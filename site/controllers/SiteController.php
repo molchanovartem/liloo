@@ -6,6 +6,7 @@ use common\models\Specialization;
 
 /**
  * Class SiteController
+ *
  * @package site\controllers
  */
 class SiteController extends Controller

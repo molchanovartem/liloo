@@ -14,92 +14,175 @@
             <div class="dhx_cal_data"></div>
         </div>
 
-        <div :id="appointmentModalFormId" @hidden="onHiddenModal" class="uk-modal-container" uk-modal>
-            <div class="uk-modal-dialog uk-modal-body">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <v-appointment-form
-                        @createdAppointment="onCreatedAppointment"
-                        @updatedAppointment="onUpdatedAppointment"
-                />
+
+        <v-dialog v-model="modal" width="80%" max-width="1200px">
+            <div class="uk-card uk-card-default uk-height-1-1">
+                <div class="uk-card-header uk-padding-small">
+                    <v-icon class="uk-float-right" @click="modalClose()">mdi-close</v-icon>
+                </div>
+                <div class="uk-card-body uk-padding-small">
+                    <v-form ref="form" @created="onCreated" @updated="onUpdated"/>
+                </div>
             </div>
-        </div>
+        </v-dialog>
     </div>
 </template>
 
 <script>
-/*    import 'dhtmlx-scheduler/codebase/dhtmlxscheduler_flat.css';
+    import 'dhtmlx-scheduler/codebase/dhtmlxscheduler_flat.css';
     import 'dhtmlx-scheduler/codebase/dhtmlxscheduler.js';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_quick_info.js';
-    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_limit.js';*/
-    import UIkit from 'uikit/dist/js/uikit';
+    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_limit.js';
+    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_timeline';
 
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';
-    import Status from './components/Status';
-
-    import VAppointmentForm from './components/AppointmentForm.vue';
+    import VMasterList from './components/MasterList.vue';
+    import VForm from './Form.vue';
 
     export default {
-        name: "Appointment",
+        name: "SalonAppointment",
+        components: {
+            VForm
+        },
+        created() {
+            this.$on('save', (appointment) => {
+                alert('save');
+            });
+            this.scheduler = Scheduler.getSchedulerInstance();
+        },
         mounted() {
-            // Инициализируем календарь
             this.initScheduler();
         },
         destroyed() {
             delete this.scheduler;
         },
-        components: {
-            VAppointmentForm
-        },
         data() {
             return {
-                appointmentModalFormId: 'appointment_modal_form',
-                status: new Status,
+                modal: false,
+                currentAppointment: null,
                 config: {
                     mode: 'week'
-                }
+                },
             }
         },
         methods: {
-            onHiddenModal() {
-                this.scheduler.endLightbox(false);
+            reload() {
+                this.initScheduler();
             },
 
+            /**
+             * Загружает записи, время работы сотрудника
+             */
+            loadData() {
+                let state = this.scheduler.getState(),
+                    startDate = state.min_date,
+                    endDate = state.max_date;
+
+                this.$apollo.query({
+                    query: gql`query ($startDate: DateTime,$endDate: DateTime) {
+                            appointments(start_date: $startDate, end_date: $endDate) {
+                                    id, salon_id, user_id, master_id, client_id, owner_id, status, start_date, end_date,
+                                    items {id, appointment_id, service_id, service_name, service_price, service_duration, quantity},
+                                    client {id, surname, name, patronymic, date_birth},
+                            },
+                            userSchedules(start_date: $startDate, end_date: $endDate) {
+                                id, type, start_date, end_date
+                            }
+                        }`,
+                    variables: {
+                        startDate: this.dateFormat(startDate),
+                        endDate: this.dateFormat(endDate)
+                    }
+                }).then(({data}) => {
+                    this.deleteAllAppointment();
+
+                    let appointments = [];
+                    Array.from(data.appointments).forEach(appointment => {
+                        appointments.push(this.createEvent(appointment));
+                    });
+                    this.scheduler.parse(appointments, 'json');
+
+                    this.scheduler.deleteMarkedTimespan();
+
+                    this.scheduler.blockTime({
+                        start_date: new Date(startDate),
+                        end_date: new Date(endDate),
+                    });
+
+                    Array.from(data.userSchedules).forEach(item => {
+                        this.scheduler.deleteMarkedTimespan({
+                            start_date: new Date(item.start_date),
+                            end_date: new Date(item.end_date),
+                        });
+                    });
+
+                    this.scheduler.updateView();
+                });
+            },
+            /**
+             * Загружает визит
+             */
+            loadAppointment(id) {
+                return this.$apollo.query({
+                    query: gql`query ($id: ID!) {
+                            appointment(id: $id) {
+                                id, user_id, client_id, status, start_date, end_date,
+                                items {
+                                  id, appointment_id, service_id, service_name, service_price, service_duration, quantity
+                                },
+                                client {id, surname, name, patronymic, date_birth}
+                            }
+                        }`,
+                    variables: {
+                        id: id
+                    }
+                });
+            },
+
+            /**
+             * Создается календарь
+             */
             initScheduler() {
-                this.scheduler = Scheduler.getSchedulerInstance();
+                let self = this;
 
                 this.initSchedulerConfig();
                 this.initSchedulerTemplates();
                 this.initSchedulerEvents();
 
                 this.scheduler.init('scheduler_here', new Date, this.config.mode);
+
             },
             // Конфигурация
             initSchedulerConfig() {
-                let self = this;
-
                 this.scheduler.config.api_date = "%Y-%m-%d %H:%i";
                 this.scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                 this.scheduler.config.details_on_dblclick = false;
                 this.scheduler.config.details_on_create = true;
+                this.scheduler.config.dblclick_create = true;
                 this.scheduler.config.drag_create = false;
                 this.scheduler.config.drag_resize = false;
                 this.scheduler.config.quick_info_detached = true;
-
                 this.scheduler.config.icons_select = ['icon_edit', 'icon_delete'];
+                this.scheduler.xy.scale_height = 35;
+
+                this.scheduler.locale.labels.timeline_tab = "Timeline";
 
                 this.scheduler.showLightbox = (id) => {
-                    let event = this.scheduler.getEvent(id);
+                    let appointment = this.scheduler.getEvent(id);
 
-                    UIkit.modal('#' + this.appointmentModalFormId).show();
-                    if (event.isNew !== undefined && event.isNew) {
-                        this.$emit('createAppointment', {
-                            start_date: this.dateFormat(event.start_date),
-                            end_date: this.dateFormat(event.end_date),
-                        });
+                    this.currentAppointment = appointment;
+
+                    if (appointment.isNew) {
+                        this.formLoad({
+                            start_date: this.dateFormat(appointment.start_date),
+                            end_date: this.dateFormat(appointment.end_date)
+                        }, 'create');
                     } else {
                         this.loadAppointment(id).then(({data}) => {
-                            this.$emit('updateAppointment', data.appointment);
+                            if (data.appointment) {
+                                this.formLoad(data.appointment, 'update');
+                            }
                         });
                     }
                 };
@@ -128,46 +211,52 @@
                 this.scheduler.templates.event_text = function (start, end, event) {
                     let str = [];
 
-                    if (event.client !== null) {
+                    if (event.client) {
                         str.push('<i class="mdi mdi-account"></i> <a href="#" style="color: #fff; font-weight: bold">' + event.client.name + '</a>');
                     }
 
-                    event.items.forEach(item => {
-                        str.push(item.service_name + ' ' + item.service_duration + 'мин/' + item.service_price);
-                    });
+                    if (event.items !== undefined && Array.isArray(event.items)) {
+                        event.items.forEach(item => {
+                            str.push(item.service_name + ' ' + item.service_duration + 'мин/' + item.service_price);
+                        });
+                    }
 
                     return str.join('<br/>');
                 };
 
-                this.scheduler.templates.quick_info_content = function (start, end, ev) {
+                this.scheduler.templates.quick_info_content = function (start, end, event) {
                     let str = '<div>';
 
                     str += '<ul>' +
-                        '<li>Статус: ' + self.getStatusName(ev.status) + '</li>' +
+                        '<li>Статус: ' + event.status + '</li>' +
                         '<li>Длительнось: 00:20 мин</li>' +
                         '<li>Сумма: 100500 руб.</li>' +
                         '</ul>';
 
-                    if (ev.client !== null) {
+                    if (event.client) {
                         str += 'Клиент <ul>' +
-                            '<li>' + ev.client.name + '</li>' +
+                            '<li>' + event.client.name + '</li>' +
                             '</ul>';
                     }
 
-                    str += 'Услуги ';
+                    if (event.items !== undefined && Array.isArray(event.items)) {
+                        str += 'Услуги ';
 
-                    str += '<table class="uk-table uk-table-small uk-table-divider"><thead><tr>' +
-                        '<th>Название</th><th>Длительность</th><th>Цена</th>' +
-                        '</tr></thead>' +
-                        '<tbody>';
+                        str += '<table class="uk-table uk-table-small uk-table-divider"><thead><tr>' +
+                            '<th>Название</th><th>Длительность</th><th>Цена</th>' +
+                            '</tr></thead>' +
+                            '<tbody>';
 
-                    ev.items.forEach(item => {
-                        str += '<tr>' +
-                            '<td>' + item.service_name + '</td><td>' + item.service_duration + '</td><td>' + item.service_price + '</td>' +
-                            '</tr>';
-                    });
 
-                    str += '</tbody></table></div>';
+                        event.items.forEach(item => {
+                            str += '<tr>' +
+                                '<td>' + item.service_name + '</td><td>' + item.service_duration + '</td><td>' + item.service_price + '</td>' +
+                                '</tr>';
+                        });
+
+                        str += '</tbody></table>';
+                    }
+                    str += '</div>';
 
                     return str;
                 };
@@ -179,169 +268,152 @@
                 this.scheduler.attachEvent("onViewChange", (new_mode, new_date) => {
                     let state = this.scheduler.getState();
 
-                    this.loadData(this.dateFormat(state.min_date), this.dateFormat(state.max_date)).then(({data}) => {
-                        this.deleteAllAppointmentForSchedule();
-
-                        Array.from(data.appointments).forEach(appointment => {
-                            this.addAppointment(appointment);
-                        });
-
-                        this.scheduler.deleteMarkedTimespan();
-                        this.scheduler.blockTime({
-                            start_date: state.min_date,
-                            end_date: state.max_date
-                        });
-
-                        Array.from(data.userSchedules).forEach(item => {
-                            this.scheduler.deleteMarkedTimespan({
-                                start_date: new Date(item.start_date),
-                                end_date: new Date(item.end_date)
-                            });
-                        });
-                        this.scheduler.updateView();
-                    });
+                    this.loadData(this.salonId, this.userId, state.min_date, state.max_date);
                 });
 
-                // Обработчик если нажали на пустое место в журнале
-                this.scheduler.attachEvent('onEmptyClick', (date, e) => {
-                    this.scheduler.deleteEvent(this.scheduler.addEventNow({
-                        start_date: new Date(date),
-                        end_date: new Date(date),
-                        client: null,
-                        items: [],
-                        isNew: true
-                    }), true);
-                    return true;
+                this.scheduler.attachEvent("onEventCreated", (id, e) => {
+                    this.scheduler.getEvent(id).isNew = true;
+                    this.scheduler.updateEvent(id);
                 });
 
                 this.scheduler._click.buttons.edit = function (id) {
                     self.scheduler.showLightbox(id);
                 };
 
+                this.scheduler._click.buttons.delete = (id) => {
+                    this.deleteAppointment(id);
+                };
+
+                // Если двигаем записи
                 let startDateBeforeDrag;
 
                 this.scheduler.attachEvent("onBeforeDrag", (id, mode, e) => {
-                    let event = self.scheduler.getEvent(id);
+                    let appointment = self.scheduler.getEvent(id);
 
-                    startDateBeforeDrag = this.dateFormat(event.start_date);
+                    startDateBeforeDrag = this.dateFormat(appointment.start_date);
+
                     return true;
                 });
 
                 this.scheduler.attachEvent("onDragEnd", (id, mode, e) => {
-                    let event = this.scheduler.getEvent(id);
+                    let appointment = this.scheduler.getEvent(id);
 
-                    if (!event) return;
+                    if (!appointment) return;
 
-                    let startDate = this.dateFormat(event.start_date),
-                        endDate = this.dateFormat(event.end_date);
+                    let startDate = this.dateFormat(appointment.start_date),
+                        endDate = this.dateFormat(appointment.end_date);
 
-                    if ((startDateBeforeDrag !== this.dateFormat(event.start_date)) &&
-                        !(event.isNew !== undefined && event.isNew)) {
-                        this.saveOnDragAppointment(event.id, startDate, endDate);
+                    // Если время или masterId изменился
+                    if ((startDateBeforeDrag !== this.dateFormat(appointment.start_date)) && !appointment.isNew) {
+                        this.saveOnDragAppointment(appointment.id, startDate, endDate);
                     }
                     return true;
                 });
             },
-            // Загружаем эвенты
-            loadData(startDate, endDate) {
-                return this.$apollo.query({
-                    query: gql`query (
-                        $startDate: DateTime,
-                        $endDate: DateTime,
-                        $userId: ID!
-                    ) {
-                        appointments(
-                            start_date: $startDate,
-                            end_date: $endDate,
-                            user_id: $userId
-                         ) {
-                            id, user_id, client_id, owner_id, status, start_date, end_date,
-                            items {id, appointment_id, service_id, service_name, service_price, service_duration, quantity},
-                            client {id, surname, name, patronymic, date_birth}
-                        },
-                        userSchedules(user_id: $userId, start_date: $startDate, end_date: $endDate) {
-                            id, user_id, type, start_date, end_date
-                        }
-                    }`,
-                    variables: {
-                        startDate: startDate,
-                        endDate: endDate,
-                        userId: 1
-                    }
-                });
+
+            addAppointment(appointment, isNew = false) {
+                return this.scheduler.addEvent(this.createEvent(appointment, isNew));
             },
-            loadAppointment(id) {
-                return this.$apollo.query({
-                    query: gql`query ($id: ID!) {
-                            appointment(id: $id) {
-                                id, client_id, status, start_date, end_date,
-                                items {
-                                  id, appointment_id, service_id, service_name, service_price, service_duration, quantity
-                                },
-                                client {id, surname, name, patronymic, date_birth}
-                            }
-                        }`,
-                    variables: {
-                        id: id
-                    }
-                });
+            createEvent(data, isNew = false) {
+                return {
+                    id: data.id,
+                    client_id: data.client_id,
+                    status: +data.status,
+                    start_date: data.start_date,
+                    end_date: data.end_date,
+                    client: data.client || null,
+                    items: data.items || [],
+                    isNew: isNew
+                }
             },
-            addAppointment(appointment) {
-                return this.scheduler.addEvent({
-                    id: appointment.id,
-                    client_id: appointment.client_id,
-                    status: +appointment.status,
-                    start_date: appointment.start_date,
-                    end_date: appointment.end_date,
-                    client: appointment.client || null,
-                    items: appointment.items || []
-                });
-            },
-            deleteAllAppointmentForSchedule() {
+            deleteAllAppointment() {
                 this.scheduler.getEvents().forEach(appointment => {
                     this.scheduler.deleteEvent(appointment.id);
                 })
             },
+            deleteAppointment(id) {
+                this.$apollo.mutate({
+                    mutation: gql`mutation ($id: ID!) {
+                        appointmentDelete(id: $id)
+                    }`,
+                    variables: {
+                        id
+                    }
+                }).then(({data}) => {
+                    if (data.appointmentDelete) this.scheduler.deleteEvent(id);
+                });
+            },
 
             saveOnDragAppointment(id, startDate, endDate) {
                 return this.$apollo.mutate({
-                    mutation: gql`mutation (
-                    $id: ID!,
-                    $startDate: DateTime,
-                    $endDate: DateTime,
-                      ) {
-                        appointmentUpdate(
-                            id: $id,
-                            attributes: {
-                                start_date: $startDate,
-                                end_date: $endDate
-                            }
-                          ) {
-                                id, start_date, end_date,
-                          }
+                    mutation: gql`mutation ($id: ID!, $attributes: AppointmentUpdateInput!) {
+                        appointmentUpdate(id: $id, attributes: $attributes) {
+                                id, master_id, start_date, end_date,
+                        }
                     }`,
                     variables: {
                         id: id,
-                        startDate: startDate,
-                        endDate: endDate,
+                        attributes: {
+                            start_date: startDate,
+                            end_date: endDate,
+                        }
                     }
                 });
             },
 
-            onCreatedAppointment(appointment) {
+            onCreated(appointment) {
                 this.addAppointment(appointment);
-                UIkit.modal('#' + this.appointmentModalFormId).hide();
+                this.scheduler.updateView();
+                this.modalClose();
             },
-            onUpdatedAppointment(appointment) {
+            onUpdated(appointment) {
                 this.scheduler.updateEvent(this.addAppointment(appointment));
-                UIkit.modal('#' + this.appointmentModalFormId).hide();
+                this.scheduler.updateView();
+                this.modalClose();
             },
-            getStatusName(status) {
-                return this.status.getStatusName(status);
-            },
+
+            /**
+             * Форматирует дату для mysql
+             *
+             * @param date
+             */
             dateFormat(date) {
                 return dateFormat(date, 'yyyy-mm-dd HH:MM:ss')
-            }
+            },
+
+            formLoad(attributes, scenario) {
+                if (scenario === 'create') this.$refs.form.scenarioCreate();
+                else this.$refs.form.scenarioUpdate();
+
+                this.$refs.form.setAttributes(attributes);
+                this.$refs.form.loadData();
+                this.modal = true;
+            },
+
+            modalClose() {
+                this.modal = false;
+                this.$refs.form.clearData();
+
+                if (this.currentAppointment && this.currentAppointment.isNew) {
+                    this.scheduler.deleteEvent(this.currentAppointment.id);
+                }
+                this.scheduler.endLightbox(false);
+            },
         },
+        watch: {
+            '$route.query.master_id': function () {
+                this.setMasterId();
+                this.loadData();
+            },
+            '$route.params.id': function () {
+                this.reload();
+            }
+        }
     }
 </script>
+
+<style>
+    .dhx_scale_holder, .dhx_scale_holder_now {
+        background-repeat: repeat;
+    }
+</style>

@@ -1,8 +1,5 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
-        <h1>График работы</h1>
-        <v-master v-if="masterId" :salonId=" salonId" :masterId="masterId"/>
-
         <div>
             <div id="masterScheduleList" class="dhx_cal_container" style='width:100%; height:1000px;'>
                 <div class="dhx_cal_navline">

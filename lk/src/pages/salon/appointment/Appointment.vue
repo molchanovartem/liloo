@@ -2,7 +2,7 @@
     <div class="content-block p-40 content-block_shadow">
         <v-master-list :masters="masters" :salonId="salonId"/>
 
-        <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:1000px;'>
+        <div id="scheduler_here" class="dhx_cal_container uk-margin-top" style='width:100%; height:1000px;'>
             <div class="dhx_cal_navline">
                 <div class="dhx_cal_prev_button">&nbsp;</div>
                 <div class="dhx_cal_next_button">&nbsp;</div>

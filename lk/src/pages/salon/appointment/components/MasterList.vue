@@ -1,13 +1,15 @@
 <template>
-    <div>
-        <ul>
-            <li>
-                <a href="#" @click.prevent="selectedMaster(null)">Все</a>
-            </li>
-            <li v-for="master in masters">
-                <a href="#" @click.prevent="selectedMaster(master.id)">{{master.name}} id: {{master.id}}</a>
-            </li>
-        </ul>
+    <div class="uk-grid uk-grid-small">
+        <div class="uk-width-small">
+            <div @click.prevent="selectedMaster(null)" class="uk-padding-small uk-box-shadow-small uk-text-center">
+                Все
+            </div>
+        </div>
+        <div class="uk-width-small" v-for="master in masters">
+            <div @click.prevent="selectedMaster(master.id)" class="uk-padding-small uk-box-shadow-small uk-text-center">
+                {{master.name}}
+            </div>
+        </div>
     </div>
 </template>
 

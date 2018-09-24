@@ -28,7 +28,7 @@ class UserProfile extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'name', 'phone'], 'required'],
-            [['user_id', 'phone', 'city_id', 'country_id'], 'integer'],
+            [['user_id', 'phone', 'country_id', 'city_id',], 'integer'],
             [['date_birth'], 'date', 'format' => 'php: Y-m-d'],
             [['surname', 'name', 'patronymic', 'address'], 'string', 'max' => 255],
             [['avatar'], 'image'],
@@ -77,9 +77,11 @@ class UserProfile extends \yii\db\ActiveRecord
         return new Query(get_called_class());
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getCity()
     {
-//        return City::findOne();
         return $this->hasOne(City::class, ['id' => 'city_id']);
     }
 }

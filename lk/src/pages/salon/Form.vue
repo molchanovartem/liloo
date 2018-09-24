@@ -8,37 +8,50 @@
         </ul>
 
         <v-form ref="form" v-model="valid">
-            <v-autocomplete
-                    label="Статус"
-                    v-model="attributes.status"
-                    :items="statusList"
-                    :rules="rules.status"
-                    required
-                    outline
-            />
-            <v-autocomplete
-                    v-model="attributes.country_id"
-                    :items="countryList"
-                    :rules="rules.countryId"
-                    item-text="name"
-                    item-value="id"
-                    label="Страна"
-                    @change="loadCitiesData"
-                    outline
-            />
-            <v-autocomplete
-                    label="Город"
-                    v-model="attributes.city_id"
-                    :items="cityList"
-                    item-text="name"
-                    item-value="id"
-                    :disabled="cityList.length === 0"
-                    :rules="rules.cityId"
-                    outline
-            />
-            <v-text-field v-model="attributes.name" label="Название" outline :rules="rules.name"/>
-
-             <v-text-field v-model="attributes.address" label="Адрес" outline/>
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-width-1-3">
+                    <v-autocomplete
+                            label="Статус"
+                            v-model="attributes.status"
+                            :items="statusList"
+                            :rules="rules.status"
+                            required
+                            outline
+                    />
+                </div>
+                <div class="uk-width-2-3">
+                    <v-text-field v-model="attributes.name" label="Название" outline :rules="rules.name"/>
+                </div>
+            </div>
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-width-1-4">
+                    <v-autocomplete
+                            v-model="attributes.country_id"
+                            :items="countryList"
+                            :rules="rules.countryId"
+                            item-text="name"
+                            item-value="id"
+                            label="Страна"
+                            @change="loadCitiesData"
+                            outline
+                    />
+                </div>
+                <div class="uk-width-1-4">
+                    <v-autocomplete
+                            label="Город"
+                            v-model="attributes.city_id"
+                            :items="cityList"
+                            item-text="name"
+                            item-value="id"
+                            :disabled="cityList.length === 0"
+                            :rules="rules.cityId"
+                            outline
+                    />
+                </div>
+                <div class="uk-width-1-2">
+                    <v-text-field v-model="attributes.address" label="Адрес" outline/>
+                </div>
+            </div>
 
             <v-select
                     label="Специализация"

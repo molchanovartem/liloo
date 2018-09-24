@@ -24,8 +24,8 @@ class TariffPrice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['days', 'tariff_id', 'price'], 'required'],
-            [['days', 'tariff_id'], 'integer'],
+            [['day', 'tariff_id', 'price'], 'required'],
+            [['day', 'tariff_id'], 'integer'],
             [['price'], 'number'],
         ];
     }
@@ -37,7 +37,7 @@ class TariffPrice extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'days' => 'Количество дней',
+            'day' => 'Количество дней',
             'price' => 'Цена',
             'tariff_id' => 'Тариф',
         ];
@@ -49,5 +49,13 @@ class TariffPrice extends \yii\db\ActiveRecord
     public static function find()
     {
         return new Query(get_called_class());
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTariff()
+    {
+        return $this->hasOne(Tariff::class, ['id' => 'tariff_id']);
     }
 }

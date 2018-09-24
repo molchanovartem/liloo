@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <ul class="uk-list uk-list-divider">
         <salon-item :salon="salon" v-for="salon in salons"/>
-    </div>
+    </ul>
 </template>
 
 <script>

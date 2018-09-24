@@ -1,8 +1,12 @@
 <template>
-    <div>
-        <a href="javascript:void(0)" @click="open = open ? false : true">{{salon.name}}</a>
-        <salon-action-list :salon="salon" v-if="open"/>
-    </div>
+    <li class="uk-margin-remove-top">
+        <div class="uk-padding-small uk-text-center">
+            <a href="javascript:void(0)" @click="open = open ? false : true">
+                <span class="menu-blocks__item-name">{{salon.name}}</span>
+            </a>
+            <salon-action-list :salon="salon" v-if="open"/>
+        </div>
+    </li>
 </template>
 
 <script>
@@ -20,9 +24,9 @@
             SalonActionList
         },
         data() {
-          return {
-              open: false
-          }
+            return {
+                open: false
+            }
         },
     }
 </script>
