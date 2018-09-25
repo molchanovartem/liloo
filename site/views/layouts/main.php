@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 
@@ -69,6 +70,20 @@ use yii\helpers\Html;
                     <?php echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", '/site/web/executor'); ?>
 
                     <?php echo Html::a("Войти", '/site/web/site/login', ['class' => 'font_Gilroy-17-800-000000']); ?>
+
+                    <ul>
+                        <?php if (Yii::$app->user->isGuest): ?>
+                            <li><a href="<?= Url::toRoute(['auth/login']); ?>">Логин</a></li>
+                            <li><a href="<?= Url::toRoute(['auth/signup']); ?>">Регистрация</a></li>
+                        <?php else: ?>
+                            <?= Html::beginForm(['/auth/logout'], 'post')
+                            . Html::submitButton(
+                                    'Logout (' . Yii::$app->user->identity->login . ')',
+                                    ['class' => 'uk-button uk-button-danger']
+                            )
+                            . Html::endForm(); ?>
+                        <?php endif; ?>
+                    </ul>
 
                 </div>
 

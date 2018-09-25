@@ -2,19 +2,20 @@
 
 namespace site\forms;
 
+use site\models\User;
 use Yii;
 use yii\base\Model;
 
 /**
  * Class LoginForm
+ *
  * @package site\forms
  */
 class LoginForm extends Model
 {
-    public $login;
+    public $email;
     public $password;
     public $rememberMe = true;
-
     private $_user = false;
 
     /**
@@ -24,16 +25,23 @@ class LoginForm extends Model
     {
         return [
             [['login', 'password'], 'required'],
-            ['password', 'validatePassword'],
+            [['login'], 'string'],
             ['rememberMe', 'boolean'],
+            ['password', 'validatePassword'],
         ];
     }
 
-    public function validatePassword()
+    /**
+     * @param $attribute
+     * @param $params
+     */
+    public function validatePassword($attribute, $params)
     {
-        $user = $this->getUser();
-        if (!$user || !$user->validatePassword($this->password)) {
-            $this->addError('password', 'Incorrect username or password.');
+        if (!$this->hasErrors()) {
+            $user = $this->getUser();
+            if (!$user || !$user->validatePassword($this->password)) {
+                $this->addError($attribute, 'Incorrect email or password.');
+            }
         }
     }
 
@@ -43,25 +51,18 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            $user = User::findByUsername($this->login);
-            Yii::$app->user->login($user, $this->rememberMe ? 3600*24*30 : 0);
-            return true;
-        } else {
-            return false;
+            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
         }
+        return false;
     }
 
     /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
+     * @return bool
      */
-    private function getUser()
+    public function getUser()
     {
-
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->login);
-
+            $this->_user = User::findByLogin($this->login);
         }
         return $this->_user;
     }
