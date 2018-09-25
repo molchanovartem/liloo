@@ -96,6 +96,7 @@ class ServiceService
     {
         $model->setScenario($scenario);
         $model->setAttributes($attributes);
+        $model->is_group = (int) $scenario === Service::SCENARIO_GROUP;
 
         if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
 
