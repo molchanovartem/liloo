@@ -1,36 +1,48 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
         <v-form ref="form" v-model="valid">
-            <v-autocomplete
-                    label="Специализация"
-                    v-model="attributes.specialization_id"
-                    :items="specializations"
-                    :rules="rules.specialization_id"
-                    item-value="id"
-                    item-text="name"
-                    required
-                    outline
-            />
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-width-1-3">
+                    <v-autocomplete
+                            label="Специализация"
+                            v-model="attributes.specialization_id"
+                            :items="specializations"
+                            :rules="rules.specialization_id"
+                            item-value="id"
+                            item-text="name"
+                            required
+                            outline
+                    />
+                </div>
+                <div class="uk-width-2-3">
 
-            <v-text-field
-                    v-model="attributes.name"
-                    :rules="rules.name"
-                    label="Название"
-                    outline
-            />
-            <v-text-field
-                    v-model="attributes.price"
-                    :rules="rules.price"
-                    label="Цена"
-                    outline
-            />
-            <v-text-field
-                    v-model="attributes.duration"
-                    :rules="rules.duration"
-                    label="Длительность"
-                    mask="###"
-                    outline
-            />
+                    <v-text-field
+                            v-model="attributes.name"
+                            :rules="rules.name"
+                            label="Название"
+                            outline
+                    />
+                </div>
+            </div>
+            <div class="uk-grid uk-grid-small uk-child-width-1-2">
+                <div>
+                    <v-text-field
+                            v-model="attributes.price"
+                            :rules="rules.price"
+                            label="Цена"
+                            outline
+                    />
+                </div>
+                <div>
+                    <v-text-field
+                            v-model="attributes.duration"
+                            :rules="rules.duration"
+                            label="Длительность"
+                            mask="###"
+                            outline
+                    />
+                </div>
+            </div>
 
             <div class="uk-margin-small-top">
                 <v-btn round outline large color="primary" @click="submit()">
@@ -102,7 +114,6 @@
         methods: {
             loadData() {
                 let query = {};
-
                 if (this.type === 'update') {
                     query = {
                         query: gql`query ($id: ID!) {
@@ -139,13 +150,17 @@
                 if (this.$refs.form.validate()) {
                     if (this.type === 'create') {
                         this.add()
-                            .then((data) => {
-                                this.$emit(EVENT_SAVE, data);
+                            .then(({data}) => {
+                                if (data.serviceCreate) {
+                                    this.$emit(EVENT_SAVE, data.serviceCreate);
+                                }
                             });
                     } else {
                         this.update()
-                            .then((data) => {
-                                this.$emit(EVENT_SAVE, data);
+                            .then(({data}) => {
+                                if (data.serviceUpdate) {
+                                    this.$emit(EVENT_SAVE, data.serviceUpdate);
+                                }
                             });
                     }
                 }

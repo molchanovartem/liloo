@@ -30,7 +30,6 @@ class ServiceType extends ObjectType implements QueryTypeInterface
                     'duration' => $typeRegistry->int(),
                     'specialization' => [
                         'type' => $entityRegistry->specialization(),
-                        'description' => 'Коллекция специализайий',
                         'resolve' => function (Service $service, $args, $context, $info) {
                     /*
                      * @todo

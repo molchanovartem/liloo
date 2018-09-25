@@ -15,10 +15,17 @@
                     required
                     multiple
             />
-
-            <v-text-field v-model="attributes.surname" label="Фамилия" outline/>
-            <v-text-field v-model="attributes.name" :rules="rules.name" label="Имя" outline/>
-            <v-text-field v-model="attributes.patronymic" label="Отчество" outline/>
+            <div class="uk-grid uk-grid-small uk-child-width-1-3">
+                <div>
+                    <v-text-field v-model="attributes.surname" label="Фамилия" outline/>
+                </div>
+                <div>
+                    <v-text-field v-model="attributes.name" :rules="rules.name" label="Имя" outline/>
+                </div>
+                <div>
+                    <v-text-field v-model="attributes.patronymic" label="Отчество" outline/>
+                </div>
+            </div>
 
             <div class="uk-margin-small-top">
                 <v-btn round outline large color="primary" @click="submit()">
@@ -96,9 +103,11 @@
                 }).then(({data}) => {
                     this.specializationItems = data.specializations;
 
+                    console.log(data);
+
                     if (data.masterSpecializations) {
                         this.attributes.specializationsId = Array.from(data.masterSpecializations).map(item => {
-                            return +item.specialization_id;
+                            return item.specialization_id;
                         });
                     }
 

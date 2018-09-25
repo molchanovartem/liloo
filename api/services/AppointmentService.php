@@ -2,16 +2,16 @@
 
 namespace api\services;
 
-use api\exceptions\ValidationError;
 use Yii;
 use yii\db\Query;
 use yii\db\Exception;
+use api\exceptions\ValidationError;
 use api\exceptions\AttributeValidationError;
 use api\exceptions\NotFoundEntryError;
 use api\models\Appointment;
 use api\models\AppointmentItem;
 use api\models\Service;
-use api\models\SalonService;
+ use api\models\SalonService;
 
 /**
  * Class AppointmentService
@@ -143,6 +143,7 @@ class AppointmentService extends \api\services\Service
                     ['master_id' => $attributes['master_id']],
                     ['salon_id' => $attributes['salon_id']],
                 ])
+                ->andFilterWhere(['!=', 'id', $attributes['id'] ?? null])
                 ->all();
         } else {
             $appointmentDates = (new Query())->select(['start_date', 'end_date'])
