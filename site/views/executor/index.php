@@ -22,7 +22,7 @@ use yii\helpers\Html;
 
             <?= $form->errorSummary($data['form']); ?>
 
-            <div class="uk-width-1-5 uk-float-left">
+            <div class="uk-width-1-6 uk-float-left">
                 <?= $form->field($data['form'], 'specialization')
                     ->dropDownList($data['form']->getSpecialization(), [
                         'class' => 'uk-input uk-form-small',
@@ -31,7 +31,7 @@ use yii\helpers\Html;
                     ]); ?>
             </div>
 
-            <div class="uk-width-1-5 uk-float-left uk-margin-left">
+            <div class="uk-width-1-6 uk-float-left uk-margin-left">
                 <?= $form->field($data['form'], 'service')
                     ->dropDownList([], [
                         'class' => 'uk-input uk-form-small',
@@ -40,7 +40,7 @@ use yii\helpers\Html;
                     ]); ?>
             </div>
 
-            <div class="uk-width-1-5 uk-float-left uk-margin-left">
+            <div class="uk-width-1-6 uk-float-left uk-margin-left">
                 <?= $form->field($data['form'], 'city')
                     ->dropDownList($data['form']->getCities(), [
                         'class' => 'uk-input uk-form-small',
@@ -49,7 +49,7 @@ use yii\helpers\Html;
                     ]); ?>
             </div>
 
-            <div class="uk-width-1-5 uk-float-left uk-margin-left">
+            <div class="uk-width-1-6 uk-float-left uk-margin-left">
                 <?= $form->field($data['form'], 'date')->widget(DatePicker::class, [
                     'options' => [
                         'class' => 'uk-input uk-form-small',
@@ -58,7 +58,7 @@ use yii\helpers\Html;
                 ]) ?>
             </div>
 
-            <div class="uk-width-1-5 uk-float-left uk-margin-left">
+            <div class="uk-width-1-6 uk-float-left uk-margin-left">
                 <?= $form->field($data['form'], 'time')
                     ->dropDownList($data['form']->getTime(), [
                         'class' => 'uk-input uk-form-small',
@@ -118,7 +118,7 @@ use yii\helpers\Html;
     function appendServices(services) {
         $service.html('');
 
-        $service.append(new Option('Выберите услугу...', null, true));
+        $service.append(new Option('Выберите услугу...', '', true));
         services.forEach(item => {
             let selected = +item.id === $service.data('selected');
 
