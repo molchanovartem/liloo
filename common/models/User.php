@@ -121,4 +121,36 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Recall::class, ['user_id' => 'id']);
     }
+
+    public static function findIdentity($id)
+    {
+        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+    }
+
+    public static function findByUsername($username)
+    {
+        $users = self::getAllUsers(); //возвращаем юзеров
+        foreach ($users as $user) {
+            if (strcasecmp($user['login'], $username) === 0) {
+                return new static($user);
+            }
+        }
+
+        return null;
+    }
+
+    public function getAuthKey()
+    {
+        return $this->authKey;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return $this->authKey === $authKey;
+    }
+
+    public function validatePassword($password)
+    {
+        return $this->password === $password;
+    }
 }

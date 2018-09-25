@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
 <?php
-use yii\helpers\Html;
+
+use site\forms\FilterForm;
+
 ?>
 
 <div class="uk-container">
@@ -60,7 +62,7 @@ use yii\helpers\Html;
 
             <div class="uk-width-1-6 uk-float-left uk-margin-left">
                 <?= $form->field($data['form'], 'time')
-                    ->dropDownList($data['form']->getTime(), [
+                    ->dropDownList(FilterForm::getPartTime(), [
                         'class' => 'uk-input uk-form-small',
                         'prompt' => '  Выберите специализацию...',
                         'id' => 'time',

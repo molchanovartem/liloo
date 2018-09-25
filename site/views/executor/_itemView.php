@@ -1,3 +1,4 @@
+<?php use yii\helpers\Html; ?>
 <div class="uk-card uk-card-default uk-width-auto uk-margin-top">
     <div class="uk-card-header">
         <div class="uk-grid uk-grid-small uk-flex-middle">
@@ -15,16 +16,28 @@
         </div>
     </div>
     <div class="uk-card-body">
+        <h5>Адрес</h5>
         <p><?php echo $model['address']; ?></p>
+        <h5>Услуги</h5>
         <?php foreach ($model['service'] as $service): ?>
             <p><?= $service['name']; ?> - <?= $service['price']; ?> руб.</p>
+        <?php endforeach; ?>
+        <h5>Доступное время по вашему запросу</h5>
+        <?php foreach ($model['validTime'] as $k => $time): ?>
+<!--            --><?php //if ($model['isSalon']): ?>
+<!--                <span class="uk-label">-->
+<!--                        --><?php //echo $k; ?>
+<!--                </span>-->
+<!--            --><?php //else: ?>
+                <span class="uk-label"><?php echo $time; ?></span>
+<!--            --><?php //endif; ?>
         <?php endforeach; ?>
     </div>
     <div class="uk-card-footer">
         <?php if ($model['isSalon']): ?>
-            <a href="executor/salon-view?id=<?php echo $model['id']; ?>" class="uk-button uk-button-text">Записаться</a>
+            <?php echo Html::a('Записаться', '/site/web/executor/salon-view?id=' . $model['id'], ['class' => 'uk-button uk-button-text']); ?>
         <?php else: ?>
-            <a href="executor/user-view?id=<?php echo $model['id']; ?>" class="uk-button uk-button-text">Записаться</a>
+            <?php echo Html::a('Записаться', '/site/web/executor/user-view?id=' . $model['id'], ['class' => 'uk-button uk-button-text']); ?>
         <?php endif; ?>
     </div>
 </div>
