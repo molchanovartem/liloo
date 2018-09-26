@@ -22,9 +22,4 @@ class SiteController extends Controller
             'specializations' => $specializations,
         ]);
     }
-
-    public function actionLogin()
-    {
-        return $this->render('login');
-    }
 }

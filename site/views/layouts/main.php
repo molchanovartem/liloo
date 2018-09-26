@@ -5,6 +5,7 @@
 /* @var $content string */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 ?>
 
@@ -66,14 +67,22 @@ use yii\helpers\Html;
                         <span class="choose-city__text">Москва</span>
                     </a>
 
-                    <a href="user/signup">
-                        <button class="button button_color_blue button_in_header">Регистрация для исполнителя</button>
-                    </a>
-                    <a href="executor">
-                        <button class="button button_color_blue button_in_header">Каталог</button>
-                    </a>
+                    <?php echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", '/site/web/executor'); ?>
 
-                    <a href="site/login" class="font_Gilroy-17-800-000000">Войти</a>
+
+
+                        <?php if (Yii::$app->user->isGuest): ?>
+                            <?php echo Html::a("<button class='button button_color_blue button_in_header'>Регистрация для исполнителя</button>", '/site/web/auth/registration'); ?>
+
+                            <?php echo Html::a("Войти", '/site/web/auth/login', ['class' => 'font_Gilroy-17-800-000000']); ?>
+                        <?php else: ?>
+                            <?= Html::beginForm(['/auth/logout'], 'post')
+                            . Html::submitButton(
+                                    'Logout (' . Yii::$app->user->identity->login . ')',
+                                    ['class' => 'button button_color_blue button_in_header']
+                            )
+                            . Html::endForm(); ?>
+                        <?php endif; ?>
 
                 </div>
 

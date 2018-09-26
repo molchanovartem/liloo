@@ -10,7 +10,6 @@ use common\models\Salon;
 use common\models\SalonService;
 use common\models\SalonSpecialization;
 use common\models\Service;
-use common\models\Specialization;
 use common\models\User;
 use common\models\UserProfile;
 use common\models\UserSchedule;
@@ -34,16 +33,14 @@ class ExecutorService extends ModelService
             ->leftJoin(UserSpecialization::tableName() . ' us', '`u`.`id` = `us`.`user_id`')
             ->leftJoin(Service::tableName() . ' ser', 'ser.account_id = u.account_id')
             ->leftJoin(UserProfile::tableName() . ' up', '`u`.`id` = `up`.`user_id`')
-            ->leftJoin(UserSchedule::tableName() . ' usch', '`u`.`id` = `usch`.`user_id`')
-            ->with(['schedules']);
+            ->leftJoin(UserSchedule::tableName() . ' usch', '`u`.`id` = `usch`.`user_id`');
 
         $querySalons = Salon::find()
             ->select('s.*')
             ->alias('s')
             ->leftJoin(SalonSpecialization::tableName() . ' ss', '`s`.`id` = `ss`.`salon_id`')
             ->leftJoin(Service::tableName() . ' ser', 'ser.account_id = s.account_id')
-            ->leftJoin(MasterSchedule::tableName() . ' ms', '`s`.`id` = `ms`.`salon_id`')
-            ->with(['schedules']);
+            ->leftJoin(MasterSchedule::tableName() . ' ms', '`s`.`id` = `ms`.`salon_id`');
 
         if ($form->validate()) {
             $queryUsers
@@ -61,21 +58,21 @@ class ExecutorService extends ModelService
 
         $users = $queryUsers->asArray()->all();
         $salons = $querySalons->asArray()->all();
-
         $data = [];
 
         foreach ($users as $user) {
+            $userIds[] = $user['id'];
             $data[] = [
                 'id' => $user['id'],
                 'name' => $user['name'] . ' ' . $user['surname'],
                 'address' => $user['address'],
                 'city_id' => $user['city_id'],
                 'schedules' => $user['schedules'],
-                'specializations' => $this->getUserSpecialization($user['id']),
                 'services' => $this->getUserService($user['id']),
                 'like' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_LIKE),
                 'dislike' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_DISLIKE),
                 'isSalon' => false,
+                'validTime' => $this->getValidTime($form->time, $user['id'], $form->date),
                 'latitude' => $user['latitude'],
                 'longitude' => $user['longitude']
             ];
@@ -92,6 +89,7 @@ class ExecutorService extends ModelService
                 'like' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_LIKE),
                 'dislike' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_DISLIKE),
                 'isSalon' => true,
+                'validTime' => $this->getValidTimeSalon($form->time, $salon['id'], $form->date),
                 'latitude' => $salon['latitude'],
                 'longitude' => $salon['longitude']
             ];
@@ -103,7 +101,6 @@ class ExecutorService extends ModelService
                 'pageSize' => 10,
             ],
         ]);
-
 
         $this->setData([
             'form' => $form,
@@ -140,29 +137,6 @@ class ExecutorService extends ModelService
                 ->one()) == null) throw new \Exception('Not find any salon');
 
         $this->setData(['executor' => $model]);
-    }
-
-    /**
-     * @param $userId
-     * @return array|\yii\db\ActiveRecord[]
-     */
-    public function getUserSpecialization($userId)
-    {
-        return Specialization::find()
-            ->alias('s')
-            ->leftJoin(UserSpecialization::tableName() . ' us', 's.id = us.specialization_id')
-            ->where(['us.user_id' => $userId])
-            ->asArray()
-            ->all();
-    }
-
-    /**
-     * @param $userId
-     * @return mixed
-     */
-    public function getNearTimeUser($userId)
-    {
-        return Appointment::find()->where(['user_id' => $userId])->max('end_date');
     }
 
     /**
@@ -205,5 +179,104 @@ class ExecutorService extends ModelService
         $accountId = Salon::find()->select('account_id')->where(['id' => $salonId])->one()['account_id'];
 
         return Recall::find()->where(['account_id' => $accountId])->andWhere(['assessment' => $assessment])->count();
+    }
+
+    /**
+     * @param int $userId
+     * @param $currentDate
+     * @return array
+     */
+    public function getCurrentTime(int $userId, $currentDate)
+    {
+        $userSchedules = UserSchedule::find()->select('start_date, end_date')->where(['user_id' => $userId])->all();
+        $userAppointments = Appointment::find()->select('start_date, end_date')->where(['user_id' => $userId])->all();
+        $appointmentTime = [];
+        $times = [];
+
+        foreach (FilterForm::getPartTime() as $partTime) {
+            foreach ($userSchedules as $userSchedule) {
+                if ($userSchedule->start_date < $currentDate . ' ' . $partTime && $userSchedule->end_date > $currentDate . ' ' . $partTime) {
+                    $times[] = $partTime;
+                }
+            }
+        }
+
+        foreach ($times as $time) {
+            foreach ($userAppointments as $userAppointment) {
+                if ($userAppointment->start_date <= $currentDate . ' ' . $time && $userAppointment->end_date >= $currentDate . ' ' . $time) {
+                    $appointmentTime[] = $time;
+                }
+            }
+        }
+
+        return array_diff($times, $appointmentTime);
+    }
+
+
+    /**
+     * @param null $times
+     * @param $userId
+     * @param $currentDate
+     * @return array
+     */
+    public function getValidTime($times = null, $userId, $currentDate)
+    {
+        if ($times == null) {
+            return $this->getCurrentTime($userId, $currentDate);
+        }
+
+        return array_intersect($times, $this->getCurrentTime($userId, $currentDate));
+    }
+
+    /**
+     * @param $salonId
+     * @param $currentDate
+     * @return array
+     */
+    public function getCurrentTimeSalon($salonId, $currentDate)
+    {
+        $masterSchedules = MasterSchedule::find()->select('master_id, start_date, end_date')->where(['salon_id' => $salonId])->all();
+        $masterAppointments = Appointment::find()->select('master_id, start_date, end_date')->where(['salon_id' => $salonId])->all();
+
+        $appointmentTime = [];
+        $time = [];
+        $currentTime = [];
+
+        foreach (FilterForm::getPartTime() as $partTime) {
+            foreach ($masterSchedules as $masterSchedule) {
+                if ($masterSchedule->start_date < $currentDate . ' ' . $partTime && $masterSchedule->end_date > $currentDate . ' ' . $partTime) {
+                    $time[] = $partTime . '->' . $masterSchedule->master_id;
+                }
+            }
+        }
+
+        foreach (FilterForm::getPartTime() as $partTime) {
+            foreach ($masterAppointments as $masterAppointment) {
+                if ($masterAppointment->start_date < $currentDate . ' ' . $partTime && $masterAppointment->end_date > $currentDate . ' ' . $partTime) {
+                    $appointmentTime[] = $partTime . '->' . $masterAppointment->master_id;
+                }
+            }
+        }
+
+        foreach (array_diff($time, $appointmentTime) as $item) {
+            $currentTime[] = explode('->', $item)[0];
+        }
+
+        return array_unique($currentTime);
+    }
+
+    /**
+     * @param null $times
+     * @param $salonId
+     * @param $currentDate
+     * @return array
+     */
+    public function getValidTimeSalon($times = null, $salonId, $currentDate)
+    {
+        if ($times == null) {
+            return $this->getCurrentTimeSalon($salonId, $currentDate);
+        }
+
+        return array_intersect($times, $this->getCurrentTimeSalon($salonId, $currentDate));
     }
 }
