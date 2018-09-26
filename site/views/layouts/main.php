@@ -65,25 +65,22 @@ use yii\helpers\Url;
                         <span class="choose-city__text">Москва</span>
                     </a>
 
-                    <?php echo Html::a("<button class='button button_color_blue button_in_header'>Регистрация для исполнителя</button>", '/site/web/user/signup'); ?>
-
                     <?php echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", '/site/web/executor'); ?>
 
-                    <?php echo Html::a("Войти", '/site/web/site/login', ['class' => 'font_Gilroy-17-800-000000']); ?>
 
-                    <ul>
+
                         <?php if (Yii::$app->user->isGuest): ?>
-                            <li><a href="<?= Url::toRoute(['auth/login']); ?>">Логин</a></li>
-                            <li><a href="<?= Url::toRoute(['auth/signup']); ?>">Регистрация</a></li>
+                            <?php echo Html::a("<button class='button button_color_blue button_in_header'>Регистрация для исполнителя</button>", '/site/web/auth/registration'); ?>
+
+                            <?php echo Html::a("Войти", '/site/web/auth/login', ['class' => 'font_Gilroy-17-800-000000']); ?>
                         <?php else: ?>
                             <?= Html::beginForm(['/auth/logout'], 'post')
                             . Html::submitButton(
                                     'Logout (' . Yii::$app->user->identity->login . ')',
-                                    ['class' => 'uk-button uk-button-danger']
+                                    ['class' => 'button button_color_blue button_in_header']
                             )
                             . Html::endForm(); ?>
                         <?php endif; ?>
-                    </ul>
 
                 </div>
 

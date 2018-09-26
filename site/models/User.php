@@ -2,15 +2,15 @@
 
 namespace site\models;
 
+use common\models\UserProfile;
 use yii\web\IdentityInterface;
 
+/**
+ * Class User
+ * @package site\models
+ */
 class User extends \common\models\User implements IdentityInterface
 {
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        // TODO: Implement findIdentityByAccessToken() method.
-    }
-
     /**
      * @return mixed
      */
@@ -29,6 +29,33 @@ class User extends \common\models\User implements IdentityInterface
         return User::findOne($id);
     }
 
+    /**
+     * @param $phone
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    public static function findByPhone($phone)
+    {
+        return User::find()
+            ->alias('u')
+            ->leftJoin(UserProfile::tableName() . ' up', 'up.user_id = u.id')
+            ->where(['up.phone' => $phone])
+            ->one();
+    }
+
+    /**
+     * @param $password
+     * @return bool
+     */
+    public function validatePassword($password)
+    {
+        return ($this->password == md5($password)) ? true : false;
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        // TODO: Implement findIdentityByAccessToken() method.
+    }
+
     public function getAuthKey()
     {
         // TODO: Implement getAuthKey() method.
@@ -37,15 +64,5 @@ class User extends \common\models\User implements IdentityInterface
     public function validateAuthKey($authKey)
     {
         // TODO: Implement validateAuthKey() method.
-    }
-
-    public static function findByLogin($login)
-    {
-        return User::find()->where(['login' => $login])->one();
-    }
-
-    public function validatePassword($password)
-    {
-        return ($this->password == $password) ? true : false;
     }
 }

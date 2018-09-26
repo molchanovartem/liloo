@@ -3,20 +3,20 @@
 namespace common\services;
 
 use Yii;
+use Exception;
 use yii\base\Event;
 use admin\models\Notice;
 use common\core\service\ModelService;
 use common\models\Account;
-use site\models\SignupForm;
 use common\models\User;
 use common\models\UserProfile;
-use Exception;
+use site\forms\RegistrationForm;
 
 /**
- * Class UserAccessService
+ * Class AuthService
  * @package common\services
  */
-class UserAccessService extends ModelService
+class AuthService extends ModelService
 {
     const EVENT_USER_REGISTRATION = 'registration';
 
@@ -35,7 +35,7 @@ class UserAccessService extends ModelService
      */
     public function registration()
     {
-        $model = new SignupForm();
+        $model = new RegistrationForm();
         $this->setData(['model' => $model]);
         if ($model->load($this->getData('post')) && $model->validate()) {
             $account = new Account();
@@ -45,7 +45,7 @@ class UserAccessService extends ModelService
             $userProfile = new UserProfile();
 
             $user->login = \Yii::$app->security->generateRandomString();
-            $user->password = \Yii::$app->security->generatePasswordHash($model->password);
+            $user->password = md5($model->password);
             $user->account_id = $account->id;
             $user->type = $model->type;
 

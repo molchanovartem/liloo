@@ -23,14 +23,8 @@
             <p><?= $service['name']; ?> - <?= $service['price']; ?> руб.</p>
         <?php endforeach; ?>
         <h5>Доступное время по вашему запросу</h5>
-        <?php foreach ($model['validTime'] as $k => $time): ?>
-<!--            --><?php //if ($model['isSalon']): ?>
-<!--                <span class="uk-label">-->
-<!--                        --><?php //echo $k; ?>
-<!--                </span>-->
-<!--            --><?php //else: ?>
-                <span class="uk-label"><?php echo $time; ?></span>
-<!--            --><?php //endif; ?>
+        <?php foreach ($model['validTime'] as $time): ?>
+            <span class="uk-label"><?php echo $time; ?></span>
         <?php endforeach; ?>
     </div>
     <div class="uk-card-footer">

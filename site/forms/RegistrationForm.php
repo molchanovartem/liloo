@@ -1,15 +1,22 @@
 <?php
 
-namespace site\models;
+namespace site\forms;
 
 use yii\base\Model;
 
-class SignupForm extends Model
+/**
+ * Class RegistrationForm
+ * @package site\models
+ */
+class RegistrationForm extends Model
 {
     public $phone;
     public $password;
     public $type;
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -17,6 +24,9 @@ class SignupForm extends Model
         ];
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
         return [
@@ -25,5 +35,4 @@ class SignupForm extends Model
             'type'     => 'Тип',
         ];
     }
-
 }
