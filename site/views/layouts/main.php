@@ -22,13 +22,10 @@ use yii\helpers\Html;
         <link rel="shortcut icon" href="/favicon.ico">
         <title>Элементы - Сервис Мастеров</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.2.0/css/all.css"
-              integrity="sha384-TXfwrfuHVznxCssTxWoPZjhcss/hp38gEOH8UPZG/JcXonvBQ6SlsIF49wUzsGno"
-              crossorigin="anonymous">
-        <link rel="stylesheet" type="text/css"
+
+        <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css">
+                <link rel="stylesheet" type="text/css"
               href="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/css/uikit.css">
-        <link rel="stylesheet" type="text/css"
-              href="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/css/uikit-rtl.css">
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/slick.css">
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/slick-theme.css">
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/fonts.css">
@@ -38,9 +35,14 @@ use yii\helpers\Html;
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/main.css">
         <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/responsive.css">
 
-        <link rel="stylesheet"
-              href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css">
+<!--        <link rel="stylesheet"-->
+<!--              href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">-->
+
+        <script src="<?php echo Yii::getAlias('@web'); ?>/public/js/jquery-3.3.1.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
     </head>
     <body>
     <?php $this->beginBody(); ?>
@@ -142,12 +144,8 @@ use yii\helpers\Html;
 
     <script src="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/js/uikit.js"></script>
     <script src="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/js/uikit-icons.js"></script>
-    <script src="<?php echo Yii::getAlias('@web'); ?>/public/js/jquery-3.3.1.min.js"></script>
     <script src="<?php echo Yii::getAlias('@web'); ?>/public/js/slick.min.js"></script>
     <script src="<?php echo Yii::getAlias('@web'); ?>/public/js/main.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
     <?php $this->endBody(); ?>
     </body>
     </html>

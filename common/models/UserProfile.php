@@ -31,8 +31,11 @@ class UserProfile extends \yii\db\ActiveRecord
             [['user_id', 'phone', 'country_id', 'city_id',], 'integer'],
             [['date_birth'], 'date', 'format' => 'php: Y-m-d'],
             [['surname', 'name', 'patronymic', 'address'], 'string', 'max' => 255],
+            [['latitude', 'longitude'], 'number'],
+
             [['avatar'], 'image'],
             [['avatarDelete'], 'integer'],
+
             ['description', 'string'],
             ['phone', 'string', 'max' => 15]
         ];

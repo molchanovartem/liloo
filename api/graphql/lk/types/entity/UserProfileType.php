@@ -30,7 +30,9 @@ class UserProfileType extends ObjectType implements QueryTypeInterface
                     'avatar' => $typeRegistry->string(),
                     'description' => $typeRegistry->string(),
                     'address' => $typeRegistry->string(),
-                    'phone' => $typeRegistry->string()
+                    'phone' => $typeRegistry->string(),
+                    'latitude' => $typeRegistry->decimal(),
+                    'longitude' => $typeRegistry->decimal()
                 ];
             }
         ]);

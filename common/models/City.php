@@ -26,6 +26,7 @@ class City extends ActiveRecord
             [['country_id', 'name', 'phone_code'], 'required'],
             [['country_id', 'phone_code'], 'integer'],
             ['name', 'string', 'max' => 255],
+            [['latitude', 'longitude'], 'number'],
             ['country_id', CountryExistValidator::class] // ???
         ];
     }

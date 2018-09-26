@@ -27,6 +27,8 @@ class m180416_071042_user_profile extends Migration
             'description' => $this->text(),
             'phone' => $this->string(15)->notNull(),
             'address' => $this->string(),
+            'latitude' => $this->decimal(9,6),
+            'longitude' => $this->decimal(9,6),
         ]);
 
         $this->createIndex('ix-user_profile-user_id', $this->tableName,'user_id');

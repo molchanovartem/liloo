@@ -1,6 +1,6 @@
 <?php
 
-namespace api\graphql\lk\types\entity;
+namespace api\graphql\common\types\entity;
 
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
@@ -10,7 +10,7 @@ use common\models\Country;
 /**
  * Class CountryType
  *
- * @package api\graphql\lk\types\entity
+ * @package api\graphql\common\types\entity
  */
 class CountryType extends ObjectType implements QueryTypeInterface
 {

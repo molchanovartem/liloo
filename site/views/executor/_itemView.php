@@ -16,7 +16,7 @@
     </div>
     <div class="uk-card-body">
         <p><?php echo $model['address']; ?></p>
-        <?php foreach ($model['service'] as $service): ?>
+        <?php foreach ($model['services'] as $service): ?>
             <p><?= $service['name']; ?> - <?= $service['price']; ?> руб.</p>
         <?php endforeach; ?>
     </div>

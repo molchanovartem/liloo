@@ -1,6 +1,6 @@
 <?php
 
-namespace api\graphql\lk\types\entity;
+namespace api\graphql\common\types\entity;
 
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
@@ -10,7 +10,7 @@ use common\models\City;
 /**
  * Class CityType
  *
- * @package api\graphql\lk\types\entity
+ * @package api\graphql\common\types\entity
  */
 class CityType extends ObjectType implements QueryTypeInterface
 {
@@ -27,7 +27,9 @@ class CityType extends ObjectType implements QueryTypeInterface
                     'id' => $typeRegistry->id(),
                     'country_id' => $typeRegistry->id(),
                     'name' => $typeRegistry->string(),
-                    'phone_code' => $typeRegistry->string()
+                    'phone_code' => $typeRegistry->string(),
+                    'latitude' => $typeRegistry->decimal(),
+                    'longitude' => $typeRegistry->decimal()
                 ];
             }
         ]);

@@ -29,7 +29,7 @@ class ExecutorService extends ModelService
         $form->load($this->getData('get'));
 
         $queryUsers = User::find()
-            ->select(['u.*', 'up.name', 'up.surname', 'up.address', 'up.city_id'])
+            ->select(['u.*', 'up.name', 'up.surname', 'up.address', 'up.city_id', 'up.latitude', 'up.longitude'])
             ->alias('u')
             ->leftJoin(UserSpecialization::tableName() . ' us', '`u`.`id` = `us`.`user_id`')
             ->leftJoin(Service::tableName() . ' ser', 'ser.account_id = u.account_id')
@@ -72,10 +72,12 @@ class ExecutorService extends ModelService
                 'city_id' => $user['city_id'],
                 'schedules' => $user['schedules'],
                 'specializations' => $this->getUserSpecialization($user['id']),
-                'service' => $this->getUserService($user['id']),
+                'services' => $this->getUserService($user['id']),
                 'like' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_LIKE),
                 'dislike' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_DISLIKE),
                 'isSalon' => false,
+                'latitude' => $user['latitude'],
+                'longitude' => $user['longitude']
             ];
         }
 
@@ -86,10 +88,12 @@ class ExecutorService extends ModelService
                 'address' => $salon['address'],
                 'city_id' => $salon['city_id'],
                 'schedules' => $salon['schedules'],
-                'service' => $this->getSalonService($salon['id']),
+                'services' => $this->getSalonService($salon['id']),
                 'like' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_LIKE),
                 'dislike' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_DISLIKE),
                 'isSalon' => true,
+                'latitude' => $salon['latitude'],
+                'longitude' => $salon['longitude']
             ];
         }
 
@@ -103,7 +107,8 @@ class ExecutorService extends ModelService
 
         $this->setData([
             'form' => $form,
-            'dataProvider' => $dataProvider
+            'dataProvider' => $dataProvider,
+            'items' => $data
         ]);
     }
 

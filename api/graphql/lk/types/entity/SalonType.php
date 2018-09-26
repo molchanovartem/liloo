@@ -36,6 +36,8 @@ class SalonType extends ObjectType implements QueryTypeInterface
                     'name' => $typeRegistry->string(),
                     'address' => $typeRegistry->string(),
                     'phone' => $typeRegistry->string(),
+                    'latitude' => $typeRegistry->decimal(),
+                    'longitude' => $typeRegistry->decimal(),
                     'specializations' => [
                         'type' => $typeRegistry->listOff($entityRegistry->specialization()),
                         'description' => 'Коллекция специализаций',
