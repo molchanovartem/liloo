@@ -6,7 +6,7 @@ use api\graphql\AdditionalTypeRegistry;
 use api\graphql\common\types\entity\CityType;
 use api\graphql\common\types\entity\ConvenienceType;
 use api\graphql\common\types\entity\CountryType;
-use api\graphql\common\types\entity\ServiceType;
+use api\graphql\common\types\entity\CommonServiceType;
 use api\graphql\common\types\entity\SpecializationType;
 use api\graphql\common\types\entity\TariffType;
 use api\graphql\common\types\entity\TariffPriceType;
@@ -40,7 +40,7 @@ class EntityTypeRegistry extends AdditionalTypeRegistry
 
     public function service()
     {
-        return $this->typeRegistry->get(ServiceType::class);
+        return $this->typeRegistry->get(CommonServiceType::class);
     }
 
     public function tariff()

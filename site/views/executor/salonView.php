@@ -58,11 +58,11 @@
         <div class="uk-width-1-3">
             <div class="uk-card uk-card-default uk-card-body">
                 <ul class="uk-list uk-list-divider">
-                    <?php foreach ($model->specializations as $specialization): ?>
+                    <?php foreach ($data['model']->specializations as $specialization): ?>
                         <li>
                             <?php echo $specialization->name; ?>
                             <ul class="uk-list">
-                                <?php foreach ($specialization->getServiceByAccount($model->account_id) as $service): ?>
+                                <?php foreach ($specialization->getServiceByAccount($data['model']->account_id) as $service): ?>
                                     <li><?php echo $service->name; ?> - <?php echo $service->price; ?></li>
                                 <?php endforeach; ?>
                             </ul>
@@ -81,9 +81,9 @@
                          src="http://mycs.net.au/wp-content/uploads/2016/03/person-icon-flat.png">
                 </div>
                 <div class="uk-width-expand">
-                    <h3 class="uk-card-title uk-margin-remove-bottom"><?php echo $model->name ?></h3>
+                    <h3 class="uk-card-title uk-margin-remove-bottom"><?php echo $data['model']->name ?></h3>
                     <p class="uk-text-meta uk-margin-remove-top">
-                        <time datetime="2016-04-01T19:00">На сайте с <?php echo $model->create_time ?></time>
+                        <time datetime="2016-04-01T19:00">На сайте с <?php echo $data['model']->create_time ?></time>
                     </p>
                 </div>
             </div>
@@ -95,9 +95,9 @@
 
     <div class="uk-card uk-card-default uk-card-body uk-width-2-3 uk-margin-top">
         <ul class="uk-list uk-list-striped">
-            <?php foreach ($model->specializations as $specialization): ?>
+            <?php foreach ($data['model']->specializations as $specialization): ?>
                 <h4 class="uk-margin-top"><?php echo $specialization->name; ?></h4>
-                <?php foreach ($specialization->getServiceByAccount($model->account_id) as $service): ?>
+                <?php foreach ($specialization->getServiceByAccount($data['model']->account_id) as $service): ?>
                     <li><?php echo $service->name; ?> - <?php echo $service->duration; ?>
                         - <?php echo $service->price; ?></li>
                 <?php endforeach; ?>
@@ -108,9 +108,9 @@
     <div class="uk-card uk-card-default uk-card-body uk-width-2-3 uk-margin-top">
         <h4>Контакты</h4>
         <div class="uk-margin-top">
-            <p><span uk-icon="phone"></span> <?php echo $model->phone ?></p>
+            <p><span uk-icon="phone"></span> <?php echo $data['model']->phone ?></p>
             <hr>
-            <p><span uk-icon="location"></span> <?php echo $model->address ?></p>
+            <p><span uk-icon="location"></span> <?php echo $data['model']->address ?></p>
             <hr>
             <p><span uk-icon="clock"></span> Режим работы</p>
         </div>
@@ -120,7 +120,7 @@
 
     <h4>Отзывы</h4>
     <div class="uk-grid">
-        <?php foreach ($model->getRecalls() as $recall): ?>
+        <?php foreach ($data['model']->getRecalls() as $recall): ?>
             <div class="uk-card uk-card-default uk-width-1-3 uk-margin-top">
                 <div class="uk-card-header">
                     <div class="uk-grid uk-grid-small uk-flex-middle">
@@ -153,10 +153,10 @@
 
     <br>
 
-    <?php var_dump($model->users ) ?>
+    <?php var_dump($data['model']->users ) ?>
 <!--    <h4>Сотркдники</h4>-->
 <!--    <div class="uk-grid">-->
-<!--        --><?php //foreach ($model->users as $user): ?>
+<!--        --><?php //foreach ($data['model']->users as $user): ?>
 <!--            <div class="uk-card uk-card-default uk-width-1-3 uk-margin-top">-->
 <!--                <div class="uk-card-header">-->
 <!--                    <div class="uk-grid uk-grid-small uk-flex-middle">-->

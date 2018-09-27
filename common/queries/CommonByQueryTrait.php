@@ -75,7 +75,7 @@ trait CommonByQueryTrait
 
     /**
      * @param int $countryId
-     * @return CityQuery
+     * @return mixed
      */
     public function byCountryId(int $countryId)
     {

@@ -71,7 +71,9 @@
                                      src="http://mycs.net.au/wp-content/uploads/2016/03/person-icon-flat.png">
                             </div>
                             <div class="uk-width-expand">
-                                <h3 class="uk-card-title uk-margin-remove-bottom">{{item.name}}</h3>
+                                <a :href="getLinkViewExecutor(item)" data-ajax-content="true">
+                                    <h3 class="uk-card-title uk-margin-remove-bottom">{{item.name}}</h3>
+                                </a>
                                 <p class="uk-text-meta uk-margin-remove-top">
                                     <span class="uk-label uk-label-success">+{{item.like}}</span>
                                     <span class="uk-label uk-label-danger">-{{item.dislike}}</span>
@@ -90,162 +92,170 @@
             </div>
         </div>
     </div>
-
-    <div id="form">
-
-    </div>
 </div>
 
 <script>
-    'use strict';
+    executorCatalog();
 
-    const VIEW_TYPE_CATALOG = 'catalog';
-    const VIEW_TYPE_MAP = 'map';
+    function executorCatalog() {
+        const VIEW_TYPE_CATALOG = 'catalog';
+        const VIEW_TYPE_MAP = 'map';
 
-    const map = new MapCatalog('map');
+        const map = new MapCatalog('map');
 
-    new Vue({
-        el: '#catalog',
-        mounted() {
-            map.init();
-        },
-        beforeMount() {
-            this.loadCommonData()
-                .then(() => {
-                    this.loadAttributesFromQueryParams();
-                    if (!this.hasViewType()) this.defaultViewType();
-
-                    this.loadData();
-                });
-        },
-        destroyed() {
-            map.destroy();
-        },
-        data: {
-            viewType: null,
-
-            specializations: [],
-            services: [],
-            cities: [],
-            executors: [],
-
-            attributes: {
-                specializationId: null,
-                serviceId: null,
-                cityId: null
+        new Vue({
+            el: '#catalog',
+            mounted() {
+                map.init();
             },
-        },
-        methods: {
-            onSubmit() {
-                this.locationQueryParamsPush();
+            beforeMount() {
+                this.loadCommonData()
+                    .then(() => {
+                        this.loadAttributesFromQueryParams();
+                        if (!this.hasViewType()) this.defaultViewType();
 
-                this.loadData();
-            },
-
-            loadCommonData() {
-                return new Promise((resolve, reject) => {
-                    $.post('http://liloo/api/common/index', JSON.stringify({
-                        query: "query {" +
-                            "specializations {id, name}," +
-                            "services {id, name, price, duration}" +
-                            "cities(country_id: 1) {id, name, latitude, longitude}" +
-                            "}"
-                    }))
-                        .done(({data}) => {
-                            if (data.specializations) this.specializations = data.specializations;
-                            if (data.services) this.services = data.services;
-                            if (data.cities) this.cities = data.cities;
-
-                            resolve(true)
-                        })
-                        .fail((error) => {
-                            reject(error);
-                        });
-                });
-            },
-            loadData() {
-                $.get('http://liloo/site/web/executor-map', {
-                    specialization: this.attributes.specializationId,
-                    city: this.attributes.cityId,
-                    service: this.attributes.serviceId
-                })
-                    .done(data => {
-                        if (data.items) {
-                            this.executors = data.items;
-
-                            this.showMapCity();
-                            map.removeExecutors();
-                            data.items.forEach(item => {
-                                if (item.latitude && item.longitude) map.addExecutor(item);
-                            });
-                        }
+                        this.loadData();
                     });
             },
+            destroyed() {
+                map.destroy();
+            },
+            data: {
+                viewType: null,
 
-            loadAttributesFromQueryParams() {
-                let params = new URLSearchParams(document.location.search);
+                specializations: [],
+                services: [],
+                cities: [],
+                executors: [],
 
-                if (params.get('view_type') === VIEW_TYPE_MAP) this.viewTypeMap();
-                else this.viewTypeCatalog();
+                attributes: {
+                    specializationId: null,
+                    serviceId: null,
+                    cityId: null
+                },
+            },
+            methods: {
+                onSubmit() {
+                    this.locationQueryParamsPush();
 
-                this.attributes.specializationId = params.get('specialization_id');
-                this.attributes.serviceId = params.get('service_id');
-                this.attributes.cityId = params.get('city_id');
-            },
-            locationQueryParamsPush() {
-                let params = new URLSearchParams(document.location.search);
+                    this.loadData();
+                },
 
-                if (this.attributes.specializationId) params.set('specialization_id', this.attributes.specializationId);
-                if (this.attributes.serviceId) params.set('service_id', this.attributes.serviceId);
-                if (this.attributes.cityId) params.set('city_id', this.attributes.cityId);
-                params.set('view_type', this.viewType);
+                loadCommonData() {
+                    return new Promise((resolve, reject) => {
+                        $.post('http://liloo/api/common/index', JSON.stringify({
+                            query: "query {" +
+                                "specializations {id, name}," +
+                                "services {id, name, price, duration}" +
+                                "cities(country_id: 1) {id, name, latitude, longitude}" +
+                                "}"
+                        }))
+                            .done(({data}) => {
+                                if (data.specializations) this.specializations = data.specializations;
+                                if (data.services) this.services = data.services;
+                                if (data.cities) this.cities = data.cities;
 
-                let baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
+                                resolve(true)
+                            })
+                            .fail((error) => {
+                                reject(error);
+                            });
+                    });
+                },
+                loadData() {
+                    $.get('http://liloo/site/web/executor-map/catalog-data', {
+                        specialization: this.attributes.specializationId,
+                        city: this.attributes.cityId,
+                        service: this.attributes.serviceId
+                    })
+                        .done(data => {
+                            if (data.items) {
+                                this.executors = data.items;
 
-                history.replaceState({}, '', [baseUrl, params.toString()].join('?'));
-            },
+                                this.showMapCity();
+                                map.removeExecutors();
+                                data.items.forEach(item => {
+                                    if (item.latitude && item.longitude) map.addExecutor(item);
+                                });
+                            }
+                        });
+                },
 
-            hasViewType() {
-                return this.viewType !== null;
-            },
-            isViewTypeCatalog() {
-                return this.viewType === VIEW_TYPE_CATALOG;
-            },
-            isViewTypeMap() {
-                return this.viewType === VIEW_TYPE_MAP;
-            },
-            viewTypeCatalog() {
-                this.setViewType(VIEW_TYPE_CATALOG);
-                this.$refs.catalog.style.display = 'block';
-                this.$refs.map.style.display = 'none';
-            },
-            viewTypeMap() {
-                this.setViewType(VIEW_TYPE_MAP);
-                this.$refs.map.style.display = 'block';
-                this.$refs.catalog.style.display = 'none';
-            },
-            defaultViewType() {
-                this.viewTypeMap();
-            },
-            setViewType(type) {
-                this.viewType = type;
-            },
-            showMapCity() {
-                let city = this.getCitySelected();
+                loadAttributesFromQueryParams() {
+                    let params = new URLSearchParams(document.location.search);
 
-                if (city && city.latitude && city.longitude) {
-                    map.showCity(city.latitude, city.longitude);
+                    if (params.get('view_type') === VIEW_TYPE_MAP) this.viewTypeMap();
+                    else if (params.get('view_type') === VIEW_TYPE_CATALOG) this.viewTypeCatalog();
+
+                    this.attributes.specializationId = params.get('specialization_id');
+                    this.attributes.serviceId = params.get('service_id');
+                    this.attributes.cityId = params.get('city_id');
+                },
+                locationQueryParamsPush() {
+                    let params = new URLSearchParams(document.location.search);
+
+                    if (this.attributes.specializationId) params.set('specialization_id', this.attributes.specializationId);
+                    if (this.attributes.serviceId) params.set('service_id', this.attributes.serviceId);
+                    if (this.attributes.cityId) params.set('city_id', this.attributes.cityId);
+                    params.set('view_type', this.viewType);
+
+                    let baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
+
+                    history.replaceState({}, '', [baseUrl, params.toString()].join('?'));
+                },
+
+                hasViewType() {
+                    return this.viewType !== null;
+                },
+                isViewTypeCatalog() {
+                    return this.viewType === VIEW_TYPE_CATALOG;
+                },
+                isViewTypeMap() {
+                    return this.viewType === VIEW_TYPE_MAP;
+                },
+                viewTypeCatalog() {
+                    this.setViewType(VIEW_TYPE_CATALOG);
+                    this.$refs.catalog.style.display = 'block';
+                    this.$refs.map.style.display = 'none';
+                },
+                viewTypeMap() {
+                    this.setViewType(VIEW_TYPE_MAP);
+                    this.$refs.map.style.display = 'block';
+                    this.$refs.catalog.style.display = 'none';
+                },
+                defaultViewType() {
+                    this.viewTypeMap();
+                },
+                setViewType(type) {
+                    this.viewType = type;
+                },
+
+                showMapCity() {
+                    let city = this.getCitySelected();
+
+                    if (city && city.latitude && city.longitude) {
+                        map.showCity(city.latitude, city.longitude);
+                    }
+                },
+
+                getCitySelected() {
+                    let index = this.cities.findIndex(item => {
+                        return +item.id === +this.attributes.cityId;
+                    });
+                    return index !== -1 ? this.cities[index] : null;
+                },
+                getLinkViewExecutor(executor) {
+                    /*
+                     * @todo
+                     * улучшить
+                     */
+                    let str = executor.isSalon ? 'salon-view' : 'user-view';
+
+                    return './' + str + '?id=' + executor.id;
                 }
             },
-            getCitySelected() {
-                let index = this.cities.findIndex(item => {
-                    return +item.id === +this.attributes.cityId;
-                });
-                return index !== -1 ? this.cities[index] : null;
-            },
-        },
-    });
-
+        });
+    }
 
     function MapCatalog(id) {
         'use strict';
@@ -294,7 +304,7 @@
                 description = stringToHtml('<div><p>Описание ???</p></div>'),
                 navWrapper = stringToHtml('<div></div>'),
                 buttonInfo = document.createElement('button'),
-                buttonAppointment = document.createElement('button');
+                buttonAppointment = document.createElement('a');
 
             buttonInfo.setAttribute('class', 'uk-button uk-button-small uk-button-default uk-float-left');
             buttonInfo.innerText = 'i';
@@ -303,10 +313,13 @@
             });
 
             buttonAppointment.setAttribute('class', 'uk-button uk-button-small uk-button-link uk-float-right');
+            buttonAppointment.setAttribute('href', '../appointment/create');
+            buttonAppointment.setAttribute('data-window', 'true');
+            buttonAppointment.setAttribute('data-window-type', 'normalModal');
             buttonAppointment.innerText = 'Записаться';
-            buttonAppointment.addEventListener('click', () => {
-                console.log(executor);
-            });
+            // buttonAppointment.addEventListener('click', () => {
+            //     console.log(executor);
+            // });
 
             //navWrapper.appendChild(buttonInfo);
             navWrapper.appendChild(buttonAppointment);
@@ -329,14 +342,4 @@
             return wrapper.firstChild;
         }
     }
-</script>
-
-
-<script>
-    new Vue({
-        el: '#form',
-        data: {
-            data: null
-        }
-    })
 </script>

@@ -7,6 +7,7 @@ use admin\forms\TariffForm;
 
 /**
  * Class Tariff
+ *
  * @package common\models
  */
 class Tariff extends \yii\db\ActiveRecord
@@ -65,27 +66,27 @@ class Tariff extends \yii\db\ActiveRecord
      * @param $data
      * @return array
      */
-    public function getAccessArray($data)
-    {
-        return explode('/', $data);
-    }
+//    public function getAccessArray($data)
+//    {
+//        return explode('/', $data);
+//    }
 
     /**
      * @param $tariff
      * @return mixed
      */
-    public function getTariffAccessName($tariff)
-    {
-        return TariffForm::getTariffAccessList()[$tariff];
-    }
+//    public function getTariffAccessName($tariff)
+//    {
+//        return TariffForm::getTariffAccessList()[$tariff];
+//    }
 
     /**
      * @return array
      */
-    public function getStatuses()
-    {
-        return self::getStatusList();
-    }
+//    public function getStatuses()
+//    {
+//        return self::getStatusList();
+//    }
 
     /**
      * @return array
@@ -102,17 +103,9 @@ class Tariff extends \yii\db\ActiveRecord
      * @param $status
      * @return mixed
      */
-    public function getStatus($status)
+    public function getStatusName()
     {
-        return $this->getStatuses()[$status];
-    }
-
-    /**
-     * @return array
-     */
-    public function getTypes()
-    {
-        return self::getTypeList();
+        return self::getStatusList()[$this->status];
     }
 
     /**
@@ -130,9 +123,9 @@ class Tariff extends \yii\db\ActiveRecord
      * @param $type
      * @return mixed
      */
-    public function getType($type)
+    public function getTypeName()
     {
-        return self::getTypes()[$type];
+        return self::getTypeList()[$this->type];
     }
 
     /**

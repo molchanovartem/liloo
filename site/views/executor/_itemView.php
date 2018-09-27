@@ -19,7 +19,7 @@
         <h5>Адрес</h5>
         <p><?php echo $model['address']; ?></p>
         <h5>Услуги</h5>
-        <?php foreach ($model['service'] as $service): ?>
+        <?php foreach ($model['services'] as $service): ?>
             <p><?= $service['name']; ?> - <?= $service['price']; ?> руб.</p>
         <?php endforeach; ?>
         <h5>Доступное время по вашему запросу</h5>

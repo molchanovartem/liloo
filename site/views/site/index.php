@@ -1,4 +1,7 @@
-<?php use yii\helpers\Html; ?>
+<?php
+use yii\helpers\Url;
+
+?>
 <div class="header__content header__content_page_main content-width">
 
     <h1 class="h1 h1_page_main">Записывайтесь к лучшим и&nbsp;проверенным мастерам</h1>
@@ -113,8 +116,8 @@
     <div class="service-list">
 
         <?php foreach ($specializations as $specialization): ?>
-            <a href="/site/web/executor?specialization=<?php echo $specialization->id; ?>"
-               class="service-list__item">
+            <a href="<?= Url::to(['executor-map/index', 'specialization' => $specialization->id])?>"
+               class="service-list__item" data-ajax-content="true">
                 <div class="service-list-item">
                     <div class="service-list-item__img"
                          style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>

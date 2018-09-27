@@ -65,6 +65,14 @@ class User extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return Query|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getProfile()
@@ -96,14 +104,6 @@ class User extends \yii\db\ActiveRecord
     public function getSchedules()
     {
         return $this->hasMany(UserSchedule::class, ['user_id' => 'id']);
-    }
-
-    /**
-     * @return Query|\yii\db\ActiveQuery
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
     }
 
     /**

@@ -84,6 +84,14 @@ class Salon extends \yii\db\ActiveRecord
     }
 
     /**
+     * @return Query|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getClients()
@@ -111,9 +119,9 @@ class Salon extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUsers()
+    public function getMasters()
     {
-        return $this->hasMany(User::className(), ['id' => 'user_id'])->viaTable('{{%salon_master}}', ['salon_id' => 'id']);
+        return $this->hasMany(Master::className(), ['id' => 'master_id'])->viaTable('{{%salon_master}}', ['salon_id' => 'id']);
     }
 
     /**
@@ -134,14 +142,6 @@ class Salon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return Query|\yii\db\ActiveQuery
-     */
-    public static function find()
-    {
-        return new Query(get_called_class());
-    }
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getCity()
@@ -152,6 +152,11 @@ class Salon extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+
+    /*
+     * @todo
+     * переименовать в getMasterSchedules()
+     */
     public function getSchedules()
     {
         return $this->hasMany(MasterSchedule::class, ['master_id' => 'master_id'])
@@ -161,8 +166,8 @@ class Salon extends \yii\db\ActiveRecord
     /**
      * @return mixed
      */
-    public function getRecalls()
-    {
-        return Recall::find()->byAccountId($this->account_id)->all();
-    }
+//    public function getRecalls()
+//    {
+//        return Recall::find()->byAccountId($this->account_id)->all();
+//    }
 }

@@ -26,10 +26,12 @@ class AppointmentController extends Controller
 
     public function actionCreate()
     {
-        $result = $this->modelService->save();
-        $data = $this->modelService->getData();
+        //$result = $this->modelService->save();
+        //$data = $this->modelService->getData();
 
-        return $result ? $this->redirect(['view', 'id' => $data['model']->id]) :
-            $this->render('create', ['model' => $data['model']]);
+//        return $result ? $this->redirect(['view', 'id' => $data['model']->id]) :
+//            $this->render('create', ['model' => $data['model']]);
+
+        return $this->extraRender('create');
     }
 }

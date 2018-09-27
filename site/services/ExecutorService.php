@@ -67,7 +67,7 @@ class ExecutorService extends ModelService
                 'name' => $user['name'] . ' ' . $user['surname'],
                 'address' => $user['address'],
                 'city_id' => $user['city_id'],
-                'schedules' => $user['schedules'],
+                //'schedules' => $user['schedules'],
                 'services' => $this->getUserService($user['id']),
                 'like' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_LIKE),
                 'dislike' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_DISLIKE),
@@ -84,7 +84,7 @@ class ExecutorService extends ModelService
                 'name' => $salon['name'],
                 'address' => $salon['address'],
                 'city_id' => $salon['city_id'],
-                'schedules' => $salon['schedules'],
+                //'schedules' => $salon['schedules'],
                 'services' => $this->getSalonService($salon['id']),
                 'like' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_LIKE),
                 'dislike' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_DISLIKE),
@@ -121,7 +121,7 @@ class ExecutorService extends ModelService
                 ->where(['id' => $id])
                 ->one()) == null) throw new \Exception('Not find any user');
 
-        $this->setData(['executor' => $model]);
+        $this->setData(['model' => $model]);
     }
 
     /**
@@ -132,11 +132,11 @@ class ExecutorService extends ModelService
     {
         if (($model = Salon::find()
                 ->with(['specializations'])
-                ->with(['users'])
+                ->with(['masters'])
                 ->where(['id' => $id])
                 ->one()) == null) throw new \Exception('Not find any salon');
 
-        $this->setData(['executor' => $model]);
+        $this->setData(['model' => $model]);
     }
 
     /**

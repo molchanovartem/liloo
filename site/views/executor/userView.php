@@ -58,11 +58,11 @@
         <div class="uk-width-1-3">
             <div class="uk-card uk-card-default uk-card-body">
                 <ul class="uk-list uk-list-divider">
-                    <?php foreach ($model->specializations as $specialization): ?>
+                    <?php foreach ($data['model']->specializations as $specialization): ?>
                         <li>
                             <?php echo $specialization->name; ?>
                             <ul class="uk-list">
-                                <?php foreach ($specialization->getServiceByAccount($model->account_id) as $service): ?>
+                                <?php foreach ($specialization->getServiceByAccount($data['model']->account_id) as $service): ?>
                                     <li><?php echo $service->name; ?> - <?php echo $service->price; ?></li>
                                 <?php endforeach; ?>
                             </ul>
@@ -82,26 +82,26 @@
                 </div>
                 <div class="uk-width-expand">
                     <h3 class="uk-card-title uk-margin-remove-bottom">
-                        <?php echo $model->profile->name ?> <?php echo $model->profile->surname ?>
+                        <?php echo $data['model']->profile->name ?> <?php echo $data['model']->profile->surname ?>
                     </h3>
                     <p class="uk-text-meta uk-margin-remove-top">
-                        <time datetime="2016-04-01T19:00">На сайте с <?php echo $model->create_time ?></time>
+                        <time datetime="2016-04-01T19:00">На сайте с <?php echo $data['model']->create_time ?></time>
                     </p>
                 </div>
             </div>
         </div>
         <div class="uk-card-body">
             <h4>Информация о мастере</h4>
-            <p><?php echo $model->profile->description; ?></p>
-            <p><?php echo $model->profile->city->name; ?>, <?php echo $model->profile->address; ?> </p>
+            <p><?php echo $data['model']->profile->description; ?></p>
+            <p><?php echo $data['model']->profile->city->name; ?>, <?php echo $data['model']->profile->address; ?> </p>
         </div>
     </div>
 
     <div class="uk-card uk-card-default uk-card-body uk-width-2-3 uk-margin-top">
         <ul class="uk-list uk-list-striped">
-            <?php foreach ($model->specializations as $specialization): ?>
+            <?php foreach ($data['model']->specializations as $specialization): ?>
                 <h4 class="uk-margin-top"><?php echo $specialization->name; ?></h4>
-                <?php foreach ($specialization->getServiceByAccount($model->account_id) as $service): ?>
+                <?php foreach ($specialization->getServiceByAccount($data['model']->account_id) as $service): ?>
                     <li><?php echo $service->name; ?> - <?php echo $service->duration; ?>
                         - <?php echo $service->price; ?></li>
                 <?php endforeach; ?>
@@ -112,9 +112,9 @@
     <div class="uk-card uk-card-default uk-card-body uk-width-2-3 uk-margin-top">
         <h4>Контакты</h4>
         <div class="uk-margin-top">
-            <p><span uk-icon="phone"></span> <?php echo $model->profile->phone ?></p>
+            <p><span uk-icon="phone"></span> <?php echo $data['model']->profile->phone ?></p>
             <hr>
-            <p><span uk-icon="location"></span> <?php echo $model->profile->address ?></p>
+            <p><span uk-icon="location"></span> <?php echo $data['model']->profile->address ?></p>
             <hr>
             <p><span uk-icon="clock"></span> Режим работы</p>
         </div>
@@ -124,7 +124,7 @@
 
     <h4>Отзывы</h4>
     <div class="uk-grid">
-        <?php foreach ($model->recalls as $recall): ?>
+        <?php foreach ($data['model']->recalls as $recall): ?>
             <div class="uk-card uk-card-default uk-width-1-3 uk-margin-top">
                 <div class="uk-card-header">
                     <div class="uk-grid uk-grid-small uk-flex-middle">

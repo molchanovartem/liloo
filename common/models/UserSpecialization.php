@@ -42,18 +42,18 @@ class UserSpecialization extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSpecialization()
-    {
-        return $this->hasOne(Specialization::className(), ['id' => 'specialization_id']);
-    }
-
-    /**
      * @return Query|\yii\db\ActiveQuery
      */
     public static function find()
     {
         return new Query(get_called_class());
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSpecialization()
+    {
+        return $this->hasOne(Specialization::className(), ['id' => 'specialization_id']);
     }
 }

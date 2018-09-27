@@ -1,14 +1,9 @@
 <?php
 
-/* @var $this \yii\web\View */
-
-/* @var $content string */
-
 use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
-
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
@@ -19,47 +14,22 @@ use yii\helpers\Url;
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
-
-        <link rel="shortcut icon" href="/favicon.ico">
-        <title>Элементы - Сервис Мастеров</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-        <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.8.94/css/materialdesignicons.min.css">
-                <link rel="stylesheet" type="text/css"
-              href="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/css/uikit.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/slick.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/slick-theme.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/fonts.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/additional.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/elements.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/init.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/main.css">
-        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/css/responsive.css">
-
-<!--        <link rel="stylesheet"-->
-<!--              href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">-->
-
-        <script src="<?php echo Yii::getAlias('@web'); ?>/public/js/jquery-3.3.1.min.js"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" />
-        <script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/dist/vendor.min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo Yii::getAlias('@web'); ?>/public/dist/style.min.css">
+        <script src="<?php echo Yii::getAlias('@web'); ?>/public/dist/vendor.min.js"></script>
+        <script src="<?php echo Yii::getAlias('@web'); ?>/public/dist/script.min.js"></script>
     </head>
     <body>
     <?php $this->beginBody(); ?>
     <header class="header bg_image_header-main">
         <div class="header__container">
-
             <div class="header__wrap content-width">
-
                 <div class="header__wrap-part">
-
                     <a class="logo" href="/"><img
                                 src="http://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" alt="logo"
                                 class="logo__img"></a>
 
                 </div>
-
                 <div class="header__wrap-part header__wrap-part_actions">
 
                     <a href="" class="choose-city">
@@ -68,8 +38,6 @@ use yii\helpers\Url;
                     </a>
 
                     <?php echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", '/site/web/executor'); ?>
-
-
 
                         <?php if (Yii::$app->user->isGuest): ?>
                             <?php echo Html::a("<button class='button button_color_blue button_in_header'>Регистрация для исполнителя</button>", '/site/web/auth/registration'); ?>
@@ -87,14 +55,11 @@ use yii\helpers\Url;
                 </div>
 
                 <div class="header__wrap-part header__wrap-part_actions">
-
                     <a href="tel:88002345533" class="button-phone">
                         <span class="button-phone__fa fas fa-phone fa-flip-horizontal"></span>
                         <span class="button-phone__text">8 800 234-55-33</span>
                     </a>
-
                     <div class="cloud-wrap">
-
                         <span class="button-hamburger">
                             <span class="button-hamburger__cross">
                                 <span></span>
@@ -106,7 +71,6 @@ use yii\helpers\Url;
 
                         <div class="cloud cloud_in_header" style="display: none;">
                             <div class="cloud__content">
-
                                 <div class="footer-menu">
                                     <div class="footer-menu__name">Специалисты</div>
                                     <div class="footer-menu__uls">
@@ -132,29 +96,18 @@ use yii\helpers\Url;
                                         </ul>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
-
         </div>
     </header>
-    <main>
-        <?= $content; ?>
-    </main>
+    <main id="appContent"><?= $content; ?></main>
 
     <?php echo $this->render('footer'); ?>
 
-    <script src="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/js/uikit.js"></script>
-    <script src="<?php echo Yii::getAlias('@web'); ?>/build/vendors/uikit/js/uikit-icons.js"></script>
-    <script src="<?php echo Yii::getAlias('@web'); ?>/public/js/slick.min.js"></script>
-    <script src="<?php echo Yii::getAlias('@web'); ?>/public/js/main.js"></script>
+    <div id="appSpinner" class="uk-position-fixed uk-position-center" uk-spinner="ratio: 3" style="display: none;"></div>
     <?php $this->endBody(); ?>
     </body>
     </html>

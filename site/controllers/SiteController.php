@@ -18,7 +18,7 @@ class SiteController extends Controller
     {
         $specializations = Specialization::find()->all();
 
-        return $this->render('index', [
+        return $this->extraRender('index', [
             'specializations' => $specializations,
         ]);
     }

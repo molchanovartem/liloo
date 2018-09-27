@@ -7,3 +7,6 @@
 /lk/package-lock.json
 
 /api/runtime
+
+/site/node_modules
+/site/package-lock.json

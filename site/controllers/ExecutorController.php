@@ -6,12 +6,14 @@ use site\services\ExecutorService;
 
 /**
  * Class ExecutorController
+ *
  * @package site\controllers
  */
 class ExecutorController extends Controller
 {
     /**
      * ExecutorController constructor.
+     *
      * @param string $id
      * @param $module
      * @param ExecutorService $executorService
@@ -32,11 +34,7 @@ class ExecutorController extends Controller
         $this->modelService->index();
         $data = $this->modelService->getData();
 
-        if (\Yii::$app->request->isAjax) {
-            return $this->renderAjax('_listView', $data);
-        }
-
-        return $this->render('index', ['data' => $data]);
+        return $this->extraRender('index', ['data' => $data]);
     }
 
     /**
@@ -49,9 +47,7 @@ class ExecutorController extends Controller
         $this->modelService->findUser($id);
         $data = $this->modelService->getData();
 
-        return $this->render('userView', [
-            'model' => $data['executor'],
-        ]);
+        return $this->extraRender('userView',  ['data' => $data]);
     }
 
     /**
@@ -64,8 +60,6 @@ class ExecutorController extends Controller
         $this->modelService->findSalon($id);
         $data = $this->modelService->getData();
 
-        return $this->render('salonView', [
-            'model' => $data['executor'],
-        ]);
+        return $this->extraRender('salonView',  ['data' => $data]);
     }
 }

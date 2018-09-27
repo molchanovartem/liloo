@@ -2,7 +2,6 @@
 
 namespace site\controllers;
 
-use Yii;
 use site\services\ExecutorService;
 
 /**
@@ -31,12 +30,14 @@ class ExecutorMapController extends Controller
      */
     public function actionIndex()
     {
+        return $this->extraRender('index');
+    }
+
+    public function actionCatalogData()
+    {
         $this->modelService->index();
-        $data = $this->modelService->getData();
 
-        if (Yii::$app->request->isAjax) return $this->asJson($data);
-
-        return $this->render('index', ['data' => $data]);
+        return $this->asJson($this->modelService->getData());
     }
 
     /**
@@ -47,11 +48,8 @@ class ExecutorMapController extends Controller
     public function actionUserView($id)
     {
         $this->modelService->findUser($id);
-        $data = $this->modelService->getData();
 
-        return $this->render('userView', [
-            'model' => $data['executor'],
-        ]);
+        return $this->extraRender('userView', ['data' => $this->modelService->getData()]);
     }
 
     /**
@@ -62,10 +60,7 @@ class ExecutorMapController extends Controller
     public function actionSalonView($id)
     {
         $this->modelService->findSalon($id);
-        $data = $this->modelService->getData();
 
-        return $this->render('salonView', [
-            'model' => $data['executor'],
-        ]);
+        return $this->extraRender('salonView', ['data' => $this->modelService->getData()]);
     }
 }
