@@ -195,7 +195,7 @@ class ExecutorService extends ModelService
 
         foreach (FilterForm::getPartTime() as $partTime) {
             foreach ($userSchedules as $userSchedule) {
-                if ($userSchedule->start_date < $currentDate . ' ' . $partTime && $userSchedule->end_date > $currentDate . ' ' . $partTime) {
+                if ($userSchedule->start_date <= $currentDate . ' ' . $partTime && $userSchedule->end_date > $currentDate . ' ' . $partTime) {
                     $times[] = $partTime;
                 }
             }
@@ -266,6 +266,37 @@ class ExecutorService extends ModelService
     }
 
     /**
+     * @param $masterId
+     * @param $currentDate
+     * @return array
+     */
+    public function getCurrentTimeSalonMaster($masterId, $currentDate)
+    {
+        $userSchedules = MasterSchedule::find()->select('start_date, end_date')->where(['master_id' => $masterId])->all();
+        $userAppointments = Appointment::find()->select('start_date, end_date')->where(['master_id' => $masterId])->all();
+        $appointmentTime = [];
+        $times = [];
+
+        foreach (FilterForm::getPartTime() as $partTime) {
+            foreach ($userSchedules as $userSchedule) {
+                if ($userSchedule->start_date < $currentDate . ' ' . $partTime && $userSchedule->end_date > $currentDate . ' ' . $partTime) {
+                    $times[] = $partTime;
+                }
+            }
+        }
+
+        foreach ($times as $time) {
+            foreach ($userAppointments as $userAppointment) {
+                if ($userAppointment->start_date <= $currentDate . ' ' . $time && $userAppointment->end_date >= $currentDate . ' ' . $time) {
+                    $appointmentTime[] = $time;
+                }
+            }
+        }
+
+        return array_diff($times, $appointmentTime);
+    }
+
+    /**
      * @param null $times
      * @param $salonId
      * @param $currentDate
@@ -278,5 +309,67 @@ class ExecutorService extends ModelService
         }
 
         return array_intersect($times, $this->getCurrentTimeSalon($salonId, $currentDate));
+    }
+
+    /**
+     * @param array $serviceIds
+     * @return mixed
+     */
+    public function getServiceSumTime(array $serviceIds)
+    {
+        return Service::find()->where(['in', 'id', $serviceIds])->sum('duration');
+    }
+
+    /**
+     * @param array $serviceIds
+     * @return mixed
+     */
+    public function getServiceSumPrice(array $serviceIds)
+    {
+        return Service::find()->where(['in', 'id', $serviceIds])->sum('price');
+    }
+
+    /**
+     * @param array $time
+     * @param $userId
+     * @param $workTime
+     * @param $date
+     * @return array
+     */
+    public function getFreePartTime(array $time, $userId, $workTime, $date)
+    {
+        $userAppointments = Appointment::find()->select('start_date, end_date')->where(['user_id' => $userId])->all();
+        $error = [];
+        $success = [];
+
+        foreach ($time as $t) {
+            $endSession = $this->sumTime($t, $workTime);
+            $j = $t;
+            while ($j != $endSession) {
+                foreach ($userAppointments as $userAppointment) {
+                    if ($userAppointment->start_date <= $date . ' ' . $j . ':00' && $userAppointment->end_date >= $date . ' ' . $j . ':00') {
+                        $error[] = $j;
+                    }
+                }
+
+                $j = $this->sumTime($j, '00:15');
+            }
+
+            if (empty($error)) {
+                $success[] = $t;
+            }
+        }
+
+        return $success;
+    }
+
+    /**
+     * @param $i
+     * @param $k
+     * @return false|string
+     */
+    public function sumTime($i, $k)
+    {
+        return date('H:i', strtotime($i) + strtotime($k) - strtotime("00:00:00"));
     }
 }
