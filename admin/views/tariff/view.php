@@ -32,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'description',
                 [
                     'label' => 'Тип',
-                    'value' => $model->getType($model->type),
+                    'value' => $model->getTypeName(),
                 ],
                 [
                     'label' => 'Статус',
-                    'value' => $model->getStatus($model->status),
+                    'value' => $model->getStatusName(),
                 ],
                 'quantity',
             ],
@@ -48,8 +48,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="uk-grid uk-grid-small uk-child-width-1-4 uk-margin-top">
         <ul class="uk-list uk-list-striped">
-            <?php foreach ($model->getAccessArray($model->access) as $access): ?>
-                <li><?php echo $model->getTariffAccessName($access); ?></li>
+            <?php foreach ($model->accessArray as $access): ?>
+                <li><?php echo $model->getTariffAccessList()[$access]; ?></li>
             <?php endforeach; ?>
         </ul>
     </div>

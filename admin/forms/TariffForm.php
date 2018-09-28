@@ -41,17 +41,6 @@ class TariffForm extends Model
     }
 
     /**
-     * @return array
-     */
-    public static function getTariffAccessList()
-    {
-        return [
-            MasterRule::RULE_MASTER_CREATE => 'Создание мастера',
-            MasterRule::RULE_MASTER_UPDATE => 'Обновление мастера',
-        ];
-    }
-
-    /**
      * @param $data
      */
     public function setAccess($data)

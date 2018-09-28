@@ -10,13 +10,6 @@ namespace api\graphql;
 interface QueryTypeInterface
 {
     /**
-     * QueryTypeInterface constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry);
-
-    /**
      * @param TypeRegistry $typeRegistry
      * @return array
      */

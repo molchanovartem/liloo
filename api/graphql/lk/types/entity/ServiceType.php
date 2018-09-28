@@ -2,6 +2,7 @@
 
 namespace api\graphql\lk\types\entity;
 
+use api\queries\ServiceQuery;
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
