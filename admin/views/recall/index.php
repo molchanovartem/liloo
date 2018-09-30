@@ -1,17 +1,7 @@
 <?php
 
-use common\models\Service;
-
 $this->setTitle('Отзывы');
 $this->params['breadcrumbs'][] = $this->title;
-
-$time = (new \site\services\ExecutorService())->getCurrentTime(52, '2018-09-25');
-
-
-echo '<br><br><br><br>';
-//var_dump($kek);
-echo '<br><br><br><br>';
-var_dump($time)
 ?>
 
 <div class="notice-index">

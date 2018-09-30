@@ -7,6 +7,7 @@ use common\models\Appointment;
 use common\models\MasterSchedule;
 use common\models\Service;
 use common\models\UserSchedule;
+use GraphQL\Error\Error;
 use site\forms\FilterForm;
 
 /**
@@ -29,7 +30,7 @@ class ExecutorService extends ModelService
 
         foreach (FilterForm::getPartTime() as $partTime) {
             foreach ($userSchedules as $userSchedule) {
-                if ($userSchedule->start_date <= $currentDate . ' ' . $partTime && $userSchedule->end_date > $currentDate . ' ' . $partTime) {
+                if ($userSchedule->start_date <= $currentDate . ' ' . $partTime . ':00' && $userSchedule->end_date > $currentDate . ' ' . $partTime . ':00') {
                     $times[] = $partTime;
                 }
             }
@@ -37,7 +38,7 @@ class ExecutorService extends ModelService
 
         foreach ($times as $time) {
             foreach ($userAppointments as $userAppointment) {
-                if ($userAppointment->start_date < $currentDate . ' ' . $time && $userAppointment->end_date > $currentDate . ' ' . $time) {
+                if ($userAppointment->start_date <= $currentDate . ' ' . $time . ':00' && $userAppointment->end_date > $currentDate . ' ' . $time . ':00') {
                     $appointmentTime[] = $time;
                 }
             }
@@ -78,7 +79,7 @@ class ExecutorService extends ModelService
 
         foreach (FilterForm::getPartTime() as $partTime) {
             foreach ($masterSchedules as $masterSchedule) {
-                if ($masterSchedule->start_date < $currentDate . ' ' . $partTime && $masterSchedule->end_date > $currentDate . ' ' . $partTime) {
+                if ($masterSchedule->start_date < $currentDate . ' ' . $partTime . ':00' && $masterSchedule->end_date > $currentDate . ' ' . $partTime . ':00') {
                     $time[] = $partTime . '->' . $masterSchedule->master_id;
                 }
             }
@@ -86,7 +87,7 @@ class ExecutorService extends ModelService
 
         foreach (FilterForm::getPartTime() as $partTime) {
             foreach ($masterAppointments as $masterAppointment) {
-                if ($masterAppointment->start_date < $currentDate . ' ' . $partTime && $masterAppointment->end_date > $currentDate . ' ' . $partTime) {
+                if ($masterAppointment->start_date < $currentDate . ' ' . $partTime . ':00' && $masterAppointment->end_date > $currentDate . ' ' . $partTime . ':00') {
                     $appointmentTime[] = $partTime . '->' . $masterAppointment->master_id;
                 }
             }
@@ -113,7 +114,7 @@ class ExecutorService extends ModelService
 
         foreach (FilterForm::getPartTime() as $partTime) {
             foreach ($userSchedules as $userSchedule) {
-                if ($userSchedule->start_date < $currentDate . ' ' . $partTime && $userSchedule->end_date > $currentDate . ' ' . $partTime) {
+                if ($userSchedule->start_date < $currentDate . ' ' . $partTime . ':00' && $userSchedule->end_date > $currentDate . ' ' . $partTime . ':00') {
                     $times[] = $partTime;
                 }
             }
@@ -121,7 +122,7 @@ class ExecutorService extends ModelService
 
         foreach ($times as $time) {
             foreach ($userAppointments as $userAppointment) {
-                if ($userAppointment->start_date <= $currentDate . ' ' . $time && $userAppointment->end_date >= $currentDate . ' ' . $time) {
+                if ($userAppointment->start_date <= $currentDate . ' ' . $time . ':00' && $userAppointment->end_date >= $currentDate . ' ' . $time . ':00') {
                     $appointmentTime[] = $time;
                 }
             }
@@ -165,44 +166,39 @@ class ExecutorService extends ModelService
 
     /**
      * @param array $time
-     * @param $userAppointments
-     * @param $workTime
-     * @param $date
+     * @param       $userAppointments
+     * @param       $workTime
+     * @param       $date
+     * @param       $schedule
+     *
      * @return array
      */
-    public function getFreePartTime(array $time, $userAppointments, $workTime, $date)
+    public function getFreePartTime(array $time, $userAppointments, $workTime, $date, $schedule)
     {
         $error = [];
-        $j = array_shift($time);
+        $j = $time[0];
+        $schedule = array_pop($schedule);
 
         foreach ($userAppointments as $userAppointment) {
             foreach ($time as $t) {
                 $endSession = $this->sumTime($t, $workTime);
                 while ($j != $endSession) {
-
-                    if ($userAppointment->start_date < $date . ' ' . $j . ':00' && $userAppointment->end_date > $date . ' ' . $j . ':00') {
+                    if (
+                        $userAppointment->start_date <= $date . ' ' . $j . ':00'
+                        && $userAppointment->end_date >= $date . ' ' . $j . ':00'
+                    ) {
                         $error[] = $j;
                     }
+
                     $j = $this->sumTime($j, '00:15');
                 }
-            }
-        }
 
-        $userSchedule = UserSchedule::find()->where(['user_id' => 52])->all();
-
-        foreach ($userSchedule as $us) {
-            foreach ($time as $t) {
-                $endSession = $this->sumTime($t, $workTime);
-                if ($us->end_date < $date . ' ' . $endSession . ':00') {
+                if ($schedule['end_date'] < $date . ' ' . $endSession . ':00') {
                     $error[] = $t;
                 }
-
-
             }
         }
 
-
-//        return $error;
         return array_diff($time, $error);
     }
 
