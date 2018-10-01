@@ -3,7 +3,6 @@
 namespace common\models;
 
 use common\queries\Query;
-use admin\forms\TariffForm;
 
 /**
  * Class Tariff
@@ -66,27 +65,10 @@ class Tariff extends \yii\db\ActiveRecord
      * @param $data
      * @return array
      */
-//    public function getAccessArray($data)
-//    {
-//        return explode('/', $data);
-//    }
-
-    /**
-     * @param $tariff
-     * @return mixed
-     */
-//    public function getTariffAccessName($tariff)
-//    {
-//        return TariffForm::getTariffAccessList()[$tariff];
-//    }
-
-    /**
-     * @return array
-     */
-//    public function getStatuses()
-//    {
-//        return self::getStatusList();
-//    }
+    public function getAccessArray()
+    {
+        return explode('/', $this->access);
+    }
 
     /**
      * @return array

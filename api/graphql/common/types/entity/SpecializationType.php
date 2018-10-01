@@ -26,7 +26,7 @@ class SpecializationType extends ObjectType implements QueryTypeInterface
         parent::__construct([
             'fields' => function () use ($typeRegistry, $entityRegistry) {
                 return [
-                    'id' => $typeRegistry->int(),
+                    'id' => $typeRegistry->id(),
                     'name' => [
                         'type' => $typeRegistry->string(),
                         'description' => 'Название'
