@@ -26,13 +26,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'attribute' => 'type',
                     'content' => function($data) {
-                        return $data->getType($data->type);
+                        return $data->getTypeName();
                     }
                 ],
                 [
                     'attribute' => 'status',
                     'content' => function($data) {
-                        return $data->getStatus($data->status);
+                        return $data->getStatusName();
                     }
                 ],
                 'quantity',

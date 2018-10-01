@@ -2,7 +2,7 @@
 
 namespace site\controllers;
 
-use common\models\Specialization;
+use site\services\SiteService;
 
 /**
  * Class SiteController
@@ -12,14 +12,30 @@ use common\models\Specialization;
 class SiteController extends Controller
 {
     /**
+     * SiteController constructor.
+     * @param string $id
+     * @param $module
+     * @param SiteService $siteService
+     * @param array $config
+     */
+    public function __construct(string $id, $module, SiteService $siteService, array $config = [])
+    {
+        $this->modelService = $siteService;
+
+        parent::__construct($id, $module, $config);
+    }
+
+    /**
      * @return mixed
      */
     public function actionIndex()
     {
-        $specializations = Specialization::find()->all();
+        $this->modelService->index();
+        $data = $this->modelService->getData();
 
         return $this->extraRender('index', [
-            'specializations' => $specializations,
+            'specializations' => $data['specializations'],
+            'modelService' => $this->modelService
         ]);
     }
 }

@@ -2,8 +2,6 @@
 
 namespace site\services;
 
-use common\core\service\ModelService;
-use common\models\Appointment;
 use common\models\MasterSchedule;
 use common\models\Recall;
 use common\models\Salon;
@@ -20,7 +18,7 @@ use site\forms\FilterForm;
  * Class ExecutorService
  * @package site\services
  */
-class ExecutorService extends ModelService
+class ExecutorService extends \common\services\ExecutorService
 {
     public function index()
     {
@@ -61,7 +59,6 @@ class ExecutorService extends ModelService
         $data = [];
 
         foreach ($users as $user) {
-            $userIds[] = $user['id'];
             $data[] = [
                 'id' => $user['id'],
                 'name' => $user['name'] . ' ' . $user['surname'],
@@ -179,104 +176,5 @@ class ExecutorService extends ModelService
         $accountId = Salon::find()->select('account_id')->where(['id' => $salonId])->one()['account_id'];
 
         return Recall::find()->where(['account_id' => $accountId])->andWhere(['assessment' => $assessment])->count();
-    }
-
-    /**
-     * @param int $userId
-     * @param $currentDate
-     * @return array
-     */
-    public function getCurrentTime(int $userId, $currentDate)
-    {
-        $userSchedules = UserSchedule::find()->select('start_date, end_date')->where(['user_id' => $userId])->all();
-        $userAppointments = Appointment::find()->select('start_date, end_date')->where(['user_id' => $userId])->all();
-        $appointmentTime = [];
-        $times = [];
-
-        foreach (FilterForm::getPartTime() as $partTime) {
-            foreach ($userSchedules as $userSchedule) {
-                if ($userSchedule->start_date < $currentDate . ' ' . $partTime && $userSchedule->end_date > $currentDate . ' ' . $partTime) {
-                    $times[] = $partTime;
-                }
-            }
-        }
-
-        foreach ($times as $time) {
-            foreach ($userAppointments as $userAppointment) {
-                if ($userAppointment->start_date <= $currentDate . ' ' . $time && $userAppointment->end_date >= $currentDate . ' ' . $time) {
-                    $appointmentTime[] = $time;
-                }
-            }
-        }
-
-        return array_diff($times, $appointmentTime);
-    }
-
-
-    /**
-     * @param null $times
-     * @param $userId
-     * @param $currentDate
-     * @return array
-     */
-    public function getValidTime($times = null, $userId, $currentDate)
-    {
-        if ($times == null) {
-            return $this->getCurrentTime($userId, $currentDate);
-        }
-
-        return array_intersect($times, $this->getCurrentTime($userId, $currentDate));
-    }
-
-    /**
-     * @param $salonId
-     * @param $currentDate
-     * @return array
-     */
-    public function getCurrentTimeSalon($salonId, $currentDate)
-    {
-        $masterSchedules = MasterSchedule::find()->select('master_id, start_date, end_date')->where(['salon_id' => $salonId])->all();
-        $masterAppointments = Appointment::find()->select('master_id, start_date, end_date')->where(['salon_id' => $salonId])->all();
-
-        $appointmentTime = [];
-        $time = [];
-        $currentTime = [];
-
-        foreach (FilterForm::getPartTime() as $partTime) {
-            foreach ($masterSchedules as $masterSchedule) {
-                if ($masterSchedule->start_date < $currentDate . ' ' . $partTime && $masterSchedule->end_date > $currentDate . ' ' . $partTime) {
-                    $time[] = $partTime . '->' . $masterSchedule->master_id;
-                }
-            }
-        }
-
-        foreach (FilterForm::getPartTime() as $partTime) {
-            foreach ($masterAppointments as $masterAppointment) {
-                if ($masterAppointment->start_date < $currentDate . ' ' . $partTime && $masterAppointment->end_date > $currentDate . ' ' . $partTime) {
-                    $appointmentTime[] = $partTime . '->' . $masterAppointment->master_id;
-                }
-            }
-        }
-
-        foreach (array_diff($time, $appointmentTime) as $item) {
-            $currentTime[] = explode('->', $item)[0];
-        }
-
-        return array_unique($currentTime);
-    }
-
-    /**
-     * @param null $times
-     * @param $salonId
-     * @param $currentDate
-     * @return array
-     */
-    public function getValidTimeSalon($times = null, $salonId, $currentDate)
-    {
-        if ($times == null) {
-            return $this->getCurrentTimeSalon($salonId, $currentDate);
-        }
-
-        return array_intersect($times, $this->getCurrentTimeSalon($salonId, $currentDate));
     }
 }

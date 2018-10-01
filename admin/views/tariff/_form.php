@@ -18,9 +18,9 @@ use admin\forms\TariffForm;
         <?= $form->field($data['form'], 'description')->textarea(['rows' => '3']) ?>
 
 
-        <?= $form->field($data['form'], 'type')->dropDownList($data['form']->getTypes(), ['prompt' => 'Выберите тип...']); ?>
+        <?= $form->field($data['form'], 'type')->dropDownList($data['form']->getTypeList(), ['prompt' => 'Выберите тип...']); ?>
 
-        <?= $form->field($data['form'], 'status')->dropDownList($data['form']->getStatuses(), ['prompt' => 'Выберите статус...']); ?>
+        <?= $form->field($data['form'], 'status')->dropDownList($data['form']->getStatusList(), ['prompt' => 'Выберите статус...']); ?>
 
 
         <?= $form->field($data['form'], 'quantity')->textInput(['maxlength' => true]) ?>

@@ -28,14 +28,6 @@ class CommonServiceType extends ObjectType implements QueryTypeInterface
                     'name' => $typeRegistry->string(),
                     'price' => $typeRegistry->string(),
                     'duration' => $typeRegistry->int(),
-                    'specialization' => [
-                        'type' => $entityRegistry->specialization(),
-                        'resolve' => function (Service $service, $args, $context, $info) {
-                    /*
-                     * @todo
-                     */
-                        }
-                    ]
                 ];
             }
         ];
@@ -69,8 +61,12 @@ class CommonServiceType extends ObjectType implements QueryTypeInterface
                         'defaultValue' => 0
                     ]
                 ],
+                'description' => 'Коллекция услуг',
                 'resolve' => function ($root, $args) {
-                    return Service::find()->allServiceByParams($args['parent_id'], $args['limit'], $args['offset']);
+                    return Service::find()->where(['parent_id' => $args['parent_id']])
+                        ->isService()
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])->all();
                 }
             ],
             'service' => [

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\components\tariffAccess\rules\MasterRule;
 use common\queries\Query;
 
 /**
@@ -62,7 +63,17 @@ class Tariff extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $data
+     * @return array
+     */
+    public static function getTariffAccessList()
+    {
+        return [
+            MasterRule::RULE_MASTER_CREATE => 'Создание мастера',
+            MasterRule::RULE_MASTER_UPDATE => 'Обновление мастера',
+        ];
+    }
+
+    /**
      * @return array
      */
     public function getAccessArray()
@@ -82,7 +93,6 @@ class Tariff extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $status
      * @return mixed
      */
     public function getStatusName()
@@ -102,7 +112,6 @@ class Tariff extends \yii\db\ActiveRecord
     }
 
     /**
-     * @param $type
      * @return mixed
      */
     public function getTypeName()

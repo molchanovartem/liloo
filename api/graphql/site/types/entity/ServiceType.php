@@ -1,20 +1,24 @@
 <?php
 
-namespace api\graphql\lk\types\entity;
+namespace api\graphql\site\types\entity;
 
-use api\queries\ServiceQuery;
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
-use api\models\Service;
+use api\models\SalonService;
+use api\models\site\Service;
+use GraphQL\Type\Definition\ObjectType;
 
 /**
  * Class ServiceType
- *
- * @package api\graphql\lk\types\entity
+ * @package api\graphql\site\types\entity
  */
 class ServiceType extends ObjectType implements QueryTypeInterface
 {
+    /**
+     * QueryTypeInterface constructor.
+     *
+     * @param TypeRegistry $typeRegistry
+     */
     public function __construct(TypeRegistry $typeRegistry)
     {
         $entityRegistry = $typeRegistry->getEntityRegistry();
@@ -29,14 +33,6 @@ class ServiceType extends ObjectType implements QueryTypeInterface
                     'name' => $typeRegistry->string(),
                     'price' => $typeRegistry->string(),
                     'duration' => $typeRegistry->int(),
-                    'specialization' => [
-                        'type' => $entityRegistry->specialization(),
-                        'resolve' => function (Service $service, $args, $context, $info) {
-                    /*
-                     * @todo
-                     */
-                        }
-                    ]
                 ];
             }
         ];
@@ -53,40 +49,31 @@ class ServiceType extends ObjectType implements QueryTypeInterface
         $entityRegistry = $typeRegistry->getEntityRegistry();
 
         return [
-            'services' => [
+            'serviceByAccountId' => [
                 'type' => $typeRegistry->listOff($entityRegistry->service()),
-                'description' => 'Коллекция услуг',
+                'description' => 'Сервисы этого мастера',
                 'args' => [
-                    'parent_id' => [
+                    'account_id' => [
+                        'type' => $typeRegistry->nonNull($typeRegistry->id())
+                    ],
+                    'salon_id' => [
                         'type' => $typeRegistry->id(),
                         'defaultValue' => null,
                     ],
-                    'limit' => [
-                        'type' => $typeRegistry->int(),
-                        'defaultValue' => 30,
-                    ],
-                    'offset' => [
-                        'type' => $typeRegistry->int(),
-                        'defaultValue' => 0
-                    ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Service::find()->allServiceByParams($args['parent_id'], $args['limit'], $args['offset']);
-                }
-            ],
-            'service' => [
-                'type' => $entityRegistry->service(),
-                'args' => [
-                    'id' => [
-                        'type' => $typeRegistry->nonNull($typeRegistry->id())
-                    ]
-                ],
-                'resolve' => function ($root, $args) {
-                    return Service::find()->oneById($args['id']);
+                    if (empty($args['salon_id'])) {
+                        return Service::find()->byAccountId($args['account_id'])->all();
+                    }
+
+                    return Service::find()
+                        ->alias('s')
+                        ->leftJoin(SalonService::tableName() . ' ss', 's.id = ss.service_id')
+                        ->where(['ss.salon_id' => $args['salon_id']])
+                        ->andWhere(['s.account_id' => $args['account_id']])
+                        ->all();
                 }
             ],
         ];
     }
-
-
 }
