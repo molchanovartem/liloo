@@ -18,6 +18,8 @@ use yii\captcha\Captcha;
 
                         <?php $form = ActiveForm::begin(); ?>
 
+                        <?= $form->errorSummary($model); ?>
+
                         <?= $form->field($model, 'type')->hiddenInput([
                             'value' => \site\models\User::TYPE_CLIENT,
                             'id' => 'type-user',
@@ -28,6 +30,7 @@ use yii\captcha\Captcha;
                                 <?= $form->field($model, 'phone')->textInput([
                                     'autofocus' => true,
                                     'id' => 'phone-user',
+                                    'required' => true,
                                 ])->label('Введите ваш телефон'); ?>
                             </div>
                         </div>
@@ -36,6 +39,7 @@ use yii\captcha\Captcha;
                             <div class="input-box__wrap">
                                 <?= $form->field($model, 'password')->passwordInput([
                                     'id' => 'password-user',
+                                    'required' => true,
                                 ])->label('Введите пароль'); ?>
                             </div>
                         </div>
@@ -43,6 +47,9 @@ use yii\captcha\Captcha;
                         <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
                             'captchaAction' => '/auth/captcha',
                             'template' => '{image}<br>{input}',
+                            'options' => [
+                                'required' => true,
+                            ]
                         ])->label(false); ?>
 
                         <div class="mt-35 between-15 uk-text-center">
@@ -68,6 +75,8 @@ use yii\captcha\Captcha;
 
                         <?php $form = ActiveForm::begin(); ?>
 
+                        <?= $form->errorSummary($model); ?>
+
                         <?= $form->field($model, 'type')->hiddenInput([
                             'value' => \site\models\User::TYPE_MASTER
                         ])->label(false); ?>
@@ -76,13 +85,16 @@ use yii\captcha\Captcha;
                             <div class="input-box__wrap">
                                 <?= $form->field($model, 'phone')->textInput([
                                     'autofocus' => true,
+                                    'required' => true,
                                 ])->label('Введите ваш телефон'); ?>
                             </div>
                         </div>
 
                         <div class="input-box mt-20">
                             <div class="input-box__wrap">
-                                <?= $form->field($model, 'password')->passwordInput()->label('Введите пароль'); ?>
+                                <?= $form->field($model, 'password')->passwordInput([
+                                    'required' => true,
+                                ])->label('Введите пароль'); ?>
                             </div>
                         </div>
 
@@ -90,7 +102,8 @@ use yii\captcha\Captcha;
                             'captchaAction' => '/auth/captcha',
                             'template' => '{image}<br>{input}',
                             'options' => [
-                                'id' => 'registrationform-verifycode-master'
+                                'id' => 'registrationform-verifycode-master',
+                                'required' => true,
                             ]
                         ])->label(false); ?>
 
