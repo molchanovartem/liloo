@@ -1,3 +1,11 @@
+<?php
+
+use site\widgets\activeForm\ActiveForm;
+use yii\helpers\Html;
+use yii\captcha\Captcha;
+
+?>
+
 <div class="uk-container">
     <div class="uk-grid uk-grid-small uk-child-width-1-2 uk-margin-top">
         <div>
@@ -7,30 +15,42 @@
                 </div>
                 <div class="header__content-parts">
                     <div class="header__content-part">
-                        <form action="/site/web/index.php/auth/registration" method="post">
-                            <?php use yii\helpers\Html;
 
-                            echo Html:: hiddenInput(\Yii:: $app->getRequest()->csrfParam, \Yii:: $app->getRequest()->getCsrfToken(), []); ?>
-                            <input name="RegistrationForm[type]" type="hidden" value="1">
-                            <div class="input-box">
-                                <div class="input-box__wrap">
-                                    <input name="RegistrationForm[phone]" type="tel" id="input_phone_user" required
-                                           pattern="\+7\-[0-9]{3}\-[0-9]{3}\-[0-9]{2}\-[0-9]{2}"
-                                           class="input-box__input">
-                                    <label for="input_phone_user" class="input-box__label">Введите ваш телефон</label>
-                                </div>
+                        <?php $form = ActiveForm::begin(); ?>
+
+                        <?= $form->field($model, 'type')->hiddenInput(['value' => 1,
+                            'id' => 'dafsdfdfdssda'])->label(false); ?>
+
+                        <div class="input-box">
+                            <div class="input-box__wrap">
+                                <?= $form->field($model, 'phone')->textInput([
+                                    'autofocus' => true,
+                                    'id' => 'dafsdfsfffda'
+                                ])->label('Введите ваш телефон'); ?>
                             </div>
-                            <div class="input-box mt-20">
-                                <div class="input-box__wrap">
-                                    <input name="RegistrationForm[password]" type="password" id="input_password_user" required
-                                           class="input-box__input">
-                                    <label for="input_password_user" class="input-box__label">Введите пароль</label>
-                                </div>
+                        </div>
+
+                        <div class="input-box mt-20">
+                            <div class="input-box__wrap">
+                                    <?= $form->field($model, 'password')->passwordInput([
+                                        'id' => 'dafsdfsda'])->label('Введите пароль'); ?>
                             </div>
-                            <div class="mt-35 between-15 uk-text-center">
-                                <input type="submit" class="button button_color_red" value="Регистрация">
-                            </div>
-                        </form>
+                        </div>
+
+                        <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
+                            'captchaAction' => '/auth/captcha',
+                            'template' => '{image}<br>{input}',
+                        ]); ?>
+
+                        <div class="mt-35 between-15 uk-text-center">
+                            <?= Html::submitButton('Регистрация', [
+                                'class' => 'button button_color_red',
+                                'name' => 'login-button'
+                            ]); ?>
+                        </div>
+
+                        <?php ActiveForm::end(); ?>
+
                     </div>
                 </div>
             </div>
@@ -42,40 +62,45 @@
                 </div>
                 <div class="header__content-parts">
                     <div class="header__content-part">
-                        <form action="/site/web/index.php/auth/registration" method="post">
-                            <?php echo Html:: hiddenInput(\Yii:: $app->getRequest()->csrfParam, \Yii:: $app->getRequest()->getCsrfToken(), []); ?>
-                            <input name="RegistrationForm[type]" type="hidden" value="2">
-                            <div class="input-box">
-                                <div class="input-box__wrap">
-                                    <input name="RegistrationForm[phone]" type="tel" id="input_phone_executor" required
-                                           pattern="\+7\-[0-9]{3}\-[0-9]{3}\-[0-9]{2}\-[0-9]{2}"
-                                           class="input-box__input">
-                                    <label for="input_phone_executor" class="input-box__label">Введите ваш
-                                        телефон</label>
-                                </div>
-                            </div>
 
-                            <div class="input-box mt-20">
-                                <div class="input-box__wrap">
-                                    <input name="RegistrationForm[password]" type="password" id="input_password_executor"
-                                           required
-                                           class="input-box__input">
-                                    <label for="input_password_executor" class="input-box__label">Введите пароль</label>
-                                </div>
+                        <?php $form = ActiveForm::begin(); ?>
+
+                        <?= $form->field($model, 'type')->hiddenInput(['value' => 2]); ?>
+
+                        <div class="input-box">
+                            <div class="input-box__wrap">
+                                <?= $form->field($model, 'phone')->textInput([
+                                    'autofocus' => true,
+                                ])->label('Введите ваш телефон'); ?>
                             </div>
-                            <div class="mt-35 between-15 uk-text-center">
-                                <input type="submit" class="button button_color_red" value="Регистрация">
+                        </div>
+
+                        <div class="input-box mt-20">
+                            <div class="input-box__wrap">
+                                <?= $form->field($model, 'password')->passwordInput([])->label('Введите пароль'); ?>
                             </div>
-                        </form>
+                        </div>
+
+                        <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
+                            'captchaAction' => '/auth/captcha',
+                            'template' => '{image}<br>{input}',
+                            'options' => [
+                                'id' => 'registrationform-verifycode-master'
+                            ]
+                        ]); ?>
+
+                        <div class="mt-35 between-15 uk-text-center">
+                            <?= Html::submitButton('Регистрация', [
+                                'class' => 'button button_color_red',
+                                'name' => 'login-button'
+                            ]); ?>
+                        </div>
+
+                        <?php ActiveForm::end(); ?>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<?php
-$this->registerJs('$(function () {
-        $("#input_phone_user").mask("8(999) 999-9999");
-    });');
-?>

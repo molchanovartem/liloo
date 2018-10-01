@@ -5,6 +5,7 @@ namespace site\controllers;
 use common\services\AuthService;
 use site\forms\LoginForm;
 use Yii;
+use yii\filters\AccessControl;
 
 /**
  * Class AuthController
@@ -25,6 +26,23 @@ class AuthController extends Controller
         $this->modelService = $userAccessService;
 
         parent::__construct($id, $module, $config);
+    }
+
+    public function actions()
+    {
+        return [
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'foreColor' => 0xF9AF21,
+                'maxLength' => 5,
+                'minLength' => 3,
+                'padding' => 5,
+                'offset' => 1,
+                'transparent' => true,
+                'height' => 40
+            ],
+        ];
     }
 
     /**
@@ -66,12 +84,14 @@ class AuthController extends Controller
             return $this->goHome();
         }
 
-        if($this->modelService->registration()) {
+        if ($this->modelService->registration()) {
             return $this->goHome();
         }
 
         $data = $this->modelService->getData();
 
-        return $this->render('registration', compact($data['model']));
+        return $this->render('registration', [
+            'model' => $data['model']
+        ]);
     }
 }

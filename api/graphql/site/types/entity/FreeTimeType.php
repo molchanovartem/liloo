@@ -8,7 +8,6 @@ use api\models\Appointment;
 use api\models\MasterSchedule;
 use api\models\UserSchedule;
 use common\services\ExecutorService;
-use GraphQL\Error\Error;
 
 /**
  * Class FreeTimeType

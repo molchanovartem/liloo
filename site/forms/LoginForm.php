@@ -15,7 +15,7 @@ class LoginForm extends Model
 {
     public $phone;
     public $password;
-    public $rememberMe = true;
+    public $verifyCode;
     private $_user = false;
 
     /**
@@ -26,8 +26,20 @@ class LoginForm extends Model
         return [
             [['phone', 'password'], 'required'],
             [['phone'], 'string'],
-            ['rememberMe', 'boolean'],
             ['password', 'validatePassword'],
+            ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'phone' => 'Телефон',
+            'password' => 'Пароль',
+            'verifyCode' => 'Подтвердите код',
         ];
     }
 
@@ -51,7 +63,7 @@ class LoginForm extends Model
     public function login()
     {
         if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            return Yii::$app->user->login($this->getUser());
         }
         return false;
     }

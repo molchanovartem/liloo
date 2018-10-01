@@ -12,6 +12,7 @@ class RegistrationForm extends Model
 {
     public $phone;
     public $password;
+    public $verifyCode;
     public $type;
 
     /**
@@ -21,6 +22,7 @@ class RegistrationForm extends Model
     {
         return [
             [['phone', 'password', 'type'], 'required', 'message' => 'Заполните поле'],
+            ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
         ];
     }
 
