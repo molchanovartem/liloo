@@ -1,126 +1,146 @@
 <div class="uk-container">
     <div id="catalog">
-        <div class="uk-card uk-card-default uk-padding-small uk-margin">
-            <form ref="filter">
-                <div class="uk-grid uk-grid-small uk-child-width-1-6">
+        <v-app>
+            <div class="uk-card uk-card-default uk-padding-small uk-margin">
+                <form ref="filter">
                     <div>
-                        <label>Специализация</label>
-                        <select class="uk-form uk-select" v-model="attributes.specializationId">
-                            <option v-for="item in specializations" :value="item.id">{{item.name}}</option>
-                        </select>
                     </div>
-                    <div>
-                        <label>Услуга</label>
-                        <select class="uk-form uk-select" v-model="attributes.serviceId">
-                            <option v-for="item in services" :value="item.id">{{item.name}}</option>
-                        </select>
+                    <div class="uk-grid uk-grid-small uk-child-width-1-5">
+                        <div>
+                            <v-autocomplete
+                                    outline
+                                    :items="specializations"
+                                    v-model="attributes.specializationId"
+                                    label="Специализация"
+                                    append-icon="mdi-chevron-down"
+                                    item-value="id"
+                                    item-text="name"
+                                    hide-details
+                            />
+                        </div>
+                        <div>
+                            <v-autocomplete
+                                    outline
+                                    :items="services"
+                                    v-model="attributes.serviceId"
+                                    label="Услуга"
+                                    append-icon="mdi-chevron-down"
+                                    item-value="id"
+                                    item-text="name"
+                                    hide-details
+                            />
+                        </div>
+                        <div>
+                            <v-autocomplete
+                                    outline
+                                    :items="cities"
+                                    v-model="attributes.cityId"
+                                    label="Город"
+                                    append-icon="mdi-chevron-down"
+                                    item-value="id"
+                                    item-text="name"
+                                    hide-details
+                            />
+                        </div>
+                        <div>
+                            <v-menu
+                                    lazy
+                                    transition="scale-transition"
+                                    offset-y
+                                    full-width
+                                    min-width="290px"
+                            >
+                                <v-text-field
+                                        slot="activator"
+                                        v-model="attributes.date"
+                                        label="Выбор даты"
+                                        append-icon="mdi-calendar"
+                                        readonly
+                                        hide-details
+                                        outline
+                                ></v-text-field>
+                                <v-date-picker
+                                        v-model="attributes.date"
+                                        prev-icon="mdi-chevron-left"
+                                        next-icon="mdi-chevron-right"
+                                        no-title
+                                        />
+                            </v-menu>
+                        </div>
+                        <div>
+                            <v-select
+                                    outline
+                                    :items="cities"
+                                    v-model="attributes.cityId"
+                                    label="Выбор времени"
+                                    append-icon="mdi-chevron-down"
+                                    item-value="id"
+                                    item-text="name"
+                                    hide-details
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <label>Город</label>
-                        <select class="uk-form uk-select" v-model="attributes.cityId">
-                            <option v-for="item in cities" :value="item.id">{{item.name}}</option>
-                        </select>
+                    <div class="uk-grid uk-grid-small">
+                        <div class="uk-width-1-1">
+                            <button @click.prevent="onSubmit" class="uk-button uk-button-primary uk-button-small">
+                                <i class="mdi mdi-magnify uk-text-large"></i>
+                            </button>
+                            <button @click.prevent="onReset" class="uk-button uk-button-primary uk-button-small">
+                                <i class="mdi mdi-refresh uk-text-large"></i>
+                            </button>
+                        </div>
                     </div>
-                    <div>
-                        <label>Выбор даты</label>
-                        <select class="uk-form uk-select" v-model="attributes.cityId">
-                            <option v-for="item in cities" :value="item.id">{{item.name}}</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label>Выбор времени</label>
-                        <select class="uk-form uk-select" v-model="attributes.cityId">
-                            <option v-for="item in cities" :value="item.id">{{item.name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="uk-grid uk-grid-small">
-                    <div class="uk-width-1-1">
-                        <button @click.prevent="onSubmit" class="uk-button uk-button-primary uk-button-small">
-                            <i class="mdi mdi-magnify uk-text-large"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="uk-margin">
-            <button
-                    @click="viewTypeCatalog"
-                    class="uk-button uk-button-small"
-                    :class="[isViewTypeCatalog() ?  'uk-button-primary': 'uk-button-default']"
-            >
-                <i class="mdi mdi-menu uk-text-large"></i>
-            </button>
-            <button
-                    @click="viewTypeMap"
-                    class="uk-button uk-button-small"
-                    :class="[isViewTypeMap() ?  'uk-button-primary': 'uk-button-default']"
-            >
-                <i class="mdi mdi-map-marker-radius uk-text-large"></i>
-            </button>
-        </div>
+                </form>
+            </div>
+            <div class="uk-margin">
+                <button
+                        @click="viewTypeCatalog"
+                        class="uk-button uk-button-small"
+                        :class="[isViewTypeCatalog() ?  'uk-button-primary': 'uk-button-default']"
+                >
+                    <i class="mdi mdi-menu uk-text-large"></i>
+                </button>
+                <button
+                        @click="viewTypeMap"
+                        class="uk-button uk-button-small"
+                        :class="[isViewTypeMap() ?  'uk-button-primary': 'uk-button-default']"
+                >
+                    <i class="mdi mdi-map-marker-radius uk-text-large"></i>
+                </button>
+            </div>
 
-        <div id="map" ref="map" style="width: 100%; height: 600px;"></div>
-        <div ref="catalog">
-            <div v-for="item in executors">
-                <div class="performers-select__item">
-                    <div class="performers-select__performer">
-                        <div class="performer">
-                            <div class="performer__img"
-                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
-                            <div class="performer__info">
-                                <div class="label-status label-status_bg_black label-status_fz_14">Profi</div>
-                                <a :href="getLinkViewExecutor(item)" data-ajax-content="true">
-                                    <div class="performer__name">{{item.name}}</div>
-                                </a>
-                                <div class="performer__profession">Парикмахер, Стилист по прическам</div>
-                                <div class="performer__profession">{{item.address}}</div>
-                                <div class="performer__extra">
-                                    <div class="stars">
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                    </div>
-                                    <div class="vote">
-                                        <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
-                                        <span class="vote__digits">
-                                        <span class="vote__digit vote__digit_color_green">+{{item.like}}</span>
-                                        <span class="vote__digit vote__digit_color_red">-{{item.dislike}}</span>
-                                    </span>
-                                    </div>
+            <div ref="catalog">
+                <div v-for="item in executors">
+                    <div class="uk-card uk-card-default uk-width-auto uk-margin-top">
+                        <div class="uk-card-header">
+                            <div class="uk-grid uk-grid-small uk-flex-middle">
+                                <div class="uk-width-auto">
+                                    <img class="uk-border-circle" width="60" height="60"
+                                         src="http://mycs.net.au/wp-content/uploads/2016/03/person-icon-flat.png">
+                                </div>
+                                <div class="uk-width-expand">
+                                    <a :href="getLinkViewExecutor(item)" data-ajax-content="true">
+                                        <h3 class="uk-card-title uk-margin-remove-bottom">{{item.name}}</h3>
+                                    </a>
+                                    <p class="uk-text-meta uk-margin-remove-top">
+                                        <span class="uk-label uk-label-success">+{{item.like}}</span>
+                                        <span class="uk-label uk-label-danger">-{{item.dislike}}</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="bill" v-for="item in services">
-                            <div class="bill__row">
-                                <div class="bill__name">{{item.name}}</div>
-                                <div class="bill__cost">{{item.price}} руб.</div>
-                            </div>
+                        <div class="uk-card-body">
+                            <p>{{item.address}}</p>
+                            <p v-for="item in services">{{item.name}} - {{item.price}} руб.</p>
                         </div>
-                    </div>
-                    <div class="performers-select__schedule">
-                        <div class="font_type_3 t-a_c">Ближайшее время:</div>
-                        <div class="schedule-items mt-10">
-                            <div class="schedule-item schedule-items__item">
-                                <span class="schedule-item__time">17:00</span>
-                                <span class="schedule-item__date">20 мая</span>
-                            </div>
-                            <div class="schedule-item schedule-items__item">
-                                <span class="schedule-item__time">17:00</span>
-                                <span class="schedule-item__date">20 мая</span>
-                            </div>
+                        <div class="uk-card-footer">
+                            <a href="../appointment/create" class="uk-button uk-button-text" data-window="true" data-window-type="bigModal">Записаться</a>
                         </div>
-                        <div class="t-a_c mt-10">
-                            <a href="" class="font_type_11">Все свободное время</a>
-                        </div>
-                        <div class="button button_color_red button_width_270 mt-10">Записаться</div>
                     </div>
                 </div>
-
             </div>
-        </div>
+            <div id="map" ref="map" style="width: 100%; height: 600px;"></div>
+        </v-app>
     </div>
 </div>
 
@@ -161,7 +181,8 @@
                 attributes: {
                     specializationId: null,
                     serviceId: null,
-                    cityId: null
+                    cityId: null,
+                    date: null
                 },
             },
             methods: {
@@ -169,6 +190,10 @@
                     this.locationQueryParamsPush();
 
                     this.loadData();
+                },
+                onReset() {
+                    this.clearAttributes();
+                    this.onSubmit();
                 },
 
                 loadCommonData() {
@@ -181,7 +206,7 @@
                                 "}"
                         }))
                             .done(({data}) => {
-                                if (data.specializations) this.specializations = data.specializations;
+                                if (data.specializations) this.specializations = Array.from(data.specializations);
                                 if (data.services) this.services = data.services;
                                 if (data.cities) this.cities = data.cities;
 
@@ -199,35 +224,42 @@
                         service: this.attributes.serviceId
                     })
                         .done(data => {
+                            this.executors = [];
+                            this.showMapCity();
+                            map.removeExecutors();
+
                             if (data.items) {
                                 this.executors = data.items;
 
-                                this.showMapCity();
-                                map.removeExecutors();
-                                data.items.forEach(item => {
-                                    if (item.latitude && item.longitude) map.addExecutor(item);
-                                });
+                                if (data.items){
+                                    data.items.forEach(item => {
+                                        if (item.latitude && item.longitude) map.addExecutor(item);
+                                    });
+                                }
                             }
                         });
                 },
 
                 loadAttributesFromQueryParams() {
-                    let params = new URLSearchParams(document.location.search);
-
-                    if (params.get('view_type') === VIEW_TYPE_MAP) this.viewTypeMap();
-                    else if (params.get('view_type') === VIEW_TYPE_CATALOG) this.viewTypeCatalog();
+                    let params = new URLSearchParams(document.location.search),
+                        viewType = params.get('view_type');
 
                     this.attributes.specializationId = params.get('specialization_id');
                     this.attributes.serviceId = params.get('service_id');
                     this.attributes.cityId = params.get('city_id');
+                    this.attributes.date = params.get('date');
+
+                    if (viewType === VIEW_TYPE_MAP) this.viewTypeMap();
+                    else if (viewType === VIEW_TYPE_CATALOG) this.viewTypeCatalog();
                 },
                 locationQueryParamsPush() {
                     let params = new URLSearchParams(document.location.search);
 
-                    if (this.attributes.specializationId) params.set('specialization_id', this.attributes.specializationId);
-                    if (this.attributes.serviceId) params.set('service_id', this.attributes.serviceId);
-                    if (this.attributes.cityId) params.set('city_id', this.attributes.cityId);
                     params.set('view_type', this.viewType);
+                    params.set('specialization_id', this.attributes.specializationId || '');
+                    params.set('service_id', this.attributes.serviceId || '');
+                    params.set('city_id', this.attributes.cityId || '');
+                    params.set('date', this.attributes.date || '');
 
                     let baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
 
@@ -254,10 +286,11 @@
                     this.$refs.catalog.style.display = 'none';
                 },
                 defaultViewType() {
-                    this.viewTypeMap();
+                    this.viewTypeCatalog();
                 },
                 setViewType(type) {
                     this.viewType = type;
+                    this.locationQueryParamsPush();
                 },
 
                 showMapCity() {
@@ -282,6 +315,12 @@
                     let str = executor.isSalon ? 'salon-view' : 'user-view';
 
                     return './' + str + '?id=' + executor.id;
+                },
+                clearAttributes() {
+                    this.attributes.specializationId = null;
+                    this.attributes.serviceId = null;
+                    this.attributes.cityId = null;
+                    this.attributes.date = null;
                 }
             },
         });
@@ -345,7 +384,7 @@
             buttonAppointment.setAttribute('class', 'uk-button uk-button-small uk-button-link uk-float-right');
             buttonAppointment.setAttribute('href', '../appointment/create');
             buttonAppointment.setAttribute('data-window', 'true');
-            buttonAppointment.setAttribute('data-window-type', 'normalModal');
+            buttonAppointment.setAttribute('data-window-type', 'bigModal');
             buttonAppointment.innerText = 'Записаться';
             // buttonAppointment.addEventListener('click', () => {
             //     console.log(executor);

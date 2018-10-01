@@ -1,7 +1,8 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
-    csso = require('gulp-csso');
+    csso = require('gulp-csso'),
+    gzip = require('gulp-gzip');
 
 gulp.task('js', function () {
     return gulp.src([
@@ -9,6 +10,7 @@ gulp.task('js', function () {
     ])
     //.pipe(uglify())
         .pipe(concat('script.min.js'))
+        .pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
 });
 
@@ -18,6 +20,7 @@ gulp.task('css', function () {
     ])
         .pipe(csso())
         .pipe(concat('style.min.css'))
+        .pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
 });
 
@@ -30,10 +33,12 @@ gulp.task('jsVendor', function() {
         './src/vendors/slick/*.js',
         './src/vendors/uikit/js/*.js',
         './src/vendors/vue/*.js',
+        './src/vendors/vuetify/*.js',
         './src/vendors/leaflet/js/*.js',
     ])
         //.pipe(uglify())
         .pipe(concat('vendor.min.js'))
+        .pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
 });
 
@@ -44,6 +49,7 @@ gulp.task('cssVendor', function () {
     ])
         .pipe(csso())
         .pipe(concat('vendor.min.css'))
+        .pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
 });
 
