@@ -18,29 +18,32 @@ use yii\captcha\Captcha;
 
                         <?php $form = ActiveForm::begin(); ?>
 
-                        <?= $form->field($model, 'type')->hiddenInput(['value' => 1,
-                            'id' => 'dafsdfdfdssda'])->label(false); ?>
+                        <?= $form->field($model, 'type')->hiddenInput([
+                            'value' => \site\models\User::TYPE_CLIENT,
+                            'id' => 'type-user',
+                        ])->label(false); ?>
 
                         <div class="input-box">
                             <div class="input-box__wrap">
                                 <?= $form->field($model, 'phone')->textInput([
                                     'autofocus' => true,
-                                    'id' => 'dafsdfsfffda'
+                                    'id' => 'phone-user',
                                 ])->label('Введите ваш телефон'); ?>
                             </div>
                         </div>
 
                         <div class="input-box mt-20">
                             <div class="input-box__wrap">
-                                    <?= $form->field($model, 'password')->passwordInput([
-                                        'id' => 'dafsdfsda'])->label('Введите пароль'); ?>
+                                <?= $form->field($model, 'password')->passwordInput([
+                                    'id' => 'password-user',
+                                ])->label('Введите пароль'); ?>
                             </div>
                         </div>
 
                         <?= $form->field($model, 'verifyCode')->widget(Captcha::class, [
                             'captchaAction' => '/auth/captcha',
                             'template' => '{image}<br>{input}',
-                        ]); ?>
+                        ])->label(false); ?>
 
                         <div class="mt-35 between-15 uk-text-center">
                             <?= Html::submitButton('Регистрация', [
@@ -65,7 +68,9 @@ use yii\captcha\Captcha;
 
                         <?php $form = ActiveForm::begin(); ?>
 
-                        <?= $form->field($model, 'type')->hiddenInput(['value' => 2]); ?>
+                        <?= $form->field($model, 'type')->hiddenInput([
+                            'value' => \site\models\User::TYPE_MASTER
+                        ])->label(false); ?>
 
                         <div class="input-box">
                             <div class="input-box__wrap">
@@ -77,7 +82,7 @@ use yii\captcha\Captcha;
 
                         <div class="input-box mt-20">
                             <div class="input-box__wrap">
-                                <?= $form->field($model, 'password')->passwordInput([])->label('Введите пароль'); ?>
+                                <?= $form->field($model, 'password')->passwordInput()->label('Введите пароль'); ?>
                             </div>
                         </div>
 
@@ -87,7 +92,7 @@ use yii\captcha\Captcha;
                             'options' => [
                                 'id' => 'registrationform-verifycode-master'
                             ]
-                        ]); ?>
+                        ])->label(false); ?>
 
                         <div class="mt-35 between-15 uk-text-center">
                             <?= Html::submitButton('Регистрация', [
