@@ -28,6 +28,12 @@
 .mt-20 {
     margin-top: 20px;
 }
+.mt-15 {
+    margin-top: 15px;
+}
+.mt-10 {
+    margin-top: 10px;
+}
 .mt-5 {
     margin-top: 5px;
 }
@@ -36,12 +42,19 @@
     margin-top: 15px;
     margin-bottom: 15px;
 }
+.mtb-40 {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
 
 .mb-15 {
     margin-bottom: 15px;
 }
+.mb-20 {
+    margin-bottom: 20px;
+}
 .mb-30 {
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 .mb-40 {
     margin-bottom: 40px;
@@ -51,6 +64,10 @@
 }
 .mb-80 {
     margin-bottom: 80px;
+}
+
+.ml-15 {
+    margin-left: 15px;
 }
 
 
@@ -63,13 +80,18 @@
     padding: 40px;
 }
 
+.pb-100 {
+    padding-bottom: 100px;
+}
+
 .ptb-30 {
     padding-top: 30px;
     padding-bottom: 30px;
 }
 
-.pb-100 {
-    padding-bottom: 100px;
+.plr-40 {
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 
@@ -83,6 +105,15 @@
 .between-20 > *:nth-child(n+2) {
     margin-left: 20px;
 }
+.between-25 > *:nth-child(n+2) {
+    margin-left: 25px;
+}
+
+
+
+.betwixt-20 > *:nth-child(n+2) {
+    margin-top: 20px;
+}
 
 
 
@@ -94,8 +125,9 @@
 }
 .font_Gilroy-17-800-000000 {
     color: #000;
-    font-size: 17px;
+    font-size: 13.6px;
     font-weight: 800;
+    text-decoration: none;
     font-family: Gilroy, sans-serif;
 }
 .font_Gilroy-18-800-000000 {
@@ -128,6 +160,72 @@ a[class*="font_"]:hover {
     font-size: 12.8px;
     font-family: Gilroy, sans-serif;
 }
+.font_type_5 {
+    color: #C0C7D4;
+    font-weight: 900;
+    line-height: 16px;
+    font-size: 13.6px;
+    text-transform: uppercase;
+    font-family: Gilroy, sans-serif;
+}
+.font_type_6 {
+    color: #00AEF4;
+    cursor: pointer;
+    font-weight: 800;
+    line-height: 17px;
+    font-size: 13.6px;
+    text-decoration: underline;
+    font-family: Gilroy, sans-serif;
+}
+.font_type_6:hover {
+    text-decoration: none;
+}
+.font_type_7 {
+    color: #000;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 28px;
+    font-family: Roboto, sans-serif;
+}
+.font_type_8 {
+    color: #000;
+    font-size: 16.8px;
+    font-weight: 800;
+    line-height: 19.2px;
+    font-family: Roboto, sans-serif;
+}
+.font_type_9 {
+    color: #000;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 24px;
+    font-family: Roboto, sans-serif;
+}
+.font_type_10 {
+    color: #000;
+    font-weight: 900;
+    font-size: 14.4px;
+    font-family: Gilroy, sans-serif;
+}
+.font_type_11 {
+    color: #000;
+    font-size: 13.6px;
+    font-weight: 800;
+    font-family: Gilroy, sans-serif;
+}
+.font_type_12 {
+    color: #000;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 24px;
+    font-family: Roboto, sans-serif;
+}
+.font_type_13 {
+    color: #000;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: Gilroy, sans-serif;
+}
 
 
 
@@ -140,12 +238,26 @@ a[class*="font_"]:hover {
 .bg_color_f8 {
     background-color: #F8F8F8;
 }
+.bg_color_e4eff9 {
+    background-color: #E4EFF9;
+}
+.bg_color_fffcfe {
+    background-color: #FFFCFE;
+}
 
 
 
-.j-c_s-b {
+.j-c_s-b, .j-c_c, .a-i_c {
     display: flex;
+}
+.j-c_s-b {
     justify-content: space-between;
+}
+.j-c_c {
+    justify-content: center;
+}
+.a-i_c {
+    align-items: center;
 }
 .t-a_c {
     text-align: center;

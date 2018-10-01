@@ -48,6 +48,7 @@ class AuthService extends ModelService
             $user->password = md5($model->password);
             $user->account_id = $account->id;
             $user->type = $model->type;
+            $user->refresh_token = \Yii::$app->security->generateRandomString();
 
             $transaction = Yii::$app->db->beginTransaction();
             try {
@@ -61,6 +62,7 @@ class AuthService extends ModelService
                 return true;
             } catch (Exception $exception) {
                 $transaction->rollBack();
+
                 throw $exception;
             }
         }

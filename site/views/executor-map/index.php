@@ -63,32 +63,62 @@
         <div id="map" ref="map" style="width: 100%; height: 600px;"></div>
         <div ref="catalog">
             <div v-for="item in executors">
-                <div class="uk-card uk-card-default uk-width-auto uk-margin-top">
-                    <div class="uk-card-header">
-                        <div class="uk-grid uk-grid-small uk-flex-middle">
-                            <div class="uk-width-auto">
-                                <img class="uk-border-circle" width="60" height="60"
-                                     src="http://mycs.net.au/wp-content/uploads/2016/03/person-icon-flat.png">
-                            </div>
-                            <div class="uk-width-expand">
+                <div class="performers-select__item">
+                    <div class="performers-select__performer">
+                        <div class="performer">
+                            <div class="performer__img"
+                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
+                            <div class="performer__info">
+                                <div class="label-status label-status_bg_black label-status_fz_14">Profi</div>
                                 <a :href="getLinkViewExecutor(item)" data-ajax-content="true">
-                                    <h3 class="uk-card-title uk-margin-remove-bottom">{{item.name}}</h3>
+                                    <div class="performer__name">{{item.name}}</div>
                                 </a>
-                                <p class="uk-text-meta uk-margin-remove-top">
-                                    <span class="uk-label uk-label-success">+{{item.like}}</span>
-                                    <span class="uk-label uk-label-danger">-{{item.dislike}}</span>
-                                </p>
+                                <div class="performer__profession">Парикмахер, Стилист по прическам</div>
+                                <div class="performer__profession">{{item.address}}</div>
+                                <div class="performer__extra">
+                                    <div class="stars">
+                                        <div class="fas fa-star stars__star stars__star_active"></div>
+                                        <div class="fas fa-star stars__star stars__star_active"></div>
+                                        <div class="fas fa-star stars__star stars__star_active"></div>
+                                        <div class="fas fa-star stars__star stars__star_active"></div>
+                                        <div class="fas fa-star stars__star stars__star_active"></div>
+                                    </div>
+                                    <div class="vote">
+                                        <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
+                                        <span class="vote__digits">
+                                        <span class="vote__digit vote__digit_color_green">+{{item.like}}</span>
+                                        <span class="vote__digit vote__digit_color_red">-{{item.dislike}}</span>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bill" v-for="item in services">
+                            <div class="bill__row">
+                                <div class="bill__name">{{item.name}}</div>
+                                <div class="bill__cost">{{item.price}} руб.</div>
                             </div>
                         </div>
                     </div>
-                    <div class="uk-card-body">
-                        <p>{{item.address}}</p>
-                        <p v-for="item in services">{{item.name}} - {{item.price}} руб.</p>
-                    </div>
-                    <div class="uk-card-footer">
-                        <a href="#" class="uk-button uk-button-text">Записаться</a>
+                    <div class="performers-select__schedule">
+                        <div class="font_type_3 t-a_c">Ближайшее время:</div>
+                        <div class="schedule-items mt-10">
+                            <div class="schedule-item schedule-items__item">
+                                <span class="schedule-item__time">17:00</span>
+                                <span class="schedule-item__date">20 мая</span>
+                            </div>
+                            <div class="schedule-item schedule-items__item">
+                                <span class="schedule-item__time">17:00</span>
+                                <span class="schedule-item__date">20 мая</span>
+                            </div>
+                        </div>
+                        <div class="t-a_c mt-10">
+                            <a href="" class="font_type_11">Все свободное время</a>
+                        </div>
+                        <div class="button button_color_red button_width_270 mt-10">Записаться</div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

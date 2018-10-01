@@ -1,7 +1,7 @@
 .header__wrap {
     display: flex;
-    margin-top: 60px;
-    margin-bottom: 60px;
+    padding-top: 60px;
+    padding-bottom: 60px;
     align-items: center;
     justify-content: space-between;
 }
@@ -39,6 +39,9 @@
 }
 .footer {
     margin-top: 80px;
+    background-color: #fff;
+}
+.footer__wrap {
     padding: 96px 0 128px;
     border-top: 1px solid #CECECE;
 }
@@ -148,4 +151,201 @@
 .content-column__column_side {
     width: 360px;
     margin-left: 16px;
+}
+.type-switcher_in_register {
+    width: 470px;
+}
+.window.fancybox-content.window_type_entry {
+    padding: 0;
+    background-color: #E4EFF9;
+}
+.entry-info {
+    display: flex;
+    align-items: stretch;
+}
+.entry-info__entry, .entry-info__services {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 35px 25px 40px;
+    justify-content: space-between;
+}
+.entry-info__entry {
+    width: 270px;
+    border-radius: 5.6px;
+    background-color: #fff;
+    -webkit-box-shadow: 0 3px 20px 0 rgba(0,0,0,0.16);
+    -moz-box-shadow: 0 3px 20px 0 rgba(0,0,0,0.16);
+    box-shadow: 0 3px 20px 0 rgba(0,0,0,0.16);
+}
+.entry-info__services {
+    width: calc(100% - 270px);
+}
+.window-title_in_entry {
+    text-align: center;
+    margin-bottom: 40px;
+}
+.chart {
+    width: 100%;
+    height: 350px;
+    padding: 10px 40px;
+}
+
+.person-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -20px 0 0;
+}
+.person-list__item {
+    width: 50%;
+    margin: 20px 0 0;
+}
+.letter {
+    padding: 25px 25px 40px 50px;
+}
+.letter__title {
+    margin-top: 20px;
+}
+.letter__text {
+    margin-top: 10px;
+    -webkit-transition: .1s ease-in-out;
+    -moz-transition: .1s ease-in-out;
+    -o-transition: .1s ease-in-out;
+    transition: .1s ease-in-out;
+}
+.letter__text_short {
+    max-height: 65px;
+    overflow: hidden;
+}
+.letter__more:before {
+    content: 'Свернуть';
+    margin-top: 15px;
+    display: inline-block;
+    text-decoration: underline;
+}
+.letter__text_short + .letter__more:before {
+    content: 'Подробнее';
+}
+.content-blocks-in-row {
+    display: flex;
+}
+.content-blocks-in-row__block {
+    flex: 1;
+    text-align: center;
+}
+.content-blocks-in-row__block_bg_gray {
+    background-color: #F4F4F4;
+}
+.select-box_special .select-box__wrap {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+.select-box_special .select-box__label {
+    position: static;
+}
+.select-box__fake-label {
+    width: 100%;
+    display: none;
+    line-height: 1;
+    color: #C0C7D4;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 900;
+    margin-bottom: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Gilroy, sans-serif;
+}
+.select-box__label_is_selected + .select-box__fake-label {
+    order: -1;
+    display: block;
+}
+.select-box_special-disabled {
+    border: 0;
+    background-color: #f4f4f4;
+}
+.select-box_special-disabled .select-box__wrap {
+    cursor: default;
+}
+.select-box_special-disabled .select-box__fake-label, .select-box_special-disabled .select-box__label {
+    cursor: default;
+}
+.review-slide__extra {
+    display: flex;
+    margin-bottom: 30px;
+    align-items: center;
+}
+.review-slide__extra > *:nth-child(n+2) {
+    margin-left: 16px;
+}
+.review-slide__actions {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+}
+.review-slide__actions > *:nth-child(n+2) {
+    margin-left: 15px;
+}
+.reviews-page {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 0 0 -25px;
+}
+.reviews-page__item {
+    margin: 40px 0 0 25px;
+    width: calc(50% - 25px);
+}
+.performer_customer {
+    align-items: stretch;
+}
+.performer_customer .performer__info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+}
+.performer_customer .performer__name {
+    width: 100%;
+}
+.inputs_in_row {
+    display: flex;
+}
+.inputs_in_row__big {
+    flex: 2;
+}
+.inputs_in_row__smalls {
+    flex: 3;
+    margin-left: 5px;
+}
+.h1_page_performers {
+    margin: 5px 0;
+}
+.performers-select__item {
+    display: flex;
+    padding: 50px 0;
+    align-items: flex-start;
+}
+.performers-select__item:nth-child(n+2) {
+    border-top: 1px solid #E4EFF9;
+}
+.schedule-items__item:nth-child(n+2) {
+    margin-top: 10px;
+}
+.performers-select__schedule {
+    margin-left: 65px;
+}
+.performers-select__performer {
+    width: calc(100% - 300px);
+}
+.map_in_side {
+    width: 100%;
+    height: 840px;
+}
+.map_in_page {
+    width: 100%;
+    height: 410px;
 }
