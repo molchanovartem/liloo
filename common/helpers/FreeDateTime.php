@@ -53,10 +53,15 @@ class FreeDateTime
                 if ($count === 0) {
                     yield [
                         'start_time' => date('Y-m-d H:i:s', $scheduleStart),
-                        'end_time' => date('Y-m-d H:i:s', $scheduleEnd)
+                        'end_time' => date('Y-m-d H:i:s', $scheduleEnd),
                     ];
+
                     break;
-                } else if ($i > $count) break;
+                } else {
+                    if ($i > $count) {
+                        break;
+                    }
+                }
 
                 $key = key($appointments);
 
@@ -74,20 +79,27 @@ class FreeDateTime
                     if ($appointmentStart > $scheduleStart) {
                         $start = $key == 0 ? $scheduleStart : $prevAppointmentEnd;
                         $end = ($key == 0 || $appointmentStart < $scheduleEnd) ? $appointmentStart : $scheduleEnd;
+                    } else {
+                        if ($appointmentStart == $scheduleStart) {
+                            if ($appointmentEnd > $scheduleEnd) {
+                                continue;
+                            }
 
-                    } else if ($appointmentStart == $scheduleStart) {
-                        if ($appointmentEnd > $scheduleEnd) continue;
-
-                        $start = $appointmentEnd;
-                        $end = ($nextAppointment === null || $nextAppointmentStart > $scheduleEnd) ? $scheduleEnd : $nextAppointmentStart;
+                            $start = $appointmentEnd;
+                            $end = ($nextAppointment === null
+                                    || $nextAppointmentStart
+                                       > $scheduleEnd) ? $scheduleEnd : $nextAppointmentStart;
+                        }
                     }
 
                     yield [
                         'start_time' => date('Y-m-d H:i:s', $start),
-                        'end_time' => date('Y-m-d H:i:s', $end)
+                        'end_time' => date('Y-m-d H:i:s', $end),
                     ];
 
-                    if ($end == $scheduleEnd) break;
+                    if ($end == $scheduleEnd) {
+                        break;
+                    }
                 }
                 next($appointments);
             }
@@ -96,6 +108,7 @@ class FreeDateTime
 
     /**
      * @param int $minute
+     *
      * @return \Generator
      * @throws \Exception
      */
@@ -116,6 +129,7 @@ class FreeDateTime
 
     /**
      * @param $dateTime
+     *
      * @return bool
      */
     public function existTime($dateTime): bool
@@ -126,8 +140,11 @@ class FreeDateTime
             $startTime = strtotime($freeDateTime['start_time']);
             $endTime = strtotime($freeDateTime['end_time']);
 
-            if ($startTime <= $dateTime && $endTime >= $dateTime) return true;
+            if ($startTime <= $dateTime && $endTime >= $dateTime) {
+                return true;
+            }
         }
+
         return false;
     }
 }
