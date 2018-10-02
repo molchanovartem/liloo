@@ -61,13 +61,7 @@ use site\forms\FilterForm;
             </div>
 
             <div class="uk-width-1-6 uk-float-left uk-margin-left">
-                <?= $form->field($data['form'], 'time')
-                    ->dropDownList(FilterForm::getPartTime(), [
-                        'class' => 'uk-input uk-form-small',
-                        'prompt' => '  Выберите специализацию...',
-                        'id' => 'time',
-                        'multiple' => 'multiple',
-                    ]); ?>
+
             </div>
             <br><br><br>
         </div>

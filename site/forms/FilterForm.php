@@ -2,14 +2,11 @@
 
 namespace site\forms;
 
-use common\models\Appointment;
-use common\models\City;
-use common\models\CommonService;
-use common\models\MasterSchedule;
-use common\models\UserSchedule;
 use yii\base\Model;
 use common\models\Specialization;
 use yii\helpers\ArrayHelper;
+use common\models\City;
+use common\models\CommonService;
 
 /**
  * Class FilterForm
@@ -88,22 +85,5 @@ class FilterForm extends Model
         $array = City::find()->select('*')->asArray()->all();
 
         return ArrayHelper::map($array, 'id', 'name');
-    }
-
-    /**
-     * @return mixed
-     */
-    public static function getPartTime()
-    {
-        date_default_timezone_set('UTC');
-        $num = 86400 / 900;
-
-        for ($i = 1; $i <= $num; $i++) {
-            $mktime = $i * 900;
-            $time = date("H:i", $mktime);
-            $partTime[$time] = $time;
-        }
-
-        return $partTime;
     }
 }

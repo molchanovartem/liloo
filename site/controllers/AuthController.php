@@ -2,10 +2,9 @@
 
 namespace site\controllers;
 
+use Yii;
 use common\services\AuthService;
 use site\forms\LoginForm;
-use Yii;
-use yii\filters\AccessControl;
 
 /**
  * Class AuthController
@@ -34,13 +33,9 @@ class AuthController extends Controller
             'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-                'foreColor' => 0xF9AF21,
-                'maxLength' => 5,
-                'minLength' => 3,
-                'padding' => 5,
-                'offset' => 1,
                 'transparent' => true,
-                'height' => 40
+                'width' => 150,
+                'height' => 75,
             ],
         ];
     }
