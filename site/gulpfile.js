@@ -10,7 +10,7 @@ gulp.task('js', function () {
     ])
     //.pipe(uglify())
         .pipe(concat('script.min.js'))
-        .pipe(gzip())
+        //.pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
 });
 
@@ -20,7 +20,7 @@ gulp.task('css', function () {
     ])
         .pipe(csso())
         .pipe(concat('style.min.css'))
-        .pipe(gzip())
+        //.pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
 });
 
@@ -35,10 +35,11 @@ gulp.task('jsVendor', function() {
         './src/vendors/vue/*.js',
         './src/vendors/vuetify/*.js',
         './src/vendors/leaflet/js/*.js',
+        './src/vendors/momentjs/*.js',
     ])
         //.pipe(uglify())
         .pipe(concat('vendor.min.js'))
-        .pipe(gzip())
+        //.pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
 });
 
@@ -49,7 +50,7 @@ gulp.task('cssVendor', function () {
     ])
         .pipe(csso())
         .pipe(concat('vendor.min.css'))
-        .pipe(gzip())
+        //.pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
 });
 

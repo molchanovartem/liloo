@@ -17,8 +17,7 @@ class AppointmentItemBuffer extends Buffer
         if (!$this->data) {
             $items = AppointmentItem::find()
                 ->where(['in', 'appointment_id', $this->getKeys()])
-                ->byAccountId()
-                ->all();
+                ->allByCurrentAccountId();
 
             $this->data = ArrayHelper::index($items, null, 'appointment_id');
         }
