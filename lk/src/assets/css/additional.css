@@ -132,7 +132,7 @@ a[class*="font_"]:hover {
 
 
 .bg_image_header-main {
-    background-image: url(../images/bg_header-page-main.jpg);
+    background-image: url(./images/bg_header-page-main.jpg);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

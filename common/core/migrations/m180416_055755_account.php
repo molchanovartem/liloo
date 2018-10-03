@@ -15,7 +15,10 @@ class m180416_055755_account extends Migration
     public function safeUp()
     {
         $this->createTable($this->tableName, [
-            'id' => $this->primaryKey()
+            'id' => $this->primaryKey(),
+            'balance' => $this->decimal(18,2),
+            'assessment_like' => $this->integer()->defaultValue(0),
+            'assessment_dislike' => $this->integer()->defaultValue(0),
         ]);
     }
 

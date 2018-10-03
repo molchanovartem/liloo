@@ -164,10 +164,10 @@ class Salon extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return mixed
+     * @return \yii\db\ActiveQuery
      */
-//    public function getRecalls()
-//    {
-//        return Recall::find()->byAccountId($this->account_id)->all();
-//    }
+    public function getAccount()
+    {
+        return $this->hasOne(Account::class, ['id' => 'account_id']);
+    }
 }
