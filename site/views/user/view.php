@@ -140,7 +140,7 @@ use site\widgets\header\Header;
                     <div class="font_type_12">Мои отзывы:</div>
 
                     <div class="a-i_c">
-                        
+
 <!--                        <span class="vote__digits">-->
 <!--                            <span class="vote__digit vote__digit_color_green">-->
 <!--                                +--><?php //echo Html::encode($data['model']->account->assessment_like); ?>
