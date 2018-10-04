@@ -58,55 +58,66 @@ use site\widgets\header\Header;
 
                 </form>
 
-                <a href="" class="anchor-more mt-65">
-                    <span class="anchor-more__arrow fas fa-arrow-down"></span>
-                    <span class="anchor-more__text">Все услуги</span>
-                </a>
-
-            </div>
-
-            <div class="header__content-part">
-
-                <div class="services-slider">
-
-                    <a href="" class="service-popular">
-                        <span class="service-popular__tip">Популярная услуга в вашем городе</span>
-                        <div class="service-popular__wrap">
-                            <div class="service-popular__img"
-                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
-                            <div class="service-popular__row">
-                                <span class="service-popular__name">Ресницы, брови</span>
-                                <span class="service-popular__prices">Цены: от 300 руб.</span>
-                            </div>
-                        </div>
-                        <span class="service-popular__more">Подробнее</span>
+                    <a href="" class="anchor-more mt-65">
+                        <span class="anchor-more__arrow fas fa-arrow-down"></span>
+                        <span class="anchor-more__text">Все услуги</span>
                     </a>
 
-                    <a href="" class="service-popular">
-                        <span class="service-popular__tip">Популярная услуга в вашем городе</span>
-                        <div class="service-popular__wrap">
-                            <div class="service-popular__img"
-                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
-                            <div class="service-popular__row">
-                                <span class="service-popular__name">Ресницы, брови</span>
-                                <span class="service-popular__prices">Цены: от 300 руб.</span>
-                            </div>
-                        </div>
-                        <span class="service-popular__more">Подробнее</span>
-                    </a>
+                </div>
 
-                    <a href="" class="service-popular">
-                        <span class="service-popular__tip">Популярная услуга в вашем городе</span>
-                        <div class="service-popular__wrap">
-                            <div class="service-popular__img"
-                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
-                            <div class="service-popular__row">
-                                <span class="service-popular__name">Ресницы, брови</span>
-                                <span class="service-popular__prices">Цены: от 300 руб.</span>
-                            </div>
+                <div class="header__content-part">
+
+                    <div uk-slideshow="animation: slide">
+
+                        <div class="uk-position-relative uk-visible-toggle uk-light uk-background-default uk-padding-small uk-border-rounded">
+
+                            <ul class="uk-slideshow-items">
+                                <li>
+                                    <span class="service-popular__tip">Популярная услуга в вашем городе</span>
+                                    <div class="service-popular__wrap">
+                                        <div class="service-popular__img"
+                                             style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
+                                        <div class="service-popular__row">
+                                            <span class="service-popular__name">Ресницы, брови</span>
+                                            <span class="service-popular__prices">Цены: от 300 руб.</span>
+                                        </div>
+                                    </div>
+                                    <span class="service-popular__more">Подробнее</span>
+                                </li>
+                                <li>
+                                    <span class="service-popular__tip">Популярная услуга в вашем городе</span>
+                                    <div class="service-popular__wrap">
+                                        <div class="service-popular__img"
+                                             style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
+                                        <div class="service-popular__row">
+                                            <span class="service-popular__name">Ресницы, брови</span>
+                                            <span class="service-popular__prices">Цены: от 300 руб.</span>
+                                        </div>
+                                    </div>
+                                    <span class="service-popular__more">Подробнее</span>
+                                </li>
+                                <li>
+                                    <span class="service-popular__tip">Популярная услуга в вашем городе</span>
+                                    <div class="service-popular__wrap">
+                                        <div class="service-popular__img"
+                                             style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
+                                        <div class="service-popular__row">
+                                            <span class="service-popular__name">Ресницы, брови</span>
+                                            <span class="service-popular__prices">Цены: от 300 руб.</span>
+                                        </div>
+                                    </div>
+                                    <span class="service-popular__more">Подробнее</span>
+                                </li>
+                            </ul>
+
+                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#"
+                               uk-slidenav-previous uk-slideshow-item="previous"></a>
+                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#"
+                               uk-slidenav-next uk-slideshow-item="next"></a>
+
                         </div>
-                        <span class="service-popular__more">Подробнее</span>
-                    </a>
+
+                        <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
 
                 </div>
 
@@ -139,7 +150,9 @@ use site\widgets\header\Header;
         </div>
     </div>
 
-    <div class="j-c_s-b mt-80 mb-60">
+<div class="content-width">
+
+    <div class="j-c_s-b mt-120">
 
         <div class="h2">О нас говорят</div>
 
@@ -155,101 +168,157 @@ use site\widgets\header\Header;
 
     <div class="reviews-slider">
 
-        <div class="review-slide">
-            <div class="review-slide__content">
-                <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка свободного
-                    времени, много работы, куча дел. На сегодняшний день, что касается посещения салонов красоты и
-                    записи в салон, команда сервиса записи YOUR NAME придумала отличную возможность записываться в салон
-                    в удобное для
-                </div>
-                <a href="" class="review-slide__more">Читать полностью</a>
-            </div>
-            <div class="review-slide__author">
-                <div class="review-slide__author-img"
-                     style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
-                <div class="review-slide__author-info">
-                    <div class="review-slide__author-name">Мария Семечкина</div>
-                    <div class="review-slide__author-profession">Стилист</div>
+        <div class="uk-position-relative uk-visible-toggle" uk-slider>
+            <div class="uk-clearfix ">
+                <div class="uk-float-right">
+                    <a class="uk-position-small" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                    <a class="uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
                 </div>
             </div>
-        </div>
+            <ul class="uk-slider-items uk-child-width-1-2 uk-child-width-1-3@m uk-grid">
+                <li>
+                    <div class="review-slide">
+                        <div class="review-slide__content">
+                            <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка
+                                свободного времени, много работы, куча дел. На сегодняшний день, что касается посещения
+                                салонов красоты и записи в салон, команда сервиса записи YOUR NAME придумала отличную
+                                возможность записываться в салон в удобное для
+                            </div>
+                            <a href="" class="review-slide__more">Читать полностью</a>
+                        </div>
+                        <div class="review-slide__author">
+                            <div class="review-slide__author-img"
+                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                            <div class="review-slide__author-info">
+                                <div class="review-slide__author-name">Мария Семечкина</div>
+                                <div class="review-slide__author-profession">Стилист</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="review-slide">
+                        <div class="review-slide__content">
+                            <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка
+                                свободного времени, много работы, куча дел. На сегодняшний день, что касается посещения
+                                салонов красоты и записи в салон, команда сервиса записи YOUR NAME придумала отличную
+                                возможность записываться в салон в удобное для
+                            </div>
+                            <a href="" class="review-slide__more">Читать полностью</a>
+                        </div>
+                        <div class="review-slide__author">
+                            <div class="review-slide__author-img"
+                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                            <div class="review-slide__author-info">
+                                <div class="review-slide__author-name">Мария Семечкина</div>
+                                <div class="review-slide__author-profession">Стилист</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="review-slide">
+                        <div class="review-slide__content">
+                            <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка
+                                свободного времени, много работы, куча дел. На сегодняшний день, что касается посещения
+                                салонов красоты и записи в салон, команда сервиса записи YOUR NAME придумала отличную
+                                возможность записываться в салон в удобное для
+                            </div>
+                            <a href="" class="review-slide__more">Читать полностью</a>
+                        </div>
+                        <div class="review-slide__author">
+                            <div class="review-slide__author-img"
+                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                            <div class="review-slide__author-info">
+                                <div class="review-slide__author-name">Мария Семечкина</div>
+                                <div class="review-slide__author-profession">Стилист</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="review-slide">
+                        <div class="review-slide__content">
+                            <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка
+                                свободного времени, много работы, куча дел. На сегодняшний день, что касается посещения
+                                салонов красоты и записи в салон, команда сервиса записи YOUR NAME придумала отличную
+                                возможность записываться в салон в удобное для
+                            </div>
+                            <a href="" class="review-slide__more">Читать полностью</a>
+                        </div>
+                        <div class="review-slide__author">
+                            <div class="review-slide__author-img"
+                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                            <div class="review-slide__author-info">
+                                <div class="review-slide__author-name">Мария Семечкина</div>
+                                <div class="review-slide__author-profession">Стилист</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="review-slide">
+                        <div class="review-slide__content">
+                            <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка
+                                свободного времени, много работы, куча дел. На сегодняшний день, что касается посещения
+                                салонов красоты и записи в салон, команда сервиса записи YOUR NAME придумала отличную
+                                возможность записываться в салон в удобное для
+                            </div>
+                            <a href="" class="review-slide__more">Читать полностью</a>
+                        </div>
+                        <div class="review-slide__author">
+                            <div class="review-slide__author-img"
+                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                            <div class="review-slide__author-info">
+                                <div class="review-slide__author-name">Мария Семечкина</div>
+                                <div class="review-slide__author-profession">Стилист</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="review-slide">
+                        <div class="review-slide__content">
+                            <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка
+                                свободного времени, много работы, куча дел. На сегодняшний день, что касается посещения
+                                салонов красоты и записи в салон, команда сервиса записи YOUR NAME придумала отличную
+                                возможность записываться в салон в удобное для
+                            </div>
+                            <a href="" class="review-slide__more">Читать полностью</a>
+                        </div>
+                        <div class="review-slide__author">
+                            <div class="review-slide__author-img"
+                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                            <div class="review-slide__author-info">
+                                <div class="review-slide__author-name">Мария Семечкина</div>
+                                <div class="review-slide__author-profession">Стилист</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="review-slide">
+                        <div class="review-slide__content">
+                            <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка
+                                свободного времени, много работы, куча дел. На сегодняшний день, что касается посещения
+                                салонов красоты и записи в салон, команда сервиса записи YOUR NAME придумала отличную
+                                возможность записываться в салон в удобное для
+                            </div>
+                            <a href="" class="review-slide__more">Читать полностью</a>
+                        </div>
+                        <div class="review-slide__author">
+                            <div class="review-slide__author-img"
+                                 style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                            <div class="review-slide__author-info">
+                                <div class="review-slide__author-name">Мария Семечкина</div>
+                                <div class="review-slide__author-profession">Стилист</div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
 
-        <div class="review-slide">
-            <div class="review-slide__content">
-                <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка свободного
-                    времени, много работы, куча дел. На сегодняшний день, что касается посещения салонов красоты и
-                    записи в салон, команда сервиса записи YOUR NAME придумала отличную возможность записываться в салон
-                    в удобное для
-                </div>
-                <a href="" class="review-slide__more">Читать полностью</a>
-            </div>
-            <div class="review-slide__author">
-                <div class="review-slide__author-img"
-                     style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
-                <div class="review-slide__author-info">
-                    <div class="review-slide__author-name">Мария Семечкина</div>
-                    <div class="review-slide__author-profession">Стилист</div>
-                </div>
-            </div>
         </div>
-
-        <div class="review-slide">
-            <div class="review-slide__content">
-                <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка свободного
-                    времени, много работы, куча дел. На сегодняшний день, что касается посещения салонов красоты и
-                    записи в салон, команда сервиса записи YOUR NAME придумала отличную возможность записываться в салон
-                    в удобное для
-                </div>
-                <a href="" class="review-slide__more">Читать полностью</a>
-            </div>
-            <div class="review-slide__author">
-                <div class="review-slide__author-img"
-                     style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
-                <div class="review-slide__author-info">
-                    <div class="review-slide__author-name">Мария Семечкина</div>
-                    <div class="review-slide__author-profession">Стилист</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="review-slide">
-            <div class="review-slide__content">
-                <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка свободного
-                    времени, много работы, куча дел. На сегодняшний день, что касается посещения салонов красоты и
-                    записи в салон, команда сервиса записи YOUR NAME придумала отличную возможность записываться в салон
-                    в удобное для
-                </div>
-                <a href="" class="review-slide__more">Читать полностью</a>
-            </div>
-            <div class="review-slide__author">
-                <div class="review-slide__author-img"
-                     style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
-                <div class="review-slide__author-info">
-                    <div class="review-slide__author-name">Мария Семечкина</div>
-                    <div class="review-slide__author-profession">Стилист</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="review-slide">
-            <div class="review-slide__content">
-                <div class="review-slide__text">Все мы знаем, как протекает жизнь в мегаполисе: нехватка свободного
-                    времени, много работы, куча дел. На сегодняшний день, что касается посещения салонов красоты и
-                    записи в салон, команда сервиса записи YOUR NAME придумала отличную возможность записываться в салон
-                    в удобное для
-                </div>
-                <a href="" class="review-slide__more">Читать полностью</a>
-            </div>
-            <div class="review-slide__author">
-                <div class="review-slide__author-img"
-                     style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
-                <div class="review-slide__author-info">
-                    <div class="review-slide__author-name">Мария Семечкина</div>
-                    <div class="review-slide__author-profession">Стилист</div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
     <div class="mt-80">

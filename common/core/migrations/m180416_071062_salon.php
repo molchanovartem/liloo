@@ -24,6 +24,7 @@ class m180416_071062_salon extends Migration
             'name' => $this->string()->notNull(),
             'description' => $this->string(1000),
             'address' => $this->string(),
+            'description' => $this->text(),
             'phone' => $this->string(15),
             'latitude' => $this->decimal(9,6),
             'longitude' => $this->decimal(9,6),

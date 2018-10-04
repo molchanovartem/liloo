@@ -45,4 +45,12 @@ class Account extends \yii\db\ActiveRecord
     {
         return new Query(get_called_class());
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecalls()
+    {
+        return $this->hasMany(Recall::class, ['account_id' => 'id']);
+    }
 }

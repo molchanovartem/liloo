@@ -8,6 +8,7 @@ use common\models\Salon;
 use common\models\SalonService;
 use common\models\SalonSpecialization;
 use common\models\Service;
+use common\models\Specialization;
 use common\models\User;
 use common\models\UserProfile;
 use common\models\UserSchedule;
@@ -20,6 +21,8 @@ use site\forms\FilterForm;
  */
 class ExecutorService extends \api\services\site\ExecutorService
 {
+    private $specializationService = [];
+
     public function index()
     {
         $form = new FilterForm();
@@ -117,8 +120,9 @@ class ExecutorService extends \api\services\site\ExecutorService
                 ->with(['profile'])
                 ->where(['id' => $id])
                 ->one()) == null) throw new \Exception('Not find any user');
+        $specialization = $this->getSpecializationServiceByAccountId($model->account_id);
 
-        $this->setData(['model' => $model]);
+        $this->setData(['model' => $model, 'specialization' => $specialization]);
     }
 
     /**
@@ -132,8 +136,9 @@ class ExecutorService extends \api\services\site\ExecutorService
                 ->with(['masters'])
                 ->where(['id' => $id])
                 ->one()) == null) throw new \Exception('Not find any salon');
+        $specialization = $this->getSpecializationServiceByAccountId($model->account_id);
 
-        $this->setData(['model' => $model]);
+        $this->setData(['model' => $model, 'specialization' => $specialization]);
     }
 
     /**
@@ -176,5 +181,45 @@ class ExecutorService extends \api\services\site\ExecutorService
         $accountId = Salon::find()->select('account_id')->where(['id' => $salonId])->one()['account_id'];
 
         return Recall::find()->where(['account_id' => $accountId])->andWhere(['assessment' => $assessment])->count();
+    }
+
+    /**
+     * @param $accountId
+     * @return array
+     */
+    public function getSpecializationServiceByAccountId($accountId)
+    {
+        if (!$this->specializationService) {
+            $specializations = Specialization::find()
+                ->alias('sp')
+                ->leftJoin(Service::tableName() . ' serv', 'serv.specialization_id = sp.id')
+                ->where(['serv.account_id' => $accountId])
+                ->all();
+            $this->specializationService = [];
+
+            foreach ($specializations as $specialization) {
+                $specializationService[] = [
+                    'name' => $specialization['name'],
+                    'service' => $this->getServiceBySpecializationId($specialization['id'], $accountId),
+                ];
+            }
+        }
+
+        return $specializationService ?? null;
+    }
+
+    /**
+     * @param int $specializationId
+     * @param int $accountId
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public function getServiceBySpecializationId(int $specializationId, int $accountId)
+    {
+        return Service::find()
+            ->select(['name', 'price', 'specialization_id'])
+            ->where(['specialization_id' => $specializationId])
+            ->andWhere(['account_id' => $accountId])
+            ->asArray()
+            ->all();
     }
 }

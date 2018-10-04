@@ -37,10 +37,17 @@
 .mt-5 {
     margin-top: 5px;
 }
+.mt--300 {
+    margin-top: -300px;
+}
 
 .mtb-15 {
     margin-top: 15px;
     margin-bottom: 15px;
+}
+.mtb-25 {
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 .mtb-40 {
     margin-top: 40px;
@@ -52,6 +59,9 @@
 }
 .mb-20 {
     margin-bottom: 20px;
+}
+.mb-25 {
+    margin-bottom: 25px;
 }
 .mb-30 {
     margin-bottom: 30px;
@@ -83,6 +93,9 @@
 .pb-100 {
     padding-bottom: 100px;
 }
+.pb-300 {
+    padding-bottom: 300px;
+}
 
 .ptb-30 {
     padding-top: 30px;
@@ -107,6 +120,9 @@
 }
 .between-25 > *:nth-child(n+2) {
     margin-left: 25px;
+}
+.between-60 > *:nth-child(n+2) {
+    margin-left: 60px;
 }
 
 
@@ -225,6 +241,12 @@ a[class*="font_"]:hover {
     font-size: 11px;
     font-weight: 600;
     font-family: Gilroy, sans-serif;
+}
+.font_type_14 {
+    color: #FE4375;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Roboto, sans-serif;
 }
 
 

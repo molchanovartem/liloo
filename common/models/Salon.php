@@ -39,7 +39,6 @@ class Salon extends \yii\db\ActiveRecord
             [['name', 'address'], 'string', 'max' => 255],
             ['description', 'string', 'max' => 1000],
             ['status', 'in', 'range' => array_keys(self::getStatusList())],
-            ['description', 'string'],
             ['phone', 'string', 'max' => 15]
         ];
     }
@@ -162,5 +161,13 @@ class Salon extends \yii\db\ActiveRecord
     {
         return $this->hasMany(MasterSchedule::class, ['master_id' => 'master_id'])
             ->viaTable('{{%salon_master}}', ['salon_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAccount()
+    {
+        return $this->hasOne(Account::class, ['id' => 'account_id']);
     }
 }
