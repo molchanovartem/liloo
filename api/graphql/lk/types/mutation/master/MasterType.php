@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\master;
 
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
-use api\services\MasterService;
+use api\services\lk\MasterService;
 
 /**
  * Class MasterType
@@ -20,7 +20,7 @@ class MasterType implements MutationFieldsTypeInterface
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
         $entityRegistry = $typeRegistry->getEntityRegistry();
-        $inputRegistry = $typeRegistry->getMutationInputRegistry();
+        $inputRegistry = $typeRegistry->getMutationRegistry();
 
         return [
             'masterCreate' => [

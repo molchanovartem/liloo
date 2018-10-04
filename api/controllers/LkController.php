@@ -3,11 +3,11 @@
 namespace api\controllers;
 
 use yii\filters\auth\HttpBearerAuth;
-use api\graphql\lk\registry\MutationInputTypeRegistry;
+use api\graphql\lk\MutationTypeRegistry;
 use api\graphql\lk\types\MutationType;
 use api\graphql\lk\types\QueryType;
 use api\graphql\TypeRegistry;
-use api\graphql\lk\registry\EntityTypeRegistry;
+use api\graphql\lk\EntityTypeRegistry;
 
 /**
  * Class lkController
@@ -23,7 +23,7 @@ class LkController extends GraphqlController
     {
         $this->typeRegistry = new TypeRegistry(
             EntityTypeRegistry::class,
-            MutationInputTypeRegistry::class,
+            MutationTypeRegistry::class,
             QueryType::class,
             MutationType::class
         );

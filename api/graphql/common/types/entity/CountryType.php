@@ -2,38 +2,17 @@
 
 namespace api\graphql\common\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
+use common\models\Country;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
-use common\models\Country;
 
 /**
  * Class CountryType
  *
  * @package api\graphql\common\types\entity
  */
-class CountryType extends ObjectType implements QueryTypeInterface
+class CountryType extends \api\graphql\base\types\entity\CountryType implements QueryTypeInterface
 {
-    /**
-     * CountryType constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        parent::__construct([
-            'fields' => function () use ($typeRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'name' => $typeRegistry->string(),
-                    'currency_code' => $typeRegistry->int(),
-                    'currency_string_code' => $typeRegistry->string(),
-                    'phone_code' => $typeRegistry->int()
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array

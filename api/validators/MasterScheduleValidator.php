@@ -3,7 +3,7 @@
 namespace api\validators;
 
 use DateTime;
-use api\models\MasterSchedule;
+use api\models\lk\MasterSchedule;
 
 /**
  * Class MasterScheduleValidator

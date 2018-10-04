@@ -2,7 +2,7 @@
 
 namespace api\graphql\lk\types\mutation\convenience;
 
-use api\services\ConvenienceService;
+use api\services\lk\ConvenienceService;
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
 
@@ -19,7 +19,7 @@ class ConvenienceType implements MutationFieldsTypeInterface
      */
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
-        $inputType = $typeRegistry->getMutationInputRegistry();
+        $inputType = $typeRegistry->getMutationRegistry();
         $entityType = $typeRegistry->getEntityRegistry();
 
         return [

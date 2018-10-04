@@ -2,39 +2,17 @@
 
 namespace api\graphql\common\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
+use common\models\Service;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
-use api\models\Service;
 
 /**
  * Class CommonServiceType
  *
  * @package api\graphql\common\types\entity
  */
-class CommonServiceType extends ObjectType implements QueryTypeInterface
+class CommonServiceType extends \api\graphql\base\types\entity\CommonServiceType implements QueryTypeInterface
 {
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        $config = [
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'account_id' => $typeRegistry->id(),
-                    'parent_id' => $typeRegistry->id(),
-                    'specialization_id' => $typeRegistry->id(),
-                    'name' => $typeRegistry->string(),
-                    'price' => $typeRegistry->string(),
-                    'duration' => $typeRegistry->int(),
-                ];
-            }
-        ];
-
-        parent::__construct($config);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -45,7 +23,7 @@ class CommonServiceType extends ObjectType implements QueryTypeInterface
 
         return [
             'services' => [
-                'type' => $typeRegistry->listOff($entityRegistry->service()),
+                'type' => $typeRegistry->listOff($entityRegistry->commonService()),
                 'description' => 'Коллекция базовых услуг',
                 'args' => [
                     'parent_id' => [
@@ -70,7 +48,7 @@ class CommonServiceType extends ObjectType implements QueryTypeInterface
                 }
             ],
             'service' => [
-                'type' => $entityRegistry->service(),
+                'type' => $entityRegistry->commonService(),
                 'args' => [
                     'id' => [
                         'type' => $typeRegistry->nonNull($typeRegistry->id())
@@ -82,6 +60,4 @@ class CommonServiceType extends ObjectType implements QueryTypeInterface
             ],
         ];
     }
-
-
 }

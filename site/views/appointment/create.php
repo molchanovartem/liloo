@@ -10,10 +10,30 @@
                             </v-btn>
                         </div>
                         <div class="uk-width-expend uk-text-center">
-
-                            <v-date-picker v-model="attributes.date" no-title scrollable/>
-
+                            <i class="mdi mdi-calendar" @click="onShowCalendar"></i>
                             {{cpdDate}}
+                            <v-menu
+                                    ref="menu"
+                                    v-model="calendarShow"
+                                    :close-on-content-click="false"
+                                    :position-x="calendarPositionX"
+                                    :position-y="calendarPositionY"
+                                    lazy
+                                    transition="scale-transition"
+                                    offset-y
+                                    full-width
+                                    min-width="290px"
+                            >
+                                <v-date-picker
+                                        v-model="attributes.date"
+                                        prev-icon="mdi-chevron-left"
+                                        next-icon="mdi-chevron-right"
+                                        no-title
+                                        scrollable
+                                >
+                                    <v-btn flat color="primary" @click="onCloseCalendar">OK</v-btn>
+                                </v-date-picker>
+                            </v-menu>
                         </div>
                         <div class="uk-width-auto">
                             <v-btn icon @click="onNextDate()">
@@ -44,8 +64,17 @@
                     </div>
 
                     <ul class="uk-list uk-list-divider">
-                        <li v-for="serviceId in attributes.servicesId">{{getServiceName(serviceId)}}</li>
+                        <li v-for="service in getServicesByServicesId()">
+                            {{service.name}} <div class="uk-float-right">{{service.price | currency}}</div>
+                        </li>
                     </ul>
+
+                    <div>
+                        <ul>
+                            <li>Сумма: {{sum | currency}}</li>
+                            <li>Длительность: {{duration | duration}}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
@@ -108,9 +137,12 @@
                     services: [],
                     masters: [],
                     serviceSelected: null,
-                    monthList: [
-                        'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-                    ],
+                    calendarShow: null,
+                    calendarPositionX: null,
+                    calendarPositionY: null,
+
+                    sum: 0,
+                    duration: 0,
 
                     attributes: {
                         userId: null,
@@ -128,7 +160,7 @@
                             date = new Date(this.attributes.date);
                         }
                         return date.toLocaleString("ru", {day: 'numeric', month: 'long'});
-                    }
+                    },
                 },
                 methods: {
                     loadServices() {
@@ -152,9 +184,32 @@
                             ];
                         }
                     },
+                    onShowCalendar(event) {
+                        event.preventDefault();
+
+                        this.calendarShow = false;
+                        this.calendarPositionX = event.clientX;
+                        this.calendarPositionY = event.clientY;
+
+                        this.$nextTick(() => {
+                            this.calendarShow = true
+                        })
+                    },
+                    onCloseCalendar() {
+                        this.calendarShow = false;
+                    },
 
                     onAdd() {
-                        if (this.serviceSelected) this.attributes.servicesId.push(this.serviceSelected);
+                        if (this.serviceSelected) {
+                            this.attributes.servicesId.push(this.serviceSelected);
+
+                            let service = this.getService(this.serviceSelected);
+
+                            if (service) {
+                                this.sum += +service.price;
+                                this.duration += +service.duration;
+                            }
+                        }
                     },
                     onPrevDate() {
                         let date = new Date(this.attributes.date);
@@ -191,15 +246,33 @@
                     getServicesIdIndex(service) {
                         return this.attributes.servicesId.indexOf(+service.id);
                     },
-                    getServicesIndex(serviceId) {
-                        return this.services.findIndex(item => {
+                    getService(serviceId) {
+                        return this.services.find(item => {
                             return +item.id === +serviceId;
                         });
                     },
-                    getServiceName(serviceId) {
-                        return this.services[this.getServicesIndex(serviceId)].name || null;
+                    getServicesByServicesId() {
+                        return this.attributes.servicesId.map(serviceId => {
+                            return this.getService(serviceId);
+                        });
                     }
                 },
+                filters: {
+                    currency(value) {
+                        return new Intl.NumberFormat('ru-RU', {style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2}).format(value);
+                    },
+                    duration(minute) {
+                        var seconds = minute * 60,
+                            minutes = Math.floor(seconds / 60 % 60),
+                            hours = Math.floor(seconds / 3600 % 24);
+
+                        function format(value) {
+                            return value < 10 ? '0' + value : value;
+                        }
+
+                        return format(hours) + ':' + format(minutes);
+                    },
+                }
             })
         })();
     }

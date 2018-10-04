@@ -2,50 +2,17 @@
 
 namespace api\graphql\lk\types\entity;
 
-use api\models\TariffPrice;
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
-use api\models\AccountTariff;
-use api\models\Tariff;
+use api\models\lk\AccountTariff;
 
 /**
  * Class AccountTariffType
  *
  * @package api\graphql\lk\types\entity
  */
-class AccountTariffType extends ObjectType implements QueryTypeInterface
+class AccountTariffType implements QueryTypeInterface
 {
-    /**
-     * TariffType constructor.
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        parent::__construct([
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'tariff_id' => $typeRegistry->id(),
-                    'price_id' => $typeRegistry->id(),
-                    'start_date' => $typeRegistry->string(),
-                    'end_date' => $typeRegistry->string(),
-                    'tariff' => [
-                        'type' => $entityRegistry->tariff(),
-                        /*
-                         * @todo buffer
-                         */
-                        'resolve' => function (AccountTariff $accountTariff, $args, $context, $info) {
-                            return Tariff::find()->oneById($accountTariff->tariff_id);
-                        }
-                    ],
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array

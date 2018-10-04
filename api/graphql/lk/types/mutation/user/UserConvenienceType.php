@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\user;
 
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
-use api\services\UserService;
+use api\services\lk\UserService;
 
 /**
  * Class UserConvenienceType

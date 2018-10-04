@@ -200,12 +200,12 @@
             submit() {
                 if (this.$refs.form.validate()) {
                     if (this.type === 'create') {
-                        this.add().then((data) => {
-                            this.$emit(EVENT_SAVE, data);
+                        this.add().then(({data}) => {
+                            if (data.salonCreate) this.$emit(EVENT_SAVE, data);
                         });
                     } else {
-                        this.update().then((data) => {
-                            this.$emit(EVENT_SAVE, data);
+                        this.update().then(({data}) => {
+                            if (data.salonUpdate) this.$emit(EVENT_SAVE, data);
                         });
                     }
                 }

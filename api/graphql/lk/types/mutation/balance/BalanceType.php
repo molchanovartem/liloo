@@ -3,7 +3,7 @@
 namespace api\graphql\lk\types\mutation\balance;
 
 use Yii;
-use api\models\BalanceJournal;
+use common\models\BalanceJournal;
 use api\graphql\MutationFieldsTypeInterface;
 use api\graphql\TypeRegistry;
 

@@ -3,8 +3,8 @@
 namespace api\controllers;
 
 use api\graphql\TypeRegistry;
-use api\graphql\common\registry\EntityTypeRegistry;
-use api\graphql\common\registry\MutationInputTypeRegistry;
+use api\graphql\common\EntityTypeRegistry;
+use api\graphql\common\MutationTypeRegistry;
 use api\graphql\common\types\QueryType;
 use api\graphql\common\types\MutationType;
 
@@ -22,7 +22,7 @@ class CommonController extends GraphqlController
     {
         $this->typeRegistry = new TypeRegistry(
             EntityTypeRegistry::class,
-            MutationInputTypeRegistry::class,
+            MutationTypeRegistry::class,
             QueryType::class,
             MutationType::class
         );

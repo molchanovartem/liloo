@@ -2,61 +2,17 @@
 
 namespace api\graphql\lk\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
-use api\models\TariffPrice;
+use common\models\Tariff;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
-use api\models\Tariff;
 
 /**
  * Class TariffType
  *
  * @package api\graphql\lk\types\entity
  */
-class TariffType extends ObjectType implements QueryTypeInterface
+class TariffType implements QueryTypeInterface
 {
-    /**
-     * TariffType constructor.
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        parent::__construct([
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'name' => $typeRegistry->string(),
-                    'description' => $typeRegistry->string(),
-                    'type' => $typeRegistry->int(),
-                    'status' => $typeRegistry->int(),
-                    'quantity' => $typeRegistry->int(),
-                    'price' => [
-                        'type' => $entityRegistry->tariffPrice(),
-                        'args' => [
-                            'id' => $typeRegistry->nonNull($typeRegistry->id())
-                        ],
-                        'resolve' => function (Tariff $model, $args) {
-                            return TariffPrice::find()
-                                ->byId($args['id'])
-                                ->byTariffId($model->id)
-                                ->one();
-                        }
-                    ],
-                    'prices' => [
-                        'type' => $typeRegistry->listOff($entityRegistry->tariffPrice()),
-                        'resolve' => function (Tariff $tariff, $args, $context, $info) {
-                            return TariffPrice::find()
-                                ->where(['tariff_id' => $tariff->id])
-                                ->all();
-                        }
-                    ],
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -76,7 +32,9 @@ class TariffType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Tariff::find()->allByParams($args['status']);
+                    return Tariff::find()
+                        ->andFilterWhere(['status' => $args['status']])
+                        ->all();
                 }
             ],
             'tariff' => [
@@ -88,7 +46,7 @@ class TariffType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Tariff::find()->byId($args['id'])->one();
+                    return Tariff::find()->oneById($args['id']);
                 }
             ],
         ];

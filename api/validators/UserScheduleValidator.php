@@ -3,7 +3,7 @@
 namespace api\validators;
 
 use DateTime;
-use api\models\UserSchedule;
+use common\models\UserSchedule;
 
 /**
  * Class UserScheduleValidator

@@ -2,7 +2,6 @@
 
 namespace api\graphql\lk\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
 use common\models\TariffPrice;
@@ -12,27 +11,8 @@ use common\models\TariffPrice;
  *
  * @package api\graphql\lk\types\entity
  */
-class TariffPriceType extends ObjectType implements QueryTypeInterface
+class TariffPriceType implements QueryTypeInterface
 {
-    /**
-     * QueryTypeInterface constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        parent::__construct([
-            'fields' => function () use ($typeRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'tariff_id' => $typeRegistry->id(),
-                    'price' => $typeRegistry->float(),
-                    'day' => $typeRegistry->int(),
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array

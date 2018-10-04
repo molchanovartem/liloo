@@ -4,20 +4,48 @@ namespace api\graphql\site\types\entity;
 
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
-use api\models\Appointment;
-use api\models\MasterSchedule;
-use api\models\Service;
-use api\models\UserSchedule;
 use common\helpers\FreeDateTime;
-use common\services\ExecutorService;
+use api\services\site\ExecutorService;
+use GraphQL\Type\Definition\InputObjectField;
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Type\Definition\Type;
 
 /**
  * Class FreeTimeType
  *
  * @package api\graphql\site\types\entity
  */
-class FreeTimeType implements QueryTypeInterface
+class FreeTimeType extends ObjectType implements QueryTypeInterface
 {
+    /**
+     * QueryTypeInterface constructor.
+     *
+     * @param TypeRegistry $typeRegistry
+     */
+    public function __construct(TypeRegistry $typeRegistry)
+    {
+        $entityRegistry = $typeRegistry->getEntityRegistry();
+
+        $config = [
+            'fields' => function () use ($typeRegistry, $entityRegistry) {
+                return [
+                    'user_id' => $typeRegistry->id(),
+                    'master_id' => $typeRegistry->id(),
+                    'intervals' => $typeRegistry->listOff($entityRegistry->freeTimeInterval()),
+                    'periods' => [
+                        'type' => $typeRegistry->listOff($typeRegistry->string()),
+                        'args' => [
+                            'minute' => $typeRegistry->nonNull($typeRegistry->int())
+                        ]
+                    ],
+                ];
+            }
+        ];
+
+        parent::__construct($config);
+    }
+
     /**
      * @param TypeRegistry $typeRegistry
      *
@@ -25,24 +53,22 @@ class FreeTimeType implements QueryTypeInterface
      */
     public static function getFieldsQueryType(TypeRegistry $typeRegistry): array
     {
+        $entityRegistry = $typeRegistry->getEntityRegistry();
+
         return [
-            'freeTime' => [
-                'type' => $typeRegistry->listOff($typeRegistry->string()),
+            'freeTimes' => [
+                'type' => $typeRegistry->listOff($entityRegistry->freeTime()),
                 'description' => 'Свободное время',
                 'args' => [
-                    'user_id' => [
-                        'type' => $typeRegistry->id(),
+                    'users_id' => [
+                        'type' => $typeRegistry->listOff($typeRegistry->id()),
                         'defaultValue' => null,
                     ],
-                    'salon_id' => [
-                        'type' => $typeRegistry->id(),
+                    'masters_id' => [
+                        'type' => $typeRegistry->listOff($typeRegistry->id()),
                         'defaultValue' => null,
                     ],
-                    'master_id' => [
-                        'type' => $typeRegistry->id(),
-                        'defaultValue' => null,
-                    ],
-                    'service_id' => [
+                    'services_id' => [
                         'type' => $typeRegistry->listOff($typeRegistry->id()),
                         'defaultValue' => [],
                     ],
@@ -51,85 +77,50 @@ class FreeTimeType implements QueryTypeInterface
                     ],
                 ],
                 'resolve' => function ($root, $args) {
-                    $isSalon = empty($args['user_id']);
+                    return [
+                        'items' => [['start_time' => '123123', 'end_time' => '21321 21 3']],
+                        'periods' => ['2018-10-234', '324 234 234 ']
+                    ];
 
-                    $appointments = $isSalon ?
-                        Appointment::find()
-                                   ->select(['start_date', 'end_date'])
-                                   ->where(['master_id' => $args['master_id']])
-                                   ->all() :
-                        Appointment::find()
-                                   ->select(['start_date', 'end_date'])
-                                   ->where(['user_id' => $args['user_id']])
-                                   ->all();
-
-                    $schedule = $isSalon ?
-                        MasterSchedule::find()
-                                      ->where(['master_id' => $args['master_id']])
-                                      ->andWhere(['date(end_date)' => $args['date']])
-                                      ->orderBy('end_date')
-                                      ->asArray()
-                                      ->all() :
-                        UserSchedule::find()
-                                    ->where(['user_id' => $args['user_id']])
-                                    ->andWhere(['date(end_date)' => $args['date']])
-                                    ->orderBy('end_date')
-                                    ->asArray()
-                                    ->all();
-
-                    $time = (new FreeDateTime($schedule, $appointments))->getPeriods(15);
-                    $partTime = [];
-
-                    foreach ($time as $t) {
-                        $partTime[] = $t;
-                    }
-
-                    if (empty($args['service_id'])) {
-                        return $partTime;
-                    }
-
-                    $serviceTime = Service::find()->where(['in', 'id', $args['service_id']])->sum('duration');
+//            $isSalon = empty($args['user_id']);
+//                    $executorId = $isSalon ? $args['master_id'] : $args['user_id'];
+//                    $executorService = new ExecutorService();
+//
+//                    if (empty($args['services_id'])) {
+//                        return $executorService->getFreeTime($isSalon, $executorId, $args['date']);
+//                    }
+//                    $serviceTime = $executorService->getServiceSumTimeInSecond($args['services_id']);
+//
+//                    return $executorService->getFreeWithServiceTime($isSalon, $executorId, $args['date'], $serviceTime);
+                },
+            ],
+            'freeTime' => [
+                'type' => $entityRegistry->freeTime(),
+                'description' => 'Свободное время',
+                'args' => [
+                    'user_id' => [
+                        'type' => $typeRegistry->id(),
+                        'defaultValue' => null,
+                    ],
+                    'master_id' => [
+                        'type' => $typeRegistry->id(),
+                        'defaultValue' => null,
+                    ],
+                    'services_id' => [
+                        'type' => $typeRegistry->listOff($typeRegistry->id()),
+                        'defaultValue' => [],
+                    ],
+                    'date' => [
+                        'type' => $typeRegistry->date(),
+                    ],
+                ],
+                'resolve' => function ($root, $args) {
+                    return [
+                        'items' => [['start_time' => '123123', 'end_time' => '21321 21 3']],
+                        'periods' => ['2018-10-234', '324 234 234 ']
+                    ];
 
                 },
-//                'resolve' => function ($root, $args) {
-//                    $executorService = new ExecutorService();
-//                    $serviceSumTime = $executorService->getServiceSumTime($args['service_id']);
-//                    $currentTime = sprintf('%02d:%02d', floor($serviceSumTime / 60), $serviceSumTime % 60);
-//                    $isSalon = empty($args['user_id']);
-//                    $time = $isSalon ?
-//                        $executorService->getCurrentTimeSalonMaster($args['master_id'], $args['date']) :
-//                        $executorService->getCurrentTime($args['user_id'], $args['date']);
-//
-//                    if (empty($args['service_id'])) {
-//                        return $time;
-//                    }
-//
-//                    $appointments = $isSalon ?
-//                        Appointment::find()
-//                                   ->select(['start_date', 'end_date'])
-//                                   ->where(['master_id' => $args['master_id']])
-//                                   ->all() :
-//                        Appointment::find()
-//                                   ->select(['start_date', 'end_date'])
-//                                   ->where(['user_id' => $args['user_id']])
-//                                   ->all();
-//
-//                    $schedule = $isSalon ?
-//                        MasterSchedule::find()
-//                                      ->where(['master_id' => $args['master_id']])
-//                                      ->andWhere(['date(end_date)' => $args['date']])
-//                                      ->orderBy('end_date')
-//                                      ->asArray()
-//                                      ->all() :
-//                        UserSchedule::find()
-//                                    ->where(['user_id' => $args['user_id']])
-//                                    ->andWhere(['date(end_date)' => $args['date']])
-//                                    ->orderBy('end_date')
-//                                    ->asArray()
-//                                    ->all();
-//
-//                    return $executorService->getFreePartTime($time, $appointments, $currentTime, $args['date'], $schedule);
-//                },
             ],
         ];
     }

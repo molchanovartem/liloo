@@ -4,9 +4,9 @@ namespace api\services\common;
 
 use GraphQL\Error\Error;
 use Yii;
+use common\models\User;
 use api\services\Service;
-use api\exceptions\AttributeValidationError;
-use api\models\User;
+use api\graphql\errors\AttributeValidationError;
 
 /**
  * Class UserService

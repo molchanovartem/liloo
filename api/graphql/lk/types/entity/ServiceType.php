@@ -2,48 +2,17 @@
 
 namespace api\graphql\lk\types\entity;
 
-use api\queries\ServiceQuery;
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
-use api\models\Service;
+use api\models\lk\Service;
 
 /**
  * Class ServiceType
  *
  * @package api\graphql\lk\types\entity
  */
-class ServiceType extends ObjectType implements QueryTypeInterface
+class ServiceType implements QueryTypeInterface
 {
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        $config = [
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'account_id' => $typeRegistry->id(),
-                    'parent_id' => $typeRegistry->id(),
-                    'specialization_id' => $typeRegistry->id(),
-                    'name' => $typeRegistry->string(),
-                    'price' => $typeRegistry->string(),
-                    'duration' => $typeRegistry->int(),
-                    'specialization' => [
-                        'type' => $entityRegistry->specialization(),
-                        'resolve' => function (Service $service, $args, $context, $info) {
-                    /*
-                     * @todo
-                     */
-                        }
-                    ]
-                ];
-            }
-        ];
-
-        parent::__construct($config);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -71,7 +40,12 @@ class ServiceType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Service::find()->allServiceByParams($args['parent_id'], $args['limit'], $args['offset']);
+                    return Service::find()
+                        ->where(['parent_id' => $args['parent_id']])
+                        ->isService()
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
+                        ->allByCurrentAccountId();
                 }
             ],
             'service' => [
@@ -82,7 +56,9 @@ class ServiceType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Service::find()->oneById($args['id']);
+                    return Service::find()
+                        ->byCurrentAccountId()
+                        ->oneById($args['id']);
                 }
             ],
         ];

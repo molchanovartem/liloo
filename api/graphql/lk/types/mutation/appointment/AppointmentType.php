@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\appointment;
 
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
-use api\services\AppointmentService;
+use api\services\lk\AppointmentService;
 
 /**
  * Class AppointmentType
@@ -20,7 +20,7 @@ class AppointmentType implements MutationFieldsTypeInterface
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
         $entityRegistry = $typeRegistry->getEntityRegistry();
-        $inputRegistry = $typeRegistry->getMutationInputRegistry();
+        $inputRegistry = $typeRegistry->getMutationRegistry();
 
         return [
             'appointmentCreate' => [

@@ -37,6 +37,7 @@ class Salon extends \yii\db\ActiveRecord
             [['account_id', 'user_id', 'country_id', 'city_id', 'status', 'phone'], 'integer'],
             [['latitude', 'longitude'], 'number'],
             [['name', 'address'], 'string', 'max' => 255],
+            ['description', 'string', 'max' => 1000],
             ['status', 'in', 'range' => array_keys(self::getStatusList())],
             ['description', 'string'],
             ['phone', 'string', 'max' => 15]
@@ -162,12 +163,4 @@ class Salon extends \yii\db\ActiveRecord
         return $this->hasMany(MasterSchedule::class, ['master_id' => 'master_id'])
             ->viaTable('{{%salon_master}}', ['salon_id' => 'id']);
     }
-
-    /**
-     * @return mixed
-     */
-//    public function getRecalls()
-//    {
-//        return Recall::find()->byAccountId($this->account_id)->all();
-//    }
 }

@@ -18,7 +18,6 @@ use api\graphql\lk\types\mutation\salon\SalonSpecializationType;
 use api\graphql\lk\types\mutation\salon\SalonType;
 use api\graphql\lk\types\mutation\salon\service\SalonServiceType;
 use api\graphql\lk\types\mutation\service\ServiceType;
-use api\graphql\lk\types\mutation\serviceGroup\ServiceGroupType;
 use api\graphql\lk\types\mutation\tariff\TariffType;
 use api\graphql\lk\types\mutation\user\UserConvenienceType;
 use api\graphql\lk\types\mutation\specialization\SpecializationType;
@@ -54,7 +53,7 @@ class MutationType extends ObjectType
                     UserScheduleType::getMutationFieldsType($typeRegistry),
                     ClientType::getMutationFieldsType($typeRegistry),
                     ServiceType::getMutationFieldsType($typeRegistry),
-                    ServiceGroupType::getMutationFieldsType($typeRegistry),
+                    //ServiceGroupType::getMutationFieldsType($typeRegistry),
                     AppointmentType::getMutationFieldsType($typeRegistry),
                     //AppointmentItemType::getMutationFieldsType($typeRegistry),
                     SalonType::getMutationFieldsType($typeRegistry),

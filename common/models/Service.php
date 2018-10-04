@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\queries\ServiceQuery;
 use Yii;
 use common\queries\Query;
 
@@ -58,9 +59,8 @@ class Service extends \yii\db\ActiveRecord
         return self::modelAttributeLabels();
     }
 
-
     public static function find()
     {
-        return new Query(get_called_class());
+        return new ServiceQuery(get_called_class());
     }
 }

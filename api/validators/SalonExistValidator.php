@@ -4,7 +4,7 @@ namespace api\validators;
 
 use Yii;
 use yii\validators\Validator;
-use api\models\Salon;
+use api\models\lk\Salon;
 
 /**
  * Class SalonExistValidator

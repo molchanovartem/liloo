@@ -4,7 +4,7 @@ namespace api\validators;
 
 use Yii;
 use yii\validators\Validator;
-use api\models\Master;
+use api\models\lk\Master;
 
 /**
  * Class MasterExistValidator

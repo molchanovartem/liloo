@@ -2,39 +2,17 @@
 
 namespace api\graphql\lk\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
-use api\models\MasterSchedule;
+use api\models\lk\MasterSchedule;
 
 /**
  * Class MasterScheduleType
  *
  * @package api\graphql\lk\types\entity
  */
-class MasterScheduleType extends ObjectType implements QueryTypeInterface
+class MasterScheduleType implements QueryTypeInterface
 {
-    /**
-     * MasterScheduleType constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        parent::__construct([
-            'fields' => function () use ($typeRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'master_id' => $typeRegistry->id(),
-                    'salon_id' => $typeRegistry->id(),
-                    'type' => $typeRegistry->int(),
-                    'start_date' => $typeRegistry->dateTime(),
-                    'end_date' => $typeRegistry->dateTime()
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -67,7 +45,10 @@ class MasterScheduleType extends ObjectType implements QueryTypeInterface
                     ],
                 ],
                 'resolve' => function ($root, $args) {
-                    return MasterSchedule::find()->allByParams($args['start_date'], $args['end_date'], $args['salon_id'], $args['master_id']);
+                    return MasterSchedule::find()
+                        ->where(['between', 'start_date', $args['start_date'], $args['end_date']])
+                        ->andFilterWhere(['salon_id' => $args['salon_id'], 'master_id' => $args['master_id']])
+                        ->allByCurrentAccountId();
                 }
             ],
             'masterSchedule' => [
@@ -76,7 +57,9 @@ class MasterScheduleType extends ObjectType implements QueryTypeInterface
                     'id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args) {
-                    return MasterSchedule::find()->oneById($args['id']);
+                    return MasterSchedule::find()
+                        ->byCurrentAccountId()
+                        ->oneById($args['id']);
                 }
             ]
         ];

@@ -3,10 +3,9 @@
 namespace api\graphql\lk\types\entity;
 
 use Yii;
-use GraphQL\Type\Definition\ObjectType;
-use api\models\AccountTariff;
+use common\models\Account;
+use api\models\lk\AccountTariff;
 use api\graphql\TypeRegistry;
-use api\models\Account;
 use api\graphql\QueryTypeInterface;
 
 /**
@@ -14,24 +13,17 @@ use api\graphql\QueryTypeInterface;
  *
  * @package api\graphql\lk\types\entity
  */
-class AccountType extends ObjectType implements QueryTypeInterface
+class AccountType extends \api\graphql\base\types\entity\AccountType implements QueryTypeInterface
 {
-    public function __construct(TypeRegistry $typeRegistry)
+    public function fields(): array
     {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        parent::__construct([
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'balance' => $typeRegistry->decimal(),
-                    'tariffs' => [
-                        'type' => $typeRegistry->listOff($entityRegistry->accountTariff()),
-                        'resolve' => function ($root) {
-                            return AccountTariff::find()->allByCurrentAccountId();
-                        }
-                    ]
-                ];
-            }
+        return array_merge(parent::fields(), [
+            'tariffs' => [
+                'type' => $this->typeRegistry->listOff($this->entityRegistry->accountTariff()),
+                'resolve' => function ($root) {
+                    return AccountTariff::find()->allByCurrentAccountId();
+                }
+            ]
         ]);
     }
 
@@ -52,5 +44,4 @@ class AccountType extends ObjectType implements QueryTypeInterface
             ]
         ];
     }
-
 }

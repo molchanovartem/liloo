@@ -18,7 +18,7 @@ use site\forms\FilterForm;
  * Class ExecutorService
  * @package site\services
  */
-class ExecutorService extends \common\services\ExecutorService
+class ExecutorService extends \api\services\site\ExecutorService
 {
     public function index()
     {
@@ -69,7 +69,7 @@ class ExecutorService extends \common\services\ExecutorService
                 'like' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_LIKE),
                 'dislike' => $this->getUserAssessment($user['id'], Recall::ASSESSMENT_DISLIKE),
                 'isSalon' => false,
-                'validTime' => $this->getValidTime($form->time, $user['id'], $form->date),
+//                'validTime' => $this->getValidTime($form->time, $user['id'], $form->date),
                 'latitude' => $user['latitude'],
                 'longitude' => $user['longitude']
             ];
@@ -86,7 +86,7 @@ class ExecutorService extends \common\services\ExecutorService
                 'like' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_LIKE),
                 'dislike' => $this->getSalonAssessment($salon['id'], Recall::ASSESSMENT_DISLIKE),
                 'isSalon' => true,
-                'validTime' => $this->getValidTimeSalon($form->time, $salon['id'], $form->date),
+//                'validTime' => $this->getValidTimeSalon($form->time, $salon['id'], $form->date),
                 'latitude' => $salon['latitude'],
                 'longitude' => $salon['longitude']
             ];

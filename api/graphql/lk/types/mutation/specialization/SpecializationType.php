@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\specialization;
 
 use api\graphql\MutationFieldsTypeInterface;
 use api\graphql\TypeRegistry;
-use api\services\SpecializationService;
+use api\services\lk\SpecializationService;
 
 /**
  * Class SpecializationType
@@ -19,7 +19,7 @@ class SpecializationType implements MutationFieldsTypeInterface
      */
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
-        $inputType = $typeRegistry->getMutationInputRegistry();
+        $inputType = $typeRegistry->getMutationRegistry();
         $entityType = $typeRegistry->getEntityRegistry();
 
         return [

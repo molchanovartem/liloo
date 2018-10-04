@@ -2,9 +2,9 @@
 
 namespace site\forms;
 
-use site\models\User;
 use Yii;
 use yii\base\Model;
+use site\models\User;
 
 /**
  * Class LoginForm

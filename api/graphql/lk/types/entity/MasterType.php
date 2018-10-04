@@ -2,39 +2,17 @@
 
 namespace api\graphql\lk\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
-use api\models\Master;
+use api\models\lk\Master;
 
 /**
  * Class MasterType
  *
  * @package api\graphql\lk\types\entity
  */
-class MasterType extends ObjectType implements QueryTypeInterface
+class MasterType implements QueryTypeInterface
 {
-    /**
-     * MasterType constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        parent::__construct([
-            'fields' => function () use ($typeRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'user_id' => $typeRegistry->id(),
-                    'surname' => $typeRegistry->string(),
-                    'name' => $typeRegistry->string(),
-                    'patronymic' => $typeRegistry->string(),
-                    'date_birth' => $typeRegistry->date()
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -58,7 +36,10 @@ class MasterType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Master::find()->allByCurrentAccountId();
+                    return Master::find()
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
+                        ->allByCurrentAccountId();
                 }
             ],
             'master' => [
@@ -70,7 +51,9 @@ class MasterType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Master::find()->oneById($args['id']);
+                    return Master::find()
+                        ->byCurrentAccountId()
+                        ->oneById($args['id']);
                 }
             ],
         ];

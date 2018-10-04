@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\salon;
 
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
-use api\services\SalonService;
+use api\services\lk\SalonService;
 
 /**
  * Class SalonSpecializationType

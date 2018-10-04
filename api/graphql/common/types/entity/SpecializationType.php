@@ -2,44 +2,17 @@
 
 namespace api\graphql\common\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
+use common\models\Specialization;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
-use api\models\Specialization;
 
 /**
  * Class SpecializationType
  *
  * @package api\graphql\common\types\entity
  */
-class SpecializationType extends ObjectType implements QueryTypeInterface
+class SpecializationType extends \api\graphql\base\types\entity\SpecializationType implements QueryTypeInterface
 {
-    /**
-     * SpecializationType constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        parent::__construct([
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'name' => [
-                        'type' => $typeRegistry->string(),
-                        'description' => 'Название'
-                    ],
-                    'description' => [
-                        'type' => $typeRegistry->string(),
-                        'description' => 'Описание'
-                    ]
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array

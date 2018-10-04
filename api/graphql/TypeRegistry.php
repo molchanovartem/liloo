@@ -3,9 +3,9 @@
 namespace api\graphql;
 
 use GraphQL\Type\Definition\Type;
-use api\graphql\types\scalar\DateTimeType;
-use api\graphql\types\scalar\DateType;
-use api\graphql\types\scalar\DecimalType;
+use api\graphql\base\types\scalar\DateTimeType;
+use api\graphql\base\types\scalar\DateType;
+use api\graphql\base\types\scalar\DecimalType;
 
 /**
  * Class TypeRegistry
@@ -25,7 +25,7 @@ class TypeRegistry
     /**
      * @var AdditionalTypeRegistry
      */
-    private $mutationInputRegistry;
+    private $mutationRegistry;
     /**
      * @var string
      */
@@ -39,19 +39,19 @@ class TypeRegistry
      * TypeRegistry constructor.
      *
      * @param $entityTypeRegistryClass
-     * @param $mutationInputTypeRegistryClass
+     * @param $mutationTypeRegistryClass
      * @param $queryTypeClass
      * @param $mutationTypeClass
      */
     public function __construct(
         $entityTypeRegistryClass,
-         $mutationInputTypeRegistryClass,
+        $mutationTypeRegistryClass,
         $queryTypeClass,
         $mutationTypeClass
     )
     {
         $this->entityRegistry = new $entityTypeRegistryClass($this);
-        $this->mutationInputRegistry = new $mutationInputTypeRegistryClass($this);
+        $this->mutationRegistry = new $mutationTypeRegistryClass($this);
         $this->queryTypeClass = $queryTypeClass;
         $this->mutationTypeClass = $mutationTypeClass;
     }
@@ -67,9 +67,9 @@ class TypeRegistry
     /**
      * @return AdditionalTypeRegistry
      */
-    public function getMutationInputRegistry()
+    public function getMutationRegistry()
     {
-        return $this->mutationInputRegistry;
+        return $this->mutationRegistry;
     }
 
     /**

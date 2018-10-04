@@ -2,10 +2,10 @@
 
 namespace api\graphql\lk\types\mutation\recall;
 
-use api\models\Recall;
+use common\models\Recall;
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
-use api\services\RecallService;
+use api\services\lk\RecallService;
 
 /**
  * Class RecallType
@@ -21,7 +21,7 @@ class RecallType implements MutationFieldsTypeInterface
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
         $entityRegistry = $typeRegistry->getEntityRegistry();
-        $inputRegistry = $typeRegistry->getMutationInputRegistry();
+        $inputRegistry = $typeRegistry->getMutationRegistry();
 
         return [
             'recallCreate' => [

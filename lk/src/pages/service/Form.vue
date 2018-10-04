@@ -118,7 +118,6 @@
                     query = {
                         query: gql`query ($id: ID!) {
                             specializations {id, name},
-                            serviceGroups {id, name, parent_id},
                             service(id: $id) {id, specialization_id, name, price, duration}
                         }`
                     };
@@ -126,7 +125,6 @@
                     query = {
                         query: gql`query {
                             specializations {id, name},
-                            serviceGroups {id, name, parent_id},
                         }`
                     };
                 }
@@ -137,7 +135,6 @@
 
                 this.$apollo.query(query).then(({data}) => {
                     this.specializations = data.specializations;
-                    this.groups = Array.from(data.serviceGroups);
 
                     if (data.service) {
                         Object.keys(data.service).map((param) => {

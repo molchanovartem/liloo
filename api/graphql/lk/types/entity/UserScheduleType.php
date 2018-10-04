@@ -2,38 +2,17 @@
 
 namespace api\graphql\lk\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
-use api\models\UserSchedule;
+use api\models\lk\UserSchedule;
 
 /**
  * Class UserScheduleType
  *
  * @package api\graphql\lk\types\entity
  */
-class UserScheduleType extends ObjectType implements QueryTypeInterface
+class UserScheduleType implements QueryTypeInterface
 {
-    /**
-     * UserScheduleType constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        parent::__construct([
-            'fields' => function () use ($typeRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'user_id' => $typeRegistry->id(),
-                    'type' => $typeRegistry->int(),
-                    'start_date' => $typeRegistry->dateTime(),
-                    'end_date' => $typeRegistry->dateTime()
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -58,7 +37,10 @@ class UserScheduleType extends ObjectType implements QueryTypeInterface
                     ],
                 ],
                 'resolve' => function ($root, $args) {
-                    return UserSchedule::find()->allByParams($args['start_date'], $args['end_date']);
+                    return UserSchedule::find()
+                        ->where(['between', 'start_date', $args['start_date'], $args['end_date']])
+                        ->byCurrentUserId()
+                        ->all();
                 }
             ],
             'userSchedule' => [
@@ -67,7 +49,9 @@ class UserScheduleType extends ObjectType implements QueryTypeInterface
                     'id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args) {
-                    return UserSchedule::find()->oneById($args['id']);
+                    return UserSchedule::find()
+                        ->byCurrentAccountId()
+                        ->oneById($args['id']);
                 }
             ]
         ];
