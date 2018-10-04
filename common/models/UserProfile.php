@@ -87,4 +87,12 @@ class UserProfile extends \yii\db\ActiveRecord
     {
         return $this->hasOne(City::class, ['id' => 'city_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCountry()
+    {
+        return $this->hasOne(Country::class, ['id' => 'country_id']);
+    }
 }

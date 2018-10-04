@@ -12,10 +12,11 @@ use common\queries\Query;
  */
 class Appointment extends ActiveRecord
 {
-    const STATUS_NEW = 1;
-    const STATUS_NOT_CONFIRMED = 2;
+    const STATUS_COMPLETED = 1;
+    const STATUS_NEW = 2;
     const STATUS_CONFIRMED = 3;
     const STATUS_CANCELED = 4;
+    const STATUS_NOT_COME = 5;
 
     /**
      * @return string
@@ -80,5 +81,23 @@ class Appointment extends ActiveRecord
     public function getClient()
     {
         return $this->hasOne(Client::class, ['id' => 'client_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAppointmentItems()
+    {
+        return $this->hasMany(AppointmentItem::class, ['appointment_id' => 'id']);
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function getSalon()
+    {
+        return $this->hasOne(Salon::class, ['id' => 'salon_id']);
     }
 }

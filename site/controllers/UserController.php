@@ -27,7 +27,7 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        $this->modelService->findUser($id);
+        $this->modelService->getUserData($id);
 
         return $this->extraRender('view', ['data' => $this->modelService->getData()]);
     }

@@ -1,7 +1,9 @@
 <?php
 
+use common\models\Appointment;
 use site\widgets\header\Header;
 use yii\helpers\Html;
+
 ?>
 <header class="header bg_color_e4eff9 pb-300">
     <div class="header__container">
@@ -91,7 +93,7 @@ use yii\helpers\Html;
                     <div class="performer__info">
                         <div class="label-status label-status_bg_gray label-status_fz_14">Обычный</div>
                         <div class="performer__name">
-                            <?php echo Html::encode($data['model']->profile->name); ?> <?php echo Html::encode($data['model']->profile->surname); ?>
+                            <?php echo Html::encode($data['model']->profile->name); ?><?php echo Html::encode($data['model']->profile->surname); ?>
                         </div>
                     </div>
                 </div>
@@ -103,27 +105,161 @@ use yii\helpers\Html;
                     <?php echo Html::encode($data['model']->profile->city->name); ?>
                 </div>
 
+                <div class="font_type_3 mt-25">
+                    <?php echo Html::encode($data['model']->profile->country->name); ?>
+                </div>
+
+                <div class="font_type_3 mt-25">
+                    <?php echo Html::encode($data['model']->profile->date_birth); ?>
+                </div>
+
+                <div class="font_type_3 mt-25">
+                    <?php echo Html::encode($data['model']->profile->phone); ?>
+                </div>
+
+            </div>
+
+            <div class="uk-card uk-card-default uk-card-body uk-width-1-1 uk-margin-top">
+                <div class="uk-position-relative uk-margin-medium">
+
+                    <ul uk-tab="" class="uk-tab">
+                        <li aria-expanded="true" class="uk-active"><a href="#">Новые</a></li>
+                        <li aria-expanded="false" class=""><a href="#">Не подтвержденные</a></li>
+                        <li aria-expanded="false" class=""><a href="#">Подтвержденные</a></li>
+                        <li aria-expanded="false" class=""><a href="#">Закрытые</a></li>
+                    </ul>
+
+                    <ul class="uk-switcher uk-margin">
+
+                        <li class="uk-active">
+                            <ul uk-accordion="multiple: true">
+                                <?php foreach ($data['appointments']['new'] as $appointment): ?>
+                                    <li>
+                                        <?php echo $appointment->salon_id ?
+                                            Html::a($appointment->salon->name , '/site/web/index.php/executor-map/salon-view?id=' . $appointment->salon_id) :
+                                            Html::a($appointment->user->profile->name . ' ' . $appointment->user->profile->surname, '/site/web/index.php/executor-map/user-view?id=' . $appointment->user_id); ?>
+
+                                        <a class="uk-accordion-title" href="#">
+                                            <?php echo $appointment->start_date; ?>
+                                        </a>
+                                        <div class="uk-accordion-content">
+                                            <table class="uk-table uk-table-hover uk-table-divider">
+                                                <thead>
+                                                <tr>
+                                                    <th>Процедура</th>
+                                                    <th>Длительность</th>
+                                                    <th>Стоимость</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php foreach ($appointment->appointmentItems as $appointmentItem): ?>
+                                                    <tr>
+                                                        <td><?php echo $appointmentItem->service_name; ?></td>
+                                                        <td><?php echo $appointmentItem->service_duration; ?></td>
+                                                        <td><?php echo $appointmentItem->service_price; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+
+                        <li class="">
+                            <ul uk-accordion="multiple: true">
+                                <?php foreach ($data['appointments']['notConfirmed'] as $appointment): ?>
+                                    <li>
+                                        <?php echo $appointment->salon_id ?
+                                            Html::a($appointment->salon->name , '/site/web/index.php/executor-map/salon-view?id=' . $appointment->salon_id) :
+                                            Html::a($appointment->user->profile->name . ' ' . $appointment->user->profile->surname, '/site/web/index.php/executor-map/user-view?id=' . $appointment->user_id); ?>
+
+                                        <a class="uk-accordion-title" href="#">
+                                            <?php echo $appointment->start_date; ?>
+                                        </a>
+                                        <div class="uk-accordion-content">
+                                            <table class="uk-table uk-table-hover uk-table-divider">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Процедура</th>
+                                                        <th>Длительность</th>
+                                                        <th>Стоимость</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php foreach ($appointment->appointmentItems as $appointmentItem): ?>
+                                                    <tr>
+                                                        <td><?php echo $appointmentItem->service_name; ?></td>
+                                                        <td><?php echo $appointmentItem->service_duration; ?></td>
+                                                        <td><?php echo $appointmentItem->service_price; ?></td>
+                                                    </tr>
+                                                <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+
+                        <li class="">
+                            <ul uk-accordion="multiple: true">
+                                <?php foreach ($data['appointments']['confirmed'] as $appointment): ?>
+                                    <li>
+                                        <a class="uk-accordion-title" href="#">
+                                            <?php echo $appointment->start_date; ?>
+                                        </a>
+                                        <div class="uk-accordion-content">
+                                            <?php foreach ($appointment->appointmentItems as $appointmentItem): ?>
+                                                <p><?php echo $appointmentItem->service_name; ?></p>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+
+                        <li class="">
+                            <ul uk-accordion="multiple: true">
+                                <?php foreach ($data['appointments']['canceled'] as $appointment): ?>
+                                    <li>
+                                        <a class="uk-accordion-title" href="#">
+                                            <?php echo $appointment->start_date; ?>
+                                        </a>
+                                        <div class="uk-accordion-content">
+                                            <?php foreach ($appointment->appointmentItems as $appointmentItem): ?>
+                                                <p><?php echo $appointmentItem->service_name; ?></p>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </li>
+
+                    </ul>
+
+                </div>
             </div>
 
             <div class="uk-position-relative uk-visible-toggle" style="max-width: 760px;" uk-slider>
                 <div class="mt-90 mb-25 j-c_s-b a-i_c">
                     <div class="font_type_12">Мои отзывы:</div>
-                        <div class="a-i_c">
-    <!--                        <span class="vote__digits">-->
-    <!--                            <span class="vote__digit vote__digit_color_green">-->
-    <!--                                +--><?php //echo Html::encode($data['model']->account->assessment_like); ?>
-    <!--                            </span>-->
-    <!--                            <span class="vote__digit vote__digit_color_red">-->
-    <!--                                ---><?php //echo Html::encode($data['model']->account->assessment_dislike); ?>
-    <!--                            </span>-->
-    <!--                        </span>-->
+                    <div class="a-i_c">
+                        <!--                        <span class="vote__digits">-->
+                        <!--                            <span class="vote__digit vote__digit_color_green">-->
+                        <!--                                +--><?php //echo Html::encode($data['model']->account->assessment_like); ?>
+                        <!--                            </span>-->
+                        <!--                            <span class="vote__digit vote__digit_color_red">-->
+                        <!--                                ---><?php //echo Html::encode($data['model']->account->assessment_dislike); ?>
+                        <!--                            </span>-->
+                        <!--                        </span>-->
 
-                        </div>
+                    </div>
                 </div>
 
             </div>
         </div>
-
 
 
     </div>

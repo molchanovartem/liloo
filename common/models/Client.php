@@ -92,4 +92,9 @@ class Client extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
+    public function getAppointments()
+    {
+        return $this->hasMany(Appointment::class, ['client_id' => 'id']);
+    }
 }

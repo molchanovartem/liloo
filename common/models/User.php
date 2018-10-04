@@ -121,4 +121,17 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Recall::class, ['user_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAppointments()
+    {
+        return $this->hasMany(Appointment::class, ['user_id' => 'id']);
+    }
+
+    public function getClients()
+    {
+        return $this->hasMany(Client::class, ['user_id' => 'id']);
+    }
 }
