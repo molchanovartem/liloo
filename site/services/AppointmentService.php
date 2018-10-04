@@ -5,6 +5,11 @@ namespace site\services;
 use site\models\Appointment;
 use common\core\service\ModelService;
 
+/**
+ * Class AppointmentService
+ *
+ * @package site\services
+ */
 class AppointmentService extends ModelService
 {
     /**

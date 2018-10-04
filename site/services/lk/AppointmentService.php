@@ -1,19 +1,21 @@
 <?php
 
-namespace site\services;
+namespace site\services\lk;
 
 use common\core\service\ModelService;
 use common\models\Appointment;
 use site\models\User;
 
 /**
- * Class UserService
- * @package site\services
+ * Class AppointmentService
+ *
+ * @package site\services\lk
  */
-class UserService extends ModelService
+class AppointmentService extends ModelService
 {
     /**
      * @param $id
+     *
      * @throws \Exception
      */
     protected function findUser($id)
@@ -27,28 +29,26 @@ class UserService extends ModelService
         $this->setData(['model' => $model]);
     }
 
+    /**
+     * @param int $id
+     */
     public function getUserData(int $id)
     {
         $this->findUser($id);
         $user = $this->getData('model');
         $new = [];
-        $notConfirmed = [];
-        $confirmed = [];
         $canceled = [];
 
         foreach ($user->clients as $client) {
             foreach ($client->appointments as $appointment) {
-                $new[] = $appointment->status == Appointment::STATUS_NEW ? $appointment : null;
-                $notConfirmed[] = $appointment->status == Appointment::STATUS_COMPLETED ? $appointment : null;
-                $confirmed[] = $appointment->status == Appointment::STATUS_CONFIRMED ? $appointment : null;
-                $canceled[] = $appointment->status == Appointment::STATUS_CANCELED ? $appointment : null;
+                $new[] = $appointment->status == Appointment::STATUS_NEW ||
+                         $appointment->status == Appointment::STATUS_CONFIRMED ? $appointment : null;
+                $canceled[] = $appointment->status == Appointment::STATUS_COMPLETED ? $appointment : null;
             }
         }
 
         $appointments = [
             'new' => array_filter($new),
-            'notConfirmed' => array_filter($notConfirmed),
-            'confirmed' => array_filter($confirmed),
             'canceled' => array_filter($canceled),
         ];
 
