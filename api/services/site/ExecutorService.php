@@ -2,18 +2,18 @@
 
 namespace api\services\site;
 
-use common\core\service\ModelService;
+use api\services\Service;
 use common\helpers\FreeDateTime;
 use common\models\Appointment;
 use common\models\MasterSchedule;
-use common\models\Service;
+use common\models\Service as ServiceModel;
 use common\models\UserSchedule;
 
 /**
  * Class ExecutorService
  * @package common\services
  */
-class ExecutorService extends ModelService
+class ExecutorService extends Service
 {
     /**
      * @param array $serviceIds
@@ -21,7 +21,7 @@ class ExecutorService extends ModelService
      */
     public function getServiceSumTimeInSecond(array $serviceIds)
     {
-        return Service::find()->where(['in', 'id', $serviceIds])->sum('duration') * 60;
+        return ServiceModel::find()->where(['in', 'id', $serviceIds])->sum('duration') * 60;
     }
 
     /**
