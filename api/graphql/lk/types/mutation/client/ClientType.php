@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\client;
 
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
-use api\services\ClientService;
+use api\services\lk\ClientService;
 
 /**
  * Class ClientType
@@ -19,7 +19,7 @@ class ClientType implements MutationFieldsTypeInterface
      */
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
-        $inputType = $typeRegistry->getMutationInputRegistry();
+        $inputType = $typeRegistry->getMutationRegistry();
         $entityType = $typeRegistry->getEntityRegistry();
 
         return [

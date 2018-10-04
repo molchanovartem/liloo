@@ -3,64 +3,45 @@
 namespace api\graphql\lk\types\entity;
 
 use GraphQL\Deferred;
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
-use api\models\Client;
-use api\models\Appointment;
-use api\models\AppointmentItem;
+use api\models\lk\Client;
+use common\models\Appointment;
+use api\models\lk\AppointmentItem;
 
 /**
  * Class AppointmentType
  *
  * @package api\graphql\lk\types\entity
  */
-class AppointmentType extends ObjectType implements QueryTypeInterface
+class AppointmentType extends \api\graphql\base\types\entity\AppointmentType implements QueryTypeInterface
 {
     /**
-     * AppointmentType constructor.
-     *
-     * @param TypeRegistry $typeRegistry
+     * @return array
      */
-    public function __construct(TypeRegistry $typeRegistry)
+    public function fields(): array
     {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
+        return array_merge(parent::fields(), [
+            'client' => [
+                'type' => $this->entityRegistry->client(),
+                'resolve' => function (Appointment $model, $args) {
+                    Client::buffer()->addKey($model->client_id);
 
-        parent::__construct([
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'account_id' => $typeRegistry->id(),
-                    'user_id' => $typeRegistry->id(),
-                    'salon_id' => $typeRegistry->id(),
-                    'master_id' => $typeRegistry->id(),
-                    'client_id' => $typeRegistry->id(),
-                    'owner_id' => $typeRegistry->id(),
-                    'status' => $typeRegistry->int(),
-                    'start_date' => $typeRegistry->dateTime(),
-                    'end_date' => $typeRegistry->dateTime(),
-                    'client' => [
-                        'type' => $entityRegistry->client(),
-                        'resolve' => function (Appointment $model, $args) {
-                            Client::buffer()->addKey($model->client_id);
+                    return new Deferred(function () use ($model, $args) {
+                        return Client::buffer()->oneById($model->client_id);
+                    });
+                }
+            ],
+            'items' => [
+                'type' => $this->typeRegistry->listOff($this->entityRegistry->appointmentItem()),
+                'resolve' => function ($model, $args, $context, $info) {
+                    AppointmentItem::buffer()->addKey($model->id);
 
-                            return new Deferred(function () use ($model, $args) {
-                                return Client::buffer()->oneById($model->client_id);
-                            });
-                        }
-                    ],
-                    'items' => [
-                        'type' => $typeRegistry->listOff($entityRegistry->appointmentItem()),
-                        'resolve' => function ($model, $args, $context, $info) {
-                            AppointmentItem::buffer()->addKey($model->id);
-
-                            return new Deferred(function () use ($model, $args) {
-                                return AppointmentItem::buffer()->allByAppointmentId($model->id);
-                            });
-                        }
-                    ]
-                ];
-            }
+                    return new Deferred(function () use ($model, $args) {
+                        return AppointmentItem::buffer()->allByAppointmentId($model->id);
+                    });
+                }
+            ]
         ]);
     }
 
@@ -101,7 +82,12 @@ class AppointmentType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args, $context, $info) {
-                    return Appointment::find()->allByParams($args['start_date'], $args['end_date'], $args['user_id'], $args['salon_id'], $args['master_id']);
+                    return Appointment::find()
+                        ->where(['between', 'start_date', $args['start_date'], $args['end_date']])
+                        ->andFilterWhere(['user_id' => $args['user_id']])
+                        ->andFilterWhere(['salon_id' => $args['salon_id']])
+                        ->andFilterWhere(['master_id' => $args['master_id']])
+                        ->allByCurrentAccountId();
                 }
             ],
             'appointment' => [
@@ -111,7 +97,9 @@ class AppointmentType extends ObjectType implements QueryTypeInterface
                     'id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args, $context, $info) {
-                    return Appointment::find()->oneById($args['id']);
+                    return Appointment::find()
+                        ->byCurrentAccountId()
+                        ->oneById($args['id']);
                 }
             ]
         ];

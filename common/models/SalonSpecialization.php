@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\queries\Query;
 use Yii;
 
 /**
@@ -38,5 +39,13 @@ class SalonSpecialization extends \yii\db\ActiveRecord
             'salon_id' => Yii::t('app', 'Salon ID'),
             'specialization_id' => Yii::t('app', 'Specialization ID'),
         ];
+    }
+
+    /**
+     * @return Query|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
     }
 }

@@ -35,6 +35,7 @@ gulp.task('jsVendor', function() {
         './src/vendors/vue/*.js',
         './src/vendors/vuetify/*.js',
         './src/vendors/leaflet/js/*.js',
+        './src/vendors/momentjs/*.js',
     ])
         //.pipe(uglify())
         .pipe(concat('vendor.min.js'))

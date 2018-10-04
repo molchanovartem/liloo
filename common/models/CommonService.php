@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\queries\Query;
 use Yii;
 
 /**
@@ -59,5 +60,13 @@ class CommonService extends \yii\db\ActiveRecord
     public function getSpecialization()
     {
         return $this->hasOne(Specialization::className(), ['id' => 'specialization_id']);
+    }
+
+    /**
+     * @return Query|\yii\db\ActiveQuery
+     */
+    public static function find()
+    {
+        return new Query(get_called_class());
     }
 }

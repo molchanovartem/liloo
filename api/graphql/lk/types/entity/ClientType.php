@@ -2,45 +2,17 @@
 
 namespace api\graphql\lk\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
-use api\models\Client;
+use api\models\lk\Client;
 
 /**
  * Class ClientType
  *
  * @package api\graphql\lk\types\entity
  */
-class ClientType extends ObjectType implements QueryTypeInterface
+class ClientType implements QueryTypeInterface
 {
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        parent::__construct($config = [
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'user_id' => $typeRegistry->id(),
-                    'country_id' => $typeRegistry->id(),
-                    'city_id' => $typeRegistry->id(),
-                    'status' => $typeRegistry->int(),
-                    'surname' => $typeRegistry->string(),
-                    'name' => $typeRegistry->string(),
-                    'patronymic' => $typeRegistry->string(),
-                    'date_birth' => $typeRegistry->date(),
-                    'phone' => $typeRegistry->string(),
-                    'address' => $typeRegistry->string(),
-                    'total_appointment' => $typeRegistry->int(),
-                    'total_failure_appointment' => $typeRegistry->int(),
-                    'total_spent_money' => $typeRegistry->decimal(),
-                    'date_last_appointment' => $typeRegistry->date()
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -64,7 +36,10 @@ class ClientType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Client::find()->allByParams($args['limit'], $args['offset']);
+                    return Client::find()
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
+                        ->allByCurrentAccountId();
                 }
             ],
             'client' => [
@@ -76,7 +51,9 @@ class ClientType extends ObjectType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Client::find()->oneById($args['id']);
+                    return Client::find()
+                        ->byCurrentAccountId()
+                        ->oneById($args['id']);
                 }
             ],
         ];

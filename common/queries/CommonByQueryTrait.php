@@ -2,6 +2,8 @@
 
 namespace common\queries;
 
+use Yii;
+
 /**
  * Trait CommonQueryTrait
  *
@@ -107,5 +109,30 @@ trait CommonByQueryTrait
     public function byPriceId(int $priceId)
     {
         return $this->andWhere(['price_id' => $priceId]);
+    }
+
+    /**
+     * @param null $alias
+     * @return mixed
+     */
+    public function byCurrentAccountId($alias = null)
+    {
+        return $this->byAccountId(Yii::$app->account->getId(), $alias);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function byCurrentUserId()
+    {
+        return $this->andWhere(['user_id' => Yii::$app->user->getId()]);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function byIdCurrentUser()
+    {
+        return $this->andWhere(['id' => Yii::$app->user->getId()]);
     }
 }

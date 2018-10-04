@@ -2,40 +2,18 @@
 
 namespace api\graphql\common\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
-use api\graphql\TypeRegistry;
-use api\graphql\QueryTypeInterface;
 use common\models\City;
+use api\graphql\QueryTypeInterface;
+use api\graphql\TypeRegistry;
 
 /**
  * Class CityType
  *
  * @package api\graphql\common\types\entity
  */
-class CityType extends ObjectType implements QueryTypeInterface
+class CityType extends \api\graphql\base\types\entity\CityType implements QueryTypeInterface
 {
-    /**
-     * CityType constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        parent::__construct([
-            'fields' => function () use ($typeRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'country_id' => $typeRegistry->id(),
-                    'name' => $typeRegistry->string(),
-                    'phone_code' => $typeRegistry->string(),
-                    'latitude' => $typeRegistry->decimal(),
-                    'longitude' => $typeRegistry->decimal()
-                ];
-            }
-        ]);
-    }
-
-    /**
+     /**
      * @param TypeRegistry $typeRegistry
      * @return array
      */

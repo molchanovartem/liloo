@@ -19,7 +19,7 @@ class UserCreateInputType extends InputObjectType
      */
     public function __construct(TypeRegistry $typeRegistry)
     {
-        $inputRegistry = $typeRegistry->getMutationInputRegistry();
+        $inputRegistry = $typeRegistry->getMutationRegistry();
 
         parent::__construct([
             'fields' => function () use ($typeRegistry, $inputRegistry) {

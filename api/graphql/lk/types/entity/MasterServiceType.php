@@ -2,37 +2,17 @@
 
 namespace api\graphql\lk\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
-use api\models\MasterService;
+use api\models\lk\MasterService;
 
 /**
  * Class MasterServiceType
  *
  * @package api\graphql\lk\types\entity
  */
-class MasterServiceType extends ObjectType implements QueryTypeInterface
+class MasterServiceType implements QueryTypeInterface
 {
-    /**
-     * MasterServiceType constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        parent::__construct([
-            'fields' => function () use ($typeRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'master_id' => $typeRegistry->id(),
-                    'service_id' => $typeRegistry->id(),
-                    'salon_id' => $typeRegistry->id()
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -49,7 +29,10 @@ class MasterServiceType extends ObjectType implements QueryTypeInterface
                     'salon_id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args) {
-                    return MasterService::find()->allByParams($args['master_id'], $args['salon_id']);
+                    return MasterService::find()
+                        ->byMasterId($args['master_id'])
+                        ->bySalonId($args['salon_id'])
+                        ->allByCurrentAccountId();
                 }
             ]
         ];

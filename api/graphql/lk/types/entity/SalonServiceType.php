@@ -2,53 +2,18 @@
 
 namespace api\graphql\lk\types\entity;
 
-use GraphQL\Deferred;
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
-use api\models\MasterService;
-use api\models\SalonService;
-use api\models\Service;
+use api\models\lk\MasterService;
+use api\models\lk\SalonService;
 
 /**
  * Class SalonServiceType
  *
  * @package api\schema\type\entity
  */
-class SalonServiceType extends ObjectType implements QueryTypeInterface
+class SalonServiceType implements QueryTypeInterface
 {
-    /**
-     * SalonServiceType constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        parent::__construct([
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'salon_id' => $typeRegistry->id(),
-                    'service_id' => $typeRegistry->id(),
-                    'service_price' => $typeRegistry->decimal(),
-                    'service_duration' => $typeRegistry->int(),
-                    'service' => [
-                        'type' => $entityRegistry->service(),
-                        'resolve' => function (SalonService $model, $args) {
-                            Service::buffer()->addKey($model->service_id);
-
-                            return new Deferred(function () use ($model, $args) {
-                                return Service::buffer()->oneServiceById($model->service_id);
-                            });
-                        }
-                    ]
-                ];
-            }
-        ]);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -64,7 +29,9 @@ class SalonServiceType extends ObjectType implements QueryTypeInterface
                     'salon_id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args) {
-                    return SalonService::find()->allBySalonId($args['salon_id']);
+                    return SalonService::find()
+                        ->bySalonId($args['salon_id'])
+                        ->allByCurrentAccountId();
                 }
             ],
             'salonService' => [
@@ -73,7 +40,9 @@ class SalonServiceType extends ObjectType implements QueryTypeInterface
                     'id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args) {
-                    return SalonService::find()->oneById($args['id']);
+                    return SalonService::find()
+                        ->byCurrentAccountId()
+                        ->oneById($args['id']);
                 }
             ],
             'salonServicesForMaster' => [

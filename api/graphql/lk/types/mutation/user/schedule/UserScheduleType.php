@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\user\schedule;
 
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
-use api\services\UserService;
+use api\services\lk\UserService;
 
 /**
  * Class UserScheduleType
@@ -15,7 +15,7 @@ class UserScheduleType implements MutationFieldsTypeInterface
 {
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
-        $inputType = $typeRegistry->getMutationInputRegistry();
+        $inputType = $typeRegistry->getMutationRegistry();
         $entityType = $typeRegistry->getEntityRegistry();
 
         return [

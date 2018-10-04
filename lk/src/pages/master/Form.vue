@@ -103,8 +103,6 @@
                 }).then(({data}) => {
                     this.specializationItems = data.specializations;
 
-                    console.log(data);
-
                     if (data.masterSpecializations) {
                         this.attributes.specializationsId = Array.from(data.masterSpecializations).map(item => {
                             return item.specialization_id;
@@ -122,13 +120,13 @@
                 if (this.$refs.form.validate()) {
                     if (this.type === 'create') {
                         this.add()
-                            .then((data) => {
-                                this.$emit(EVENT_SAVE, data);
+                            .then(({data}) => {
+                                if (data.masterCreate) this.$emit(EVENT_SAVE, data);
                             });
                     } else {
                         this.update()
-                            .then((data) => {
-                                this.$emit(EVENT_SAVE, data);
+                            .then(({data}) => {
+                                if (data.masterUpdate) this.$emit(EVENT_SAVE, data);
                             });
                     }
                 }

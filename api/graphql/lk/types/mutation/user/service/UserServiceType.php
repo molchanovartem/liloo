@@ -19,7 +19,7 @@ class UserServiceType implements MutationFieldsTypeInterface
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
         $entityRegistry = $typeRegistry->getEntityRegistry();
-        $inputRegistry = $typeRegistry->getMutationInputRegistry();
+        $inputRegistry = $typeRegistry->getMutationRegistry();
 
         return [
             'userServicesCreate' => [

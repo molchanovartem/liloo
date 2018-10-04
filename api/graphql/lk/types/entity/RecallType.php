@@ -2,53 +2,17 @@
 
 namespace api\graphql\lk\types\entity;
 
-use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 use api\graphql\QueryTypeInterface;
-use api\models\Recall;
+use api\models\lk\Recall;
 
 /**
  * Class RecallType
  *
  * @package api\graphql\lk\types\entity
  */
-class RecallType extends ObjectType implements QueryTypeInterface
+class RecallType implements QueryTypeInterface
 {
-    /**
-     * RecallType constructor.
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        $config = [
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'user_id' => $typeRegistry->id(),
-                    'appointment_id' => $typeRegistry->id(),
-                    'parent_id' => $typeRegistry->id(),
-                    'text' => $typeRegistry->string(),
-                    'assessment' => $typeRegistry->int(),
-                    'type' => $typeRegistry->int(),
-                    'create_time' => $typeRegistry->dateTime(),
-                    'response' => [
-                        'type' => $entityRegistry->recall(),
-                        'description' => 'Ответ',
-                        'resolve' => function (Recall $recall, $args, $context, $info) {
-                            return Recall::find()
-                                ->where(['parent_id' => $recall->id])
-                                ->one();
-                        }
-                    ],
-                ];
-            }
-        ];
-
-        parent::__construct($config);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array
@@ -68,7 +32,9 @@ class RecallType extends ObjectType implements QueryTypeInterface
                     ],
                 ],
                 'resolve' => function ($root, $args) {
-                    return Recall::find()->allByParams($args['appointment_id']);
+                    return Recall::find()
+                        ->byAppointmentId($args['appointment_id'])
+                        ->allByCurrentAccountId();
                 }
             ],
             'recall' => [
@@ -78,7 +44,9 @@ class RecallType extends ObjectType implements QueryTypeInterface
                     'id' => $typeRegistry->nonNull($typeRegistry->id())
                 ],
                 'resolve' => function ($root, $args) {
-                    return Recall::find()->oneById($args['id']);
+                    return Recall::find()
+                        ->byCurrentAccountId()
+                        ->oneById($args['id']);
                 }
             ],
         ];

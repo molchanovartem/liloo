@@ -37,8 +37,8 @@ class Salon extends \yii\db\ActiveRecord
             [['account_id', 'user_id', 'country_id', 'city_id', 'status', 'phone'], 'integer'],
             [['latitude', 'longitude'], 'number'],
             [['name', 'address'], 'string', 'max' => 255],
+            ['description', 'string', 'max' => 1000],
             ['status', 'in', 'range' => array_keys(self::getStatusList())],
-            ['description', 'string'],
             ['phone', 'string', 'max' => 15]
         ];
     }

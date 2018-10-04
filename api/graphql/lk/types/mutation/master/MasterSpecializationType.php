@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\master;
 
 use api\graphql\MutationFieldsTypeInterface;
 use api\graphql\TypeRegistry;
-use api\services\MasterService;
+use api\services\lk\MasterService;
 
 /**
  * Class MasterSpecializationType

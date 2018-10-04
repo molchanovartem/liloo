@@ -2,44 +2,17 @@
 
 namespace api\graphql\site\types\entity;
 
+use common\models\SalonService;
+use common\models\Service;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
-use api\models\SalonService;
-use api\models\site\Service;
-use GraphQL\Type\Definition\ObjectType;
 
 /**
  * Class ServiceType
  * @package api\graphql\site\types\entity
  */
-class ServiceType extends ObjectType implements QueryTypeInterface
+class ServiceType implements QueryTypeInterface
 {
-    /**
-     * QueryTypeInterface constructor.
-     *
-     * @param TypeRegistry $typeRegistry
-     */
-    public function __construct(TypeRegistry $typeRegistry)
-    {
-        $entityRegistry = $typeRegistry->getEntityRegistry();
-
-        $config = [
-            'fields' => function () use ($typeRegistry, $entityRegistry) {
-                return [
-                    'id' => $typeRegistry->id(),
-                    'account_id' => $typeRegistry->id(),
-                    'parent_id' => $typeRegistry->id(),
-                    'specialization_id' => $typeRegistry->id(),
-                    'name' => $typeRegistry->string(),
-                    'price' => $typeRegistry->string(),
-                    'duration' => $typeRegistry->int(),
-                ];
-            }
-        ];
-
-        parent::__construct($config);
-    }
-
     /**
      * @param TypeRegistry $typeRegistry
      * @return array

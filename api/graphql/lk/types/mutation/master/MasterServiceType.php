@@ -2,7 +2,7 @@
 
 namespace api\graphql\lk\types\mutation\master;
 
-use api\services\MasterService;
+use api\services\lk\MasterService;
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
 

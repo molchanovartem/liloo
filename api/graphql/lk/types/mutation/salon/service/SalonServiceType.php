@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\salon\service;
 
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
-use api\services\SalonService;
+use api\services\lk\SalonService;
 
 /**
  * Class SalonServiceType
@@ -20,7 +20,7 @@ class SalonServiceType implements MutationFieldsTypeInterface
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
         $entityRegistry = $typeRegistry->getEntityRegistry();
-        $inputRegistry = $typeRegistry->getMutationInputRegistry();
+        $inputRegistry = $typeRegistry->getMutationRegistry();
 
         return [
             'salonServiceCreate' => [

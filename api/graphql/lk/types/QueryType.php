@@ -20,7 +20,6 @@ use api\graphql\lk\types\entity\RecallType;
 use api\graphql\lk\types\entity\SalonMasterType;
 use api\graphql\lk\types\entity\SalonServiceType;
 use api\graphql\lk\types\entity\SalonType;
-use api\graphql\lk\types\entity\ServiceGroupType;
 use api\graphql\lk\types\entity\ServiceType;
 use api\graphql\lk\types\entity\SpecializationType;
 use api\graphql\lk\types\entity\TariffPriceType;
@@ -59,7 +58,6 @@ class QueryType extends ObjectType
                     UserScheduleType::getFieldsQueryType($typeRegistry),
                     ClientType::getFieldsQueryType($typeRegistry),
                     ServiceType::getFieldsQueryType($typeRegistry),
-                    ServiceGroupType::getFieldsQueryType($typeRegistry),
                     AppointmentType::getFieldsQueryType($typeRegistry),
                     AppointmentItemType::getFieldsQueryType($typeRegistry),
                     SalonType::getFieldsQueryType($typeRegistry),

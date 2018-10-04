@@ -4,7 +4,7 @@ namespace api\graphql\lk\types\mutation\service;
 
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
-use api\services\ServiceService;
+use api\services\lk\ServiceService;
 
 /**
  * Class ServiceType
@@ -19,7 +19,7 @@ class ServiceType implements MutationFieldsTypeInterface
      */
     public static function getMutationFieldsType(TypeRegistry $typeRegistry): array
     {
-        $inputRegistry = $typeRegistry->getMutationInputRegistry();
+        $inputRegistry = $typeRegistry->getMutationRegistry();
         $entityRegistry = $typeRegistry->getEntityRegistry();
 
         return [

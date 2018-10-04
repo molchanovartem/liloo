@@ -2,7 +2,7 @@
 
 namespace api\graphql\lk\types\mutation\tariff;
 
-use api\services\TariffService;
+use api\services\lk\TariffService;
 use api\graphql\TypeRegistry;
 use api\graphql\MutationFieldsTypeInterface;
 

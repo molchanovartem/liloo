@@ -1,0 +1,8 @@
+.application--wrap {
+    min-height: inherit !important;
+}
+
+.theme--light.application {
+    background: initial !important;
+    color: initial !important;
+}

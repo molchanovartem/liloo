@@ -2,8 +2,8 @@
 
 namespace api\graphql\common\types;
 
-use api\graphql\common\types\entity\CommonServiceType;
 use GraphQL\Type\Definition\ObjectType;
+use api\graphql\common\types\entity\CommonServiceType;
 use api\graphql\TypeRegistry;
 use api\graphql\common\types\entity\CityType;
 use api\graphql\common\types\entity\ConvenienceType;
