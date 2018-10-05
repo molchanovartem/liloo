@@ -65,7 +65,19 @@
 
                     <ul class="uk-list uk-list-divider">
                         <li v-for="service in getServicesByServicesId()">
-                            {{service.name}} <div class="uk-float-right">{{service.price | currency}}</div>
+                            <div class="uk-grid uk-grid-small uk-flex-middle">
+                                <div class="uk-width-expand">
+                                    {{service.name}}
+                                </div>
+                                <div class="uk-width-auto">
+                                    {{service.price | currency}}
+                                </div>
+                                <div class="uk-width-auto">
+                                    <v-btn icon small @click="onDelete(service.id)">
+                                        <v-icon>mdi-close</v-icon>
+                                    </v-btn>
+                                </div>
+                            </div>
                         </li>
                     </ul>
 
@@ -148,7 +160,7 @@
                         userId: null,
                         salonId: null,
                         masterId: null,
-                        date: '2018-10-10',
+                        date: '',
                         time: null,
                         servicesId: [],
                     }
@@ -201,7 +213,7 @@
 
                     onAdd() {
                         if (this.serviceSelected) {
-                            this.attributes.servicesId.push(this.serviceSelected);
+                            this.attributes.servicesId.push(+this.serviceSelected);
 
                             let service = this.getService(this.serviceSelected);
 
@@ -209,6 +221,18 @@
                                 this.sum += +service.price;
                                 this.duration += +service.duration;
                             }
+                        }
+                    },
+                    onDelete(serviceId) {
+                        let index = this.attributes.servicesId.indexOf(+serviceId);
+
+                        if (index !== -1) this.attributes.servicesId.splice(index, 1);
+
+                        let service = this.getService(serviceId);
+
+                        if (service) {
+                            this.sum -= +service.price;
+                            this.duration -= +service.duration;
                         }
                     },
                     onPrevDate() {
@@ -259,7 +283,11 @@
                 },
                 filters: {
                     currency(value) {
-                        return new Intl.NumberFormat('ru-RU', {style: 'decimal', minimumFractionDigits: 2, maximumFractionDigits: 2}).format(value);
+                        return new Intl.NumberFormat('ru-RU', {
+                            style: 'decimal',
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }).format(value);
                     },
                     duration(minute) {
                         var seconds = minute * 60,

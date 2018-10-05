@@ -3,17 +3,12 @@
         <v-form v-model="valid" lazy-validation ref="form">
             <div class="uk-grid uk-grid-divider uk-grid-small">
                 <div class="uk-width-1-4">
-                    <!--
-                    <v-select
-                            v-model="attributes.status"
-                            :items="getStatusList()"
-                            :rules="rules.status"
-                            label="Статус"
-                            required
-                            outline
-                    />
-                    -->
-                    <v-text-field v-model="attributes.status" label="Статус"/>
+                    <div>
+                        <v-select
+                                v-model="attributes.status"
+                                :items="getStatusList()"
+                        />
+                    </div>
                     <v-select
                             v-model="attributes.client_id"
                             :items="clients"
@@ -81,7 +76,7 @@
             </div>
         </v-form>
         <div class="uk-card-footer uk-padding-small">
-            <v-btn color="primary" @click="submit()">Сохранить
+            <v-btn color="primary" @click="onSubmit()">Сохранить
                 <v-icon right>mdi-content-save</v-icon>
             </v-btn>
         </div>
@@ -92,6 +87,7 @@
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';
     import {formRules} from "../../js/formRules";
+    import {appointmentStatus, APPOINTMENT_STATUS_CONFIRMED} from "./status";
 
     export default {
         name: "SalonAppointmentForm",
@@ -104,6 +100,8 @@
                 // Услуги
                 services: [],
 
+                cancel: null,
+
                 headers: [
                     {text: 'Название', value: 'service_name', sortable: false},
                     {text: 'Цена', value: 'service_price', sortable: false},
@@ -115,19 +113,10 @@
                 attributes: {
                     id: null,
                     client_id: null,
-                    status: null,
+                    status: APPOINTMENT_STATUS_CONFIRMED,
                     start_date: null,
                     end_date: null,
-                    items: [
-                        {
-                            service_id: '1',
-                            service_name: 'test',
-                            service_price: '300',
-                            service_duration: '20',
-                            quantity: 1,
-                            discount: 0
-                        }
-                    ]
+                    items: []
                 },
 
                 duration: 0,
@@ -223,53 +212,7 @@
                     this.addItem(service.id, service.name, service.price, service.duration, 1, null);
                 }
             },
-            addItems(items = []) {
-                items.forEach(item => {
-                    this.addItem(
-                        item.service_id,
-                        item.service_name,
-                        item.service_price,
-                        item.service_duration,
-                        item.quantity,
-                        null
-                    )
-                });
-            },
-            // Добавляет услугу в список услуг
-            addItem(
-                serviceId,
-                serviceName,
-                servicePrice,
-                serviceDuration,
-                quantity,
-                discount
-            ) {
-                this.attributes.items.push({
-                    service_id: serviceId,
-                    service_name: serviceName,
-                    service_price: servicePrice,
-                    service_duration: serviceDuration,
-                    quantity: quantity,
-                    discount: discount
-                });
-            },
-            deleteItem(index) {
-                this.attributes.items.splice(index, 1);
-            },
-
-            setAttributes(attributes) {
-                this.clearData();
-
-                this.attributes.id = attributes.id || null;
-                this.attributes.client_id = attributes.client_id || null;
-                this.attributes.status = attributes.status || null;
-                this.attributes.start_date = attributes.start_date;
-                this.attributes.end_date = attributes.end_date;
-
-                if (attributes.items !== undefined && Array.isArray(attributes.items)) this.addItems(attributes.items);
-            },
-
-            submit() {
+            onSubmit() {
                 if (this.attributes.items.length === 0) {
                     alert('Нет услуг');
                     return;
@@ -328,6 +271,52 @@
                 });
             },
 
+            addItems(items = []) {
+                items.forEach(item => {
+                    this.addItem(
+                        item.service_id,
+                        item.service_name,
+                        item.service_price,
+                        item.service_duration,
+                        item.quantity,
+                        null
+                    )
+                });
+            },
+            // Добавляет услугу в список услуг
+            addItem(
+                serviceId,
+                serviceName,
+                servicePrice,
+                serviceDuration,
+                quantity,
+                discount
+            ) {
+                this.attributes.items.push({
+                    service_id: serviceId,
+                    service_name: serviceName,
+                    service_price: servicePrice,
+                    service_duration: serviceDuration,
+                    quantity: quantity,
+                    discount: discount
+                });
+            },
+            deleteItem(index) {
+                this.attributes.items.splice(index, 1);
+            },
+
+            setAttributes(attributes) {
+                this.clearData();
+
+                this.attributes.id = attributes.id || null;
+                this.attributes.client_id = attributes.client_id || null;
+                this.attributes.status = attributes.status || null;
+                this.attributes.start_date = attributes.start_date;
+                this.attributes.end_date = attributes.end_date;
+
+                if (attributes.items !== undefined && Array.isArray(attributes.items)) this.addItems(attributes.items);
+            },
+
             clearData() {
                 this.clients = [];
                 this.services = [];
@@ -338,6 +327,26 @@
                 this.attributes.end_date = null;
                 this.attributes.items = [];
             },
+            getStatusList() {
+                return Object.keys(appointmentStatus.getStatusList()).map(param => {
+                    return {text: appointmentStatus.getStatusName(param), value: +param};
+                });
+            },
+            showStatus() {
+                return appointmentStatus.getStatusName(this.attributes.status);
+            },
+            isSelectedNew() {
+                return appointmentStatus.isNew(this.attributes.status);
+            },
+            isSelectedConfirmed() {
+                return appointmentStatus.isConfirmed(this.attributes.status);
+            },
+            isSelectedCanceled() {
+                return appointmentStatus.isCanceled(this.attributes.status);
+            },
+            isSelectedNotCome() {
+                return appointmentStatus.isNotCome(this.attributes.status);
+            }
         },
         filters: {
             formatDate(value) {

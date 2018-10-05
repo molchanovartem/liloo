@@ -14,7 +14,6 @@
             <div class="dhx_cal_data"></div>
         </div>
 
-
         <v-dialog v-model="modal" width="80%" max-width="1200px">
             <div class="uk-card uk-card-default uk-height-1-1">
                 <div class="uk-card-header uk-padding-small">
@@ -37,8 +36,8 @@
 
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';
-    import VMasterList from './components/MasterList.vue';
     import VForm from './Form.vue';
+    import {APPOINTMENT_STATUS_NOT_COME, APPOINTMENT_STATUS_CANCELED} from "./status";
 
     export default {
         name: "SalonAppointment",
@@ -144,8 +143,6 @@
              * Создается календарь
              */
             initScheduler() {
-                let self = this;
-
                 this.initSchedulerConfig();
                 this.initSchedulerTemplates();
                 this.initSchedulerEvents();
@@ -163,7 +160,7 @@
                 this.scheduler.config.drag_create = false;
                 this.scheduler.config.drag_resize = false;
                 this.scheduler.config.quick_info_detached = true;
-                this.scheduler.config.icons_select = ['icon_edit', 'icon_delete'];
+                this.scheduler.config.icons_select = ['icon_edit'];
                 this.scheduler.xy.scale_height = 35;
 
                 this.scheduler.locale.labels.timeline_tab = "Timeline";
@@ -247,7 +244,6 @@
                             '</tr></thead>' +
                             '<tbody>';
 
-
                         event.items.forEach(item => {
                             str += '<tr>' +
                                 '<td>' + item.service_name + '</td><td>' + item.service_duration + '</td><td>' + item.service_price + '</td>' +
@@ -269,6 +265,17 @@
                     let state = this.scheduler.getState();
 
                     this.loadData(this.salonId, this.userId, state.min_date, state.max_date);
+                });
+
+                this.scheduler.attachEvent("onClick", (id) => {
+                    var event = this.scheduler.getEvent(id);
+
+                    //if (event.important)
+                        this.scheduler.config.icons_select = ["icon_details"];
+                    //else
+                        //this.scheduler.config.icons_select = ["icon_details", "icon_delete"];
+
+                    return true;
                 });
 
                 this.scheduler.attachEvent("onEventCreated", (id, e) => {
@@ -362,12 +369,20 @@
             },
 
             onCreated(appointment) {
-                this.addAppointment(appointment);
-                this.scheduler.updateView();
+                if (+appointment.status !== APPOINTMENT_STATUS_NOT_COME && +appointment.status !== APPOINTMENT_STATUS_CANCELED) {
+                    this.addAppointment(appointment);
+                    this.scheduler.updateView();
+                }
+
                 this.modalClose();
             },
             onUpdated(appointment) {
-                this.scheduler.updateEvent(this.addAppointment(appointment));
+                if (+appointment.status === APPOINTMENT_STATUS_NOT_COME || +appointment.status === APPOINTMENT_STATUS_CANCELED) {
+                    this.scheduler.deleteEvent(appointment.id);
+                } else {
+                    this.scheduler.updateEvent(this.addAppointment(appointment));
+                }
+
                 this.scheduler.updateView();
                 this.modalClose();
             },
@@ -400,15 +415,6 @@
                 this.scheduler.endLightbox(false);
             },
         },
-        watch: {
-            '$route.query.master_id': function () {
-                this.setMasterId();
-                this.loadData();
-            },
-            '$route.params.id': function () {
-                this.reload();
-            }
-        }
     }
 </script>
 

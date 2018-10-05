@@ -304,7 +304,7 @@ class UserService extends Service
     public function updateUserSchedule(int $id, array $attributes)
     {
         $model = UserSchedule::find()
-            ->byCurrentAccountId()
+            ->byCurrentUserId()
             ->oneById($id);
 
         if (!$model) throw new NotFoundEntryError();

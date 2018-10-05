@@ -12,6 +12,7 @@ export const router = new VueRouter({
 // @todo рефакторинг
 router.beforeEach((to, from, next) => {
     next(true);
+
     if (localStorage.getItem('authenticate') === 'false' && from.path !== '/login') {
         next({path: '/login'});
     } else {

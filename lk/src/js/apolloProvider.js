@@ -51,7 +51,7 @@ const commonClient = new ApolloClient({
     link: ApolloLink.from([
         linkError,
         new HttpLink({
-            uri: 'http://liloo/api/common/index',
+            uri: 'http://zapisa.li/liloo/api/common/index',
             transportBatching: true,
         })
     ]),
@@ -80,7 +80,7 @@ const lkClient = new ApolloClient({
         authLink,
         new HttpLink({
             // You should use an absolute URL here
-            uri: 'http://liloo/api/lk/index',
+            uri: 'http://zapisa.li/liloo/api/lk/index',
             transportBatching: true,
         })
     ]),

@@ -20,6 +20,10 @@ export const routes = [
         component: Login
     },
     {
+        path: '*',
+        component: MainLayout,
+    },
+    {
         path: '/',
         component: MainLayout,
         name: 'home',

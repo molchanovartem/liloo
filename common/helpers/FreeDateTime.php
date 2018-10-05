@@ -147,7 +147,6 @@ class FreeDateTime
                 return true;
             }
         }
-
         return false;
     }
 
@@ -162,13 +161,13 @@ class FreeDateTime
     }
 
     /**
-     * @param int $second
+     * @param int $totalSecond
      * @return \Generator
      */
-    public function getFilterFreeTime(int $second): \Generator
+    public function getFilterFreeTime(int $totalSecond): \Generator
     {
         foreach ($this->getFreeTimes() as $freeDateTime) {
-            if ($this->hasPeriodTime($freeDateTime, $second)) yield $freeDateTime;
+            if ($this->hasPeriodTime($freeDateTime, $totalSecond)) yield $freeDateTime;
         }
     }
 }

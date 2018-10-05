@@ -25,9 +25,6 @@ class m180529_041521_appointment_item extends Migration
             'quantity' => $this->integer()->notNull()
         ]);
 
-        $this->createIndex('ix-appointment_item-account_id', $this->tableName, 'account_id');
-        $this->addForeignKey('fk-appointment_item-account_id', $this->tableName, 'account_id', '{{%account}}', 'id', 'CASCADE', 'CASCADE');
-
         $this->createIndex('ix-appointment_item-appointment_id', $this->tableName, 'appointment_id');
         $this->addForeignKey('fk-appointment_item-appointment_id', $this->tableName, 'appointment_id', '{{%appointment}}', 'id', 'CASCADE', 'CASCADE');
 

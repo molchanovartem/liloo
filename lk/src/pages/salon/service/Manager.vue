@@ -28,7 +28,7 @@
                 </div>
 
                 <ul class="uk-list uk-list-divider">
-                    <li v-for="(item, index) in cpdServiceItems">
+                    <li v-for="item in cpdServiceItems">
                         <div class="uk-grid uk-grid-small">
                             <div class="uk-width-auto">
                                 <input type="checkbox" :value="item.id" v-model="selected"/>
@@ -41,7 +41,7 @@
             <div class="uk-width-3-5">
                 <h4>Мастера салона</h4>
                 <ul v-if="salonServices.length > 0" class="uk-list uk-list-divider">
-                    <li v-for="(item, index) in salonServices">
+                    <li v-for="item in salonServices">
                         <div class="uk-flex uk-flex-middle">
                             <div class="uk-width-expand">
                                 <div>{{item.service.name}}</div>

@@ -41,4 +41,12 @@ class AppointmentItem extends ActiveRecord
     {
         return new Query(get_called_class());
     }
+
+    /**
+     * @return float|int
+     */
+    public function getSum()
+    {
+        return $this->service_price * $this->quantity;
+    }
 }
