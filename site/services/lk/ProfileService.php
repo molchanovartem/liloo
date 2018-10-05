@@ -4,6 +4,7 @@ namespace site\services\lk;
 
 use common\core\service\ModelService;
 use common\models\User;
+use common\models\UserProfile;
 
 /**
  * Class ProfileService
@@ -25,5 +26,18 @@ class ProfileService extends ModelService
                           ->one()) == null) throw new \Exception('Not find any user');
 
         $this->setData(['model' => $model]);
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function update($id)
+    {
+        $model = UserProfile::find()->where(['user_id' => $id])->one();
+
+        $this->setData(['model' => $model,]);
+
+        return $model->load($this->getData('post')) && $model->save();
     }
 }

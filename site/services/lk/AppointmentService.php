@@ -31,6 +31,7 @@ class AppointmentService extends ModelService
 
     /**
      * @param int $id
+     * @throws \Exception
      */
     public function getUserData(int $id)
     {

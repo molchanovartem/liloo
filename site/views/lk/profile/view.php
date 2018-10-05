@@ -4,7 +4,7 @@ use site\widgets\header\Header;
 use yii\helpers\Html;
 
 ?>
-<header class="header bg_color_e4eff9 pb-300">
+<header class="header bg_color_e4eff9 uk-width-1-1">
     <div class="header__container">
 
         <?php echo Header::widget(); ?>
@@ -25,8 +25,8 @@ use yii\helpers\Html;
 
     </div>
 </header>
-<main class="mt--300">
-    <div class="content-width content-columns mt-40">
+<main>
+    <div class="content-width content-columns uk-margin-top uk-float-right">
 
         <div class="content-columns__column content-column__column_main">
 
@@ -34,6 +34,7 @@ use yii\helpers\Html;
 
                 <div class="j-c_s-b">
                     <div class="content-block__title">Информация обо мне</div>
+                    <?php echo Html::a("Редактировать", '/site/web/lk/profile/update?id=' . $data['model']->id, ['class' => 'button button_color_blue-empty']); ?>
                 </div>
 
                 <div class="performer mt-40">

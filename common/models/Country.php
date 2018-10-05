@@ -4,6 +4,7 @@ namespace common\models;
 
 use yii\db\ActiveRecord;
 use common\queries\Query;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class Country
@@ -39,5 +40,16 @@ class Country extends ActiveRecord
     public static function find()
     {
         return new Query(get_called_class());
+    }
+
+
+    /**
+     * @return array
+     */
+    public static function getCountry()
+    {
+        $array = Country::find()->select('*')->asArray()->all();
+
+        return ArrayHelper::map($array, 'id', 'name');
     }
 }

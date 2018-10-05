@@ -2,7 +2,7 @@
 
 namespace site\controllers\lk;
 
-use site\controllers\Controller;
+use common\models\Appointment;
 use site\services\lk\AppointmentService;
 
 /**
@@ -37,5 +37,16 @@ class AppointmentController extends Controller
         $this->modelService->getUserData($id);
 
         return $this->extraRender('/lk/appointment/view', ['data' => $this->modelService->getData()]);
+    }
+
+    /**
+     * @param $id
+     */
+    public function actionCancel($id)
+    {
+        $appointment = Appointment::findOne($id);
+        $appointment->status = Appointment::STATUS_CANCELED;
+
+        $appointment->save();
     }
 }

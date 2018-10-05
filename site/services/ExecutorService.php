@@ -2,6 +2,7 @@
 
 namespace site\services;
 
+use common\core\service\ModelService;
 use common\models\MasterSchedule;
 use common\models\Recall;
 use common\models\Salon;
@@ -19,7 +20,7 @@ use site\forms\FilterForm;
  * Class ExecutorService
  * @package site\services
  */
-class ExecutorService extends \api\services\site\ExecutorService
+class ExecutorService extends ModelService
 {
     private $specializationService = [];
 

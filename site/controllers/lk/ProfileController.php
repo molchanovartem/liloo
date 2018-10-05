@@ -2,7 +2,6 @@
 
 namespace site\controllers\lk;
 
-use site\controllers\Controller;
 use site\services\lk\ProfileService;
 
 /**
@@ -29,8 +28,8 @@ class ProfileController extends Controller
 
     /**
      * @param $id
-     *
      * @return array|string
+     * @throws \Exception
      */
     public function actionView($id)
     {
@@ -39,8 +38,14 @@ class ProfileController extends Controller
         return $this->extraRender('/lk/profile/view', ['data' => $this->modelService->getData()]);
     }
 
-    public function actionUpdate()
+    /**
+     * @param $id
+     * @return array|string
+     */
+    public function actionUpdate($id)
     {
+        $this->modelService->update($id);
 
+        return $this->extraRender('/lk/profile/update', ['data' => $this->modelService->getData()]);
     }
 }

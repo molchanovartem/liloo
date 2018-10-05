@@ -61,7 +61,7 @@ class Appointment extends ActiveRecord
     {
         return [
             self::STATUS_NEW => 'New',
-            self::STATUS_NOT_CONFIRMED => 'Not confirmed',
+            self::STATUS_COMPLETED => 'Completed',
             self::STATUS_CONFIRMED => 'Confirmed',
             self::STATUS_CANCELED => 'Canceled'
         ];
