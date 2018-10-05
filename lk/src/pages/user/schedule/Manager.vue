@@ -2,11 +2,11 @@
     <div class="content-block p-40 content-block_shadow">
         <h1>График работы</h1>
 
-        <ul>@todo
-            <li>event можно перенести за график, время не урезается</li>
-            <li>event каскадность</li>
-            <li>локализация</li>
-        </ul>
+        <!--<ul>@todo-->
+            <!--<li>event можно перенести за график, время не урезается</li>-->
+            <!--<li>event каскадность</li>-->
+            <!--<li>локализация</li>-->
+        <!--</ul>-->
 
         <v-master-schedule @save="onMasterScheduleSave"/>
 

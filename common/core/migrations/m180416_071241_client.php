@@ -27,9 +27,9 @@ class m180416_071241_client extends Migration
             'date_birth' => $this->date(),
             'phone' => $this->string(20),
             'address' => $this->string(),
-            'total_appointment' => $this->integer()->notNull(),
-            'total_failure_appointment' => $this->integer()->notNull(),
-            'total_spent_money' => $this->decimal(15,2)->notNull(),
+            'total_appointment' => $this->integer()->noNull()->defaultValue(0),
+            'total_failure_appointment' => $this->integer()->notNull()->defaultValue(0),
+            'total_spent_money' => $this->decimal(15,2)->notNull()->defaultValue(0),
             'date_last_appointment' => $this->date()
         ]);
 

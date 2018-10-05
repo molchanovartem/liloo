@@ -60,10 +60,11 @@ class Appointment extends ActiveRecord
     public static function getStatusList(): array
     {
         return [
+            self::STATUS_COMPLETED => 'Completed',
             self::STATUS_NEW => 'New',
-            self::STATUS_NOT_CONFIRMED => 'Not confirmed',
             self::STATUS_CONFIRMED => 'Confirmed',
-            self::STATUS_CANCELED => 'Canceled'
+            self::STATUS_CANCELED => 'Canceled',
+            self::STATUS_NOT_COME => 'Not come',
         ];
     }
 

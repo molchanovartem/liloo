@@ -4,6 +4,7 @@ namespace api\graphql\base\types\entity;
 
 use api\graphql\EntityType;
 use common\models\SalonService;
+use common\models\Service;
 
 /**
  * Class SalonServiceType
@@ -29,8 +30,7 @@ class SalonServiceType extends EntityType
 //                        return Service::buffer()->oneServiceById($model->service_id);
 //                    });
 
-                    return \common\models\Service::find()
-                        ->oneById($model->service_id);
+                    return Service::find()->oneById($model->service_id);
                 }
             ]
         ];

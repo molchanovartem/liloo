@@ -2,9 +2,11 @@
 
 namespace api\services\lk;
 
+use GraphQL\Error\Error;
 use Yii;
 use yii\db\Query;
 use yii\db\Exception;
+use common\models\Client;
 use api\graphql\errors\ValidationError;
 use api\graphql\errors\AttributeValidationError;
 use api\graphql\errors\NotFoundEntryError;
@@ -35,11 +37,15 @@ class AppointmentService extends \api\services\Service
      * @param int $id
      * @param array $attributes
      * @return null
+     * @throws Error
      * @throws Exception
      * @throws NotFoundEntryError
      */
     public function update(int $id, array $attributes)
     {
+        $model = $this->getAppointmentModel($id);
+        if ($model->status === Appointment::STATUS_COMPLETED) throw new Error('Can not update appointment');
+
         return $this->save($this->getAppointmentModel($id), $attributes);
     }
 
@@ -51,7 +57,7 @@ class AppointmentService extends \api\services\Service
      */
     private function save(Appointment $model, array $attributes)
     {
-        return $this->wrappedTransaction(function () use ($model, $attributes) {
+        $model = $this->wrappedTransaction(function () use ($model, $attributes) {
             $model->setAttributes($attributes);
 
             if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
@@ -72,13 +78,59 @@ class AppointmentService extends \api\services\Service
             }
             return $model;
         });
+
+        /*
+         * @todo
+         * Не нравится, какой-то говнокод, отрефакторить
+         */
+        if ($model && $model->status !== Appointment::STATUS_NEW && $model->status !== Appointment::STATUS_CONFIRMED) {
+            $this->wrappedTransaction(function () use ($model, $attributes) {
+                if ($model->status == Appointment::STATUS_CANCELED || $model->status == Appointment::STATUS_NOT_COME) {
+                    $model->delete();
+                }
+
+                if ($model->status == Appointment::STATUS_COMPLETED) {
+                    $total = 0;
+                    $items = AppointmentItem::find()
+                        ->byAppointmentId($model->id)
+                        ->allByCurrentAccountId();
+
+                    foreach ($items as $item) {
+                        $total += $item->sum;
+                    }
+
+                    $sql = 'UPDATE ' . Client::tableName() .
+                        ' SET `total_appointment` = `total_appointment` + 1, `total_spent_money` = `total_spent_money` + :total, `date_last_appointment` = :date' .
+                        ' WHERE `id` = :clientId';
+
+                    $data = date('Y-m-d', strtotime($model->start_date));
+                    $clientId = $model->client_id;
+
+                    Yii::$app->db->createCommand($sql)
+                        ->bindParam(':total', $total)
+                        ->bindParam(':date', $data)
+                        ->bindParam(':clientId', $clientId)
+                        ->execute();
+                } else if ($model->status == Appointment::STATUS_NOT_COME) {
+                    $sql = 'UPDATE ' . Client::tableName() . ' SET `total_failure_appointment` = `total_failure_appointment` + 1 WHERE `id` = :clientId';
+
+                    $clientId = $model->client_id;
+
+                    Yii::$app->db->createCommand($sql)
+                        ->bindParam(':clientId', $clientId)
+                        ->execute();
+                }
+            });
+        }
+
+        return $model;
     }
 
     /**
      * @param $attributes
      * @return bool
      */
-    public function validateSchedulesDate($attributes)
+    private function validateSchedulesDate($attributes)
     {
         if ($attributes['master_id']) {
             $schedules = (new Query())->select(['start_date', 'end_date'])
@@ -95,7 +147,7 @@ class AppointmentService extends \api\services\Service
                 ])
                 ->all();
         } else {
-              $schedules = (new Query())->select(['start_date', 'end_date'])
+            $schedules = (new Query())->select(['start_date', 'end_date'])
                 ->from('{{%user_schedule}}')
                 ->where(['user_id' => $attributes['user_id']])
                 ->andWhere(['and',
@@ -120,7 +172,7 @@ class AppointmentService extends \api\services\Service
      * @param $attributes
      * @return bool
      */
-    public function validateAppointmentDate($attributes)
+    private function validateAppointmentDate($attributes)
     {
         if ($attributes['master_id']) {
             $appointmentDates = (new Query())->select(['start_date', 'end_date'])
