@@ -1,7 +1,6 @@
 <?php
 
 use site\widgets\header\Header;
-use yii\helpers\Html;
 
 ?>
 <header class="header bg_color_e4eff9 uk-width-1-1">

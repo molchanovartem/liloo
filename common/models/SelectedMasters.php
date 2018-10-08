@@ -31,18 +31,6 @@ class SelectedMasters extends ActiveRecord
     }
 
     /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-            'user_id' => 'Пользователь',
-            'master_id' => 'Мастер',
-            'salon_id' => 'Салон',
-        ];
-    }
-
-    /**
      * @return Query|\yii\db\ActiveQuery
      */
     public static function find()
@@ -56,13 +44,5 @@ class SelectedMasters extends ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getSalon()
-    {
-        return $this->hasOne(Salon::class, ['id' => 'salon_id']);
     }
 }

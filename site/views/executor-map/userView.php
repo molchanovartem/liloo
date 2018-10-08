@@ -2,6 +2,8 @@
 
 use site\widgets\header\Header;
 use yii\helpers\Html;
+use yii\widgets\Pjax;
+
 //var_dump($data['isSelected']);die;
 ?>
 <header class="header bg_color_e4eff9 pb-300">
@@ -100,13 +102,18 @@ use yii\helpers\Html;
                         <div class="label-status label-status_bg_gray label-status_fz_14">Обычный</div>
                         <div class="performer__name">
                             <?php echo Html::encode($data['model']->profile->name); ?> <?php echo Html::encode($data['model']->profile->surname); ?>
-                              <a href="/site/web/lk/selected-masters/add-to-selected?executorId=<?php echo $data['model']->id; ?>&isSalon=0">
+
+                            <?php Pjax::begin(); ?>
+
+                            <a href="/site/web/lk/selected-masters/add-to-selected?executorId=<?php echo $data['model']->id; ?>&isSalon=0">
                                 <?php if ($data['isSelected']): ?>
                                     <i class="mdi mdi-star uk-text-warning"></i>
                                 <?php else: ?>
                                     <i class="mdi mdi-star-outline uk-text-muted"></i>
                                 <?php endif; ?>
                             </a>
+
+                            <?php Pjax::end(); ?>
                         </div>
                         <div class="performer__profession">
                             <?php foreach ($data['specialization'] as $specialization): ?>

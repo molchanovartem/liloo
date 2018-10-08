@@ -2,6 +2,7 @@
 
 namespace site\services\lk;
 
+use Yii;
 use common\core\service\ModelService;
 use common\models\SelectedMasters;
 
@@ -26,5 +27,29 @@ class SelectedMastersService extends ModelService
                 ->byCurrentUserId()
                 ->all(),
         ]);
+    }
+
+    /**
+     * @param $executorId
+     * @param $isSalon
+     */
+    public function addToSelected($executorId, $isSalon)
+    {
+        $selectedMaster = SelectedMasters::find()
+                ->where(['executor_id' => $executorId])
+                ->andWhere(['isSalon' => $isSalon])
+                ->byCurrentUserId()
+                ->one();
+        if (empty($selectedMaster)) {
+            $selectedMaster = new SelectedMasters();
+
+            $selectedMaster->user_id = Yii::$app->user->getId();
+            $selectedMaster->executor_id = $executorId;
+            $selectedMaster->isSalon = $isSalon;
+
+            $selectedMaster->save();
+        } else {
+            $selectedMaster->delete();
+        }
     }
 }

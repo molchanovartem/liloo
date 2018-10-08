@@ -2,10 +2,14 @@
 
 namespace site\controllers\lk;
 
-use common\models\SelectedMasters;
 use site\services\lk\SelectedMastersService;
 use Yii;
 
+/**
+ * Class SelectedMastersController
+ *
+ * @package site\controllers\lk
+ */
 class SelectedMastersController extends Controller
 {
     /**
@@ -35,26 +39,13 @@ class SelectedMastersController extends Controller
     /**
      * @param $executorId
      * @param $isSalon
-     * @return bool
+     *
+     * @return \yii\web\Response
      */
     public function actionAddToSelected($executorId, $isSalon)
     {
-        $selectedMaster = SelectedMasters::find()
-            ->where(['executor_id' => $executorId])
-            ->andWhere(['isSalon' => $isSalon])
-            ->byCurrentUserId()
-            ->one();
+        $this->modelService->addToSelected($executorId, $isSalon);
 
-        if (empty($selectedMaster)) {
-            $selectedMaster = new SelectedMasters();
-
-            $selectedMaster->user_id = Yii::$app->user->getId();
-            $selectedMaster->executor_id = $executorId;
-            $selectedMaster->isSalon = $isSalon;
-
-            return $selectedMaster->save();
-        }
-
-        return $selectedMaster->delete();
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }
