@@ -8,6 +8,7 @@ use common\models\Recall;
 use common\models\Salon;
 use common\models\SalonService;
 use common\models\SalonSpecialization;
+use common\models\SelectedMasters;
 use common\models\Service;
 use common\models\Specialization;
 use common\models\User;
@@ -15,6 +16,7 @@ use common\models\UserProfile;
 use common\models\UserSchedule;
 use common\models\UserSpecialization;
 use site\forms\FilterForm;
+use yii\data\ArrayDataProvider;
 
 /**
  * Class ExecutorService
@@ -96,7 +98,7 @@ class ExecutorService extends ModelService
             ];
         }
 
-        $dataProvider = new \yii\data\ArrayDataProvider([
+        $dataProvider = new ArrayDataProvider([
             'allModels' => $data,
             'pagination' => [
                 'pageSize' => 10,
@@ -121,9 +123,12 @@ class ExecutorService extends ModelService
                 ->with(['profile'])
                 ->where(['id' => $id])
                 ->one()) == null) throw new \Exception('Not find any user');
+
         $specialization = $this->getSpecializationServiceByAccountId($model->account_id);
 
-        $this->setData(['model' => $model, 'specialization' => $specialization]);
+        $isSelected = SelectedMasters::find()->where(['executor_id' => $id])->byCurrentUserId()->one() ? 1 : 0;
+
+        $this->setData(['model' => $model, 'specialization' => $specialization, 'isSelected' => $isSelected]);
     }
 
     /**

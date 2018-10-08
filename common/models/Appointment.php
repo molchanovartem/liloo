@@ -92,13 +92,27 @@ class Appointment extends ActiveRecord
         return $this->hasMany(AppointmentItem::class, ['appointment_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getSalon()
     {
         return $this->hasOne(Salon::class, ['id' => 'salon_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRecalls()
+    {
+        return $this->hasMany(Recall::class, ['appointment_id' => 'id']);
     }
 }

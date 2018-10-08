@@ -130,6 +130,9 @@ class User extends \yii\db\ActiveRecord
         return $this->hasMany(Appointment::class, ['user_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getClients()
     {
         return $this->hasMany(Client::class, ['user_id' => 'id']);

@@ -4,6 +4,7 @@ namespace site\services\lk;
 
 use common\core\service\ModelService;
 use common\models\Appointment;
+use common\models\Recall;
 use site\models\User;
 
 /**
@@ -53,6 +54,11 @@ class AppointmentService extends ModelService
             'canceled' => array_filter($canceled),
         ];
 
-        $this->setData(['appointments' => $appointments]);
+        $recall = new Recall();
+
+        $this->setData([
+            'appointments' => $appointments,
+            'recall' => $recall,
+            ]);
     }
 }

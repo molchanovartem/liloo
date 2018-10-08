@@ -1,5 +1,6 @@
 <?php
 
+use admin\widgets\activeForm\ActiveForm;
 use site\widgets\header\Header;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -114,7 +115,94 @@ use yii\helpers\Url;
                                             <?php endforeach; ?>
                                             </tbody>
                                         </table>
+
+                                        <ul uk-accordion>
+                                            <li>
+
+                                                <?php foreach ($appointment->recalls as $recall): ?>
+
+                                                    <?php if ($recall->appointment->client->user->id == Yii::$app->user->identity->id): ?>
+                                                        <a class="uk-accordion-title uk-width-1-4" href="#">Посмотреть
+                                                            комментарии</a>
+
+                                                        <div class="uk-accordion-content uk-width-1-3">
+                                                            <div class="uk-panel uk-margin-small-left">
+                                                                <div class="review-slide__content">
+                                                                    <div class="review-slide__extra">
+                                                                        <div class="vote uk-inline">
+                                                                            <div class="review-slide__author-profession">
+                                                                                <?php echo Html::encode($recall->create_time); ?>
+                                                                            </div>
+                                                                            <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
+                                                                            <span class="vote__digits">
+                                                                            <?php if (Html::encode($recall->assessment) == \common\models\Recall::ASSESSMENT_DISLIKE): ?>
+                                                                                <i class="mdi mdi-heart-broken"></i>
+                                                                            <?php else: ?>
+                                                                                <i class="mdi mdi-heart"></i>
+                                                                            <?php endif; ?>
+                                                                        </span>
+                                                                        </div>
+
+                                                                        <div class="stars">
+                                                                            <div class="fas fa-star stars__star stars__star_active"></div>
+                                                                            <div class="fas fa-star stars__star stars__star_active"></div>
+                                                                            <div class="fas fa-star stars__star stars__star_active"></div>
+                                                                            <div class="fas fa-star stars__star stars__star_active"></div>
+                                                                            <div class="fas fa-star stars__star"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="review-slide__text">
+                                                                        <?php echo Html::encode($recall->text); ?>
+                                                                    </div>
+                                                                    <a href="" class="review-slide__more">Читать
+                                                                        полностью</a>
+                                                                </div>
+                                                                <div class="review-slide__author">
+                                                                    <div class="review-slide__author-img"
+                                                                         style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                                                                    <div class="review-slide__author-info">
+                                                                        <div class="review-slide__author-name">
+                                                                            <?php echo Html::encode($recall->appointment->client->user->profile->name); ?>
+                                                                            ,
+                                                                            <?php echo Html::encode($recall->appointment->client->user->profile->surname); ?>
+                                                                        </div>
+                                                                        <div class="review-slide__author-profession">
+                                                                            <?php echo Html::encode($recall->appointment->client->user->profile->city->name); ?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <?php endif; ?>
+
+                                                <?php endforeach; ?>
+
+
+                                                <a class="uk-accordion-title uk-width-1-4" href="#">Оставить
+                                                    комментарий</a>
+                                                <div class="uk-accordion-content">
+                                                    <?php $form = ActiveForm::begin(['enableClientValidation' => false]); ?>
+
+                                                    <div class="panel panel-default panel-body">
+
+                                                        <?= $form->errorSummary($data['model']); ?>
+
+                                                        <?= $form->field($data['recall'], 'text')->textarea(['rows' => '3']); ?>
+
+                                                        <?= $form->field($data['recall'], 'assessment')->radio(['label' => 'like']); ?>
+
+                                                        <?= $form->field($data['recall'], 'assessment')->radio(['label' => 'dislike']); ?>
+
+                                                    </div>
+
+                                                    <?php ActiveForm::end(); ?>
+                                                </div>
+
+
+                                            </li>
+                                        </ul>
                                     </div>
+
                                 </li>
                             <?php endforeach; ?>
                         </ul>

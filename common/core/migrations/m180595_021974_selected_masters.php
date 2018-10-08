@@ -18,7 +18,7 @@ class m180595_021974_selected_masters extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
             'executor_id' => $this->integer(),
-            'salon_id' => $this->integer(),
+            'siSalon' => $this->integer(),
         ]);
 
         $this->createIndex('ix-selected_masters-user_id', $this->tableName, 'user_id');
