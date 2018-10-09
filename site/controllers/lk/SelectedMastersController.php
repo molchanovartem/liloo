@@ -2,8 +2,8 @@
 
 namespace site\controllers\lk;
 
-use site\services\lk\SelectedMastersService;
 use Yii;
+use site\services\lk\SelectedMastersService;
 
 /**
  * Class SelectedMastersController

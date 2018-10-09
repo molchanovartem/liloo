@@ -2,7 +2,10 @@
 
 namespace site\services\lk;
 
+use yii\helpers\ArrayHelper;
 use common\core\service\ModelService;
+use common\models\City;
+use common\models\Country;
 use common\models\User;
 use common\models\UserProfile;
 
@@ -30,14 +33,39 @@ class ProfileService extends ModelService
 
     /**
      * @param $id
-     * @return bool
      */
     public function update($id)
     {
         $model = UserProfile::find()->where(['user_id' => $id])->one();
+        $cities = $this->getCities();
+        $countries = $this->getCountries();
 
-        $this->setData(['model' => $model,]);
+        $this->setData([
+            'model' => $model,
+            'cities' => $cities,
+            'countries' => $countries,
+            ]);
 
-        return $model->load($this->getData('post')) && $model->save();
+        $model->load($this->getData('post')) && $model->save();
+    }
+
+    /**
+     * @return array
+     */
+    protected function getCities()
+    {
+        $array = City::find()->select('*')->asArray()->all();
+
+        return ArrayHelper::map($array, 'id', 'name');
+    }
+
+    /**
+     * @return array
+     */
+    protected function getCountries()
+    {
+        $array = Country::find()->select('*')->asArray()->all();
+
+        return ArrayHelper::map($array, 'id', 'name');
     }
 }

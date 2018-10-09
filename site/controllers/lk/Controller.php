@@ -6,7 +6,7 @@ use yii\filters\AccessControl;
 
 class Controller extends \site\controllers\Controller
 {
-    public $layout = 'mainTwoColumns';
+    public $layout = '@site/views/layouts/lkLayout.php';
 
     public function behaviors() {
         return [

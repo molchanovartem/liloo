@@ -26,7 +26,7 @@ class SelectedMasters extends ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'executor_id', 'isSalon'], 'integer'],
+            [['user_id', 'executor_id', 'is_salon'], 'integer'],
         ];
     }
 

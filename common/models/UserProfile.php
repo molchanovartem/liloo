@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use common\validators\CityExistValidator;
+use common\validators\CountryExistValidator;
 use common\queries\Query;
 
 /**
@@ -32,6 +34,9 @@ class UserProfile extends \yii\db\ActiveRecord
             [['date_birth'], 'date', 'format' => 'php: Y-m-d'],
             [['surname', 'name', 'patronymic', 'address'], 'string', 'max' => 255],
             [['latitude', 'longitude'], 'number'],
+
+            ['country_id', CountryExistValidator::class],
+            ['city_id', CityExistValidator::class],
 
             [['avatar'], 'image'],
             [['avatarDelete'], 'integer'],
