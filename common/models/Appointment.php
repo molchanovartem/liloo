@@ -115,4 +115,12 @@ class Appointment extends ActiveRecord
     {
         return $this->hasMany(Recall::class, ['appointment_id' => 'id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserProfile()
+    {
+        return $this->hasOne(UserProfile::class, ['user_id' => 'user_id']);
+    }
 }

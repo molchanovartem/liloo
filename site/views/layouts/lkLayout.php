@@ -1,5 +1,9 @@
-<?php use site\widgets\header\Header;
-use yii\helpers\Url; ?>
+<?php
+
+use site\widgets\header\Header;
+use yii\helpers\Url;
+
+?>
 
 <?php $this->beginContent('@app/views/layouts/main.php'); ?>
 <header class="header bg_color_e4eff9 uk-width-1-1">
@@ -14,8 +18,8 @@ use yii\helpers\Url; ?>
                 <div class="row-categories__item"><a href="" class="row-categories__link">Мастера</a></div>
                 <div class="row-categories__item"><a href="" class="row-categories__link">Фотограф</a></div>
                 <div class="row-categories__item"><a href="" class="row-categories__link">Москва</a></div>
-                <div class="row-categories__item"><a href="" class="row-categories__link row-categories__link_current">Виктор
-                        Субботин</a>
+                <div class="row-categories__item">
+                    <a href="" class="row-categories__link row-categories__link_current">Виктор Субботин</a>
                 </div>
             </div>
 

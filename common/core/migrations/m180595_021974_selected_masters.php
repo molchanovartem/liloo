@@ -23,9 +23,6 @@ class m180595_021974_selected_masters extends Migration
 
         $this->createIndex('ix-selected_masters-user_id', $this->tableName, 'user_id');
         $this->addForeignKey('fk-selected_masters-user_id', $this->tableName, 'user_id', '{{%user}}', 'id', 'CASCADE', 'CASCADE');
-
-        $this->createIndex('ix-selected_masters-salon_id', $this->tableName, 'salon_id');
-        $this->addForeignKey('fk-selected_masters-salon_id', $this->tableName, 'salon_id', '{{%salon}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     /**
