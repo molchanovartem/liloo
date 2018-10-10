@@ -5,6 +5,7 @@ namespace site\services\lk;
 use common\core\service\ModelService;
 use common\models\Appointment;
 use common\models\AppointmentItem;
+use common\models\Client;
 use common\models\Recall;
 use common\models\UserProfile;
 use site\models\User;
@@ -37,38 +38,6 @@ class AppointmentService extends ModelService
      * @param int $id
      * @throws \Exception
      */
-//    public function getUserData(int $id)
-//    {
-//        $this->findUser($id);
-//        $user = $this->getData('model');
-//        $new = [];
-//        $canceled = [];
-//
-//        foreach ($user->clients as $client) {
-//            foreach ($client->appointments as $appointment) {
-//                $new[] = $appointment->status == Appointment::STATUS_NEW ||
-//                         $appointment->status == Appointment::STATUS_CONFIRMED ? $appointment : null;
-//                $canceled[] = $appointment->status == Appointment::STATUS_COMPLETED ? $appointment : null;
-//            }
-//        }
-//
-//        $appointments = [
-//            'new' => array_filter($new),
-//            'canceled' => array_filter($canceled),
-//        ];
-//
-//        $recall = new Recall();
-//
-//        $this->setData([
-//            'appointments' => $appointments,
-//            'recall' => $recall,
-//            ]);
-//    }
-
-    /**
-     * @param int $id
-     * @throws \Exception
-     */
     public function getUserData(int $id)
     {
         $this->findUser($id);
@@ -78,15 +47,22 @@ class AppointmentService extends ModelService
 
         foreach ($user['clients'] as $client) {
             foreach ($this->getAppointmentsByClientId($client['id']) as $appointment) {
-                $new[] = $appointment['status'] == Appointment::STATUS_NEW ||
-                         $appointment['status'] == Appointment::STATUS_CONFIRMED ? $appointment : null;
-                $canceled[] = $appointment['status'] == Appointment::STATUS_COMPLETED ? $appointment : null;
+                if ($appointment['status'] == Appointment::STATUS_NEW ||
+                    $appointment['status'] == Appointment::STATUS_CONFIRMED) {
+                    $new[] = $appointment;
+                }
+
+                if ($appointment['status'] == Appointment::STATUS_COMPLETED ) {
+                    $canceled[] = $appointment;
+                }
             }
         }
 
         $appointments = [
-            'new' => array_filter($new),
-            'canceled' => array_filter($canceled),
+            'new' => $new,
+            'canceled' => $canceled,
+            'countNew' => count($new),
+            'countCanceled' => count($canceled),
         ];
 
         $recall = new Recall();
@@ -97,12 +73,20 @@ class AppointmentService extends ModelService
             ]);
     }
 
-    protected function getAppointmentsByClientId($id)
+    public function actionKek()
     {
         return Appointment::find()
-            ->with('userProfile')
-            ->with('appointmentItems')
-            ->where(['client_id' => $id])
+            ->select('*')
+            ->alias('app')
+            ->leftJoin(Client::tableName() . ' cl', 'cl.id = app.client_id')
+            ->leftJoin(User::tableName() . ' us', 'us.id = cl.user_id')
+            ->where(['us.id' => \Yii::$app->user->getId()])
+
+
+//            ->with('userProfile')
+//            ->with('salon')
+//            ->with('appointmentItems')
+//            ->where(['client_id' => $id])
             ->asArray()
             ->all();
     }
