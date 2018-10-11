@@ -4,11 +4,12 @@ namespace site\services\lk;
 
 use common\core\service\ModelService;
 use common\models\Appointment;
-use common\models\AppointmentItem;
 use common\models\Client;
 use common\models\Recall;
+use common\models\Salon;
 use common\models\UserProfile;
 use site\models\User;
+use yii\data\ActiveDataProvider;
 
 /**
  * Class AppointmentService
@@ -17,47 +18,21 @@ use site\models\User;
  */
 class AppointmentService extends ModelService
 {
-    /**
-     * @param $id
-     *
-     * @throws \Exception
-     */
-    protected function findUser($id)
+    public function getUserData()
     {
-        if (($model = User::find()
-                ->with(['clients'])
-                ->with(['profile'])
-                ->where(['id' => $id])
-                ->asArray()
-                ->one()) == null) throw new \Exception('Not find any user');
-
-        $this->setData(['model' => $model]);
-    }
-
-    /**
-     * @param int $id
-     * @throws \Exception
-     */
-    public function getUserData(int $id)
-    {
-        $this->findUser($id);
-        $user = $this->getData('model');
         $new = [];
         $canceled = [];
 
-        foreach ($user['clients'] as $client) {
-            foreach ($this->getAppointmentsByClientId($client['id']) as $appointment) {
-                if ($appointment['status'] == Appointment::STATUS_NEW ||
-                    $appointment['status'] == Appointment::STATUS_CONFIRMED) {
-                    $new[] = $appointment;
-                }
+        foreach ($this->getAppointments() as $appointment) {
+            if ($appointment['status'] == Appointment::STATUS_NEW ||
+                $appointment['status'] == Appointment::STATUS_CONFIRMED) {
+                $new[] = $appointment;
+            }
 
-                if ($appointment['status'] == Appointment::STATUS_COMPLETED ) {
-                    $canceled[] = $appointment;
-                }
+            if ($appointment['status'] == Appointment::STATUS_COMPLETED) {
+                $canceled[] = $appointment;
             }
         }
-
         $appointments = [
             'new' => $new,
             'canceled' => $canceled,
@@ -65,29 +40,44 @@ class AppointmentService extends ModelService
             'countCanceled' => count($canceled),
         ];
 
-        $recall = new Recall();
+
+//        $recall = new Recall();
 
         $this->setData([
             'appointments' => $appointments,
-            'recall' => $recall,
-            ]);
+//            'recall' => $recall,
+        ]);
     }
 
-    public function actionKek()
+
+    public function getAppointments($isCanceled = false)
     {
-        return Appointment::find()
-            ->select('*')
+        $query = Appointment::find()
+            ->select('uspr.*, app.*, sal.name as salname')
             ->alias('app')
             ->leftJoin(Client::tableName() . ' cl', 'cl.id = app.client_id')
             ->leftJoin(User::tableName() . ' us', 'us.id = cl.user_id')
-            ->where(['us.id' => \Yii::$app->user->getId()])
+            ->leftJoin(UserProfile::tableName() . ' uspr', 'uspr.user_id = us.id')
+            ->leftJoin(Salon::tableName() . ' sal', 'app.salon_id = sal.id')
+            ->with('appointmentItems')
+            ->where(['us.id' => \Yii::$app->user->getId()]);
 
+            if ($isCanceled) {
+                $query->andWhere(['app.status' => Appointment::STATUS_COMPLETED]);
+            } else {
+                $query->andWhere(['or', 'app.status = ' . Appointment::STATUS_NEW, 'app.status = ' . Appointment::STATUS_CONFIRMED]);
+            }
 
-//            ->with('userProfile')
-//            ->with('salon')
-//            ->with('appointmentItems')
-//            ->where(['client_id' => $id])
-            ->asArray()
-            ->all();
+        $provider = new ActiveDataProvider([
+            'query' => $query->asArray(),
+            'pagination' => [
+                'pageSize' => 5,
+            ],
+        ]);
+
+        $this->setData([
+            'appointments' => $provider->getModels(),
+            'total' => $provider->getTotalCount()
+        ]);
     }
 }

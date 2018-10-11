@@ -1,7 +1,7 @@
 <?php
 
-use site\widgets\header\Header;
 use yii\helpers\Url;
+use site\widgets\header\Header;
 
 ?>
 
@@ -40,13 +40,13 @@ use yii\helpers\Url;
                     <a href="" class="menu-blocks__item">
                         <span class="menu-blocks__item-name">Каталог</span>
                     </a>
-                    <a href="" class="menu-blocks__item">
+                    <a href="<?php echo Url::to(['lk/selected-masters']); ?>" class="menu-blocks__item">
                         <span class="menu-blocks__item-name">Избранные мастера</span>
                     </a>
                     <a href="" class="menu-blocks__item">
                         <span class="menu-blocks__item-name">Акции</span>
                     </a>
-                    <a href="<?php echo Url::to(['lk/appointment/view?id=' . \Yii::$app->user->identity->id]); ?>"
+                    <a href="<?php echo Url::to(['lk/appointment/view']); ?>"
                        class="menu-blocks__item">
                         <span class="menu-blocks__item-name">Записи</span>
                     </a>
@@ -56,7 +56,7 @@ use yii\helpers\Url;
                     <a href="" class="menu-blocks__item">
                         <span class="menu-blocks__item-name">Уведомления</span>
                     </a>
-                    <a href="<?php echo Url::to(['lk/profile/view?id=' . \Yii::$app->user->identity->id]); ?>"
+                    <a href="<?php echo Url::to(['lk/profile/view']); ?>"
                        class="menu-blocks__item" data-ajax-content="true">
                         <span class="menu-blocks__item-name">Профиль</span>
                     </a>

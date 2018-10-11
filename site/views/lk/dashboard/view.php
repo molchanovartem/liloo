@@ -11,7 +11,7 @@ use yii\helpers\Url;
 
     <div class="service-list-wrap">
         <div class="service-list">
-            <?php foreach ($specializations as $specialization): ?>
+            <?php foreach ($data['specializations'] as $specialization): ?>
 
                 <a href="<?php echo Url::to(['lk/executor-map/index', 'specialization_id' => $specialization->id]) ?>"
                    class="service-list__item" data-ajax-content="true">

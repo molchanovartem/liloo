@@ -3,9 +3,6 @@
 namespace site\controllers\lk;
 
 use common\models\Appointment;
-use common\models\Client;
-use common\models\User;
-use common\models\UserProfile;
 use site\services\lk\AppointmentService;
 
 /**
@@ -31,13 +28,11 @@ class AppointmentController extends Controller
     }
 
     /**
-     * @param $id
-     * @return string
-     * @throws \Exception
+     * @return array|string
      */
-    public function actionView($id)
+    public function actionView()
     {
-        $this->modelService->getUserData($id);
+        $this->modelService->getAppointments();
 
         return $this->extraRender('/lk/appointment/view', ['data' => $this->modelService->getData()]);
     }
@@ -55,34 +50,22 @@ class AppointmentController extends Controller
     }
 
     /**
-     * @param $id
      * @return \yii\web\Response
-     * @throws \Exception
      */
-    public function actionAppointmentData($id)
+    public function actionAppointmentDataNew()
     {
-        $this->modelService->getUserData($id);
+        $this->modelService->getAppointments();
 
         return $this->asJson($this->modelService->getData());
     }
 
-    public function actionKek()
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionAppointmentDataCanceled()
     {
-        $kek = Appointment::find()
-            ->select('*')
-            ->alias('app')
-            ->leftJoin(Client::tableName() . ' cl', 'cl.id = app.client_id')
-            ->leftJoin(User::tableName() . ' us', 'us.id = cl.user_id')
-            ->leftJoin(UserProfile::tableName() . ' up', 'up.user_id = us.id')
-            ->where(['us.id' => \Yii::$app->user->getId()])
+        $this->modelService->getAppointments(true);
 
-
-//            ->with('userProfile')
-//            ->with('salon')
-//            ->with('appointmentItems')
-//            ->where(['client_id' => $id])
-            ->asArray();
-
-        var_dump($kek->createCommand()->rawSql);
+        return $this->asJson($this->modelService->getData());
     }
 }

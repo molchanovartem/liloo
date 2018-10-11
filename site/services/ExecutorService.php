@@ -125,7 +125,6 @@ class ExecutorService extends ModelService
                 ->one()) == null) throw new \Exception('Not find any user');
 
         $specialization = $this->getSpecializationServiceByAccountId($model->account_id);
-
         $isSelected = SelectedMasters::find()->where(['executor_id' => $id])->byCurrentUserId()->one() ? 1 : 0;
 
         $this->setData(['model' => $model, 'specialization' => $specialization, 'isSelected' => $isSelected]);
@@ -143,8 +142,9 @@ class ExecutorService extends ModelService
                 ->where(['id' => $id])
                 ->one()) == null) throw new \Exception('Not find any salon');
         $specialization = $this->getSpecializationServiceByAccountId($model->account_id);
+        $isSelected = SelectedMasters::find()->where(['executor_id' => $id])->byCurrentUserId()->one() ? 1 : 0;
 
-        $this->setData(['model' => $model, 'specialization' => $specialization]);
+        $this->setData(['model' => $model, 'specialization' => $specialization, 'isSelected' => $isSelected]);
     }
 
     /**

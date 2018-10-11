@@ -23,13 +23,12 @@ class DashboardController extends Controller
     /**
      * @return mixed
      */
-    public function actionView()
+    public function actionIndex()
     {
         $this->modelService->index();
-        $data = $this->modelService->getData();
 
         return $this->extraRender('/lk/dashboard/view', [
-            'specializations' => $data['specializations'],
+            'data' => $this->modelService->getData(),
             'modelService' => $this->modelService
         ]);
     }

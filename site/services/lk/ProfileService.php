@@ -2,6 +2,7 @@
 
 namespace site\services\lk;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 use common\core\service\ModelService;
 use common\models\City;
@@ -11,32 +12,26 @@ use common\models\UserProfile;
 
 /**
  * Class ProfileService
- *
  * @package site\services\lk
  */
 class ProfileService extends ModelService
 {
     /**
-     * @param $id
-     *
      * @throws \Exception
      */
-    public function findUser($id)
+    public function findUser()
     {
         if (($model = User::find()
                           ->with(['profile'])
-                          ->where(['id' => $id])
+                          ->where(['id' => Yii::$app->user->getId()])
                           ->one()) == null) throw new \Exception('Not find any user');
 
         $this->setData(['model' => $model]);
     }
 
-    /**
-     * @param $id
-     */
-    public function update($id)
+    public function update()
     {
-        $model = UserProfile::find()->where(['user_id' => $id])->one();
+        $model = UserProfile::find()->where(['user_id' => Yii::$app->user->getId()])->one();
         $cities = $this->getCities();
         $countries = $this->getCountries();
 

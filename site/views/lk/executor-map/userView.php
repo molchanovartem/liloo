@@ -5,34 +5,34 @@ use yii\helpers\Html;
 ?>
 
 <?php $this->beginBlock('cart'); ?>
-    <div class="content-block uk-padding content-block_shadow uk-background-default">
-        <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
-        <div class="bill mt-40">
-            <div class="bill__row">
-                <div class="bill__name">Мужская стрижка</div>
-                <div class="bill__cost">от 500 руб.</div>
-            </div>
-            <div class="bill__row">
-                <div class="bill__name">Биоревитализация с применением биоматрецы</div>
-                <div class="bill__cost">от 4500 руб.</div>
-            </div>
-            <div class="bill__row">
-                <div class="bill__name">Окрашивание краской клиента</div>
-                <div class="bill__cost">от 3000 руб.</div>
-            </div>
+<div class="content-block uk-padding content-block_shadow uk-background-default">
+    <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
+    <div class="bill mt-40">
+        <div class="bill__row">
+            <div class="bill__name">Мужская стрижка</div>
+            <div class="bill__cost">от 500 руб.</div>
         </div>
-        <div class="t-a_c">
-            <div class="button button_color_red button_width_270 mt-40">Выбрать время</div>
+        <div class="bill__row">
+            <div class="bill__name">Биоревитализация с применением биоматрецы</div>
+            <div class="bill__cost">от 4500 руб.</div>
+        </div>
+        <div class="bill__row">
+            <div class="bill__name">Окрашивание краской клиента</div>
+            <div class="bill__cost">от 3000 руб.</div>
         </div>
     </div>
+    <div class="t-a_c">
+        <div class="button button_color_red button_width_270 mt-40">Выбрать время</div>
+    </div>
+</div>
 
-    <div class="content-block uk-padding content-block_shadow">
-        <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
-        <div class="t-a_c">
-            <div class="button button_color_red button_width_270 button_color_red_disabled mt-40">Записаться
-            </div>
+<div class="content-block uk-padding content-block_shadow">
+    <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
+    <div class="t-a_c">
+        <div class="button button_color_red button_width_270 button_color_red_disabled mt-40">Записаться
         </div>
     </div>
+</div>
 <?php $this->endBlock(); ?>
 
 
@@ -97,9 +97,9 @@ use yii\helpers\Html;
             <a href="" class="choose-city">
                 <span class="choose-city__fa fas fa-map-marker-alt"></span>
                 <span class="choose-city__text">
-                                <?php echo Html::encode($data['model']->profile->city->name); ?>,
+                    <?php echo Html::encode($data['model']->profile->city->name); ?>,
                     <?php echo Html::encode($data['model']->profile->address); ?>
-                            </span>
+                </span>
             </a>
         </div>
 
@@ -110,7 +110,16 @@ use yii\helpers\Html;
                 <div class="performer__name">
                     <?php echo Html::encode($data['model']->profile->name); ?>
                     <?php echo Html::encode($data['model']->profile->surname); ?>
+
+                    <a href="/site/web/lk/selected-masters/add-to-selected?executorId=<?php echo $data['model']->id; ?>&isSalon=0">
+                        <?php if ($data['isSelected']): ?>
+                            <i class="mdi mdi-star uk-text-warning"></i>
+                        <?php else: ?>
+                            <i class="mdi mdi-star-outline uk-text-muted"></i>
+                        <?php endif; ?>
+                    </a>
                 </div>
+
                 <div class="performer__profession">
                     <?php foreach ($data['specialization'] as $specialization): ?>
                         <?php echo Html::encode($specialization['name']); ?>

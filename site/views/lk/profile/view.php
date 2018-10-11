@@ -10,7 +10,7 @@ use yii\helpers\Html;
 
         <div class="j-c_s-b">
             <div class="content-block__title">Информация обо мне</div>
-            <?php echo Html::a("Редактировать", '/site/web/lk/profile/update?id=' . $data['model']->id, ['class' => 'button button_color_blue-empty']); ?>
+            <?php echo Html::a("Редактировать", '/site/web/lk/profile/update', ['class' => 'button button_color_blue-empty']); ?>
         </div>
 
         <div class="performer mt-40">

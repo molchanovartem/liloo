@@ -27,24 +27,22 @@ class ProfileController extends Controller
     }
 
     /**
-     * @param $id
      * @return array|string
      * @throws \Exception
      */
-    public function actionView($id)
+    public function actionView()
     {
-        $this->modelService->findUser($id);
+        $this->modelService->findUser();
 
         return $this->extraRender('/lk/profile/view', ['data' => $this->modelService->getData()]);
     }
 
     /**
-     * @param $id
      * @return array|string
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
-        $this->modelService->update($id);
+        $this->modelService->update();
 
         return $this->extraRender('/lk/profile/update', ['data' => $this->modelService->getData()]);
     }

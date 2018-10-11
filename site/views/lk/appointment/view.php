@@ -22,8 +22,10 @@
 
                             <v-data-iterator
                                     :items="appointmentsNew"
-                                    :pagination.sync="appointmentNewPagination"
                                     :total-items="countNew"
+
+                                    :pagination.sync="pagination"
+
                                     row
                                     wrap
                                     prev-icon="mdi-chevron-left"
@@ -34,15 +36,18 @@
                                     <div v-if="props.item.salon_id">
                                         <div>
                                             <a :href="'/site/web/index.php/lk/executor-map/salon-view?id=' + props.item.salon_id">
-                                                {{props.item.salon.name}}
+                                                {{props.item.salname}}
                                             </a>
 
                                             <span v-if="props.item.status === 0" class="uk-label uk-label-warning">Не подтверждено</span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
-                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date }}</p>
+                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date
+                                                }}</p>
 
                                             <div v-show="props.item.open">
-                                                <v-btn @click="cancelSession(props.item.id)" color="error">Отменить сеанс</v-btn>
+                                                <v-btn @click="cancelSession(props.item.id)" color="error">Отменить
+                                                    сеанс
+                                                </v-btn>
                                                 <v-data-table
                                                         :headers="headers"
                                                         :items="props.item.appointmentItems"
@@ -62,15 +67,18 @@
                                     <div v-else>
                                         <div>
                                             <a :href="'/site/web/index.php/lk/executor-map/user-view?id=' + props.item.user_id">
-                                                {{props.item.userProfile.name + ' ' + props.item.userProfile.surname}}
+                                                {{props.item.name + ' ' + props.item.surname}}
                                             </a>
 
                                             <span v-if="props.item.status === 0" class="uk-label uk-label-warning">Не подтверждено</span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
-                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date }}</p>
+                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date
+                                                }}</p>
 
                                             <div v-show="props.item.open">
-                                                <v-btn @click="cancelSession(props.item.id)" color="error">Отменить сеанс</v-btn>
+                                                <v-btn @click="cancelSession(props.item.id)" color="error">Отменить
+                                                    сеанс
+                                                </v-btn>
                                                 <v-data-table
                                                         :headers="headers"
                                                         :items="props.item.appointmentItems"
@@ -113,12 +121,13 @@
                                     <div v-if="props.item.salon_id">
                                         <div>
                                             <a :href="'/site/web/index.php/lk/executor-map/salon-view?id=' + props.item.salon_id">
-                                                {{props.item.salon.name}}
+                                                {{props.item.salname}}
                                             </a>
 
                                             <span v-if="props.item.status === 0" class="uk-label uk-label-warning">Не подтверждено</span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
-                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date }}</p>
+                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date
+                                                }}</p>
 
                                             <div v-show="props.item.open">
                                                 <v-data-table
@@ -134,13 +143,30 @@
                                                         <td>{{ pro.item.service_price }}</td>
                                                     </template>
                                                 </v-data-table>
+                                                <br>
+                                                <div class="uk-grid">
+                                                    <div class="uk-width-2-3">
+                                                        <v-form v-model="valid">
+                                                            <v-text-field
+                                                                    v-model="recall"
+                                                                    :counter="250"
+                                                                    label="Оставьте ваш отзыв"
+                                                                    required
+                                                            ></v-text-field>
+                                                        </v-form>
+                                                    </div>
+                                                    <div class="uk-width-1-3"><br>
+                                                        <i class="mdi mdi-heart" style="color: red; font-size: 30px;"></i>
+                                                        <i class="mdi mdi-heart-broken" style="font-size: 30px;"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div v-else>
                                         <div>
                                             <a :href="'/site/web/index.php/lk/executor-map/user-view?id=' + props.item.user_id">
-                                                {{props.item.userProfile.name + ' ' + props.item.userProfile.surname}}
+                                                {{props.item.name + ' ' + props.item.surname}}
                                             </a>
 
                                             <span v-if="props.item.status === 0" class="uk-label uk-label-warning">Не подтверждено</span>
@@ -189,14 +215,10 @@
         new Vue({
                 el: '#app',
                 beforeMount() {
-                    console.log(this.appointmentNewPagination);
                     this.loadAttributesFromQueryParams();
-                    this.loadData();
+                    this.loadDataNew();
+                    this.loadDataCanceled();
                     if (!this.hasTabType()) this.defaultTabType();
-
-                    if (!this.hasAppointmentNewPage()) this.defaultAppointmentNewPage();
-                    if (!this.hasAppointmentCanceledPage()) this.defaultAppointmentCanceledPage();
-
                 },
 
                 data: {
@@ -209,43 +231,22 @@
 
                     countNew: null,
                     countCanceled: null,
-
-                    appointmentNewPage: null,
-                    appointmentCanceledPage: null,
-
                     appointmentsNew: [],
                     appointmentsCanceled: [],
 
-                    appointmentNewPagination: {},
+                    pagination: {},
+                    paginationCanceled: {},
 
-                    attributes: {
-                        userId: null,
-                        // specializationId: null,
-                        // serviceId: null,
-                        // cityId: null,
-                        // date: null
-                    },
+                    valid: false,
+                    recall: '',
                 },
                 methods: {
                     hasTabType() {
                         return this.tabType !== null;
                     },
-                    hasAppointmentNewPage() {
-                        return this.appointmentNewPage !== null;
-                    },
-                    hasAppointmentCanceledPage() {
-                        return this.appointmentCanceledPage !== null;
-                    },
-
 
                     defaultTabType() {
                         this.tabTypeAppointmentNew();
-                    },
-                    defaultAppointmentNewPage() {
-                        this.AppointmentNewPage();
-                    },
-                    defaultAppointmentCanceledPage() {
-                        this.AppointmentCanceledPage();
                     },
 
                     tabTypeAppointmentNew() {
@@ -255,68 +256,37 @@
                         this.setTabType(TAB_TYPE_APPOINTMENT_CANCELED);
                     },
 
-                    AppointmentCanceledPage() {
-                        this.setAppointmentCanceledPage(1);
-                    },
-                    AppointmentNewPage() {
-                        this.setAppointmentNewPage(1);
-                    },
-
-                    onSubmit() {
-                        this.locationQueryParamsPush();
-                        this.loadData();
-                    },
-                    loadCommonData() {
-                        return new Promise((resolve, reject) => {
-                            $.post('http://liloo/api/common/index', JSON.stringify({
-                                query: "query {" +
-                                    "specializations {id, name}," +
-                                    "services {id, name, price, duration}" +
-                                    "cities(country_id: 1) {id, name, latitude, longitude}" +
-                                    "}"
-                            }))
-                                .done(({data}) => {
-                                    if (data.specializations) this.specializations = Array.from(data.specializations);
-                                    if (data.services) this.services = data.services;
-                                    if (data.cities) this.cities = data.cities;
-
-                                    resolve(true)
-                                })
-                                .fail((error) => {
-                                    reject(error);
-                                });
-                        });
-                    },
-
-                    loadData() {
-                        $.get('http://liloo/site/web/lk/appointment/appointment-data', {
-                            id: this.attributes.userId,
+                    loadDataNew() {
+                        $.get('http://liloo/site/web/lk/appointment/appointment-data-new', {
+                            page: this.pagination.page
                         })
                             .done(data => {
+                                this.countNew = data.total;
                                 this.appointmentsNew = [];
+
+                                if (data.appointments) {
+                                    for (let i = 0, appointment; appointment = data.appointments[i]; i++) {
+                                        appointment.open = false;
+                                        this.appointmentsNew.push(appointment)
+                                    }
+                                }
+                            });
+                    },
+
+                    loadDataCanceled() {
+                        $.get('http://liloo/site/web/lk/appointment/appointment-data-canceled', {
+                            page: this.pagination.page
+                        })
+                            .done(data => {
+                                this.countCanceled = data.total;
                                 this.appointmentsCanceled = [];
 
-                                if (data.appointments.canceled) {
-
-                                    if (data.appointments.canceled) {
-                                        for (let i = 0, appointment; appointment = data.appointments.canceled[i]; i++) {
-                                            appointment.open = false;
-                                            this.appointmentsCanceled.push(appointment)
-                                        }
+                                if (data.appointments) {
+                                    for (let i = 0, appointment; appointment = data.appointments[i]; i++) {
+                                        appointment.open = false;
+                                        this.appointmentsCanceled.push(appointment)
                                     }
                                 }
-
-                                if (data.appointments.new) {
-                                    if (data.appointments.new) {
-                                        for (let i = 0, appointment; appointment = data.appointments.new[i]; i++) {
-                                            appointment.open = false;
-                                            this.appointmentsNew.push(appointment)
-                                        }
-                                    }
-                                }
-
-                                this.countNew = data.appointments.countNew;
-                                this.countCanceled = data.appointments.countCanceled;
                             });
                     },
 
@@ -324,20 +294,11 @@
                         this.tabType = type;
                         this.locationQueryParamsPush();
                     },
-                    setAppointmentNewPage(page) {
-                        this.appointmentNewPage = page;
-                        this.locationQueryParamsPush();
-                    },
-                    setAppointmentCanceledPage(page) {
-                        this.appointmentCanceledPage = page;
-                        this.locationQueryParamsPush();
-                    },
 
                     locationQueryParamsPush() {
                         let params = new URLSearchParams(document.location.search);
                         params.set('tab_type', this.tabType);
-                        params.set('appointmentNewPage', this.appointmentNewPage);
-                        params.set('appointmentCanceledPage', this.appointmentCanceledPage);
+                        params.set('page_new', this.pagination.page);
 
                         let baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
 
@@ -347,11 +308,6 @@
                     loadAttributesFromQueryParams() {
                         let params = new URLSearchParams(document.location.search),
                             tabType = params.get('tab_type');
-
-                        this.attributes.userId = params.get('id');
-                        this.appointmentNewPage = params.get('appointmentNewPage');
-                        this.appointmentCanceledPage = params.get('appointmentCanceledPage');
-
 
                         if (tabType === TAB_TYPE_APPOINTMENT_NEW) this.tabTypeAppointmentNew();
                         else if (tabType === TAB_TYPE_APPOINTMENT_CANCELED) this.tabTypeAppointmentCanceled();
@@ -363,19 +319,20 @@
                         })
                             .done(data => {
                                 if (data) {
-                                    this.appointmentsNew.forEach(function(item, i, arr) {
-                                       if (item.id === id) {
-                                           arr.splice(i, 1);
-                                       }
+                                    this.appointmentsNew.forEach(function (item, i, arr) {
+                                        if (item.id === id) {
+                                            arr.splice(i, 1);
+                                        }
                                     });
                                 }
                             });
                     },
                 },
                 watch: {
-                    appointmentNewPagination() {
-                        console.log(this.appointmentNewPagination);
-                        this.loadData()
+                    pagination() {
+                        this.loadAttributesFromQueryParams();
+                        this.loadDataNew();
+                        this.loadDataCanceled();
                     }
                 },
             }
