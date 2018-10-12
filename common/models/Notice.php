@@ -1,23 +1,26 @@
 <?php
 
-namespace admin\models;
+namespace common\models;
 
 use yii\db\ActiveRecord;
 
+/**
+ * Class Notice
+ * @package common\models
+ */
 class Notice extends ActiveRecord
 {
     const STATUS_UNREAD = 0;
     const STATUS_READ = 1;
 
-    const TYPE_USER_REGISTRATION = 0;
-    const TYPE_USER_RECALL = 1;
+    const TYPE_USER_CANCELED_SESSION = 1;
 
     /**
      * @return string
      */
     public static function tableName()
     {
-        return '{{%admin_notice}}';
+        return '{{%notice}}';
     }
 
     /**
@@ -33,27 +36,25 @@ class Notice extends ActiveRecord
     /**
      * @return array
      */
-    public function getTypes()
+    public function getTypeList()
     {
         return [
-            self::TYPE_USER_REGISTRATION => 'Регистрация',
-            self::TYPE_USER_RECALL => 'Отзыв',
+            self::TYPE_USER_CANCELED_SESSION => 'Клиент отменил сеанс',
         ];
     }
 
     /**
-     * @param $type
-     * @return mixed
+     * @return string
      */
-    public function getType($type)
+    public function getTypeName() : string
     {
-        return $this->getTypes()[$type];
+        return $this->getTypeList()[$this->type];
     }
 
     /**
      * @return array
      */
-    public function getStatuses()
+    public function getStatusList()
     {
         return [
             self::STATUS_UNREAD => 'Не прочитано',
@@ -62,11 +63,10 @@ class Notice extends ActiveRecord
     }
 
     /**
-     * @param $status
-     * @return mixed
+     * @return string
      */
-    public function getStatus($status)
+    public function getStatusName() : string
     {
-        return $this->getStatuses()[$status];
+        return $this->getStatusList()[$this->status];
     }
 }

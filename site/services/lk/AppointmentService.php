@@ -2,14 +2,17 @@
 
 namespace site\services\lk;
 
+use Yii;
+use yii\base\Event;
+use yii\data\ActiveDataProvider;
 use common\core\service\ModelService;
 use common\models\Appointment;
 use common\models\Client;
+use common\models\Notice;
 use common\models\Recall;
 use common\models\Salon;
 use common\models\UserProfile;
 use site\models\User;
-use yii\data\ActiveDataProvider;
 
 /**
  * Class AppointmentService
@@ -18,6 +21,16 @@ use yii\data\ActiveDataProvider;
  */
 class AppointmentService extends ModelService
 {
+    const EVENT_USER_CANCELED_SESSION = 'canceled';
+
+    public function init()
+    {
+        parent::init();
+        $this->on(self::EVENT_USER_CANCELED_SESSION, function ($model) {
+            Yii::$app->notice->createNotice($model->sender->account_id, Notice::TYPE_USER_CANCELED_SESSION, Notice::STATUS_UNREAD, 'text', $model->sender);
+        });
+    }
+
     public function getUserData()
     {
         $new = [];
@@ -62,11 +75,11 @@ class AppointmentService extends ModelService
             ->with('appointmentItems')
             ->where(['us.id' => \Yii::$app->user->getId()]);
 
-            if ($isCanceled) {
-                $query->andWhere(['app.status' => Appointment::STATUS_COMPLETED]);
-            } else {
-                $query->andWhere(['or', 'app.status = ' . Appointment::STATUS_NEW, 'app.status = ' . Appointment::STATUS_CONFIRMED]);
-            }
+        if ($isCanceled) {
+            $query->andWhere(['app.status' => Appointment::STATUS_COMPLETED]);
+        } else {
+            $query->andWhere(['or', 'app.status = ' . Appointment::STATUS_NEW, 'app.status = ' . Appointment::STATUS_CONFIRMED]);
+        }
 
         $provider = new ActiveDataProvider([
             'query' => $query->asArray(),
@@ -79,5 +92,21 @@ class AppointmentService extends ModelService
             'appointments' => $provider->getModels(),
             'total' => $provider->getTotalCount()
         ]);
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function cancelSession(int $id)
+    {
+        $appointment = Appointment::findOne($id);
+        $appointment->status = Appointment::STATUS_CANCELED;
+        if ($appointment->save()) {
+            $this->trigger(self::EVENT_USER_CANCELED_SESSION, new Event(['sender' => $appointment]));
+            return true;
+        }
+
+        return false;
     }
 }

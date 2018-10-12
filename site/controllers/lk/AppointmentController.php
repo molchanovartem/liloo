@@ -43,10 +43,7 @@ class AppointmentController extends Controller
      */
     public function actionCancel($id)
     {
-        $appointment = Appointment::findOne($id);
-        $appointment->status = Appointment::STATUS_CANCELED;
-
-        return $appointment->save() ? true : false;
+        return $this->modelService->cancelSession($id);
     }
 
     /**
