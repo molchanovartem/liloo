@@ -4,6 +4,10 @@ namespace site\controllers\lk;
 
 use site\services\SiteService;
 
+/**
+ * Class DashboardController
+ * @package site\controllers\lk
+ */
 class DashboardController extends Controller
 {
     /**
@@ -27,7 +31,7 @@ class DashboardController extends Controller
     {
         $this->modelService->index();
 
-        return $this->extraRender('/lk/dashboard/view', [
+        return $this->extraRender('/lk/dashboard/index', [
             'data' => $this->modelService->getData(),
             'modelService' => $this->modelService
         ]);

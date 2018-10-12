@@ -39,11 +39,12 @@ class AppointmentController extends Controller
 
     /**
      * @param $id
+     * @param $reason
      * @return bool
      */
-    public function actionCancel($id)
+    public function actionCancel($id, $reason)
     {
-        return $this->modelService->cancelSession($id);
+        return $this->modelService->cancelSession($id, $reason);
     }
 
     /**

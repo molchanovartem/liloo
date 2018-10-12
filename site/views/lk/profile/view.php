@@ -10,7 +10,8 @@ use yii\helpers\Html;
 
         <div class="j-c_s-b">
             <div class="content-block__title">Информация обо мне</div>
-            <?php echo Html::a("Редактировать", '/site/web/lk/profile/update', ['class' => 'button button_color_blue-empty']); ?>
+            <?php echo Html::encode($data['model']->profile->country->name); ?>
+            , <?php echo Html::encode($data['model']->profile->city->name); ?>
         </div>
 
         <div class="performer mt-40">
@@ -24,25 +25,21 @@ use yii\helpers\Html;
         </div>
 
         <div class="font_type_3 mt-25">
-            <?php echo Html::encode($data['model']->profile->description); ?>
-        </div>
-        <div class="font_type_3 mt-25">
-            <?php echo Html::encode($data['model']->profile->city->name); ?>
+            <h5><?php echo Html::encode($data['model']->profile->description); ?></h5>
         </div>
 
         <div class="font_type_3 mt-25">
-            <?php echo Html::encode($data['model']->profile->country->name); ?>
+            <h5><?php echo Html::encode($data['model']->profile->date_birth); ?></h5>
         </div>
 
         <div class="font_type_3 mt-25">
-            <?php echo Html::encode($data['model']->profile->date_birth); ?>
+            <h5><?php echo Html::encode($data['model']->profile->phone); ?></h5>
         </div>
 
         <div class="font_type_3 mt-25">
-            <?php echo Html::encode($data['model']->profile->phone); ?>
+            <?php echo Html::a("Редактировать", '/site/web/lk/profile/update', ['class' => 'button button_color_blue-empty']); ?>
         </div>
 
     </div>
 
 </div>
-

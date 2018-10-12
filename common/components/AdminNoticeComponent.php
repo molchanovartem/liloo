@@ -2,7 +2,7 @@
 
 namespace common\components;
 
-use admin\models\Notice;
+use admin\models\AdminNotice;
 use yii\base\Component;
 
 /**
@@ -19,7 +19,7 @@ class AdminNoticeComponent extends Component
      */
     public function createNotice(int $type, int $status, $text, $data)
     {
-        $notice = new Notice();
+        $notice = new AdminNotice();
 
         $notice->type = $type;
         $notice->status = $status;

@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\behaviors\UserId;
 use common\queries\Query;
 
 /**
@@ -11,8 +12,8 @@ use common\queries\Query;
  */
 class Recall extends \yii\db\ActiveRecord
 {
-    const RECALL_TYPE_USER = 0;
-    const RECALL_TYPE_MASTER_RESPONSE = 1;
+    const RECALL_TYPE_USER = 1;
+    const RECALL_TYPE_MASTER_RESPONSE = 2;
 
     const ASSESSMENT_LIKE = 1;
     const ASSESSMENT_DEFAULT = 0;
@@ -38,8 +39,17 @@ class Recall extends \yii\db\ActiveRecord
             [['text'], 'required'],
             [['account_id', 'user_id', 'appointment_id', 'type', 'parent_id', 'assessment'], 'integer'],
             [['assessment'], 'in', 'range' => $this->getAssessments()],
-            [['user_id'], 'default', 'value' => 52],
             [['text'], 'string'],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function behaviors(): array
+    {
+        return [
+            UserId::class,
         ];
     }
 

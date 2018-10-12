@@ -23,13 +23,11 @@
                             <v-data-iterator
                                     :items="appointmentsNew"
                                     :total-items="countNew"
-
                                     :pagination.sync="pagination"
-
-                                    row
-                                    wrap
                                     prev-icon="mdi-chevron-left"
                                     next-icon="mdi-chevron-right"
+                                    row
+                                    wrap
                             >
                                 <div slot="item" slot-scope="props">
 
@@ -39,15 +37,45 @@
                                                 {{props.item.salname}}
                                             </a>
 
-                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">Не подтверждено</span>
+                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">
+                                                Не подтверждено
+                                            </span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
-                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date
-                                                }}</p>
+                                            <p @click="props.item.open = !props.item.open">{{props.item.start_date}}</p>
 
                                             <div v-show="props.item.open">
-                                                <v-btn @click="cancelSession(props.item.id)" color="error">Отменить
-                                                    сеанс
-                                                </v-btn>
+
+                                                <v-dialog v-model="dialog" width="500">
+                                                    <v-btn slot="activator" color="red lighten-2" dark>
+                                                        Отменить сеанс
+                                                    </v-btn>
+
+                                                    <v-card>
+                                                        <v-card-title class="headline grey lighten-2" primary-title>
+                                                            Вы уверены ?
+                                                        </v-card-title>
+
+                                                        <v-card-text>
+                                                            Опишите причину
+                                                            <v-textarea
+                                                                    name="input-7-1"
+                                                                    v-model="reason"
+                                                            ></v-textarea>
+
+                                                        </v-card-text>
+
+                                                        <v-divider></v-divider>
+
+                                                        <v-card-actions>
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn color="primary" flat
+                                                                   @click="cancelSession(props.item.id)">
+                                                                Я Уверен
+                                                            </v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-dialog>
+
                                                 <v-data-table
                                                         :headers="headers"
                                                         :items="props.item.appointmentItems"
@@ -70,15 +98,43 @@
                                                 {{props.item.name + ' ' + props.item.surname}}
                                             </a>
 
-                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">Не подтверждено</span>
+                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">
+                                                Не подтверждено
+                                            </span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
-                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date
-                                                }}</p>
+                                            <p @click="props.item.open = !props.item.open">{{props.item.start_date}}</p>
 
                                             <div v-show="props.item.open">
-                                                <v-btn @click="cancelSession(props.item.id)" color="error">Отменить
-                                                    сеанс
-                                                </v-btn>
+                                                <v-dialog v-model="dialog" width="500">
+                                                    <v-btn slot="activator" color="red lighten-2" dark>
+                                                        Отменить сеанс
+                                                    </v-btn>
+
+                                                    <v-card>
+                                                        <v-card-title class="headline grey lighten-2" primary-title>
+                                                            Вы уверены ?
+                                                        </v-card-title>
+
+                                                        <v-card-text>
+                                                            Опишите причину
+                                                            <v-textarea
+                                                                    name="input-7-1"
+                                                                    v-model="reason"
+                                                            ></v-textarea>
+
+                                                        </v-card-text>
+
+                                                        <v-divider></v-divider>
+
+                                                        <v-card-actions>
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn color="primary" flat
+                                                                   @click="cancelSession(props.item.id)">
+                                                                Я Уверен
+                                                            </v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-dialog>
                                                 <v-data-table
                                                         :headers="headers"
                                                         :items="props.item.appointmentItems"
@@ -124,12 +180,48 @@
                                                 {{props.item.salname}}
                                             </a>
 
-                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">Не подтверждено</span>
+                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">
+                                                Не подтверждено
+                                            </span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
-                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date
-                                                }}</p>
+                                            <p @click="props.item.open = !props.item.open">{{props.item.start_date}}</p>
 
                                             <div v-show="props.item.open">
+                                                <v-dialog v-model="dialogComment" width="500">
+                                                    <v-btn slot="activator" color="primary" dark>
+                                                        Оставить комментарий и оценку
+                                                    </v-btn>
+
+                                                    <v-card>
+                                                        <v-card-title class="headline grey lighten-2" primary-title>
+                                                            Комментарий и оценка.
+                                                        </v-card-title>
+
+                                                        <v-card-text>
+                                                            Оставьте комментарий
+                                                            <v-textarea v-model="comment.text"></v-textarea>
+
+                                                            Вам понравилось качество услуг ?
+                                                            <br>
+                                                            <i class="mdi mdi-heart red--text"
+                                                               @click="like"
+                                                               v-bind:style="styleLike"></i>
+                                                            <i class="mdi mdi-heart-broken"
+                                                               @click="dislike"
+                                                               v-bind:style="styleDislike"></i>
+                                                        </v-card-text>
+
+                                                        <v-divider></v-divider>
+
+                                                        <v-card-actions>
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn color="primary" flat
+                                                                   @click="toComment(props.item.account_id, props.item.id)">
+                                                                Ок
+                                                            </v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-dialog>
                                                 <v-data-table
                                                         :headers="headers"
                                                         :items="props.item.appointmentItems"
@@ -144,22 +236,7 @@
                                                     </template>
                                                 </v-data-table>
                                                 <br>
-                                                <div class="uk-grid">
-                                                    <div class="uk-width-2-3">
-                                                        <v-form v-model="valid">
-                                                            <v-text-field
-                                                                    v-model="recall"
-                                                                    :counter="250"
-                                                                    label="Оставьте ваш отзыв"
-                                                                    required
-                                                            ></v-text-field>
-                                                        </v-form>
-                                                    </div>
-                                                    <div class="uk-width-1-3"><br>
-                                                        <i class="mdi mdi-heart" style="color: red; font-size: 30px;"></i>
-                                                        <i class="mdi mdi-heart-broken" style="font-size: 30px;"></i>
-                                                    </div>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -169,11 +246,48 @@
                                                 {{props.item.name + ' ' + props.item.surname}}
                                             </a>
 
-                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">Не подтверждено</span>
+                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">
+                                                Не подтверждено
+                                            </span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
-                                            <p @click="open = !open">{{ props.item.start_date }}</p>
+                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date }}</p>
 
-                                            <div v-show="open">
+                                            <div v-show="props.item.open">
+                                                <v-dialog v-model="dialogComment" width="500">
+                                                    <v-btn slot="activator" color="primary" dark>
+                                                        Оставить комментарий и оценку
+                                                    </v-btn>
+
+                                                    <v-card>
+                                                        <v-card-title class="headline grey lighten-2" primary-title>
+                                                            Комментарий и оценка.
+                                                        </v-card-title>
+
+                                                        <v-card-text>
+                                                            Оставьте комментарий
+                                                            <v-textarea v-model="comment.text"></v-textarea>
+
+                                                            Вам понравилось качество услуг ?
+                                                            <br>
+                                                            <i class="mdi mdi-heart red--text"
+                                                               @click="like"
+                                                               style="font-size: 30px; opacity: 0.4"></i>
+                                                            <i class="mdi mdi-heart-broken"
+                                                               @click="dislike"
+                                                               style="font-size: 30px; opacity: 0.4"></i>
+                                                        </v-card-text>
+
+                                                        <v-divider></v-divider>
+
+                                                        <v-card-actions>
+                                                            <v-spacer></v-spacer>
+                                                            <v-btn color="primary" flat
+                                                                   @click="toComment(props.item.account_id, props.item.id)">
+                                                                Ок
+                                                            </v-btn>
+                                                        </v-card-actions>
+                                                    </v-card>
+                                                </v-dialog>
                                                 <v-data-table
                                                         :headers="headers"
                                                         :items="props.item.appointmentItems"
@@ -222,13 +336,15 @@
                 },
 
                 data: {
+                    dialogComment: false,
+                    reason: '',
                     headers: [
                         {text: 'Процедура', value: 'service_name'},
                         {text: 'Длительность', value: 'service_duration'},
                         {text: 'Цена', value: 'service_price'}
                     ],
                     tabType: null,
-
+                    dialog: false,
                     countNew: null,
                     countCanceled: null,
                     appointmentsNew: [],
@@ -239,6 +355,20 @@
 
                     valid: false,
                     recall: '',
+                    comment: {
+                        accountId: null,
+                        appointmentId: null,
+                        assessment: null,
+                        text: '',
+                    },
+                    styleLike: {
+                        fontSize: '30px',
+                        opacity: 0.4
+                    },
+                    styleDislike: {
+                        fontSize: '30px',
+                        opacity: 0.4
+                    }
                 },
                 methods: {
                     hasTabType() {
@@ -281,6 +411,7 @@
                                 this.countCanceled = data.total;
                                 this.appointmentsCanceled = [];
 
+                                console.log(data.appointments);
                                 if (data.appointments) {
                                     for (let i = 0, appointment; appointment = data.appointments[i]; i++) {
                                         appointment.open = false;
@@ -316,9 +447,11 @@
                     cancelSession(id) {
                         $.get('http://liloo/site/web/lk/appointment/cancel', {
                             id: id,
+                            reason: this.reason
                         })
                             .done(data => {
                                 if (data) {
+                                    this.dialog = false;
                                     this.appointmentsNew.forEach(function (item, i, arr) {
                                         if (item.id === id) {
                                             arr.splice(i, 1);
@@ -327,6 +460,29 @@
                                 }
                             });
                     },
+                    toComment(accountId, appointmentId) {
+                        $.get('http://liloo/site/web/lk/recall/create', {
+                            accountId: accountId,
+                            appointmentId: appointmentId,
+                            assessment: this.comment.assessment,
+                            text: this.comment.text
+                        })
+                            .done(data => {
+                                if (data) {
+                                    this.dialogComment = false;
+                                }
+                            });
+                    },
+                    like() {
+                        this.comment.assessment = 1;
+                        this.styleLike.opacity = 1;
+                        if (this.styleDislike.opacity === 1) this.styleDislike.opacity = 0.4
+                    },
+                    dislike() {
+                        this.comment.assessment = -1;
+                        this.styleDislike.opacity = 1;
+                        if (this.styleLike.opacity === 1) this.styleLike.opacity = 0.4
+                    }
                 },
                 watch: {
                     pagination() {

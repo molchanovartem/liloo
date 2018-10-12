@@ -27,7 +27,7 @@ class AppointmentService extends ModelService
     {
         parent::init();
         $this->on(self::EVENT_USER_CANCELED_SESSION, function ($model) {
-            Yii::$app->notice->createNotice($model->sender->account_id, Notice::TYPE_USER_CANCELED_SESSION, Notice::STATUS_UNREAD, 'text', $model->sender);
+            Yii::$app->notice->createNotice($model->sender[0]->account_id, Notice::TYPE_USER_CANCELED_SESSION, Notice::STATUS_UNREAD, $model->sender[1], $model->sender[0]);
         });
     }
 
@@ -96,14 +96,17 @@ class AppointmentService extends ModelService
 
     /**
      * @param int $id
+     * @param $reason
      * @return bool
      */
-    public function cancelSession(int $id)
+    public function cancelSession(int $id, $reason)
     {
         $appointment = Appointment::findOne($id);
         $appointment->status = Appointment::STATUS_CANCELED;
+        $data = [$appointment, $reason];
+
         if ($appointment->save()) {
-            $this->trigger(self::EVENT_USER_CANCELED_SESSION, new Event(['sender' => $appointment]));
+            $this->trigger(self::EVENT_USER_CANCELED_SESSION, new Event(['sender' => $data]));
             return true;
         }
 

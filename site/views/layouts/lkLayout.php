@@ -50,7 +50,7 @@ use site\widgets\header\Header;
                        class="menu-blocks__item">
                         <span class="menu-blocks__item-name">Записи</span>
                     </a>
-                    <a href="" class="menu-blocks__item">
+                    <a href="<?php echo Url::to(['lk/recall']); ?>" class="menu-blocks__item">
                         <span class="menu-blocks__item-name">Отзывы</span>
                     </a>
                     <a href="" class="menu-blocks__item">
