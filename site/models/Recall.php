@@ -2,6 +2,10 @@
 
 namespace site\models;
 
+/**
+ * Class Recall
+ * @package site\models
+ */
 class Recall extends \common\models\Recall
 {
     /**

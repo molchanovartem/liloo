@@ -37,7 +37,7 @@ use site\widgets\header\Header;
         <div class="uk-width-1-3">
             <div class="uk-card-default">
                 <div class="menu-blocks">
-                    <a href="" class="menu-blocks__item">
+                    <a href="<?php echo Url::to(['lk/executor-map']); ?>" class="menu-blocks__item">
                         <span class="menu-blocks__item-name">Каталог</span>
                     </a>
                     <a href="<?php echo Url::to(['lk/selected-masters']); ?>" class="menu-blocks__item">

@@ -80,4 +80,20 @@ class Recall extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Appointment::class, ['id' => 'appointment_id']);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProfile()
+    {
+        return $this->hasOne(UserProfile::class, ['user_id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnswer()
+    {
+        return $this->hasOne(Recall::class, ['id' => 'parent_id']);
+    }
 }
