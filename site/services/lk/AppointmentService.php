@@ -77,6 +77,7 @@ class AppointmentService extends ModelService
 
         if ($isCanceled) {
             $query->andWhere(['app.status' => Appointment::STATUS_COMPLETED]);
+            $query->with('recalls');
         } else {
             $query->andWhere(['or', 'app.status = ' . Appointment::STATUS_NEW, 'app.status = ' . Appointment::STATUS_CONFIRMED]);
         }

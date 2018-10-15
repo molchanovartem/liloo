@@ -237,6 +237,34 @@
                                                 </v-data-table>
                                                 <br>
 
+                                                <div v-for="i in props.item.recalls">
+                                                    <div class="uk-width-1-2">
+                                                        <div class="review-slide__content">
+                                                            <div class="review-slide__extra">
+                                                                <div class="vote uk-inline">
+                                                                    <div class="review-slide__author-profession">
+                                                                        {{i.create_time}}
+                                                                    </div>
+                                                                    <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
+                                                                    <span class="vote__digits">
+                                                                    <div v-if="i.assessment == -1">
+                                                                        <i class="mdi mdi-heart-broken"></i>
+                                                                    </div>
+                                                                    <div v-else-if="i.assessment == 1">
+                                                                        <i class="mdi mdi-heart"></i>
+                                                                    </div>
+                                                                </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="review-slide__text">
+                                                                {{i.text}}
+                                                            </div>
+                                                            <a href="" class="review-slide__more">Читать полностью</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -250,7 +278,8 @@
                                                 Не подтверждено
                                             </span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
-                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date }}</p>
+                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date
+                                                                                           }}</p>
 
                                             <div v-show="props.item.open">
                                                 <v-dialog v-model="dialogComment" width="500">
@@ -301,6 +330,16 @@
                                                         <td>{{ pro.item.service_price }}</td>
                                                     </template>
                                                 </v-data-table>
+
+                                                <div class="bill uk-margin-small-top">
+                                                    <div v-for="i in props.item.recalls">
+                                                        <div class="bill__row">
+                                                            <div class="bill__name">{{i.id}}</div>
+                                                            <div class="bill__cost">{{i.text}}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -368,7 +407,9 @@
                     styleDislike: {
                         fontSize: '30px',
                         opacity: 0.4
-                    }
+                    },
+                    isLike: false,
+                    isDislike: false,
                 },
                 methods: {
                     hasTabType() {
@@ -411,7 +452,6 @@
                                 this.countCanceled = data.total;
                                 this.appointmentsCanceled = [];
 
-                                console.log(data.appointments);
                                 if (data.appointments) {
                                     for (let i = 0, appointment; appointment = data.appointments[i]; i++) {
                                         appointment.open = false;
@@ -470,19 +510,41 @@
                             .done(data => {
                                 if (data) {
                                     this.dialogComment = false;
+                                    loadDataCanceled();
                                 }
                             });
                     },
                     like() {
-                        this.comment.assessment = 1;
-                        this.styleLike.opacity = 1;
-                        if (this.styleDislike.opacity === 1) this.styleDislike.opacity = 0.4
+                        if (this.isLike) {
+                            this.comment.assessment = 0;
+                            this.styleLike.opacity = 0.4;
+                            this.isLike = false;
+                        } else {
+                            this.comment.assessment = 1;
+                            this.styleLike.opacity = 1;
+                            this.styleDislike.opacity = 0.4;
+                            this.isDislike = false;
+                            this.isLike = true;
+
+                        }
                     },
                     dislike() {
-                        this.comment.assessment = -1;
-                        this.styleDislike.opacity = 1;
-                        if (this.styleLike.opacity === 1) this.styleLike.opacity = 0.4
-                    }
+                        if (this.isDislike) {
+                            this.comment.assessment = 0;
+                            this.styleDislike.opacity = 0.4;
+                            this.isDislike = false;
+                            console.log(this.comment.assessment);
+
+                        } else {
+                            this.comment.assessment = -1;
+                            this.styleDislike.opacity = 1;
+                            this.styleLike.opacity = 0.4;
+                            this.isLike = false;
+                            this.isDislike = true;
+                            console.log(this.comment.assessment);
+
+                        }
+                    },
                 },
                 watch: {
                     pagination() {

@@ -30,7 +30,15 @@ class RecallService extends ModelService
         $this->setData(['recalls' => Recall::find()->andWhere(['user_id' => Yii::$app->user->getId()])->all()]);
     }
 
-    public function createRecall($accountId, $appointmentId, $assessment, $text)
+    /**
+     * @param $accountId
+     * @param $appointmentId
+     * @param $assessment
+     * @param $text
+     *
+     * @throws AttributeValidationError
+     */
+    public function createRecall(int $accountId, int $appointmentId, $assessment, $text)
     {
         $model = new Recall();
 
@@ -44,5 +52,15 @@ class RecallService extends ModelService
 
         $model->save(false);
         $this->trigger(self::EVENT_USER_RECALL, new Event(['sender' => $model]));
+
+        $this->setData(['recall' => $model]);
+    }
+
+    /**
+     * @param $id
+     */
+    public function deleteRecall(int $id)
+    {
+        Recall::findOne($id)->delete();
     }
 }

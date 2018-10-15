@@ -39,6 +39,11 @@ class RecallController extends Controller
     {
        $this->modelService->createRecall($accountId, $appointmentId, $assessment, $text);
 
-        return 1;
+        return $this->asJson($this->modelService->getData());
+    }
+
+    public function actionDelete($id)
+    {
+        $this->modelService->deleteRecall($id);
     }
 }
