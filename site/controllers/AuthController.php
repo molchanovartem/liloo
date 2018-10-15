@@ -27,6 +27,9 @@ class AuthController extends Controller
         parent::__construct($id, $module, $config);
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         return [
@@ -51,9 +54,9 @@ class AuthController extends Controller
 
         $model = new LoginForm();
         $model->load(Yii::$app->request->post());
-        if ($model->load(Yii::$app->request->post() && $model->login())) {
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-            return $this->goBack();
+            return $this->redirect(['/lk/dashboard']);
         }
 
         return $this->render('login', [
@@ -61,6 +64,9 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @return \yii\web\Response
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();

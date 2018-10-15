@@ -3,7 +3,6 @@
 namespace api\models\lk;
 
 use Yii;
-use common\behaviors\UserId;
 use api\validators\AppointmentExistValidator;
 
 
@@ -36,7 +35,6 @@ class Recall extends \common\models\Recall
     {
         return array_merge(parent::rules(), [
             ['status', 'default', 'value' => self::STATUS_NOT_VERIFIED],
-            ['assessment', 'in', 'range' => $this->getAssessments(), 'on' => self::SCENARIO_DEFAULT],
             ['appointment_id', AppointmentExistValidator::class, 'on' => self::SCENARIO_DEFAULT],
             ['parent_id', 'validateParent', 'on' => self::SCENARIO_ANSWER],
             ['parent_id', 'unique', 'on' => self::SCENARIO_ANSWER],
@@ -55,16 +53,6 @@ class Recall extends \common\models\Recall
         if (empty($recall)) {
             $this->addError($attribute, 'Невозможно добавить ответ');
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function behaviors(): array
-    {
-        return [
-            UserId::class,
-        ];
     }
 
     /**

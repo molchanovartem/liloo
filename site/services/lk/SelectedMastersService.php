@@ -37,7 +37,7 @@ class SelectedMastersService extends ModelService
     {
         $selectedMaster = SelectedMasters::find()
                 ->where(['executor_id' => $executorId])
-                ->andWhere(['isSalon' => $isSalon])
+                ->andWhere(['is_salon' => $isSalon])
                 ->byCurrentUserId()
                 ->one();
         if (empty($selectedMaster)) {
@@ -45,7 +45,7 @@ class SelectedMastersService extends ModelService
 
             $selectedMaster->user_id = Yii::$app->user->getId();
             $selectedMaster->executor_id = $executorId;
-            $selectedMaster->isSalon = $isSalon;
+            $selectedMaster->is_salon = $isSalon;
 
             $selectedMaster->save();
         } else {

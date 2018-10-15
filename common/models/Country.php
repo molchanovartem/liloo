@@ -41,15 +41,4 @@ class Country extends ActiveRecord
     {
         return new Query(get_called_class());
     }
-
-
-    /**
-     * @return array
-     */
-    public static function getCountry()
-    {
-        $array = Country::find()->select('*')->asArray()->all();
-
-        return ArrayHelper::map($array, 'id', 'name');
-    }
 }

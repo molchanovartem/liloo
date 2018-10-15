@@ -2,7 +2,7 @@
 
 namespace admin\services;
 
-use admin\models\Notice;
+use admin\models\AdminNotice;
 use common\core\service\ModelService;
 use yii\data\ActiveDataProvider;
 
@@ -15,7 +15,7 @@ class NoticeService extends ModelService
     public function getDataProvider()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Notice::find(),
+            'query' => AdminNotice::find(),
             'pagination' => ['pageSize' => 10],
         ]);
 
@@ -24,7 +24,7 @@ class NoticeService extends ModelService
 
     public function getAllNotices()
     {
-        $this->setData(['notices' => Notice::find()->all()]);
+        $this->setData(['notices' => AdminNotice::find()->all()]);
     }
 
     /**
@@ -45,7 +45,7 @@ class NoticeService extends ModelService
      */
     public function findNotice($id)
     {
-        if (($model = Notice::findOne($id)) == null) throw new \Exception('Not find any notice');
+        if (($model = AdminNotice::findOne($id)) == null) throw new \Exception('Not find any notice');
 
         $this->setData(['notice' => $model]);
     }
@@ -58,7 +58,7 @@ class NoticeService extends ModelService
     {
         $this->findNotice($id);
         $data = $this->getData();
-        $data['notice']->status = Notice::STATUS_READ;
+        $data['notice']->status = AdminNotice::STATUS_READ;
         $data['notice']->save();
     }
 }

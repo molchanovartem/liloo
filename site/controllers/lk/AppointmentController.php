@@ -28,25 +28,42 @@ class AppointmentController extends Controller
     }
 
     /**
-     * @param $id
-     * @return string
-     * @throws \Exception
+     * @return array|string
      */
-    public function actionView($id)
+    public function actionView()
     {
-        $this->modelService->getUserData($id);
+        $this->modelService->getAppointments();
 
         return $this->extraRender('/lk/appointment/view', ['data' => $this->modelService->getData()]);
     }
 
     /**
      * @param $id
+     * @param $reason
+     * @return bool
      */
-    public function actionCancel($id)
+    public function actionCancel($id, $reason)
     {
-        $appointment = Appointment::findOne($id);
-        $appointment->status = Appointment::STATUS_CANCELED;
+        return $this->modelService->cancelSession($id, $reason);
+    }
 
-        $appointment->save();
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionAppointmentDataNew()
+    {
+        $this->modelService->getAppointments();
+
+        return $this->asJson($this->modelService->getData());
+    }
+
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionAppointmentDataCanceled()
+    {
+        $this->modelService->getAppointments(true);
+
+        return $this->asJson($this->modelService->getData());
     }
 }

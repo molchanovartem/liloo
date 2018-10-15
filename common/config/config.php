@@ -14,6 +14,7 @@ $config = [
     ],
     'components' => [
         'adminNotice' => 'common\components\AdminNoticeComponent',
+        'notice' => 'common\components\NoticeComponent',
         'balance' => 'common\components\BalanceComponent',
         'account' => 'common\components\AccountComponent',
         'tariffAccess' => 'common\components\tariffAccess\TariffAccess',

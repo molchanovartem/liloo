@@ -26,7 +26,7 @@ class SelectedMasters extends ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'executor_id', 'isSalon'], 'integer'],
+            [['user_id', 'executor_id', 'is_salon'], 'integer'],
         ];
     }
 
@@ -43,6 +43,14 @@ class SelectedMasters extends ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'executor_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSalon()
+    {
+        return $this->hasOne(Salon::class, ['id' => 'executor_id']);
     }
 }

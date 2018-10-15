@@ -2,25 +2,27 @@
 
 namespace common\components;
 
-use admin\models\AdminNotice;
+use common\models\Notice;
 use yii\base\Component;
 
 /**
- * Class AdminNoticeComponent
- * @package admin\components
+ * Class NoticeComponent
+ * @package common\components
  */
-class AdminNoticeComponent extends Component
+class NoticeComponent extends Component
 {
     /**
+     * @param int $accountId
      * @param int $type
      * @param int $status
      * @param $text
      * @param $data
      */
-    public function createNotice(int $type, int $status, $text, $data)
+    public function createNotice(int $accountId,int $type, int $status, $text, $data)
     {
-        $notice = new AdminNotice();
+        $notice = new Notice();
 
+        $notice->account_id = $accountId;
         $notice->type = $type;
         $notice->status = $status;
         $notice->text = $text;

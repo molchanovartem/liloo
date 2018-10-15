@@ -39,14 +39,4 @@ class City extends ActiveRecord
     {
         return new Query(get_called_class());
     }
-
-    /**
-     * @return array
-     */
-    public static function getCities()
-    {
-        $array = City::find()->select('*')->asArray()->all();
-
-        return ArrayHelper::map($array, 'id', 'name');
-    }
 }

@@ -5,7 +5,7 @@ namespace common\services;
 use Yii;
 use Exception;
 use yii\base\Event;
-use admin\models\Notice;
+use admin\models\AdminNotice;
 use common\core\service\ModelService;
 use common\models\Account;
 use common\models\User;
@@ -24,7 +24,7 @@ class AuthService extends ModelService
     {
         parent::init();
         $this->on(self::EVENT_USER_REGISTRATION, function ($model) {
-            Yii::$app->adminNotice->createNotice(Notice::TYPE_USER_REGISTRATION, Notice::STATUS_UNREAD, 'text', $model->sender);
+            Yii::$app->adminNotice->createNotice(AdminNotice::TYPE_USER_REGISTRATION, AdminNotice::STATUS_UNREAD, 'text', $model->sender);
         });
     }
 
