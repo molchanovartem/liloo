@@ -28,8 +28,7 @@ use yii\helpers\Html;
 <div class="content-block uk-padding content-block_shadow">
     <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
     <div class="t-a_c">
-        <div class="button button_color_red button_width_270 button_color_red_disabled mt-40">Записаться
-        </div>
+        <div class="button button_color_red button_width_270 button_color_red_disabled mt-40">Записаться</div>
     </div>
 </div>
 <?php $this->endBlock(); ?>
@@ -97,9 +96,9 @@ use yii\helpers\Html;
                 <a href="" class="choose-city">
                     <span class="choose-city__fa fas fa-map-marker-alt"></span>
                     <span class="choose-city__text">
-                            <?php echo Html::encode($data['model']->city->name); ?>,
+                        <?php echo Html::encode($data['model']->city->name); ?>,
                         <?php echo Html::encode($data['model']->address); ?>
-                        </span>
+                    </span>
                 </a>
             </div>
 
@@ -120,7 +119,7 @@ use yii\helpers\Html;
                     </div>
                     <div class="performer__profession">
                         <?php foreach ($data['specialization'] as $specialization): ?>
-                            <?php echo $specialization['name']; ?>
+                            <?php echo Html::encode($specialization['name']); ?>
                         <?php endforeach; ?>
                     </div>
                     <div class="performer__extra">
@@ -163,13 +162,16 @@ use yii\helpers\Html;
                 <div class="workers-list">
                     <div class="workers-list__item">
                         <div class="workers-list__part">
-                            <div class="workers-list__detail"><?php echo $service['name']; ?></div>
+                            <div class="workers-list__detail"><?php echo Html::encode($service['name']); ?></div>
                         </div>
                         <div class="workers-list__part">
-                            <span class="workers-list__detail"><?php echo $service['duration']; ?> мин.</span>
+                            <span class="workers-list__detail">
+                                <?php echo Html::encode($service['duration']); ?> мин.
+                            </span>
                         </div>
                         <div class="workers-list__part">
-                            <span class="workers-list__detail">от <?php echo $service['price']; ?> руб.</span>
+                            <span class="workers-list__detail">
+                                от <?php echo Html::encode($service['price']); ?> руб.</span>
                         </div>
                         <div class="workers-list__part">
                             <span class="workers-list__action workers-list__action_type_add uk-icon=" heart"></span>
@@ -295,10 +297,35 @@ use yii\helpers\Html;
                                         <div class="fas fa-star stars__star"></div>
                                     </div>
                                 </div>
-                                <div class="review-slide__text">
-                                    <?php echo Html::encode($recall->text); ?>
-                                </div>
-                                <a href="" class="review-slide__more">Читать полностью</a>
+                                <?php if (strlen($recall->text) > 40) : ?>
+                                    <div class="toggle-animation-queued  review-slide__text uk-text-truncate">
+                                        <?php echo Html::encode($recall->text); ?>
+                                    </div>
+                                    <div class=" toggle-animation-queued review-slide__text" hidden>
+                                        <?php echo Html::encode($recall->text); ?>
+                                    </div>
+
+                                    <button class="uk-button uk-button-text uk-margin-small-top" type="button"
+                                            uk-toggle="target: .toggle-animation-queued; animation: uk-animation-fade; queued: true; duration: 0">
+                                        Читать полностью
+                                    </button>
+                                <?php else : ?>
+                                    <div class="review-slide__text">
+                                        <?php echo Html::encode($recall->text); ?>
+                                    </div>
+                                <?php endif; ?>
+
+                                <?php if (!empty($recall->answer)) : ?>
+                                    <div class="uk-inline">
+                                        <button class="uk-button uk-button-text uk-margin-small-top" type="button">
+                                            Показать ответ
+                                        </button>
+                                        <div uk-dropdown="mode: click">
+                                            <b><?php echo Html::encode($recall->answer->create_time); ?></b>
+                                            <?php echo Html::encode($recall->answer->text); ?>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div class="review-slide__author">
                                 <div class="review-slide__author-img"

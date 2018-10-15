@@ -15,7 +15,7 @@
 
         <?php use yii\helpers\Html;
 
-        echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", '/site/web/executor'); ?>
+        echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", '/site/web/executor-map'); ?>
 
         <?php if (Yii::$app->user->isGuest): ?>
             <?php echo Html::a("<button class='button button_color_blue button_in_header'>Регистрация для исполнителя</button>", '/site/web/auth/registration'); ?>

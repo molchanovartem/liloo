@@ -1,3 +1,4 @@
+<?php use yii\helpers\Html; ?>
 <main>
     <div class="uk-container">
         <?php foreach ($data['model'] as $selectedMaster): ?>
@@ -12,18 +13,18 @@
                                 <div class="performer__info">
                                     <div class="label-status label-status_bg_black label-status_fz_14">Profi
                                     </div>
-                                    <a href="executor-map/user-view?id=<?php echo $selectedMaster->executor_id; ?>"
+                                    <a href="executor-map/user-view?id=<?php echo Html::encode($selectedMaster->executor_id); ?>"
                                        data-ajax-content="true" class="uk-link-reset">
                                         <div class="performer__name">
-                                            <?php echo $selectedMaster->user->profile->name; ?>
-                                            <?php echo $selectedMaster->user->profile->surname; ?>
+                                            <?php echo Html::encode($selectedMaster->user->profile->name); ?>
+                                            <?php echo Html::encode($selectedMaster->user->profile->surname); ?>
                                         </div>
                                     </a>
                                     <div class="performer__profession">
-                                        <?php echo $selectedMaster->user->profile->description; ?>
+                                        <?php echo Html::encode($selectedMaster->user->profile->description); ?>
                                     </div>
                                     <div class="performer__profession">
-                                        <?php echo $selectedMaster->user->profile->address; ?>
+                                        <?php echo Html::encode($selectedMaster->user->profile->address); ?>
                                     </div>
                                     <div class="performer__extra">
                                         <div class="stars">
@@ -37,10 +38,10 @@
                                             <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
                                             <span class="vote__digits">
                                                 <span class="vote__digit vote__digit_color_green">
-                                                    +<?php echo $selectedMaster->user->account->assessment_like; ?>
+                                                    +<?php echo Html::encode($selectedMaster->user->account->assessment_like); ?>
                                                 </span>
                                                 <span class="vote__digit vote__digit_color_red">
-                                                    -<?php echo $selectedMaster->user->account->assessment_dislike; ?>
+                                                    -<?php echo Html::encode($selectedMaster->user->account->assessment_dislike); ?>
                                                 </span>
                                             </span>
                                         </div>
@@ -51,7 +52,9 @@
                                 <?php foreach ($selectedMaster->user->specializations as $specialization): ?>
                                     <div>
                                         <div class="bill__row">
-                                            <div class="bill__name"><?php echo $specialization->name; ?></div>
+                                            <div class="bill__name">
+                                                <?php echo Html::encode($specialization->name); ?>
+                                            </div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -76,17 +79,17 @@
                                 <div class="performer__info">
                                     <div class="label-status label-status_bg_black label-status_fz_14">Profi
                                     </div>
-                                    <a href="executor-map/salon-view?id=<?php echo $selectedMaster->executor_id; ?>"
+                                    <a href="executor-map/salon-view?id=<?php echo Html::encode($selectedMaster->executor_id); ?>"
                                        data-ajax-content="true" class="uk-link-reset">
                                         <div class="performer__name">
-                                            <?php echo $selectedMaster->salon->name; ?>
+                                            <?php echo Html::encode($selectedMaster->salon->name); ?>
                                         </div>
                                     </a>
                                     <div class="performer__profession">
-                                        <?php echo $selectedMaster->salon->description; ?>
+                                        <?php echo Html::encode($selectedMaster->salon->description); ?>
                                     </div>
                                     <div class="performer__profession">
-                                        <?php echo $selectedMaster->salon->address; ?>
+                                        <?php echo Html::encode($selectedMaster->salon->address); ?>
                                     </div>
                                     <div class="performer__extra">
                                         <div class="stars">
@@ -100,10 +103,10 @@
                                             <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
                                             <span class="vote__digits">
                                                 <span class="vote__digit vote__digit_color_green">
-                                                    +<?php echo $selectedMaster->salon->account->assessment_like; ?>
+                                                    +<?php echo Html::encode($selectedMaster->salon->account->assessment_like); ?>
                                                 </span>
                                                 <span class="vote__digit vote__digit_color_red">
-                                                    -<?php echo $selectedMaster->salon->account->assessment_dislike; ?>
+                                                    -<?php echo Html::encode($selectedMaster->salon->account->assessment_dislike); ?>
                                                 </span>
                                             </span>
                                         </div>
@@ -114,7 +117,7 @@
                                 <?php foreach ($selectedMaster->salon->specializations as $specialization): ?>
                                     <div>
                                         <div class="bill__row">
-                                            <div class="bill__name"><?php echo $specialization->name; ?></div>
+                                            <div class="bill__name"><?php echo Html::encode($specialization->name); ?></div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>

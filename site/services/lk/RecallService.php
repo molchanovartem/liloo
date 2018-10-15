@@ -27,7 +27,9 @@ class RecallService extends ModelService
 
     public function gerRecalls()
     {
-        $this->setData(['recalls' => Recall::find()->andWhere(['user_id' => Yii::$app->user->getId()])->all()]);
+        $this->setData([
+            'recalls' => Recall::find()->andWhere(['user_id' => Yii::$app->user->getId()])->with('answer')->all(),
+        ]);
     }
 
     /**
@@ -57,7 +59,9 @@ class RecallService extends ModelService
     }
 
     /**
-     * @param $id
+     * @param int $id
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function deleteRecall(int $id)
     {

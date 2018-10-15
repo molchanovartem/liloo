@@ -2,9 +2,10 @@
 
 namespace site\services;
 
+use yii\data\ArrayDataProvider;
 use common\core\service\ModelService;
 use common\models\MasterSchedule;
-use common\models\Recall;
+use site\models\Recall;
 use common\models\Salon;
 use common\models\SalonService;
 use common\models\SalonSpecialization;
@@ -16,7 +17,6 @@ use common\models\UserProfile;
 use common\models\UserSchedule;
 use common\models\UserSpecialization;
 use site\forms\FilterForm;
-use yii\data\ArrayDataProvider;
 
 /**
  * Class ExecutorService

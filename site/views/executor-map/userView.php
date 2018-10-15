@@ -287,10 +287,35 @@ use yii\widgets\Pjax;
                                             <div class="fas fa-star stars__star"></div>
                                         </div>
                                     </div>
-                                    <div class="review-slide__text">
-                                        <?php echo Html::encode($recall->text); ?>
-                                    </div>
-                                    <a href="" class="review-slide__more">Читать полностью</a>
+                                    <?php if (strlen($recall->text) > 40) : ?>
+                                        <div class="toggle-animation-queued  review-slide__text uk-text-truncate">
+                                            <?php echo Html::encode($recall->text); ?>
+                                        </div>
+                                        <div class=" toggle-animation-queued review-slide__text" hidden>
+                                            <?php echo Html::encode($recall->text); ?>
+                                        </div>
+
+                                        <button class="uk-button uk-button-text uk-margin-small-top" type="button"
+                                                uk-toggle="target: .toggle-animation-queued; animation: uk-animation-fade; queued: true; duration: 0">
+                                            Читать полностью
+                                        </button>
+                                    <?php else : ?>
+                                        <div class="review-slide__text">
+                                            <?php echo Html::encode($recall->text); ?>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($recall->answer)) : ?>
+                                        <div class="uk-inline">
+                                            <button class="uk-button uk-button-text uk-margin-small-top" type="button">
+                                                Показать ответ
+                                            </button>
+                                            <div uk-dropdown="mode: click">
+                                                <b><?php echo Html::encode($recall->answer->create_time); ?></b>
+                                                <?php echo Html::encode($recall->answer->text); ?>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="review-slide__author">
                                     <div class="review-slide__author-img"

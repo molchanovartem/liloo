@@ -36,8 +36,8 @@
                                             <a :href="'/site/web/index.php/lk/executor-map/salon-view?id=' + props.item.salon_id">
                                                 {{props.item.salname}}
                                             </a>
-
-                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">
+                                            <span v-if="props.item.status == constants.APPOINTMENT_STATUS_NEW"
+                                                  class="uk-label uk-label-warning">
                                                 Не подтверждено
                                             </span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
@@ -46,7 +46,7 @@
                                             <div v-show="props.item.open">
 
                                                 <v-dialog v-model="dialog" width="500">
-                                                    <v-btn slot="activator" color="red lighten-2" dark>
+                                                    <v-btn class="uk-margin-bottom" slot="activator" color="red lighten-2" dark>
                                                         Отменить сеанс
                                                     </v-btn>
 
@@ -98,7 +98,8 @@
                                                 {{props.item.name + ' ' + props.item.surname}}
                                             </a>
 
-                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">
+                                            <span v-if="props.item.status == constants.APPOINTMENT_STATUS_NEW"
+                                                  class="uk-label uk-label-warning">
                                                 Не подтверждено
                                             </span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
@@ -106,7 +107,7 @@
 
                                             <div v-show="props.item.open">
                                                 <v-dialog v-model="dialog" width="500">
-                                                    <v-btn slot="activator" color="red lighten-2" dark>
+                                                    <v-btn class="uk-margin-bottom" slot="activator" color="red lighten-2" dark>
                                                         Отменить сеанс
                                                     </v-btn>
 
@@ -180,48 +181,52 @@
                                                 {{props.item.salname}}
                                             </a>
 
-                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">
-                                                Не подтверждено
-                                            </span>
-                                            <span v-else class="uk-label uk-label-success">Подтверждено</span>
                                             <p @click="props.item.open = !props.item.open">{{props.item.start_date}}</p>
 
                                             <div v-show="props.item.open">
-                                                <v-dialog v-model="dialogComment" width="500">
-                                                    <v-btn slot="activator" color="primary" dark>
-                                                        Оставить комментарий и оценку
-                                                    </v-btn>
+                                                <div v-if="props.item.recalls.length === 0">
 
-                                                    <v-card>
-                                                        <v-card-title class="headline grey lighten-2" primary-title>
-                                                            Комментарий и оценка.
-                                                        </v-card-title>
+                                                    <v-dialog v-model="dialogComment" width="500">
 
-                                                        <v-card-text>
-                                                            Оставьте комментарий
-                                                            <v-textarea v-model="comment.text"></v-textarea>
+                                                        <v-btn slot="activator" color="primary" dark
+                                                               class="uk-margin-bottom">
+                                                            Оставить комментарий и оценку
+                                                        </v-btn>
 
-                                                            Вам понравилось качество услуг ?
-                                                            <br>
-                                                            <i class="mdi mdi-heart red--text"
-                                                               @click="like"
-                                                               v-bind:style="styleLike"></i>
-                                                            <i class="mdi mdi-heart-broken"
-                                                               @click="dislike"
-                                                               v-bind:style="styleDislike"></i>
-                                                        </v-card-text>
+                                                        <v-card>
+                                                            <v-card-title class="headline grey lighten-2" primary-title>
+                                                                Комментарий и оценка.
+                                                            </v-card-title>
 
-                                                        <v-divider></v-divider>
+                                                            <v-card-text>
+                                                                Оставьте комментарий
+                                                                <v-textarea v-model="comment.text"></v-textarea>
 
-                                                        <v-card-actions>
-                                                            <v-spacer></v-spacer>
-                                                            <v-btn color="primary" flat
-                                                                   @click="toComment(props.item.account_id, props.item.id)">
-                                                                Ок
-                                                            </v-btn>
-                                                        </v-card-actions>
-                                                    </v-card>
-                                                </v-dialog>
+                                                                Вам понравилось качество услуг ?
+                                                                <br>
+                                                                <i class="mdi mdi-heart red--text"
+                                                                   @click="like"
+                                                                   v-bind:style="styleLike"></i>
+                                                                <i class="mdi mdi-heart-broken"
+                                                                   @click="dislike"
+                                                                   v-bind:style="styleDislike"></i>
+                                                            </v-card-text>
+
+                                                            <v-divider></v-divider>
+
+                                                            <v-card-actions>
+                                                                <v-spacer></v-spacer>
+                                                                <v-btn color="primary" flat
+                                                                       @click="toComment(props.item.account_id, props.item.id)">
+                                                                    Ок
+                                                                </v-btn>
+                                                            </v-card-actions>
+                                                        </v-card>
+
+                                                    </v-dialog>
+
+                                                </div>
+
                                                 <v-data-table
                                                         :headers="headers"
                                                         :items="props.item.appointmentItems"
@@ -237,29 +242,91 @@
                                                 </v-data-table>
                                                 <br>
 
-                                                <div v-for="i in props.item.recalls">
-                                                    <div class="uk-width-1-2">
-                                                        <div class="review-slide__content">
-                                                            <div class="review-slide__extra">
-                                                                <div class="vote uk-inline">
-                                                                    <div class="review-slide__author-profession">
-                                                                        {{i.create_time}}
+                                                <div class="uk-grid uk-margin-bottom">
+                                                    <div v-for="i in props.item.recalls" class="uk-width-1-2">
+                                                        <div v-if="i.parent_id">
+                                                            Ответ
+                                                            <div class="review-slide__content">
+                                                                <div class="review-slide__extra">
+                                                                    <div class="vote uk-inline">
+                                                                        <div class="review-slide__author-profession">
+                                                                            {{i.create_time}}
+                                                                        </div>
+                                                                        <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
+                                                                        <span class="vote__digits">
+                                                                        <div v-if="i.assessment == constants.ASSESSMENT_DISLIKE">
+                                                                            <i class="mdi mdi-heart-broken"></i>
+                                                                        </div>
+                                                                        <div v-else-if="i.assessment == constants.ASSESSMENT_LIKE">
+                                                                            <i class="mdi mdi-heart"></i>
+                                                                        </div>
+                                                                    </span>
                                                                     </div>
-                                                                    <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
-                                                                    <span class="vote__digits">
-                                                                    <div v-if="i.assessment == -1">
-                                                                        <i class="mdi mdi-heart-broken"></i>
+                                                                </div>
+                                                                <div class="review-slide__text">
+                                                                    {{i.text}} {{i.parent_id}}
+                                                                </div>
+                                                                <div v-if="i.text.length > 40">
+                                                                    <div :id="'id-' + i.id" class="toggle-animation-queued  review-slide__text uk-text-truncate">
+                                                                        {{i.text}}
                                                                     </div>
-                                                                    <div v-else-if="i.assessment == 1">
-                                                                        <i class="mdi mdi-heart"></i>
+                                                                    <div class=" toggle-animation-queued review-slide__text"
+                                                                         hidden>
+                                                                        {{i.text}}
                                                                     </div>
-                                                                </span>
+
+                                                                    <button class="uk-button uk-button-text uk-margin-small-top"
+                                                                            type="button"
+                                                                            :uk-toggle="'target: #' + i.id + '; animation: uk-animation-fade; queued: true; duration: 0'">
+                                                                        Читать полностью
+                                                                    </button>
                                                                 </div>
                                                             </div>
-                                                            <div class="review-slide__text">
-                                                                {{i.text}}
+                                                        </div>
+
+                                                        <div v-else>
+                                                            <div v-if="i.status == constants.STATUS_NOT_VERIFIED">
+                                                                Неподтвержденный отзыв
                                                             </div>
-                                                            <a href="" class="review-slide__more">Читать полностью</a>
+                                                            <div class="review-slide__content">
+                                                                <div class="review-slide__extra">
+                                                                    <div class="vote uk-inline">
+                                                                        <div class="review-slide__author-profession">
+                                                                            {{i.create_time}}
+                                                                        </div>
+                                                                        <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
+                                                                        <span class="vote__digits">
+                                                                        <div v-if="i.assessment == constants.ASSESSMENT_DISLIKE">
+                                                                            <i class="mdi mdi-heart-broken"></i>
+                                                                        </div>
+                                                                        <div v-else-if="i.assessment == constants.ASSESSMENT_LIKE">
+                                                                            <i class="mdi mdi-heart"></i>
+                                                                        </div>
+                                                                    </span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div v-if="i.text.length > 40">
+                                                                    <div :id="'id-' + i.id" class="toggle-animation-queued  review-slide__text uk-text-truncate">
+                                                                        {{i.text}}
+                                                                    </div>
+                                                                    <div :id="'id-' + i.id" class=" toggle-animation-queued review-slide__text"
+                                                                         hidden>
+                                                                        {{i.text}}
+                                                                    </div>
+
+                                                                    <button class="uk-button uk-button-text uk-margin-small-top"
+                                                                            type="button"
+                                                                            :uk-toggle="'target: #id-' + i.id + '; animation: uk-animation-fade; queued: true; duration: 0'">
+                                                                        Читать полностью
+                                                                    </button>
+                                                                </div>
+                                                                <div v-else>
+                                                                    <div class="review-slide__text">
+                                                                        {{i.text}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -274,13 +341,8 @@
                                                 {{props.item.name + ' ' + props.item.surname}}
                                             </a>
 
-                                            <span v-if="props.item.status === 0" class="uk-label uk-label-warning">
-                                                Не подтверждено
-                                            </span>
                                             <span v-else class="uk-label uk-label-success">Подтверждено</span>
-                                            <p @click="props.item.open = !props.item.open">{{ props.item.start_date
-                                                                                           }}</p>
-
+                                            <p @click="props.item.open = !props.item.open">{{props.item.start_date}}</p>
                                             <div v-show="props.item.open">
                                                 <v-dialog v-model="dialogComment" width="500">
                                                     <v-btn slot="activator" color="primary" dark>
@@ -295,7 +357,6 @@
                                                         <v-card-text>
                                                             Оставьте комментарий
                                                             <v-textarea v-model="comment.text"></v-textarea>
-
                                                             Вам понравилось качество услуг ?
                                                             <br>
                                                             <i class="mdi mdi-heart red--text"
@@ -365,6 +426,15 @@
         const TAB_TYPE_APPOINTMENT_NEW = 'tab-appointment-new';
         const TAB_TYPE_APPOINTMENT_CANCELED = 'tab-appointment-canceled';
 
+        const ASSESSMENT_LIKE = 1;
+        const ASSESSMENT_DEFAULT = 0;
+        const ASSESSMENT_DISLIKE = -1;
+
+        const STATUS_NOT_VERIFIED = 0;
+        const STATUS_VERIFIED = 1;
+
+        const APPOINTMENT_STATUS_NEW = 2;
+
         new Vue({
                 el: '#app',
                 beforeMount() {
@@ -375,6 +445,16 @@
                 },
 
                 data: {
+                    constants: {
+                        STATUS_NOT_VERIFIED: STATUS_NOT_VERIFIED,
+                        STATUS_VERIFIED: STATUS_VERIFIED,
+
+                        ASSESSMENT_LIKE: ASSESSMENT_LIKE,
+                        ASSESSMENT_DEFAULT: ASSESSMENT_DEFAULT,
+                        ASSESSMENT_DISLIKE: ASSESSMENT_DISLIKE,
+
+                        APPOINTMENT_STATUS_NEW: APPOINTMENT_STATUS_NEW
+                    },
                     dialogComment: false,
                     reason: '',
                     headers: [
@@ -510,7 +590,7 @@
                             .done(data => {
                                 if (data) {
                                     this.dialogComment = false;
-                                    loadDataCanceled();
+                                    this.loadDataCanceled();
                                 }
                             });
                     },
