@@ -1,0 +1,14 @@
+.application {
+    display: initial;
+}
+
+.application--wrap {
+    display: initial;
+    flex: none;
+    min-height: inherit;
+}
+
+.theme--light.application {
+    background: initial;
+    color: initial;
+}

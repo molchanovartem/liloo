@@ -107,10 +107,11 @@ class FreeDateTime
     /**
      * @param int $minute
      * @param null $unaccountedTime
+     * @param bool $roundByMinute
      * @return \Generator
      * @throws \Exception
      */
-    public function getPeriods(int $minute, $unaccountedTime = null): \Generator
+    public function getPeriods(int $minute, $unaccountedTime = null, $roundByMinute = false): \Generator
     {
         foreach ($this->getFreeTimes() as $dateTime) {
             $begin = new \DateTime($dateTime['start_time']);
@@ -119,6 +120,10 @@ class FreeDateTime
             if ($unaccountedTime) {
                 $end = new \DateTime();
                 $end->setTimestamp(strtotime($dateTime['end_time']) - $unaccountedTime);
+            }
+
+            if ($roundByMinute) {
+                $begin->setTime($begin->format('H'), ceil($begin->format('i') / 10) * 10);
             }
 
             $interval = new \DateInterval(sprintf('PT%uM', $minute));

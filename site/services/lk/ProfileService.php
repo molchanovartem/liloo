@@ -36,7 +36,7 @@ class ProfileService extends ModelService
     {
         $model = UserProfile::find()->where(['user_id' => $id])->one();
 
-        $this->setData(['model' => $model,]);
+        $this->setData(['model' => $model]);
 
         return $model->load($this->getData('post')) && $model->save();
     }

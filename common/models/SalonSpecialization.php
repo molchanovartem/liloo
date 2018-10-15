@@ -48,4 +48,12 @@ class SalonSpecialization extends \yii\db\ActiveRecord
     {
         return new Query(get_called_class());
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSpecialization()
+    {
+        return $this->hasOne(Specialization::class, ['id' => 'specialization_id']);
+    }
 }

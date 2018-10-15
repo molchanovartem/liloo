@@ -16,9 +16,9 @@ class m180416_055755_account extends Migration
     {
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
-            'balance' => $this->decimal(18,2),
-            'assessment_like' => $this->integer()->defaultValue(0),
-            'assessment_dislike' => $this->integer()->defaultValue(0),
+            'balance' => $this->decimal(18,2)->defaultValue(0),
+            'assessment_like' => $this->integer()->notNull()->defaultValue(0),
+            'assessment_dislike' => $this->integer()->notNull()->defaultValue(0),
         ]);
     }
 

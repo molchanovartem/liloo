@@ -1,3 +1,8 @@
+<?php
+use yii\helpers\Html;
+use site\widgets\cityWidget\Widget as CityWidget;
+?>
+
 <div class="header__wrap content-width">
 
     <div class="header__wrap-part">
@@ -7,15 +12,13 @@
 
     </div>
     <div class="header__wrap-part header__wrap-part_actions">
-
+        <?php echo CityWidget::widget(); ?>
         <a href="" class="choose-city">
             <span class="choose-city__fa fas fa-map-marker-alt"></span>
-            <span class="choose-city__text">Москва</span>
+            <span class="choose-city__text"></span>
         </a>
 
-        <?php use yii\helpers\Html;
-
-        echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", '/site/web/executor'); ?>
+        <?php echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", '/site/web/executor'); ?>
 
         <?php if (Yii::$app->user->isGuest): ?>
             <?php echo Html::a("<button class='button button_color_blue button_in_header'>Регистрация для исполнителя</button>", '/site/web/auth/registration'); ?>

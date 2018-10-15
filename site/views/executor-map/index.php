@@ -1,3 +1,7 @@
+<?php
+$this->registerJs('executorCatalog();');
+?>
+
 <header class="header bg_color_e4eff9">
     <?php echo \site\widgets\header\Header::widget(); ?>
 
@@ -14,14 +18,14 @@
     </div>
 </header>
 
-<div id="catalog">
+<div id="catalog" style="display: none" :style="{display: isShow ? 'block' : 'none'}">
     <div class="uk-margin bg_color_e4eff9">
         <div class="uk-container">
             <div class="uk-margin-top uk-margin-bottom">
                 <form ref="filter">
-                    <v-app>
-                        <div class="uk-grid uk-grid-small uk-child-width-1-5">
-                            <div>
+                    <div class="uk-grid uk-grid-small uk-child-width-1-4">
+                        <div>
+                            <div class="uk-background-default">
                                 <v-autocomplete
                                         outline
                                         :items="specializations"
@@ -33,7 +37,9 @@
                                         hide-details
                                 />
                             </div>
-                            <div>
+                        </div>
+                        <div>
+                            <div class="uk-background-default">
                                 <v-autocomplete
                                         outline
                                         :items="services"
@@ -45,19 +51,9 @@
                                         hide-details
                                 />
                             </div>
-                            <div>
-                                <v-autocomplete
-                                        outline
-                                        :items="cities"
-                                        v-model="attributes.cityId"
-                                        label="Город"
-                                        append-icon="mdi-chevron-down"
-                                        item-value="id"
-                                        item-text="name"
-                                        hide-details
-                                />
-                            </div>
-                            <div>
+                        </div>
+                        <div>
+                            <div class="uk-background-default">
                                 <v-menu
                                         lazy
                                         transition="scale-transition"
@@ -82,36 +78,54 @@
                                     />
                                 </v-menu>
                             </div>
-                            <div>
-                                <v-select
-                                        outline
-                                        :items="cities"
-                                        v-model="attributes.cityId"
-                                        label="Выбор времени"
-                                        append-icon="mdi-chevron-down"
-                                        item-value="id"
-                                        item-text="name"
-                                        hide-details
-                                />
+                        </div>
+                        <div>
+                            <div class="uk-background-default">
+                                <div class="uk-grid uk-grid-small uk-flex-middle">
+                                    <div class="uk-width-expand">
+                                        <div class="uk-grid uk-grid-small uk-flex-middle">
+                                            <div class="uk-width-expand">
+                                                <v-select
+                                                        v-model="attributes.hour"
+                                                        :items="getHourList()"
+                                                        :append-icon="null"
+                                                        single-line
+                                                        hide-details
+                                                />
+                                            </div>
+                                            <div class="uk-width-auto">:</div>
+                                            <div class="uk-width-expand">
+                                                <v-select
+                                                        v-model="attributes.minute"
+                                                        :items="getMinuteList()"
+                                                        :append-icon="null"
+                                                        hide-details
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="uk-grid uk-grid-small">
-                            <div class="uk-width-1-1">
-                                <button @click.prevent="onSubmit"
-                                        class="uk-button uk-button-primary uk-button-small">
-                                    <i class="mdi mdi-magnify uk-text-large"></i>
-                                </button>
-                                <button @click.prevent="onReset"
-                                        class="uk-button uk-button-primary uk-button-small">
-                                    <i class="mdi mdi-refresh uk-text-large"></i>
-                                </button>
-                            </div>
+                    </div>
+
+                    <div class="uk-grid uk-grid-small">
+                        <div class="uk-width-1-1">
+                            <button @click.prevent="onSubmit"
+                                    class="uk-button uk-button-primary uk-button-small">
+                                <i class="mdi mdi-magnify uk-text-large"></i>
+                            </button>
+                            <button @click.prevent="onReset"
+                                    class="uk-button uk-button-primary uk-button-small">
+                                <i class="mdi mdi-refresh uk-text-large"></i>
+                            </button>
                         </div>
-                    </v-app>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+
     <div class="uk-container">
         <div class="uk-margin">
             <button
@@ -142,7 +156,11 @@
                                 <a :href="getLinkViewExecutor(item)" data-ajax-content="true" class="uk-link-reset">
                                     <div class="performer__name">{{item.name}}</div>
                                 </a>
-                                <div class="performer__profession">Парикмахер, Стилист по прическам</div>
+                                <div class="performer__profession">
+                                    <span v-for="specialization in item.specializations">
+                                        {{specialization.name}},
+                                    </span>
+                                </div>
                                 <div class="performer__profession">{{item.address}}</div>
                                 <div class="performer__extra">
                                     <div class="stars">
@@ -155,15 +173,15 @@
                                     <div class="vote">
                                         <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
                                         <span class="vote__digits">
-                                                <span class="vote__digit vote__digit_color_green">+{{item.like}}</span>
-                                                <span class="vote__digit vote__digit_color_red">-{{item.dislike}}</span>
+                                                <span class="vote__digit vote__digit_color_green">+{{item.assessment_like}}</span>
+                                                <span class="vote__digit vote__digit_color_red">-{{item.assessment_dislike}}</span>
                                             </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="bill uk-margin-small-top">
-                            <div v-for="item in services">
+                            <div v-for="item in item.services">
                                 <div class="bill__row">
                                     <div class="bill__name">{{item.name}}</div>
                                     <div class="bill__cost">{{item.price}} руб.</div>
@@ -174,17 +192,17 @@
                     <div class="performers-select__schedule">
                         <div class="font_type_3 t-a_c">Ближайшее время:</div>
                         <div class="schedule-items mt-10">
-                            <div class="schedule-item schedule-items__item">
-                                <span class="schedule-item__time">17:00</span>
-                                <span class="schedule-item__date">20 мая</span>
+                            <div class="schedule-item schedule-items__item" v-for="freeTime in item.freeTime">
+                                <span class="schedule-item__time">{{freeTime | time}}</span>
                             </div>
-                            <div class="schedule-item schedule-items__item">
-                                <span class="schedule-item__time">17:00</span>
-                                <span class="schedule-item__date">20 мая</span>
-                            </div>
+
+                            <!--                            <div class="schedule-item schedule-items__item">-->
+                            <!--                                <span class="schedule-item__time">17:00</span>-->
+                            <!--                                <span class="schedule-item__date">20 мая</span>-->
+                            <!--                            </div>-->
                         </div>
                         <div class="t-a_c mt-10">
-                            <a href="" class="font_type_11">Все свободное время</a>
+                            <a href="" class="font_type_11">Все свободное время ???</a>
                         </div>
                         <div class="button button_color_red button_width_270 mt-10">
                             <a href="../appointment/create" class="uk-button uk-link-reset"
@@ -196,27 +214,29 @@
                 <hr>
             </div>
         </div>
-        <div id="map" ref="map" style="width: 100%; height: 600px;"></div>
+        <div id="map" ref="map" style="width: 100%; height: 600px; z-index:1"></div>
     </div>
 </div>
 
 <script>
-    executorCatalog();
-
     function executorCatalog() {
         const VIEW_TYPE_CATALOG = 'catalog';
         const VIEW_TYPE_MAP = 'map';
 
         const map = new MapCatalog('map');
 
+        cSpinner.show();
         new Vue({
             el: '#catalog',
             mounted() {
+                cSpinner.hide();
                 map.init();
             },
             beforeMount() {
+                this.isShow = true;
                 this.loadCommonData()
                     .then(() => {
+                        this.setDefaultQueryParams();
                         this.loadAttributesFromQueryParams();
                         if (!this.hasViewType()) this.defaultViewType();
 
@@ -227,24 +247,25 @@
                 map.destroy();
             },
             data: {
+                isShow: false,
                 viewType: null,
 
                 specializations: [],
                 services: [],
-                cities: [],
                 executors: [],
 
                 attributes: {
                     specializationId: null,
                     serviceId: null,
                     cityId: null,
-                    date: null
+                    date: null,
+                    hour: null,
+                    minute: null,
                 },
             },
             methods: {
                 onSubmit() {
                     this.locationQueryParamsPush();
-
                     this.loadData();
                 },
                 onReset() {
@@ -258,15 +279,12 @@
                             query: "query {" +
                                 "specializations {id, name}," +
                                 "services {id, name, price, duration}" +
-                                "cities(country_id: 1) {id, name, latitude, longitude}" +
                                 "}"
                         }))
                             .done(({data}) => {
                                 if (data.specializations) this.specializations = Array.from(data.specializations);
                                 if (data.services) this.services = data.services;
-                                if (data.cities) this.cities = data.cities;
-
-                                resolve(true)
+                                resolve(true);
                             })
                             .fail((error) => {
                                 reject(error);
@@ -274,26 +292,29 @@
                     });
                 },
                 loadData() {
-                    $.get('http://liloo/site/web/executor-map/catalog-data', {
-                        specialization: this.attributes.specializationId,
-                        city: this.attributes.cityId,
-                        service: this.attributes.serviceId
-                    })
-                        .done(data => {
-                            this.executors = [];
-                            this.showMapCity();
-                            map.removeExecutors();
-
-                            if (data.items) {
-                                this.executors = data.items;
+                    cSpinner.show();
+                    this.setCityId().then(() => {
+                        $.get('http://liloo/site/web/executor-map/catalog-data', {
+                            specialization_id: this.attributes.specializationId,
+                            city_id: this.attributes.cityId,
+                            service_id: this.attributes.serviceId,
+                            date_time: this.getDateTime(),
+                        })
+                            .done(data => {
+                                this.executors = [];
+                                this.showMapCity();
+                                map.removeExecutors();
 
                                 if (data.items) {
+                                    this.executors = data.items;
+
                                     data.items.forEach(item => {
                                         if (item.latitude && item.longitude) map.addExecutor(item);
                                     });
                                 }
-                            }
-                        });
+                                cSpinner.hide();
+                            });
+                    });
                 },
 
                 loadAttributesFromQueryParams() {
@@ -302,8 +323,9 @@
 
                     this.attributes.specializationId = params.get('specialization_id');
                     this.attributes.serviceId = params.get('service_id');
-                    this.attributes.cityId = params.get('city_id');
                     this.attributes.date = params.get('date');
+                    this.attributes.hour = params.get('hour');
+                    this.attributes.minute = params.get('minute');
 
                     if (viewType === VIEW_TYPE_MAP) this.viewTypeMap();
                     else if (viewType === VIEW_TYPE_CATALOG) this.viewTypeCatalog();
@@ -314,8 +336,42 @@
                     params.set('view_type', this.viewType);
                     params.set('specialization_id', this.attributes.specializationId || '');
                     params.set('service_id', this.attributes.serviceId || '');
-                    params.set('city_id', this.attributes.cityId || '');
                     params.set('date', this.attributes.date || '');
+                    params.set('hour', this.attributes.hour || '');
+                    params.set('minute', this.attributes.minute || '');
+
+                    let baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
+
+                    history.replaceState({}, '', [baseUrl, params.toString()].join('?'));
+                },
+
+                setDefaultQueryParams() {
+                    let params = new URLSearchParams(document.location.search),
+                        date = params.get('date'),
+                        hour = params.get('hour'),
+                        minute = params.get('minute');
+
+                    if (date === null || date === '') {
+                        params.set('date', moment().format('YYYY-MM-DD'));
+                    }
+
+                    if (hour === null || hour === '') {
+                        let hour = +moment().format('H'),
+                            minute = +moment().format('m');
+
+                        if (minute > 30) hour++;
+
+                        params.set('hour', hour);
+                    }
+
+                    if (minute === null || minute === '') {
+                        let minute = +moment().format('m');
+
+                        if (minute > 30 || minute === 0) minute = '00';
+                        else minute = '30';
+
+                        params.set('minute', minute);
+                    }
 
                     let baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
 
@@ -350,24 +406,13 @@
                 },
 
                 showMapCity() {
-                    let city = this.getCitySelected();
+                    let city = this.getCity();
 
                     if (city && city.latitude && city.longitude) {
                         map.showCity(city.latitude, city.longitude);
                     }
                 },
-
-                getCitySelected() {
-                    let index = this.cities.findIndex(item => {
-                        return +item.id === +this.attributes.cityId;
-                    });
-                    return index !== -1 ? this.cities[index] : null;
-                },
                 getLinkViewExecutor(executor) {
-                    /*
-                     * @todo
-                     * улучшить
-                     */
                     let str = executor.isSalon ? 'salon-view' : 'user-view';
 
                     return './' + str + '?id=' + executor.id;
@@ -375,10 +420,58 @@
                 clearAttributes() {
                     this.attributes.specializationId = null;
                     this.attributes.serviceId = null;
-                    this.attributes.cityId = null;
-                    this.attributes.date = null;
+                },
+
+                getHourList() {
+                    return Array.apply(null, {length: 25}).map((el, index) => {
+                        return String(index).length === 1 ? '0' + index : String(index);
+                    });
+                },
+                getMinuteList() {
+                    return ['00', '30']
+                },
+                getDateTime() {
+                    let date = moment(this.attributes.date);
+
+                    date.hour(this.attributes.hour);
+                    date.minute(this.attributes.minute);
+
+                    return date.format('YYYY-MM-DD HH:mm:ss');
+                },
+                getCity() {
+                    let city = localStorage.getItem('city');
+
+                    return city ? JSON.parse(city) : null;
+                },
+                setCityId() {
+                    let self = this,
+                        city = self.getCity();
+
+                    return new Promise((resolve, reject) => {
+                        if (city === null) {
+                            setTimeout(function run() {
+                                city = self.getCity();
+
+                                if (city) {
+                                    self.attributes.cityId = city.id;
+
+                                    resolve(true);
+                                } else {
+                                    setTimeout(run, 1000)
+                                }
+                            }, 1000);
+                        } else {
+                            self.attributes.cityId = city.id;
+                            resolve(true);
+                        }
+                    });
                 }
             },
+            filters: {
+                time(value) {
+                    return moment(value).format('HH:mm');
+                }
+            }
         });
     }
 

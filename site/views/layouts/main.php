@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
 
 ?>
 <?php $this->beginPage() ?>
@@ -21,12 +20,16 @@ use yii\helpers\Url;
     </head>
     <body>
     <?php $this->beginBody(); ?>
-
-    <main id="appContent"><?= $content; ?></main>
+    <div data-app="true" class="application theme--light" id="app">
+        <div class="application--wrap">
+            <main id="appContent"><?= $content; ?></main>
+        </div>
+    </div>
 
     <?php echo $this->render('footer'); ?>
 
-    <div id="appSpinner" class="uk-position-fixed uk-position-center" uk-spinner="ratio: 3" style="display: none;"></div>
+    <div id="appSpinner" class="uk-position-fixed uk-position-center" uk-spinner="ratio: 3"
+         style="display: none;"></div>
     <?php $this->endBody(); ?>
     </body>
     </html>

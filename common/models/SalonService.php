@@ -39,4 +39,12 @@ class SalonService extends ActiveRecord
     {
         return new Query(get_called_class());
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getService()
+    {
+        return $this->hasOne(Service::class, ['id' => 'service_id']);
+    }
 }

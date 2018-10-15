@@ -2,6 +2,7 @@
 
 namespace api\graphql\common\types;
 
+use api\graphql\common\types\entity\MasterType;
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\common\types\entity\CommonServiceType;
 use api\graphql\TypeRegistry;
@@ -35,7 +36,8 @@ class QueryType extends ObjectType
                     ConvenienceType::getFieldsQueryType($typeRegistry),
                     CommonServiceType::getFieldsQueryType($typeRegistry),
                     TariffType::getFieldsQueryType($typeRegistry),
-                    TariffPriceType::getFieldsQueryType($typeRegistry)
+                    TariffPriceType::getFieldsQueryType($typeRegistry),
+                    MasterType::getFieldsQueryType($typeRegistry)
                 );
             }
         ]);

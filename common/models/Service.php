@@ -26,10 +26,16 @@ class Service extends \yii\db\ActiveRecord
      */
     public function rules(): array
     {
+        /*
+         * @todo
+         * duration проверка на количество символов
+         */
+
         return [
-            [['account_id', 'is_group', 'name'], 'required'],
-            [['account_id', 'parent_id', 'salon_id', 'duration', 'specialization_id'], 'integer'],
+            [['account_id', 'is_group', 'specialization_id', 'name'], 'required'],
+            [['account_id', 'parent_id', 'duration', 'common_service_id', 'specialization_id'], 'integer'],
             [['price'], 'number'],
+            [['price', 'duration'], 'number', 'min' => 0],
             ['price', 'string', 'max' => 15],
             [['name'], 'string', 'max' => 255]
         ];

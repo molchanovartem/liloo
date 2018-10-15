@@ -36,7 +36,10 @@ class SpecializationType extends \api\graphql\base\types\entity\SpecializationTy
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Specialization::find()->allByParams($args['limit'], $args['offset']);
+                    return Specialization::find()
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
+                        ->all();
                 }
             ],
             'specialization' => [

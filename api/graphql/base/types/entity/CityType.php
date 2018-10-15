@@ -19,8 +19,11 @@ class CityType extends EntityType
         return [
             'id' => $this->typeRegistry->id(),
             'country_id' => $this->typeRegistry->id(),
+            'region_id' => $this->typeRegistry->id(),
+            'district_id' => $this->typeRegistry->id(),
+            'prefix' => $this->typeRegistry->string(),
             'name' => $this->typeRegistry->string(),
-            'phone_code' => $this->typeRegistry->string(),
+            'phone_code' => $this->typeRegistry->int(),
             'latitude' => $this->typeRegistry->decimal(),
             'longitude' => $this->typeRegistry->decimal()
         ];

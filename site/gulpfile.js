@@ -7,6 +7,7 @@ var gulp = require('gulp'),
 gulp.task('js', function () {
     return gulp.src([
         './src/app/js/*.js',
+        './src/app/js/widgets/*.js',
     ])
     //.pipe(uglify())
         .pipe(concat('script.min.js'))
