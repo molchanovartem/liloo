@@ -154,6 +154,19 @@ use yii\helpers\Html;
 
         <div class="j-c_s-b a-i_c mt-40">
             <div class="font_type_14">Услуги:</div>
+
+            <button class="uk-button uk-button-default uk-margin-top" type="button">Выберете мастера</button>
+            <div class="uk-width-large" uk-dropdown="mode: click">
+                <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
+                    <div>
+                        <ul class="uk-nav uk-dropdown-nav">
+                            <?php foreach ($data['model']->masters as $master) : ?>
+                                <?php echo ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <?php foreach ($data['specialization'] as $specialization): ?>
@@ -174,7 +187,10 @@ use yii\helpers\Html;
                                 от <?php echo Html::encode($service['price']); ?> руб.</span>
                         </div>
                         <div class="workers-list__part">
-                            <span class="workers-list__action workers-list__action_type_add uk-icon=" heart"></span>
+                            <span class="workers-list__action workers-list__action_type_add">
+                                <i class="mdi mdi-plus" style="font-size: 25px;"></i>
+                                <i class="mdi mdi-check" style="font-size: 25px;"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -351,3 +367,18 @@ use yii\helpers\Html;
 
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        init();
+
+        $(".workers-list__part .workers-list__action_type_add").click(function() {
+            $( this ).find('.mdi-plus').toggle("hide", function() {});
+            $( this ).find('.mdi-check').toggle("show", function() {});
+        });
+
+        function init() {
+            $('.workers-list__part .workers-list__action_type_add .mdi-check').hide();
+        }
+    });
+</script>
