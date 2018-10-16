@@ -62,8 +62,10 @@ class AppointmentService extends ModelService
         ]);
     }
 
-
-    public function getAppointments($isCanceled = false)
+    /**
+     * @param bool $isCanceled
+     */
+    public function getAppointments(bool $isCanceled = false)
     {
         $query = Appointment::find()
             ->select('uspr.*, app.*, sal.name as salname')

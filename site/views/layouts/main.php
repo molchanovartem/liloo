@@ -1,8 +1,19 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
+
+Breadcrumbs::widget([
+    'homeLink' => [
+        'template' => '<div class="row-categories__item"><a href="" class="row-categories__link">{link}</a></div>',
+        'label' => Yii::t('yii', 'Dashboard'),
+        'url' => Yii::$app->homeUrl,
+    ],
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+   ]);
 
 ?>
+
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">

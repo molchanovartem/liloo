@@ -2,9 +2,11 @@
 
 use site\widgets\header\Header;
 use yii\helpers\Html;
-use yii\widgets\Pjax;
+use site\widgets\breadcrumbs\Breadcrumbs;
 
-//var_dump($data['isSelected']);die;
+$this->title = $data['model']->profile->name . ' ' . $data['model']->profile->surname;
+$this->params['breadcrumbs'][] = ['label' => 'Исполнители', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <header class="header bg_color_e4eff9 pb-300">
     <div class="header__container">
@@ -12,16 +14,9 @@ use yii\widgets\Pjax;
         <?php echo Header::widget(); ?>
 
         <div class="content-width">
-
-            <div class="row-categories">
-                <div class="row-categories__item"><a href="" class="row-categories__link">Главная</a></div>
-                <div class="row-categories__item"><a href="" class="row-categories__link">Мастера</a></div>
-                <div class="row-categories__item"><a href="" class="row-categories__link">Фотограф</a></div>
-                <div class="row-categories__item"><a href="" class="row-categories__link">Москва</a></div>
-                <div class="row-categories__item"><a href="" class="row-categories__link row-categories__link_current">Виктор
-                        Субботин</a></div>
-            </div>
-
+             <?php echo Breadcrumbs::widget([
+                     'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+             ]);?>
         </div>
 
     </div>
