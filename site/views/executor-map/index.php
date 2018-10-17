@@ -1,11 +1,8 @@
 <?php
 
-use site\widgets\breadcrumbs\Breadcrumbs;
-
 $this->registerJs('executorCatalog();');
 
-$this->title = 'Исполнители';
-$this->params['breadcrumbs'][] = $this->title;
+$this->setBreadcrumbs(['Исполнители']);
 ?>
 
 <header class="header bg_color_e4eff9">
@@ -17,9 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1 class="h1 h1_page_performers">Лучшие мастера сайта Liloo.ru</h1>
 
         <div class="row-categories">
-            <?php echo Breadcrumbs::widget([
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]);?>
+            <?php echo $this->getBreadcrumbs(); ?>
         </div>
     </div>
 </header>

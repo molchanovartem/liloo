@@ -1,12 +1,12 @@
 <?php
 
 use yii\helpers\Html;
-use site\widgets\breadcrumbs\Breadcrumbs;
 use site\widgets\header\Header;
 
-$this->title = $data['model']->name;
-$this->params['breadcrumbs'][] = ['label' => 'Исполнители', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->setBreadcrumbs([
+    ['label' => 'Исполнители', 'url' => ['index']],
+    $data['model']->name,
+]);
 ?>
 <header class="header bg_color_e4eff9 pb-300">
     <div class="header__container">
@@ -74,13 +74,9 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <div class="content-width">
-
             <div class="row-categories">
-                <?php echo Breadcrumbs::widget([
-                    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-                ]);?>
+                <?php echo $this->getBreadcrumbs(); ?>
             </div>
-
         </div>
 
     </div>
@@ -192,7 +188,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
                 <div class="font_type_3 mt-25">
-<!--                    --><?php //echo Html::encode($data['model']->description); ?>
+                    <?php echo Html::encode($data['model']->description); ?>
                 </div>
 
             </div>

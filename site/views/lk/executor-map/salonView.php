@@ -160,9 +160,9 @@ use yii\helpers\Html;
                 <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
                     <div>
                         <ul class="uk-nav uk-dropdown-nav">
-                            <?php foreach ($data['model']->masters as $master) : ?>
-                                <?php echo ?>
-                            <?php endforeach; ?>
+<!--                            --><?php //foreach ($data['model']->masters as $master) : ?>
+<!--                                --><?php //echo ?>
+<!--                            --><?php //endforeach; ?>
                         </ul>
                     </div>
                 </div>
