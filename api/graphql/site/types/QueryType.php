@@ -2,8 +2,6 @@
 
 namespace api\graphql\site\types;
 
-use api\graphql\site\types\entity\FreeTimeType;
-use api\graphql\site\types\entity\ServiceType;
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\TypeRegistry;
 
@@ -23,10 +21,7 @@ class QueryType extends ObjectType
     {
         parent::__construct([
             'fields' => function () use ($typeRegistry) {
-                return array_merge(
-                    ServiceType::getFieldsQueryType($typeRegistry),
-                    FreeTimeType::getFieldsQueryType($typeRegistry)
-                );
+                return array_merge([]);
             }
         ]);
     }

@@ -24,7 +24,7 @@ abstract class Controller extends \yii\web\Controller
     /**
      * @var string
      */
-    public $mainLayout = '@site/views/layouts/common.php';
+    public $mainLayout = '@site/views/layouts/common2.php';
 
     /**
      * @var ModelService

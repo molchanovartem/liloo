@@ -25,16 +25,16 @@ class SiteService extends ModelService
      * @param $specializationId
      * @return mixed|null
      */
-    public function getServiceMinPrice($specializationId)
-    {
-        if (!$this->servicesMinPrice) {
-            $this->servicesMinPrice = Service::find()
-                ->select([new \yii\db\Expression('MIN(`price`) as `price`'), 'specialization_id'])
-                ->groupBy('specialization_id')
-                ->indexBy('specialization_id')
-                ->all();
-        }
-
-        return $this->servicesMinPrice[$specializationId]['price'] ?? null;
-    }
+//    public function getServiceMinPrice($specializationId)
+//    {
+//        if (!$this->servicesMinPrice) {
+//            $this->servicesMinPrice = Service::find()
+//                ->select([new \yii\db\Expression('MIN(`price`) as `price`'), 'specialization_id'])
+//                ->groupBy('specialization_id')
+//                ->indexBy('specialization_id')
+//                ->all();
+//        }
+//
+//        return $this->servicesMinPrice[$specializationId]['price'] ?? null;
+//    }
 }

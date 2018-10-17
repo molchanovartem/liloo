@@ -1,15 +1,17 @@
 <?php
 
-namespace api\graphql\site\types\entity;
+namespace api\graphql\common\types\entity;
 
 use common\models\SalonService;
 use common\models\Service;
+use common\models\User;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
 
 /**
  * Class ServiceType
- * @package api\graphql\site\types\entity
+ *
+ * @package api\graphql\common\types\entity
  */
 class ServiceType implements QueryTypeInterface
 {
@@ -22,28 +24,35 @@ class ServiceType implements QueryTypeInterface
         $entityRegistry = $typeRegistry->getEntityRegistry();
 
         return [
-            'serviceByAccountId' => [
+            'servicesUser' => [
                 'type' => $typeRegistry->listOff($entityRegistry->service()),
-                'description' => 'Сервисы этого мастера',
+                'description' => 'Сервисы мастера',
                 'args' => [
-                    'account_id' => [
+                    'user_id' => [
                         'type' => $typeRegistry->nonNull($typeRegistry->id())
                     ],
+                ],
+                'resolve' => function ($root, $args) {
+                    if ($user = User::find()->oneById($args['user_id'])) {
+                        return Service::find()->byAccountId($user->account_id)->all();
+                    }
+                    return null;
+                }
+            ],
+            'servicesSalon' => [
+                'type' => $typeRegistry->listOff($entityRegistry->service()),
+                'description' => 'Сервисы салона',
+                'args' => [
                     'salon_id' => [
                         'type' => $typeRegistry->id(),
                         'defaultValue' => null,
                     ],
                 ],
                 'resolve' => function ($root, $args) {
-                    if (empty($args['salon_id'])) {
-                        return Service::find()->byAccountId($args['account_id'])->all();
-                    }
-
                     return Service::find()
                         ->alias('s')
                         ->leftJoin(SalonService::tableName() . ' ss', 's.id = ss.service_id')
                         ->where(['ss.salon_id' => $args['salon_id']])
-                        ->andWhere(['s.account_id' => $args['account_id']])
                         ->all();
                 }
             ],

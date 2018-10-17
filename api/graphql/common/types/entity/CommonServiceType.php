@@ -2,7 +2,7 @@
 
 namespace api\graphql\common\types\entity;
 
-use common\models\Service;
+use common\models\CommonService;
 use api\graphql\QueryTypeInterface;
 use api\graphql\TypeRegistry;
 
@@ -22,14 +22,10 @@ class CommonServiceType extends \api\graphql\base\types\entity\CommonServiceType
         $entityRegistry = $typeRegistry->getEntityRegistry();
 
         return [
-            'services' => [
+            'commonServices' => [
                 'type' => $typeRegistry->listOff($entityRegistry->commonService()),
                 'description' => 'Коллекция базовых услуг',
                 'args' => [
-                    'parent_id' => [
-                        'type' => $typeRegistry->id(),
-                        'defaultValue' => null,
-                    ],
                     'limit' => [
                         'type' => $typeRegistry->int(),
                         'defaultValue' => 30,
@@ -39,15 +35,14 @@ class CommonServiceType extends \api\graphql\base\types\entity\CommonServiceType
                         'defaultValue' => 0
                     ]
                 ],
-                'description' => 'Коллекция услуг',
                 'resolve' => function ($root, $args) {
-                    return Service::find()->where(['parent_id' => $args['parent_id']])
-                        ->isService()
+                    return CommonService::find()
                         ->limit($args['limit'])
-                        ->offset($args['offset'])->all();
+                        ->offset($args['offset'])
+                        ->all();
                 }
             ],
-            'service' => [
+            'commonService' => [
                 'type' => $entityRegistry->commonService(),
                 'args' => [
                     'id' => [
@@ -55,7 +50,7 @@ class CommonServiceType extends \api\graphql\base\types\entity\CommonServiceType
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Service::find()->oneById($args['id']);
+                    return CommonService::find()->oneById($args['id']);
                 }
             ],
         ];

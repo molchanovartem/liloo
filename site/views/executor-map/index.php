@@ -1,25 +1,8 @@
 <?php
 $this->registerJs('executorCatalog();');
 ?>
-
-<header class="header bg_color_e4eff9">
-    <?php echo \site\widgets\header\Header::widget(); ?>
-
-    <div class="uk-container">
-
-        <div class="label-status label-status_bg_black label-status_fz_14">Profi</div>
-        <h1 class="h1 h1_page_performers">Лучшие мастера сайта Liloo.ru</h1>
-
-        <div class="row-categories">
-            <div class="row-categories__item"><a href="" class="row-categories__link">Главная</a></div>
-            <div class="row-categories__item"><a href="" class="row-categories__link row-categories__link_current">Мастера</a>
-            </div>
-        </div>
-    </div>
-</header>
-
 <div id="catalog" style="display: none" :style="{display: isShow ? 'block' : 'none'}">
-    <div class="uk-margin bg_color_e4eff9">
+    <div class="uk-margin">
         <div class="uk-container">
             <div class="uk-margin-top uk-margin-bottom">
                 <form ref="filter">
@@ -205,9 +188,7 @@ $this->registerJs('executorCatalog();');
                             <a href="" class="font_type_11">Все свободное время ???</a>
                         </div>
                         <div class="button button_color_red button_width_270 mt-10">
-                            <a href="../appointment/create" class="uk-button uk-link-reset"
-                               data-window="true"
-                               data-window-type="bigModal">Записаться</a>
+                            <a href="#" class="uk-button uk-link-reset" @click.prevent="onAppointmentCreate(item)">Записаться</a>
                         </div>
                     </div>
                 </div>
@@ -226,7 +207,7 @@ $this->registerJs('executorCatalog();');
         const map = new MapCatalog('map');
 
         cSpinner.show();
-        new Vue({
+        let wm = new Vue({
             el: '#catalog',
             mounted() {
                 cSpinner.hide();
@@ -272,18 +253,24 @@ $this->registerJs('executorCatalog();');
                     this.clearAttributes();
                     this.onSubmit();
                 },
+                onAppointmentCreate(item) {
+                    appointmentCreate({
+                        [item.isSalon ? 'salonId' : 'userId']: +item.id,
+                        date: this.attributes.date
+                    });
+                },
 
                 loadCommonData() {
                     return new Promise((resolve, reject) => {
                         $.post('http://liloo/api/common/index', JSON.stringify({
-                            query: "query {" +
-                                "specializations {id, name}," +
-                                "services {id, name, price, duration}" +
-                                "}"
+                            query: `query {
+                                     specializations {id, name}
+                                     commonServices {id, name, price, duration}
+                                }`
                         }))
                             .done(({data}) => {
                                 if (data.specializations) this.specializations = Array.from(data.specializations);
-                                if (data.services) this.services = data.services;
+                                if (data.commonServices) this.services = data.commonServices;
                                 resolve(true);
                             })
                             .fail((error) => {
@@ -473,91 +460,108 @@ $this->registerJs('executorCatalog();');
                 }
             }
         });
-    }
 
-    function MapCatalog(id) {
-        'use strict';
+        function MapCatalog(id) {
+            'use strict';
 
-        let self = this,
-            map = null,
-            executors = [];
+            let self = this,
+                map = null,
+                executors = [];
 
-        this.init = () => {
-            map = L.map(id).setView([51.505, -0.09], 13);
+            this.init = () => {
+                map = L.map(id).setView([51.505, -0.09], 13);
 
-            L.tileLayer('http://tiles.maps.sputnik.ru/{z}/{x}/{y}.png?apikey=5032f91e8da6431d8605-f9c0c9a00357', {
-                attribution: '&copy; <a href="http://maps.sputnik.ru/">Спутник</a> | &copy; <a rel="nofollow" href="http://osm.org/copyright">OpenStreetMap</a> | &copy; Ростелеком'
-            }).addTo(map);
-        };
+                L.tileLayer('http://tiles.maps.sputnik.ru/{z}/{x}/{y}.png?apikey=5032f91e8da6431d8605-f9c0c9a00357', {
+                    attribution: '&copy; <a href="http://maps.sputnik.ru/">Спутник</a> | &copy; <a rel="nofollow" href="http://osm.org/copyright">OpenStreetMap</a> | &copy; Ростелеком'
+                }).addTo(map);
+            };
 
-        this.showCity = (lat, lng) => {
-            map.setView([lat, lng], 12);
-        };
+            this.showCity = (lat, lng) => {
+                map.setView([lat, lng], 12);
+            };
 
-        this.addExecutor = (executor) => {
-            let exec = L.marker([executor.latitude, executor.longitude]).addTo(map)
-                .bindPopup(getPopupContent(executor));
+            this.addExecutor = (executor) => {
+                let exec = L.marker([executor.latitude, executor.longitude]).addTo(map)
+                    .bindPopup(getPopupContent(executor));
 
-            executors.push(exec);
-        };
+                executors.push(exec);
+            };
 
-        this.removeExecutors = () => {
-            executors.forEach(item => {
-                map.removeLayer(item);
-            });
-        };
+            this.removeExecutors = () => {
+                executors.forEach(item => {
+                    map.removeLayer(item);
+                });
+            };
 
-        this.destroy = function () {
-            this.removeExecutors();
-            map = null;
-        };
+            this.destroy = function () {
+                this.removeExecutors();
+                map = null;
+            };
 
-        function getPopupContent(executor) {
-            let wrapper = stringToHtml('<div class="uk-width-large"></div>'),
-                grid = stringToHtml('<div class="uk-grid uk-grid-small"></div>'),
-                columnLeft = stringToHtml('<div class="uk-width-1-3"><img src="https://getuikit.com/docs/images/avatar.jpg" class="uk-border-circle"></div>'),
-                columnRight = stringToHtml('<div class="uk-width-2-3"></div>');
+            function getPopupContent(executor) {
+                let wrapper = stringToHtml('<div class="uk-width-large"></div>'),
+                    grid = stringToHtml('<div class="uk-grid uk-grid-small"></div>'),
+                    columnLeft = stringToHtml('<div class="uk-width-1-3"><img src="https://getuikit.com/docs/images/avatar.jpg" class="uk-border-circle"></div>'),
+                    columnRight = stringToHtml('<div class="uk-width-2-3"></div>');
 
-            let title = stringToHtml('<div><strong>' + executor.name + '</strong></div>'),
-                description = stringToHtml('<div><p>Описание ???</p></div>'),
-                navWrapper = stringToHtml('<div></div>'),
-                buttonInfo = document.createElement('button'),
-                buttonAppointment = document.createElement('a');
+                let title = stringToHtml('<div><strong>' + executor.name + '</strong></div>'),
+                    description = stringToHtml('<div><p>Описание ???</p></div>'),
+                    navWrapper = stringToHtml('<div></div>'),
+                    buttonInfo = document.createElement('button'),
+                    buttonAppointment = document.createElement('button');
 
-            buttonInfo.setAttribute('class', 'uk-button uk-button-small uk-button-default uk-float-left');
-            buttonInfo.innerText = 'i';
-            buttonInfo.addEventListener('click', () => {
-                console.log(executor);
-            });
+                buttonInfo.setAttribute('class', 'uk-button uk-button-small uk-button-default uk-float-left');
+                buttonInfo.innerText = 'i';
+                buttonInfo.addEventListener('click', () => {
+                    console.log(executor);
+                });
 
-            buttonAppointment.setAttribute('class', 'uk-button uk-button-small uk-button-link uk-float-right');
-            buttonAppointment.setAttribute('href', '../appointment/create');
-            buttonAppointment.setAttribute('data-window', 'true');
-            buttonAppointment.setAttribute('data-window-type', 'bigModal');
-            buttonAppointment.innerText = 'Записаться';
-            // buttonAppointment.addEventListener('click', () => {
-            //     console.log(executor);
-            // });
+                buttonAppointment.setAttribute('class', 'uk-button uk-button-small uk-button-link uk-float-right');
+                buttonAppointment.addEventListener('click', () => {
+                    appointmentCreate({
+                        [executor.isSalon ? 'salonId' : 'userId']: +executor.id,
+                        date: wm.attributes.date
+                    })
+                });
+                buttonAppointment.innerText = 'Записаться';
 
-            //navWrapper.appendChild(buttonInfo);
-            navWrapper.appendChild(buttonAppointment);
+                //navWrapper.appendChild(buttonInfo);
+                navWrapper.appendChild(buttonAppointment);
 
-            columnRight.appendChild(title);
-            columnRight.appendChild(description);
-            columnRight.appendChild(navWrapper);
+                columnRight.appendChild(title);
+                columnRight.appendChild(description);
+                columnRight.appendChild(navWrapper);
 
-            grid.appendChild(columnLeft);
-            grid.appendChild(columnRight);
-            wrapper.appendChild(grid);
+                grid.appendChild(columnLeft);
+                grid.appendChild(columnRight);
+                wrapper.appendChild(grid);
 
-            return wrapper;
+                return wrapper;
+            }
+
+            function stringToHtml(string) {
+                var wrapper = document.createElement('div');
+
+                wrapper.innerHTML = string;
+                return wrapper.firstChild;
+            }
         }
 
-        function stringToHtml(string) {
-            var wrapper = document.createElement('div');
+        function appointmentCreate({userId = null, salonId = null, date}) {
+            let window = cWindow.getWindowByType('normalModal');
 
-            wrapper.innerHTML = string;
-            return wrapper.firstChild;
+            if (window) {
+                $.get('http://liloo/site/web/appointment/create', {
+                    [userId ? 'user_id' : 'salon_id']: userId || salonId,
+                    date: date
+                })
+                    .done(({content}) => {
+                        if (content !== undefined) {
+                            window.html(content);
+                            window.dialog('open');
+                        }
+                    });
+            }
         }
     }
 </script>

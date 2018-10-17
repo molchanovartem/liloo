@@ -12,5 +12,6 @@ $config = array_merge_recursive(
     require(__DIR__ . '/../common/config/config.php'),
     require(__DIR__ . '/config/main.php')
 );
+
 $app = new \yii\web\Application($config);
 $app->run();

@@ -30,14 +30,4 @@ class AppointmentController extends Controller
     {
         return $this->extraRender('create');
     }
-
-    public function actionGetUserFreeTime($user_id, $date, $period = 30, $unaccounted_time = null)
-    {
-        return $this->asJson($this->modelService->getUserFreeTime($user_id, $date, $period, $unaccounted_time));
-    }
-
-    public function actionGetMasterFreeTime($master_id, $date, $period = 30, $unaccounted_time = null)
-    {
-        return $this->asJson($this->modelService->getUserFreeTime($master_id, $date, $period, $unaccounted_time));
-    }
 }

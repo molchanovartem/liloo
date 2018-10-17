@@ -77,7 +77,7 @@ var cWindow = {
                 autoOpen: false,
                 modal: true,
                 minWidth: 1200,
-                maxWidth: 1200
+                maxWidth: 1200,
             });
         }
         return this._windows.bigModal;
@@ -89,7 +89,8 @@ var cWindow = {
                 autoOpen: false,
                 modal: true,
                 minWidth: 900,
-                maxWidth: 900
+                maxWidth: 900,
+                minHeight: 500
             });
         }
         return this._windows.normalModal;
