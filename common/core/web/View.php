@@ -21,8 +21,7 @@ class View extends \yii\web\View
     }
 
     /**
-     * @return string
-     * @throws \Exception
+     * @return array
      */
     public function getBreadcrumbs()
     {

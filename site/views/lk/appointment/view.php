@@ -1,3 +1,5 @@
+<?php $this->setBreadcrumbs(['Записи']); ?>
+
 <div id="appointment-view">
     <div>
 

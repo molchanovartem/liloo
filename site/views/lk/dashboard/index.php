@@ -19,7 +19,7 @@ use yii\helpers\Url;
                             <span class="service-list-item__name"><?php echo $specialization->name ?></span>
                             <div class="service-list-item__row">
                                     <span class="service-list-item__prices">
-                                        Цены: от <?= $modelService->getServiceMinPrice($specialization->id); ?> руб.
+<!--                                        Цены: от --><?//= $modelService->getServiceMinPrice($specialization->id); ?><!-- руб.-->
                                     </span>
                                 <span class="service-list-item__more">Подробнее</span>
                             </div>

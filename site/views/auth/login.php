@@ -4,13 +4,10 @@ use yii\helpers\Html;
 use yii\captcha\Captcha;
 use site\widgets\activeForm\ActiveForm;
 
+$this->setHeading('Вход');
 ?>
 
-<?php echo \site\widgets\header\Header::widget(); ?>
-
 <div class="content-width content-width_w_550">
-
-    <h1 class="font_type_7 t-a_c">Вход</h1>
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -65,11 +62,15 @@ use site\widgets\activeForm\ActiveForm;
 
     <div class="font_type_8 mt-40 t-a_c">Быстрая регистрация</div>
     <div class="social-buttons mt-30">
-        <a href="" class="button button_color_vk"><span class="fab button__icon fa-vk"></span><span
-                    class="">ВКонтакте</span></a>
-        <a href="" class="button button_color_fb"><span class="fab button__icon fa-facebook-square"></span><span
-                    class="">Facebook</span></a>
-        <a href="" class="button button_color_ok"><span class="fab button__icon fa-odnoklassniki"></span><span class="">Одноклассники</span></a>
+        <a href="" class="button button_color_vk"><span class="fab button__icon fa-vk"></span>
+            <span class="">ВКонтакте</span>
+        </a>
+        <a href="" class="button button_color_fb"><span class="fab button__icon fa-facebook-square"></span>
+            <span class="">Facebook</span>
+        </a>
+        <a href="" class="button button_color_ok"><span class="fab button__icon fa-odnoklassniki"></span>
+            <span class="">Одноклассники</span>
+        </a>
     </div>
 
 </div>

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use site\models\Recall;
 
+$this->setBreadcrumbs(['Отзывы']);
 ?>
 
 <div class="font_type_12 uk-margin-bottom">Отзывы:</div>

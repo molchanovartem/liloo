@@ -35,6 +35,14 @@ class RecallController extends Controller
 
     }
 
+    /**
+     * @param $accountId
+     * @param $appointmentId
+     * @param $assessment
+     * @param $text
+     * @return \yii\web\Response
+     * @throws \api\graphql\errors\AttributeValidationError
+     */
     public function actionCreate($accountId, $appointmentId, $assessment, $text)
     {
        $this->modelService->createRecall($accountId, $appointmentId, $assessment, $text);
@@ -42,6 +50,11 @@ class RecallController extends Controller
         return $this->asJson($this->modelService->getData());
     }
 
+    /**
+     * @param $id
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public function actionDelete($id)
     {
         $this->modelService->deleteRecall($id);

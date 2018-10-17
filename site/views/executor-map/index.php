@@ -2,9 +2,7 @@
 $this->registerJs('executorCatalog();');
 
 $this->setHeading('Лучшие мастера сайта Liloo.ru');
-$this->setBreadcrumbs([
-    ['label' => 'Исполнители', 'url' => ['index']]
-]);
+$this->setBreadcrumbs(['Исполнители']);
 ?>
 <div id="catalog" style="display: none" :style="{display: isShow ? 'block' : 'none'}">
     <div class="uk-margin">
@@ -68,7 +66,7 @@ $this->setBreadcrumbs([
                             </div>
                         </div>
                         <div>
-                            <div class="uk-background-default">
+                            <div class="uk-background-default uk-width-4-5 executor-filter-custom-time">
                                 <div class="uk-grid uk-grid-small uk-flex-middle">
                                     <div class="uk-width-expand">
                                         <div class="uk-grid uk-grid-small uk-flex-middle">
@@ -81,7 +79,7 @@ $this->setBreadcrumbs([
                                                         hide-details
                                                 />
                                             </div>
-                                            <div class="uk-width-auto">:</div>
+                                            <div class="uk-width-auto uk-text-lead">:</div>
                                             <div class="uk-width-expand">
                                                 <v-select
                                                         v-model="attributes.minute"

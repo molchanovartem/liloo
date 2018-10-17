@@ -1,5 +1,5 @@
 <?php $this->beginContent('@site/views/layouts/main.php'); ?>
-<div class="header bg_color_e4eff9">
+<div class="bg_image_header-main">
     <?= $content; ?>
 </div>
 <?php $this->endContent(); ?>

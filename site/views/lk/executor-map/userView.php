@@ -2,6 +2,10 @@
 
 use yii\helpers\Html;
 
+$this->setBreadcrumbs([
+    ['label' => 'Исполнители', 'url' => ['index']],
+    $data['model']->profile->name . ' ' . $data['model']->profile->surname,
+]);
 ?>
 <div id="app">
     <?php $this->beginBlock('cart'); ?>

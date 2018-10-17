@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 
+$this->setBreadcrumbs(['Профиль']);
 ?>
 
 <div class="content-columns__column content-column__column_main">

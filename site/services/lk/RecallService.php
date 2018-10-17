@@ -33,8 +33,8 @@ class RecallService extends ModelService
     }
 
     /**
-     * @param $accountId
-     * @param $appointmentId
+     * @param int $accountId
+     * @param int $appointmentId
      * @param $assessment
      * @param $text
      *

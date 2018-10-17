@@ -5,6 +5,10 @@
 
 use admin\widgets\activeForm\ActiveForm;
 
+$this->setBreadcrumbs([
+    ['label' => 'Профиль', 'url' => ['view']],
+    'Изменение личных данных',
+]);
 ?>
 
 <div class="content-columns">

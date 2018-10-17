@@ -2,7 +2,12 @@
 
 use yii\helpers\Html;
 
+$this->setBreadcrumbs([
+    ['label' => 'Исполнители', 'url' => ['index']],
+    $data['model']->name,
+]);
 ?>
+
 <?php $this->beginBlock('cart'); ?>
 <div class="content-block uk-padding content-block_shadow uk-background-default">
     <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
@@ -160,9 +165,17 @@ use yii\helpers\Html;
                 <div class="uk-dropdown-grid uk-child-width-1-2@m" uk-grid>
                     <div>
                         <ul class="uk-nav uk-dropdown-nav">
-<!--                            --><?php //foreach ($data['model']->masters as $master) : ?>
-<!--                                --><?php //echo ?>
-<!--                            --><?php //endforeach; ?>
+                            <?php foreach ($data['model']->masters as $master) : ?>
+                                <li>
+                                    <h5>
+                                        <a href="" class="uk-link-heading">
+                                            <div class="review-slide__author-img"
+                                                 style="width: 50px; height: 50px; background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                                            <?php echo $master->name; ?>
+                                        </a>
+                                    </h5>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
                 </div>
@@ -369,12 +382,14 @@ use yii\helpers\Html;
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         init();
 
-        $(".workers-list__part .workers-list__action_type_add").click(function() {
-            $( this ).find('.mdi-plus').toggle("hide", function() {});
-            $( this ).find('.mdi-check').toggle("show", function() {});
+        $(".workers-list__part .workers-list__action_type_add").click(function () {
+            $(this).find('.mdi-plus').toggle("hide", function () {
+            });
+            $(this).find('.mdi-check').toggle("show", function () {
+            });
         });
 
         function init() {

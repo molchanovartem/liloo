@@ -1,9 +1,12 @@
-<?php use yii\helpers\Html; ?>
-<main>
-    <div class="uk-container">
+<?php
+
+use yii\helpers\Html;
+
+$this->setBreadcrumbs(['Избранные мастера']);
+?>
         <?php foreach ($data['model'] as $selectedMaster): ?>
             <?php if (!$selectedMaster->is_salon): ?>
-                <div class="uk-card uk-card-default uk-card-body uk-margin-top uk-padding-remove-vertical">
+                <div class="uk-card uk-card-default uk-card-body uk-margin-bottom uk-padding-remove-vertical">
 
                     <div class="performers-select__item">
                         <div class="performers-select__performer">
@@ -69,7 +72,7 @@
 
                 </div>
             <?php else: ?>
-                <div class="uk-card uk-card-default uk-card-body uk-margin-top uk-padding-remove-vertical">
+                <div class="uk-card uk-card-default uk-card-body uk-margin-bottom uk-padding-remove-vertical">
 
                     <div class="performers-select__item">
                         <div class="performers-select__performer">
@@ -133,5 +136,3 @@
                 </div>
             <?php endif; ?>
         <?php endforeach; ?>
-    </div>
-</main>
