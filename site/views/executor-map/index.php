@@ -1,5 +1,10 @@
 <?php
 $this->registerJs('executorCatalog();');
+
+$this->setHeading('Лучшие мастера сайта Liloo.ru');
+$this->setBreadcrumbs([
+    ['label' => 'Исполнители', 'url' => ['index']]
+]);
 ?>
 <div id="catalog" style="display: none" :style="{display: isShow ? 'block' : 'none'}">
     <div class="uk-margin">

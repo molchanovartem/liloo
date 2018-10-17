@@ -1,8 +1,19 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
+
+Breadcrumbs::widget([
+    'homeLink' => [
+        'template' => '<div class="row-categories__item"><a href="" class="row-categories__link">{link}</a></div>',
+        'label' => Yii::t('yii', 'Dashboard'),
+        'url' => Yii::$app->homeUrl,
+    ],
+    'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+   ]);
 
 ?>
+
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>">
@@ -20,16 +31,17 @@ use yii\helpers\Html;
     </head>
     <body>
     <?php $this->beginBody(); ?>
-    <div data-app="true" class="application theme--light" id="app">
-        <div class="application--wrap">
-            <main id="appContent"><?= $content; ?></main>
+
+        <div data-app="true" class="application theme--light" id="app">
+            <div class="application--wrap">
+                <main id="appContent"><?= $content; ?></main>
+            </div>
         </div>
-    </div>
 
     <?php echo $this->render('footer'); ?>
 
-    <div id="appSpinner" class="uk-position-fixed uk-position-center" uk-spinner="ratio: 3"
-         style="display: none;"></div>
+    <div id="appSpinner" class="uk-position-fixed uk-position-center" uk-spinner="ratio: 3" style="display: none;"></div>
+
     <?php $this->endBody(); ?>
     </body>
     </html>

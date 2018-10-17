@@ -12,6 +12,9 @@ $config = [
                 ],
             ],
         ],
+        'view' => [
+            'class' => 'common\core\web\View',
+        ],
         'request' => [
             'cookieValidationKey' => 'asdfjasdlkjasdfj',
         ],

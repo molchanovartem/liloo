@@ -4,21 +4,10 @@ use site\widgets\activeForm\ActiveForm;
 use yii\helpers\Html;
 use yii\captcha\Captcha;
 
+$this->setHeading('Регистрируйся и записывайся к лучшим и проверенным мастерам');
+
 ?>
-<body class="bg_color_e4eff9">
-
-<header class="header">
-    <div class="header__container">
-
-        <?php echo \site\widgets\header\Header::widget(); ?>
-
-    </div>
-</header>
-
 <div class="content-width content-width_w_550">
-
-    <h1 class="font_type_7 t-a_c">Регистрируйся и записывайся к лучшим и проверенным мастерам</h1>
-
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->errorSummary($model); ?>

@@ -1,8 +1,12 @@
 <?php
 
-use site\widgets\header\Header;
 use yii\helpers\Html;
+use site\widgets\header\Header;
 
+$this->setBreadcrumbs([
+    ['label' => 'Исполнители', 'url' => ['index']],
+    $data['model']->name,
+]);
 ?>
 <header class="header bg_color_e4eff9 pb-300">
     <div class="header__container">
@@ -70,16 +74,9 @@ use yii\helpers\Html;
         </div>
 
         <div class="content-width">
-
             <div class="row-categories">
-                <div class="row-categories__item"><a href="" class="row-categories__link">Главная</a></div>
-                <div class="row-categories__item"><a href="" class="row-categories__link">Мастера</a></div>
-                <div class="row-categories__item"><a href="" class="row-categories__link">Фотограф</a></div>
-                <div class="row-categories__item"><a href="" class="row-categories__link">Москва</a></div>
-                <div class="row-categories__item"><a href="" class="row-categories__link row-categories__link_current">Виктор
-                        Субботин</a></div>
+                <?php echo $this->getBreadcrumbs(); ?>
             </div>
-
         </div>
 
     </div>

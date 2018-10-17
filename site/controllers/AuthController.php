@@ -49,7 +49,7 @@ class AuthController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['/site/index']);
         }
 
         $model = new LoginForm();
@@ -71,7 +71,7 @@ class AuthController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        return $this->redirect(['/site/index']);
     }
 
     /**
@@ -82,11 +82,11 @@ class AuthController extends Controller
     public function actionRegistration()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
+            return $this->redirect(['/lk/dashboard']);
         }
 
         if ($this->modelService->registration()) {
-            return $this->goHome();
+            return $this->redirect(['/lk/dashboard']);
         }
 
         $data = $this->modelService->getData();

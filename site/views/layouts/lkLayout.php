@@ -5,7 +5,6 @@ use site\widgets\header\Header;
 
 ?>
 
-<?php $this->beginContent('@app/views/layouts/main.php'); ?>
 <header class="header bg_color_e4eff9 uk-width-1-1">
     <div class="header__container">
 
@@ -68,5 +67,3 @@ use site\widgets\header\Header;
         </div>
     </div>
 </div>
-
-<?php $this->endContent(); ?>

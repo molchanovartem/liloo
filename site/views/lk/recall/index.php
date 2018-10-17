@@ -1,7 +1,7 @@
 <?php
 
-use site\models\Recall;
 use yii\helpers\Html;
+use site\models\Recall;
 
 ?>
 
@@ -24,6 +24,14 @@ use yii\helpers\Html;
                                     <i class="mdi mdi-heart"></i>
                                 <?php endif; ?>
                             </span>
+                        </div>
+
+                        <div class="uk-margin-auto-left">
+                            <?php if ($recall->status == Recall::STATUS_NOT_VERIFIED) : ?>
+                                <i uk-tooltip="title: Непроверенный отзыв; delay: 100" class="mdi mdi-alert-circle-outline"></i>
+                            <?php else : ?>
+                                <i uk-tooltip="title: Проверенный отзыв; delay: 100" class="mdi mdi-check"></i>
+                            <?php endif; ?>
                         </div>
 
                         <div class="stars">

@@ -35,7 +35,6 @@ use yii\helpers\Html;
     </div>
     <?php $this->endBlock(); ?>
 
-
     <div class="content-columns__column content-column__column_main">
 
         <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
@@ -97,9 +96,9 @@ use yii\helpers\Html;
                 <a href="" class="choose-city">
                     <span class="choose-city__fa fas fa-map-marker-alt"></span>
                     <span class="choose-city__text">
-                    <?php echo Html::encode($data['model']->profile->city->name); ?>,
+                        <?php echo Html::encode($data['model']->profile->city->name); ?>,
                         <?php echo Html::encode($data['model']->profile->address); ?>
-                </span>
+                    </span>
                 </a>
             </div>
 
@@ -108,7 +107,7 @@ use yii\helpers\Html;
                 <div class="performer__info">
                     <div class="label-status label-status_bg_gray label-status_fz_14">Обычный</div>
                     <div class="performer__name">
-                        <?php echo Html::encode($data['model']->profile->name); ?>
+                        <?php echo Html::encode($data['model']->profile->name); ?>,
                         <?php echo Html::encode($data['model']->profile->surname); ?>
 
                         <a href="/site/web/lk/selected-masters/add-to-selected?executorId=<?php echo $data['model']->id; ?>&isSalon=0">
@@ -136,14 +135,14 @@ use yii\helpers\Html;
                         <div class="vote">
                             <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
                             <span class="vote__digits">
-                            <span class="vote__digit vote__digit_color_green">
-                                <?php echo Html::encode($data['model']->account->assessment_like); ?>
-                            </span>
+                                <span class="vote__digit vote__digit_color_green">
+                                    <?php echo Html::encode($data['model']->account->assessment_like); ?>
+                                </span>
 
-                            <span class="vote__digit vote__digit_color_red">
-                                <?php echo Html::encode($data['model']->account->assessment_dislike); ?>
+                                <span class="vote__digit vote__digit_color_red">
+                                    <?php echo Html::encode($data['model']->account->assessment_dislike); ?>
+                                </span>
                             </span>
-                        </span>
                         </div>
                     </div>
                 </div>
@@ -152,7 +151,6 @@ use yii\helpers\Html;
             <div class="font_type_3 mt-25">
                 <?php echo Html::encode($data['model']->profile->description); ?>
             </div>
-
         </div>
 
         <div class="j-c_s-b a-i_c mt-40">
@@ -168,15 +166,20 @@ use yii\helpers\Html;
                             <div class="workers-list__detail"><?php echo Html::encode($service['name']); ?></div>
                         </div>
                         <div class="workers-list__part">
-                                <span class="workers-list__detail"><?php echo Html::encode($service['duration']); ?>
-                                    мин.</span>
+                            <span class="workers-list__detail">
+                                <?php echo Html::encode($service['duration']); ?> мин.
+                            </span>
                         </div>
                         <div class="workers-list__part">
-                                <span class="workers-list__detail">от <?php echo Html::encode($service['price']); ?>
-                                    руб.</span>
+                            <span class="workers-list__detail">
+                                от <?php echo Html::encode($service['price']); ?> руб.
+                            </span>
                         </div>
                         <div class="workers-list__part">
-                            <span class="workers-list__action workers-list__action_type_add uk-icon=" heart"></span>
+                            <span class="workers-list__action workers-list__action_type_add">
+                                <i class="mdi mdi-plus" style="font-size: 25px;"></i>
+                                <i class="mdi mdi-check" style="font-size: 25px;"></i>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -192,8 +195,8 @@ use yii\helpers\Html;
                             <span class="advice__icon">
                                 <span class="fas fa-phone fa-flip-horizontal"></span>
                             </span>
-                            <div class="advice__text">Связаться с мастером по телефону Вы сможете после того, как
-                                запишитесь к нему на сеанс.
+                            <div class="advice__text">
+                                Связаться с мастером по телефону Вы сможете после того, как запишитесь к нему на сеанс.
                             </div>
                         </div>
                     </div>
@@ -257,23 +260,21 @@ use yii\helpers\Html;
                 <div class="font_type_12">Отзывы:</div>
 
                 <div class="a-i_c">
-                        <span class="vote__digits">
-                            <span class="vote__digit vote__digit_color_green">
-                                +<?php echo Html::encode($data['model']->account->assessment_like); ?>
-                            </span>
-                            <span class="vote__digit vote__digit_color_red">
-                                -<?php echo Html::encode($data['model']->account->assessment_dislike); ?>
-                            </span>
+                    <span class="vote__digits">
+                        <span class="vote__digit vote__digit_color_green">
+                            +<?php echo Html::encode($data['model']->account->assessment_like); ?>
                         </span>
+                        <span class="vote__digit vote__digit_color_red">
+                            -<?php echo Html::encode($data['model']->account->assessment_dislike); ?>
+                        </span>
+                    </span>
 
                     <div class="uk-clearfix ">
                         <div class="uk-float-right">
-                            <a class="uk-position-small" href="#" uk-slidenav-previous
-                               uk-slider-item="previous"></a>
+                            <a class="uk-position-small" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
                             <a class="uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -359,3 +360,17 @@ use yii\helpers\Html;
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        init();
+
+        $(".workers-list__part .workers-list__action_type_add").click(function() {
+            $( this ).find('.mdi-plus').toggle("hide", function() {});
+            $( this ).find('.mdi-check').toggle("show", function() {});
+        });
+
+        function init() {
+            $('.workers-list__part .workers-list__action_type_add .mdi-check').hide();
+        }
+    });
+</script>
