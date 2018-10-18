@@ -1,6 +1,6 @@
 <?php
 
-namespace site\services\lk;
+namespace site\services;
 
 use Yii;
 use yii\helpers\ArrayHelper;
@@ -12,7 +12,7 @@ use common\models\UserProfile;
 
 /**
  * Class ProfileService
- * @package site\services\lk
+ * @package site\services
  */
 class ProfileService extends ModelService
 {

@@ -32,7 +32,7 @@
 
                                 <div v-if="props.item.salon_id">
                                     <div class="uk-margin-top">
-                                        <a :href="'/site/web/index.php/lk/executor-map/salon-view?id=' + props.item.salon_id">
+                                        <a :href="'/site/web/index.php/executor-map/salon-view?id=' + props.item.salon_id">
                                             {{props.item.salname}}
                                         </a>
                                         <span v-if="props.item.status == constants.APPOINTMENT_STATUS_NEW"
@@ -96,7 +96,7 @@
                                 </div>
                                 <div v-else>
                                     <div class="uk-margin-top">
-                                        <a :href="'/site/web/index.php/lk/executor-map/user-view?id=' + props.item.user_id">
+                                        <a :href="'/site/web/index.php/executor-map/user-view?id=' + props.item.user_id">
                                             {{props.item.name + ' ' + props.item.surname}}
                                         </a>
 
@@ -178,7 +178,7 @@
 
                                 <div v-if="props.item.salon_id">
                                     <div class="uk-margin-top">
-                                        <a :href="'/site/web/index.php/lk/executor-map/salon-view?id=' + props.item.salon_id">
+                                        <a :href="'/site/web/index.php/executor-map/salon-view?id=' + props.item.salon_id">
                                             {{props.item.salname}}
                                         </a>
 
@@ -349,7 +349,7 @@
                                 </div>
                                 <div v-else>
                                     <div class="uk-margin-top">
-                                        <a :href="'/site/web/index.php/lk/executor-map/user-view?id=' + props.item.user_id">
+                                        <a :href="'/site/web/index.php/executor-map/user-view?id=' + props.item.user_id">
                                             {{props.item.name + ' ' + props.item.surname}}
                                         </a>
 
@@ -522,7 +522,7 @@
                     },
 
                     loadDataNew() {
-                        $.get('http://liloo/site/web/lk/appointment/appointment-data-new', {
+                        $.get('http://liloo/site/web/appointment/appointment-data-new', {
                             page: this.pagination.page
                         })
                             .done(data => {
@@ -539,7 +539,7 @@
                     },
 
                     loadDataCanceled() {
-                        $.get('http://liloo/site/web/lk/appointment/appointment-data-canceled', {
+                        $.get('http://liloo/site/web/appointment/appointment-data-canceled', {
                             page: this.pagination.page
                         })
                             .done(data => {
@@ -579,7 +579,7 @@
                     },
 
                     cancelSession(id) {
-                        $.get('http://liloo/site/web/lk/appointment/cancel', {
+                        $.get('http://liloo/site/web/appointment/cancel', {
                             id: id,
                             reason: this.reason
                         })
@@ -595,7 +595,7 @@
                             });
                     },
                     toComment(accountId, appointmentId) {
-                        $.get('http://liloo/site/web/lk/recall/create', {
+                        $.get('http://liloo/site/web/recall/create', {
                             accountId: accountId,
                             appointmentId: appointmentId,
                             assessment: this.comment.assessment,

@@ -54,10 +54,13 @@ class UserProfile extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User'),
-            'surname' => Yii::t('app', 'Surname'),
-            'name' => Yii::t('app', 'Name'),
+            'surname' => Yii::t('app', 'Фамилия'),
+            'name' => Yii::t('app', 'Имя'),
             'patronymic' => Yii::t('app', 'Patronymic'),
-            'date_birth' => Yii::t('app', 'Date birth'),
+            'date_birth' => Yii::t('app', 'Дата рождения'),
+            'phone' => Yii::t('app', 'Телефон'),
+            'city_id' => Yii::t('app', 'Город'),
+            'country_id' => Yii::t('app', 'Страна'),
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace site\services\lk;
+namespace site\services;
 
 use Yii;
 use yii\base\Event;
@@ -11,7 +11,7 @@ use site\models\Recall;
 
 /**
  * Class RecallService
- * @package site\services\lk
+ * @package site\services
  */
 class RecallService extends ModelService
 {

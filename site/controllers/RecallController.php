@@ -1,15 +1,33 @@
 <?php
 
-namespace site\controllers\lk;
+namespace site\controllers;
 
-use site\services\lk\RecallService;
+use yii\filters\AccessControl;
+use site\services\RecallService;
 
 /**
  * Class RecallController
- * @package site\controllers\lk
+ * @package site\controllers
  */
 class RecallController extends Controller
 {
+    /**
+     * @return array
+     */
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * RecallController constructor.
      * @param string $id
@@ -31,7 +49,7 @@ class RecallController extends Controller
     {
         $this->modelService->gerRecalls();
 
-        return $this->extraRender('/lk/recall/index', ['data' => $this->modelService->getData()]);
+        return $this->extraRender('/recall/index', ['data' => $this->modelService->getData()]);
 
     }
 

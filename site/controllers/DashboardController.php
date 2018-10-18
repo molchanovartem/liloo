@@ -1,18 +1,18 @@
 <?php
 
-namespace site\controllers\lk;
+namespace site\controllers;
 
 use yii\filters\AccessControl;
 
 /**
- * Class Controller
- *
- * @package site\controllers\lk
+ * Class DashboardController
+ * @package site\controllers
  */
-class Controller extends \site\controllers\Controller
+class DashboardController extends Controller
 {
-    public $layout = '@site/views/layouts/lkLayout.php';
-
+    /**
+     * @return array
+     */
     public function behaviors() {
         return [
             'access' => [
@@ -25,5 +25,13 @@ class Controller extends \site\controllers\Controller
                 ],
             ],
         ];
+    }
+
+    /**
+     * @return mixed
+     */
+    public function actionIndex()
+    {
+        return $this->extraRender('/dashboard/index');
     }
 }

@@ -112,8 +112,8 @@ $this->setBreadcrumbs(['Исполнители']);
         </div>
     </div>
 
-    <div class="uk-container">
-        <div class="uk-margin">
+    <div class="uk-container uk-margin-medium-top">
+        <div class="uk-margin-small-top uk-margin-small-bottom">
             <button
                     @click="viewTypeCatalog"
                     class="uk-button uk-button-small"

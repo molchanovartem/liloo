@@ -67,10 +67,22 @@ $this->setBreadcrumbs(['Отзывы']);
                             <button class="uk-button uk-button-text uk-margin-small-top" type="button">
                                 Показать ответ
                             </button>
+
                             <div uk-dropdown="mode: click">
                                 <b><?php echo Html::encode($recall->answer->create_time); ?></b>
                                 <?php echo Html::encode($recall->answer->text); ?>
                             </div>
+
+<!--                            <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-default">Показать ответ</button>-->
+<!---->
+<!--                            <div id="modal-close-default" uk-modal>-->
+<!--                                <div class="uk-modal-dialog uk-modal-body">-->
+<!--                                    <button class="uk-modal-close-default" type="button" uk-close></button>-->
+<!--                                    <h2 class="uk-modal-title">Default</h2>-->
+<!--                                    <b>--><?php //echo Html::encode($recall->answer->create_time); ?><!--</b>-->
+<!--                                    --><?php //echo Html::encode($recall->answer->text); ?>
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                     <?php endif; ?>
 

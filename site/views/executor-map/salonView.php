@@ -8,6 +8,19 @@ $this->setBreadcrumbs([
 ]);
 ?>
 
+<?php $this->beginBlock('aboveSidebar'); ?>
+    <div class="content-block uk-padding content-block_shadow uk-background-default">
+        <div class="t-a_c font_type_2">Нажмите на кнопку и сделайте запись</div>
+        <div class="t-a_c">
+            <div class="button button_color_red button_width_270 mt-10">
+                <a href="../appointment/create" class="uk-button uk-link-reset"
+                   data-window="true"
+                   data-window-type="bigModal">Записаться</a>
+            </div>
+        </div>
+    </div>
+<?php $this->endBlock(); ?>
+
 <div class="content-columns mt-40">
 
     <div class="content-columns__column content-column__column_main">
@@ -83,6 +96,16 @@ $this->setBreadcrumbs([
                     <div class="label-status label-status_bg_gray label-status_fz_14">Обычный</div>
                     <div class="performer__name">
                         <?php echo Html::encode($data['model']->name); ?>
+
+                        <?php if (!Yii::$app->user->isGuest) : ?>
+                            <a href="/site/web/selected-masters/add-to-selected?executorId=<?php echo $data['model']->id; ?>&isSalon=1">
+                                <?php if ($data['isSelected']): ?>
+                                    <i class="mdi mdi-star uk-text-warning" uk-tooltip="Убрать из избранного"></i>
+                                <?php else: ?>
+                                    <i class="mdi mdi-star-outline uk-text-muted" uk-tooltip="Добавить в избранное"></i>
+                                <?php endif; ?>
+                            </a>
+                        <?php endif; ?>
                     </div>
                     <div class="performer__profession">
                         <?php foreach ($data['specialization'] as $specialization): ?>
@@ -138,7 +161,11 @@ $this->setBreadcrumbs([
                             <span class="workers-list__detail">от <?php echo $service['price']; ?> руб.</span>
                         </div>
                         <div class="workers-list__part">
-                            <span class="workers-list__action workers-list__action_type_add uk-icon=" heart"></span>
+                            <div class="button button_color_red_without_shadow button_width_270 mt-10">
+                                <a href="../appointment/create" class="uk-button uk-link-reset"
+                                   data-window="true"
+                                   data-window-type="bigModal">Записаться</a>
+                            </div>
                         </div>
                     </div>
                 </div>

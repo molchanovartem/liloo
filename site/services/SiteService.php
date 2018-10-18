@@ -14,13 +14,6 @@ class SiteService extends ModelService
 {
     private $servicesMinPrice;
 
-    public function index()
-    {
-        $specializations = Specialization::find()->all();
-
-        $this->setData(['specializations' => $specializations]);
-    }
-
     /**
      * @param $specializationId
      * @return mixed|null

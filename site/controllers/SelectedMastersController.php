@@ -1,17 +1,34 @@
 <?php
 
-namespace site\controllers\lk;
+namespace site\controllers;
 
 use Yii;
-use site\services\lk\SelectedMastersService;
+use yii\filters\AccessControl;
+use site\services\SelectedMastersService;
 
 /**
  * Class SelectedMastersController
- *
- * @package site\controllers\lk
+ * @package site\controllers
  */
 class SelectedMastersController extends Controller
 {
+    /**
+     * @return array
+     */
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * SelectedMastersController constructor.
      * @param string $id
@@ -33,7 +50,7 @@ class SelectedMastersController extends Controller
     {
         $this->modelService->index();
 
-        return $this->extraRender('/lk/selectedMasters/index', ['data' => $this->modelService->getData()]);
+        return $this->extraRender('/selectedMasters/index', ['data' => $this->modelService->getData()]);
     }
 
     /**

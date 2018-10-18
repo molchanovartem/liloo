@@ -2,6 +2,7 @@
 
 namespace site\controllers;
 
+use yii\filters\AccessControl;
 use site\services\AppointmentService;
 
 /**
@@ -11,6 +12,24 @@ use site\services\AppointmentService;
  */
 class AppointmentController extends Controller
 {
+    /**
+     * @return array
+     */
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'except' => ['create'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * AppointmentController constructor.
      *
@@ -29,5 +48,45 @@ class AppointmentController extends Controller
     public function actionCreate()
     {
         return $this->extraRender('create');
+    }
+
+    /**
+     * @return array|string
+     */
+    public function actionView()
+    {
+        $this->modelService->getAppointments();
+
+        return $this->extraRender('/appointment/view', ['data' => $this->modelService->getData()]);
+    }
+
+    /**
+     * @param $id
+     * @param $reason
+     * @return bool
+     */
+    public function actionCancel($id, $reason)
+    {
+        return $this->modelService->cancelSession($id, $reason);
+    }
+
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionAppointmentDataNew()
+    {
+        $this->modelService->getAppointments();
+
+        return $this->asJson($this->modelService->getData());
+    }
+
+    /**
+     * @return \yii\web\Response
+     */
+    public function actionAppointmentDataCanceled()
+    {
+        $this->modelService->getAppointments(true);
+
+        return $this->asJson($this->modelService->getData());
     }
 }

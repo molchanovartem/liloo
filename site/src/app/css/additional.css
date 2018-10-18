@@ -249,12 +249,10 @@ a[class*="font_"]:hover {
     font-family: Roboto, sans-serif;
 }
 
-
-
 .bg_image_header-main {
     background-image: url(./images/bg_header-page-main.jpg);
-    background-size: cover;
-    background-position: center;
+    background-size: 100%;
+    background-position: 0px -100px;
     background-repeat: no-repeat;
 }
 .bg_color_f8 {
@@ -288,4 +286,9 @@ a[class*="font_"]:hover {
     border: 2px solid #787878;
     border-radius: 4px;
     padding: 2px;
+}
+
+.button_color_red_without_shadow {
+    color: #fff;
+    background-image: linear-gradient(to bottom, #fe4375, #ff4d6a, #ff5760, #ff6257, #fd6c4e);
 }

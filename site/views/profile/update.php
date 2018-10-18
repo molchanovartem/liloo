@@ -11,7 +11,6 @@ $this->setBreadcrumbs([
 ]);
 ?>
 
-<div class="content-columns">
 
     <div class="content-columns__column content-column__column_main">
 
@@ -54,20 +53,23 @@ $this->setBreadcrumbs([
                 //                        ]
                 //                    ]); ?>
 
+                <div class="uk-width-small">
+                    <?= $form->field($data['model'], 'city_id')
+                        ->dropDownList($data['cities'], [
+                            'class' => 'uk-input uk-form-small ',
+                            'prompt' => '  Выберите город...',
+                            'id' => 'city-id',
+                        ]); ?>
+                </div>
 
-                <?= $form->field($data['model'], 'city_id')
-                    ->dropDownList($data['cities'], [
-                        'class' => 'uk-input uk-form-small',
-                        'prompt' => '  Выберите город...',
-                        'id' => 'city-id',
-                    ]); ?>
-
-                <?= $form->field($data['model'], 'country_id')
-                    ->dropDownList($data['countries'], [
-                        'class' => 'uk-input uk-form-small',
-                        'prompt' => '  Выберите город...',
-                        'id' => 'country-id',
-                    ]); ?>
+                <div class="uk-width-small">
+                    <?= $form->field($data['model'], 'country_id')
+                        ->dropDownList($data['countries'], [
+                            'class' => 'uk-input uk-form-small',
+                            'prompt' => '  Выберите город...',
+                            'id' => 'country-id',
+                        ]); ?>
+                </div>
 
             </div>
 
@@ -77,7 +79,6 @@ $this->setBreadcrumbs([
 
     </div>
 
-</div>
 <script>
     $("#city-id").select2({
         selectOnClose: true

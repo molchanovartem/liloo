@@ -1,16 +1,33 @@
 <?php
 
-namespace site\controllers\lk;
+namespace site\controllers;
 
-use site\services\lk\ProfileService;
+use site\services\ProfileService;
+use yii\filters\AccessControl;
 
 /**
  * Class ProfileController
- *
- * @package site\services\lk
+ * @package site\controllers
  */
 class ProfileController extends Controller
 {
+    /**
+     * @return array
+     */
+    public function behaviors() {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     /**
      * ProfileController constructor.
      *
@@ -34,7 +51,7 @@ class ProfileController extends Controller
     {
         $this->modelService->findUser();
 
-        return $this->extraRender('/lk/profile/view', ['data' => $this->modelService->getData()]);
+        return $this->extraRender('/profile/view', ['data' => $this->modelService->getData()]);
     }
 
     /**
@@ -44,6 +61,6 @@ class ProfileController extends Controller
     {
         $this->modelService->update();
 
-        return $this->extraRender('/lk/profile/update', ['data' => $this->modelService->getData()]);
+        return $this->extraRender('/profile/update', ['data' => $this->modelService->getData()]);
     }
 }

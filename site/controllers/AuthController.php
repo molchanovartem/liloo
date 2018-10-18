@@ -13,6 +13,9 @@ use site\forms\LoginForm;
  */
 class AuthController extends Controller
 {
+    public $layout = 'static';
+    public $mainLayout = '/layouts/option/auth';
+
     /**
      * AuthController constructor.
      * @param string $id
@@ -49,14 +52,14 @@ class AuthController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect(['/site/index']);
+            return $this->redirect(['/dashboard']);
         }
 
         $model = new LoginForm();
         $model->load(Yii::$app->request->post());
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
 
-            return $this->redirect(['/lk/dashboard']);
+            return $this->redirect(['/dashboard']);
         }
 
         return $this->render('login', [
@@ -82,11 +85,11 @@ class AuthController extends Controller
     public function actionRegistration()
     {
         if (!Yii::$app->user->isGuest) {
-            return $this->redirect(['/lk/dashboard']);
+            return $this->redirect(['/dashboard']);
         }
 
         if ($this->modelService->registration()) {
-            return $this->redirect(['/lk/dashboard']);
+            return $this->redirect(['/dashboard']);
         }
 
         $data = $this->modelService->getData();

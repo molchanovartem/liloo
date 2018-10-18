@@ -1,6 +1,6 @@
 <?php
 
-namespace site\services\lk;
+namespace site\services;
 
 use Yii;
 use common\core\service\ModelService;
@@ -8,7 +8,7 @@ use common\models\SelectedMasters;
 
 /**
  * Class SelectedMastersService
- * @package site\services\lk
+ * @package site\services
  */
 class SelectedMastersService extends ModelService
 {

@@ -53,7 +53,7 @@ $this->setBreadcrumbs(['Профиль']);
             </div>
         </div>
         <div class="font_type_3 mt-25">
-            <?php echo Html::a("Редактировать", '/site/web/lk/profile/update', ['class' => 'button button_color_blue-empty']); ?>
+            <?php echo Html::a("Редактировать", '/site/web/profile/update', ['class' => 'button button_color_blue-empty']); ?>
         </div>
 
     </div>

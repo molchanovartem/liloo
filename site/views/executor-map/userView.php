@@ -8,7 +8,20 @@ $this->setBreadcrumbs([
 ]);
 ?>
 
-<div class="content-columns mt-40">
+<?php $this->beginBlock('aboveSidebar'); ?>
+    <div class="content-block uk-padding content-block_shadow uk-background-default">
+        <div class="t-a_c font_type_2">Нажмите на кнопку и сделайте запись</div>
+        <div class="t-a_c">
+            <div class="button button_color_red button_width_270 mt-10">
+                <a href="../appointment/create" class="uk-button uk-link-reset"
+                   data-window="true"
+                   data-window-type="bigModal">Записаться</a>
+            </div>
+        </div>
+    </div>
+<?php $this->endBlock(); ?>
+
+<div class="content-columns">
 
     <div class="content-columns__column content-column__column_main">
 
@@ -80,9 +93,19 @@ $this->setBreadcrumbs([
             <div class="performer mt-40">
                 <div class="performer__img performer__img_upload"></div>
                 <div class="performer__info">
-                    <div class="label-status label-status_bg_gray label-status_fz_14">Обычный</div>
                     <div class="performer__name">
-                        <?php echo Html::encode($data['model']->profile->name); ?><?php echo Html::encode($data['model']->profile->surname); ?>
+                        <?php echo Html::encode($data['model']->profile->name); ?>
+                        <?php echo Html::encode($data['model']->profile->surname); ?>
+
+                        <?php if (!Yii::$app->user->isGuest) : ?>
+                            <a href="/site/web/selected-masters/add-to-selected?executorId=<?php echo $data['model']->id; ?>&isSalon=0">
+                                <?php if ($data['isSelected']): ?>
+                                    <i class="mdi mdi-star uk-text-warning" uk-tooltip="Убрать из избранного"></i>
+                                <?php else: ?>
+                                    <i class="mdi mdi-star-outline uk-text-muted" uk-tooltip="Добавить в избранное"></i>
+                                <?php endif; ?>
+                            </a>
+                        <?php endif; ?>
                     </div>
                     <div class="performer__profession">
                         <?php foreach ($data['specialization'] as $specialization): ?>
@@ -140,7 +163,11 @@ $this->setBreadcrumbs([
                                     руб.</span>
                         </div>
                         <div class="workers-list__part">
-                            <span class="workers-list__action workers-list__action_type_add uk-icon=" heart"></span>
+                            <div class="button button_color_red_without_shadow button_width_270 mt-10">
+                                <a href="../appointment/create" class="uk-button uk-link-reset"
+                                   data-window="true"
+                                   data-window-type="bigModal">Записаться</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -259,14 +286,6 @@ $this->setBreadcrumbs([
                                             <?php endif; ?>
                                         </span>
                                     </div>
-
-                                    <div class="stars">
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star"></div>
-                                    </div>
                                 </div>
                                 <?php if (strlen($recall->text) > 40) : ?>
                                     <div class="toggle-animation-queued  review-slide__text uk-text-truncate">
@@ -319,38 +338,5 @@ $this->setBreadcrumbs([
             </ul>
 
         </div>
-    </div>
-
-    <div class="content-columns__column content-column__column_side">
-
-        <div class="content-block p-40 content-block_shadow uk-background-default">
-            <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
-            <div class="bill mt-40">
-                <div class="bill__row">
-                    <div class="bill__name">Мужская стрижка</div>
-                    <div class="bill__cost">от 500 руб.</div>
-                </div>
-                <div class="bill__row">
-                    <div class="bill__name">Биоревитализация с применением биоматрецы</div>
-                    <div class="bill__cost">от 4500 руб.</div>
-                </div>
-                <div class="bill__row">
-                    <div class="bill__name">Окрашивание краской клиента</div>
-                    <div class="bill__cost">от 3000 руб.</div>
-                </div>
-            </div>
-            <div class="t-a_c">
-                <div class="button button_color_red button_width_270 mt-40">Выбрать время</div>
-            </div>
-        </div>
-
-        <div class="content-block p-40 content-block_shadow">
-            <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
-            <div class="t-a_c">
-                <div class="button button_color_red button_width_270 button_color_red_disabled mt-40">Записаться
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
