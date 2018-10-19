@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Url;
+$this->registerJs('indexForm();');
 
 ?>
 
@@ -8,35 +8,61 @@ use yii\helpers\Url;
     <h1 class="h1 h1_page_main">Записывайтесь к лучшим и&nbsp;проверенным мастерам</h1>
 
     <div class="header__content-parts">
-        <div class="header__content-part">
-            <form action="" method="post">
+        <div class="header__content-part uk-margin-top" id="indexForm">
+            <form ref="filter" action="/site/web/executor-map" method="get">
+                <div class="uk-grid uk-grid-small uk-child-width-1-2">
+                    <div>
+                        <div class="uk-background-default executor-filter-border-radius">
+                            <input type="hidden" name="service_id" :value="attributes.serviceId">
 
-                <div class="input-boxes mt-20">
-                    <div class="input-box">
-                        <div class="input-box__wrap">
-                            <input type="email" id="input_2" class="input-box__input">
-                            <label for="input_2" class="input-box__label">Введите название услуги</label>
-                        </div>
-                        <div class="input-box__additional">
-                            <span class="far fa-calendar-alt"></span>
+                            <v-autocomplete
+                                    class="custom-input-index-filter"
+                                    outline
+                                    :items="services"
+                                    v-model="attributes.serviceId"
+                                    append-icon="mdi-chevron-down"
+                                    item-value="id"
+                                    item-text="name"
+                                    placeholder="Маникюр"
+                            />
                         </div>
                     </div>
-
-                    <div class="input-box">
-                        <div class="input-box__wrap">
-                            <input type="email" id="input_3" class="input-box__input">
-                            <label for="input_3" class="input-box__label">Желаемая дата записи</label>
-                        </div>
-                        <div class="input-box__additional">
-                            <span class="far fa-calendar-alt"></span>
+                    <div>
+                        <div class="uk-background-default executor-filter-border-radius">
+                            <v-menu
+                                    lazy
+                                    transition="scale-transition"
+                                    offset-y
+                                    full-width
+                                    min-width="290px"
+                            >
+                                <v-text-field
+                                        slot="activator"
+                                        v-model="attributes.date"
+                                        label="Выбор даты"
+                                        append-icon="mdi-calendar"
+                                        readonly
+                                        hide-details
+                                        outline
+                                        height="60px"
+                                        name="date"
+                                ></v-text-field>
+                                <v-date-picker
+                                        v-model="attributes.date"
+                                        prev-icon="mdi-chevron-left"
+                                        next-icon="mdi-chevron-right"
+                                        no-title
+                                />
+                            </v-menu>
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-35 between-15">
-                    <input type="submit" class="button button_color_red" value="Начать поиск">
+                <div class="uk-grid uk-grid-small">
+                    <div class="uk-width-1-1">
+                        <input type="submit" class="button button_color_red" value="Найти мастера">
+                    </div>
                 </div>
-
             </form>
 
             <a href="" class="anchor-more mt-65">
@@ -48,7 +74,7 @@ use yii\helpers\Url;
         <div class="header__content-part">
             <div uk-slideshow="animation: slide">
 
-                <div class="uk-position-relative uk-visible-toggle uk-light uk-background-default uk-padding-small uk-border-rounded">
+                <div class="popular-service-index uk-position-relative uk-visible-toggle uk-light uk-background-default uk-padding-small uk-border-rounded">
 
                     <ul class="uk-slideshow-items">
                         <li>
@@ -61,7 +87,7 @@ use yii\helpers\Url;
                                     <span class="service-popular__prices">Цены: от 300 руб.</span>
                                 </div>
                             </div>
-                            <span class="service-popular__more">Подробнее</span>
+                            <span class="service-popular__more service-popular_custom">Подробнее</span>
                         </li>
                         <li>
                             <span class="service-popular__tip">Популярная услуга в вашем городе</span>
@@ -295,3 +321,60 @@ use yii\helpers\Url;
         </div>
     </div>
 </div>
+<script>
+    function indexForm() {
+        let wm = new Vue({
+            el: '#indexForm',
+            beforeMount() {
+                this.loadCommonData()
+                    .then(() => {
+                        this.setDefaultQueryParams();
+                        this.loadAttributesFromQueryParams();
+                    });
+            },
+            data: {
+                services: [],
+                attributes: {
+                    serviceId: null,
+                    date: null,
+                },
+            },
+            methods: {
+                loadCommonData() {
+                    return new Promise((resolve, reject) => {
+                        $.post('http://liloo/api/common/index', JSON.stringify({
+                            query: `query {
+                                     commonServices {id, name, price, duration}
+                                }`
+                        }))
+                            .done(({data}) => {
+                                if (data.commonServices) this.services = data.commonServices;
+                                resolve(true);
+                            })
+                            .fail((error) => {
+                                reject(error);
+                            });
+                    });
+                },
+                loadAttributesFromQueryParams() {
+                    let params = new URLSearchParams(document.location.search);
+
+                    this.attributes.date = params.get('date');
+                },
+
+                setDefaultQueryParams() {
+                    let params = new URLSearchParams(document.location.search),
+                        date = params.get('date');
+
+                    if (date === null || date === '') {
+                        params.set('date', moment().format('YYYY-MM-DD'));
+                    }
+
+                    let baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
+
+                    history.replaceState({}, '', [baseUrl, params.toString()].join('?'));
+                },
+            },
+        });
+    }
+</script>

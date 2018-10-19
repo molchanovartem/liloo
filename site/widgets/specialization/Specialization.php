@@ -19,9 +19,9 @@ class Specialization extends Widget
     {
         $specializations = Spec::find()
             ->alias('spec')
-            ->select(['MIN(serv.price) as price', 'spec.name'])
+            ->select(['MIN(serv.price) as price', 'spec.name', 'spec.id'])
             ->leftJoin(Service::tableName() . ' serv', 'serv.specialization_id = spec.id')
-            ->groupBy('spec.name')
+            ->groupBy('spec.name, spec.id')
             ->asArray()
             ->all();
 

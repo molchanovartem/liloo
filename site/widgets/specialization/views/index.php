@@ -10,7 +10,7 @@ use yii\helpers\Url;
         <div class="service-list">
             <?php foreach ($specializations as $specialization): ?>
 
-                <a href="<?php echo Url::to(['executor-map/index', 'specialization_id' => $specialization->id]) ?>"
+                <a href="<?php echo Url::to(['executor-map/index', 'specialization_id' => $specialization['id']]); ?>"
                    class="service-list__item" >
                     <div class="service-list-item">
                         <div class="service-list-item__img"

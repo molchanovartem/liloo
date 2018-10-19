@@ -40,6 +40,9 @@
 .mt--300 {
     margin-top: -300px;
 }
+.mt--250 {
+    margin-top: -250px;
+}
 
 .mtb-15 {
     margin-top: 15px;
@@ -95,6 +98,9 @@
 }
 .pb-300 {
     padding-bottom: 300px;
+}
+.pb-250 {
+    padding-bottom: 250px;
 }
 
 .ptb-30 {
@@ -265,8 +271,6 @@ a[class*="font_"]:hover {
     background-color: #FFFCFE;
 }
 
-
-
 .j-c_s-b, .j-c_c, .a-i_c {
     display: flex;
 }
@@ -282,13 +286,13 @@ a[class*="font_"]:hover {
 .t-a_c {
     text-align: center;
 }
-.executor-filter-custom-time {
-    border: 2px solid #787878;
-    border-radius: 4px;
-    padding: 2px;
-}
 
 .button_color_red_without_shadow {
     color: #fff;
     background-image: linear-gradient(to bottom, #fe4375, #ff4d6a, #ff5760, #ff6257, #fd6c4e);
+}
+
+.popular-service-index {
+    margin-top: -100px;
+    height: 180px;
 }

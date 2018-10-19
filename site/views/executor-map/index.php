@@ -11,7 +11,7 @@ $this->setBreadcrumbs(['Исполнители']);
                 <form ref="filter">
                     <div class="uk-grid uk-grid-small uk-child-width-1-4">
                         <div>
-                            <div class="uk-background-default">
+                            <div class="uk-background-default executor-filter-border-radius">
                                 <v-autocomplete
                                         outline
                                         :items="specializations"
@@ -25,7 +25,7 @@ $this->setBreadcrumbs(['Исполнители']);
                             </div>
                         </div>
                         <div>
-                            <div class="uk-background-default">
+                            <div class="uk-background-default executor-filter-border-radius">
                                 <v-autocomplete
                                         outline
                                         :items="services"
@@ -39,7 +39,7 @@ $this->setBreadcrumbs(['Исполнители']);
                             </div>
                         </div>
                         <div>
-                            <div class="uk-background-default">
+                            <div class="uk-background-default executor-filter-border-radius">
                                 <v-menu
                                         lazy
                                         transition="scale-transition"
@@ -55,6 +55,7 @@ $this->setBreadcrumbs(['Исполнители']);
                                             readonly
                                             hide-details
                                             outline
+                                            height="60px"
                                     ></v-text-field>
                                     <v-date-picker
                                             v-model="attributes.date"
@@ -113,7 +114,7 @@ $this->setBreadcrumbs(['Исполнители']);
     </div>
 
     <div class="uk-container uk-margin-medium-top">
-        <div class="uk-margin-small-top uk-margin-small-bottom">
+        <div class="uk-margin-small-bottom">
             <button
                     @click="viewTypeCatalog"
                     class="uk-button uk-button-small"

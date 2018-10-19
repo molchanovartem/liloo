@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use site\models\Recall;
+use yii\widgets\ActiveForm;
 
 $this->setBreadcrumbs(['Отзывы']);
 ?>
 
-<div class="font_type_12 uk-margin-bottom">Отзывы:</div>
+<div class="uk-margin-top font_type_12 uk-margin-bottom">Отзывы:</div>
 <div class="uk-grid">
     <?php foreach ($data['recalls'] as $recall): ?>
         <div class="uk-width-1-2">
@@ -64,25 +65,31 @@ $this->setBreadcrumbs(['Отзывы']);
 
                     <?php if (!empty($recall->answer)) : ?>
                         <div class="uk-inline">
-                            <button class="uk-button uk-button-text uk-margin-small-top" type="button">
-                                Показать ответ
-                            </button>
-
-                            <div uk-dropdown="mode: click">
-                                <b><?php echo Html::encode($recall->answer->create_time); ?></b>
-                                <?php echo Html::encode($recall->answer->text); ?>
-                            </div>
-
-<!--                            <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #modal-close-default">Показать ответ</button>-->
+<!--                            <button class="uk-button uk-button-text uk-margin-small-top" type="button">-->
+<!--                                Показать ответ-->
+<!--                            </button>-->
 <!---->
-<!--                            <div id="modal-close-default" uk-modal>-->
-<!--                                <div class="uk-modal-dialog uk-modal-body">-->
-<!--                                    <button class="uk-modal-close-default" type="button" uk-close></button>-->
-<!--                                    <h2 class="uk-modal-title">Default</h2>-->
-<!--                                    <b>--><?php //echo Html::encode($recall->answer->create_time); ?><!--</b>-->
-<!--                                    --><?php //echo Html::encode($recall->answer->text); ?>
-<!--                                </div>-->
+<!--                            <div uk-dropdown="mode: click">-->
+<!--                                <b>--><?php //echo Html::encode($recall->answer->create_time); ?><!--</b>-->
+<!--                                --><?php //echo Html::encode($recall->answer->text); ?>
 <!--                            </div>-->
+
+                            <a href="#modal-example" uk-toggle>Показать ответ</a>
+
+                            <div id="modal-example" uk-modal>
+                                <div class="uk-modal-dialog uk-modal-body">
+                                    <h2 class="uk-modal-title"><?php echo Html::encode($recall->answer->create_time); ?></h2>
+                                    <p><?php echo Html::encode($recall->answer->text); ?></p>
+                                    <p class="uk-text-right">
+                                        <button class="uk-button uk-button-default uk-modal-close" type="button">Закрыть</button>
+<!--                                        <button class="uk-button uk-button-primary" type="button">Пожаловаться</button>-->
+
+                                        <?php echo \site\widgets\complaint\Complaint::widget(['recallId' => 52]) ?>
+
+
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     <?php endif; ?>
 

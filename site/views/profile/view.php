@@ -5,7 +5,7 @@ use yii\helpers\Html;
 $this->setBreadcrumbs(['Профиль']);
 ?>
 
-<div class="content-columns__column content-column__column_main">
+<div class="uk-margin-top content-columns__column content-column__column_main">
 
     <div class="content-block p-40 content-block_shadow uk-background-default">
 

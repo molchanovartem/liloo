@@ -4,7 +4,7 @@ use site\widgets\breadcrumbs\Breadcrumbs;
 use yii\helpers\Url;
 
 ?>
-<div class="mt--300 uk-container">
+<div class="mt--250 uk-container">
     <h1 class="h1 h1_page_performers"><?= $this->getHeading(); ?></h1>
 
     <div class="uk-margin-top">
@@ -15,7 +15,7 @@ use yii\helpers\Url;
         </div>
     </div>
 
-    <div class="uk-grid uk-margin-top">
+    <div class="uk-grid">
         <div class="uk-width-expand">
             <?= $content ?>
         </div>
@@ -29,7 +29,7 @@ use yii\helpers\Url;
             <?php endif; ?>
 
             <?php if (!Yii::$app->user->isGuest) : ?>
-                <div class="uk-margin uk-width-medium">
+                <div class="uk-margin uk-width-medium uk-margin-top">
                     <div class="uk-card-default uk-padding-small uk-border-rounded">
                         <div class="menu-blocks">
                             <a href="<?php echo Url::to(['/executor-map']); ?>" class="menu-blocks__item">
@@ -52,7 +52,7 @@ use yii\helpers\Url;
                                 <span class="menu-blocks__item-name">Уведомления</span>
                             </a>
                             <a href="<?php echo Url::to(['/profile/view']); ?>"
-                               class="menu-blocks__item" data-ajax-content="true">
+                               class="menu-blocks__item" data-ajax-content="false">
                                 <span class="menu-blocks__item-name">Профиль</span>
                             </a>
                         </div>

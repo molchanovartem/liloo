@@ -4,9 +4,8 @@ use yii\helpers\Html;
 use yii\captcha\Captcha;
 use site\widgets\activeForm\ActiveForm;
 
-$this->setHeading('Вход');
 ?>
-
+<h1 class="h1 h1_page_performers uk-text-center">Вход</h1>
 <div class="content-width content-width_w_550">
 
     <?php $form = ActiveForm::begin(); ?>

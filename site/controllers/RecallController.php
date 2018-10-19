@@ -2,6 +2,8 @@
 
 namespace site\controllers;
 
+use admin\models\AdminNotice;
+use Yii;
 use yii\filters\AccessControl;
 use site\services\RecallService;
 
@@ -50,7 +52,6 @@ class RecallController extends Controller
         $this->modelService->gerRecalls();
 
         return $this->extraRender('/recall/index', ['data' => $this->modelService->getData()]);
-
     }
 
     /**
@@ -76,5 +77,13 @@ class RecallController extends Controller
     public function actionDelete($id)
     {
         $this->modelService->deleteRecall($id);
+    }
+
+
+    public function actionComplaint()
+    {
+        var_dump(Yii::$app->request->post());die;
+        Yii::$app->adminNotice->createNotice(AdminNotice::TYPE_CLIENT_COMPLAINT, AdminNotice::STATUS_UNREAD, 'text', $model->sender);
+
     }
 }

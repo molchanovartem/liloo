@@ -4,13 +4,18 @@ namespace admin\models;
 
 use yii\db\ActiveRecord;
 
+/**
+ * Class AdminNotice
+ * @package admin\models
+ */
 class AdminNotice extends ActiveRecord
 {
     const STATUS_UNREAD = 0;
     const STATUS_READ = 1;
 
-    const TYPE_USER_REGISTRATION = 0;
-    const TYPE_USER_RECALL = 1;
+    const TYPE_USER_REGISTRATION = 1;
+    const TYPE_USER_RECALL = 2;
+    const TYPE_CLIENT_COMPLAINT = 3;
 
     /**
      * @return string

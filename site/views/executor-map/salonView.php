@@ -9,7 +9,7 @@ $this->setBreadcrumbs([
 ?>
 
 <?php $this->beginBlock('aboveSidebar'); ?>
-    <div class="content-block uk-padding content-block_shadow uk-background-default">
+    <div class="content-block uk-padding content-block_shadow uk-background-default uk-margin-top">
         <div class="t-a_c font_type_2">Нажмите на кнопку и сделайте запись</div>
         <div class="t-a_c">
             <div class="button button_color_red button_width_270 mt-10">
@@ -21,7 +21,7 @@ $this->setBreadcrumbs([
     </div>
 <?php $this->endBlock(); ?>
 
-<div class="content-columns mt-40">
+<div class="content-columns uk-margin-top">
 
     <div class="content-columns__column content-column__column_main">
 
@@ -337,39 +337,6 @@ $this->setBreadcrumbs([
                 <?php endforeach; ?>
             </ul>
 
-        </div>
-
-    </div>
-
-    <div class="content-columns__column content-column__column_side">
-
-        <div class="content-block p-40 content-block_shadow uk-background-default">
-            <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
-            <div class="bill mt-40">
-                <div class="bill__row">
-                    <div class="bill__name">Мужская стрижка</div>
-                    <div class="bill__cost">от 500 руб.</div>
-                </div>
-                <div class="bill__row">
-                    <div class="bill__name">Биоревитализация с применением биоматрецы</div>
-                    <div class="bill__cost">от 4500 руб.</div>
-                </div>
-                <div class="bill__row">
-                    <div class="bill__name">Окрашивание краской клиента</div>
-                    <div class="bill__cost">от 3000 руб.</div>
-                </div>
-            </div>
-            <div class="t-a_c">
-                <div class="button button_color_red button_width_270 mt-40">Выбрать время</div>
-            </div>
-        </div>
-
-        <div class="content-block p-40 content-block_shadow">
-            <div class="t-a_c font_type_2">Выберите услуги, нажав на кнопку +</div>
-            <div class="t-a_c">
-                <div class="button button_color_red button_width_270 button_color_red_disabled mt-40">Записаться
-                </div>
-            </div>
         </div>
 
     </div>
