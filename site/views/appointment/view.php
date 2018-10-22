@@ -88,7 +88,8 @@
                                                 <template slot="items" slot-scope="pro">
                                                     <td>{{ pro.item.service_name }}</td>
                                                     <td>{{ pro.item.service_duration }} мин.</td>
-                                                    <td>{{ pro.item.service_price }} <i class="mdi mdi-currency-rub"></i></td>
+                                                    <td>{{ pro.item.service_price }} <i
+                                                                class="mdi mdi-currency-rub"></i></td>
                                                 </template>
                                             </v-data-table>
                                         </div>
@@ -131,7 +132,8 @@
 
                                                     <v-card-actions>
                                                         <v-spacer></v-spacer>
-                                                        <v-btn color="primary" flat @click="cancelSession(props.item.id)">
+                                                        <v-btn color="primary" flat
+                                                               @click="cancelSession(props.item.id)">
                                                             Я Уверен
                                                         </v-btn>
                                                     </v-card-actions>
@@ -147,7 +149,8 @@
                                                 <template slot="items" slot-scope="pro">
                                                     <td>{{ pro.item.service_name }}</td>
                                                     <td>{{ pro.item.service_duration }} мин.</td>
-                                                    <td>{{ pro.item.service_price }} <i class="mdi mdi-currency-rub"></i></td>
+                                                    <td>{{ pro.item.service_price }} <i
+                                                                class="mdi mdi-currency-rub"></i></td>
                                                 </template>
                                             </v-data-table>
                                         </div>
@@ -240,7 +243,8 @@
                                                 <template slot="items" slot-scope="pro">
                                                     <td>{{ pro.item.service_name }}</td>
                                                     <td>{{ pro.item.service_duration }} мин.</td>
-                                                    <td>{{ pro.item.service_price }} <i class="mdi mdi-currency-rub"></i></td>
+                                                    <td>{{ pro.item.service_price }} <i
+                                                                class="mdi mdi-currency-rub"></i></td>
                                                 </template>
                                             </v-data-table>
                                             <br>
@@ -314,6 +318,8 @@
                                                                     <i uk-tooltip="title: Проверенный отзыв; delay: 100"
                                                                        class="mdi mdi-check"></i>
                                                                 </div>
+                                                                <button type="button" uk-close
+                                                                        @click="deleteRecall(i.id)"></button>
                                                             </div>
 
                                                             <div v-if="i.text.length > 40">
@@ -403,7 +409,8 @@
                                                 <template slot="items" slot-scope="pro">
                                                     <td>{{ pro.item.service_name }}</td>
                                                     <td>{{ pro.item.service_duration }} мин.</td>
-                                                    <td>{{ pro.item.service_price }} <i class="mdi mdi-currency-rub"></i></td>
+                                                    <td>{{ pro.item.service_price }} <i
+                                                                class="mdi mdi-currency-rub"></i></td>
                                                 </template>
                                             </v-data-table>
 
@@ -619,7 +626,6 @@
                             this.styleDislike.opacity = 0.4;
                             this.isDislike = false;
                             this.isLike = true;
-
                         }
                     },
                     dislike() {
@@ -627,18 +633,24 @@
                             this.comment.assessment = 0;
                             this.styleDislike.opacity = 0.4;
                             this.isDislike = false;
-                            console.log(this.comment.assessment);
-
                         } else {
                             this.comment.assessment = -1;
                             this.styleDislike.opacity = 1;
                             this.styleLike.opacity = 0.4;
                             this.isLike = false;
                             this.isDislike = true;
-                            console.log(this.comment.assessment);
-
                         }
                     },
+                    deleteRecall(id) {
+                        if (confirm('Вы уверены что хотите удалить отзыв ?')) {
+                            $.get('/site/web/recall/delete', {
+                                id: id,
+                            })
+                                .done(data => {
+                                    this.loadDataCanceled();
+                                });
+                        }
+                    }
                 },
                 watch: {
                     pagination() {

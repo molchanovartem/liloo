@@ -79,11 +79,8 @@ class RecallController extends Controller
         $this->modelService->deleteRecall($id);
     }
 
-
     public function actionComplaint()
     {
-        var_dump(Yii::$app->request->post());die;
-        Yii::$app->adminNotice->createNotice(AdminNotice::TYPE_CLIENT_COMPLAINT, AdminNotice::STATUS_UNREAD, 'text', $model->sender);
-
+        $this->modelService->complaint();
     }
 }

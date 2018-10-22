@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use site\models\Recall;
-use yii\widgets\ActiveForm;
+use site\widgets\complaint\Complaint;
 
 $this->setBreadcrumbs(['Отзывы']);
 ?>
@@ -10,7 +10,7 @@ $this->setBreadcrumbs(['Отзывы']);
 <div class="uk-margin-top font_type_12 uk-margin-bottom">Отзывы:</div>
 <div class="uk-grid">
     <?php foreach ($data['recalls'] as $recall): ?>
-        <div class="uk-width-1-2">
+        <div class="uk-width-1-2" id="recall-<?php echo $recall->id; ?>">
             <div class="uk-panel uk-margin-small-left uk-margin-bottom">
                 <div class="review-slide__content">
                     <div class="review-slide__extra">
@@ -22,7 +22,7 @@ $this->setBreadcrumbs(['Отзывы']);
                             <span class="vote__digits">
                                 <?php if (Html::encode($recall->assessment) == Recall::ASSESSMENT_DISLIKE): ?>
                                     <i class="mdi mdi-heart-broken"></i>
-                                <?php else: ?>
+                                <?php elseif(Html::encode($recall->assessment)  == Recall::ASSESSMENT_LIKE): ?>
                                     <i class="mdi mdi-heart"></i>
                                 <?php endif; ?>
                             </span>
@@ -30,7 +30,8 @@ $this->setBreadcrumbs(['Отзывы']);
 
                         <div class="uk-margin-auto-left">
                             <?php if ($recall->status == Recall::STATUS_NOT_VERIFIED) : ?>
-                                <i uk-tooltip="title: Непроверенный отзыв; delay: 100" class="mdi mdi-alert-circle-outline"></i>
+                                <i uk-tooltip="title: Непроверенный отзыв; delay: 100"
+                                   class="mdi mdi-alert-circle-outline"></i>
                             <?php else : ?>
                                 <i uk-tooltip="title: Проверенный отзыв; delay: 100" class="mdi mdi-check"></i>
                             <?php endif; ?>
@@ -43,6 +44,8 @@ $this->setBreadcrumbs(['Отзывы']);
                             <div class="fas fa-star stars__star stars__star_active"></div>
                             <div class="fas fa-star stars__star"></div>
                         </div>
+                        <button type="button" uk-close onclick="recallDelete(this)"
+                                value="<?php echo $recall->id; ?>"></button>
                     </div>
 
                     <?php if (strlen($recall->text) > 40) : ?>
@@ -65,14 +68,6 @@ $this->setBreadcrumbs(['Отзывы']);
 
                     <?php if (!empty($recall->answer)) : ?>
                         <div class="uk-inline">
-<!--                            <button class="uk-button uk-button-text uk-margin-small-top" type="button">-->
-<!--                                Показать ответ-->
-<!--                            </button>-->
-<!---->
-<!--                            <div uk-dropdown="mode: click">-->
-<!--                                <b>--><?php //echo Html::encode($recall->answer->create_time); ?><!--</b>-->
-<!--                                --><?php //echo Html::encode($recall->answer->text); ?>
-<!--                            </div>-->
 
                             <a href="#modal-example" uk-toggle>Показать ответ</a>
 
@@ -81,12 +76,14 @@ $this->setBreadcrumbs(['Отзывы']);
                                     <h2 class="uk-modal-title"><?php echo Html::encode($recall->answer->create_time); ?></h2>
                                     <p><?php echo Html::encode($recall->answer->text); ?></p>
                                     <p class="uk-text-right">
-                                        <button class="uk-button uk-button-default uk-modal-close" type="button">Закрыть</button>
-<!--                                        <button class="uk-button uk-button-primary" type="button">Пожаловаться</button>-->
+                                        <button class="uk-button uk-button-default uk-modal-close" type="button">
+                                            Закрыть
+                                        </button>
 
-                                        <?php echo \site\widgets\complaint\Complaint::widget(['recallId' => 52]) ?>
-
-
+                                        <?php echo Complaint::widget([
+                                            'complaint' => $data['complaint'],
+                                            'recallId' => $recall->answer->id,
+                                        ]); ?>
                                     </p>
                                 </div>
                             </div>
@@ -111,3 +108,22 @@ $this->setBreadcrumbs(['Отзывы']);
         </div>
     <?php endforeach; ?>
 </div>
+
+<script>
+    function recallDelete(recall) {
+        var $recall = $(recall);
+
+        if (confirm('Вы уверены что хотите удалить отзыв ?')) {
+            $.get({
+                url: 'recall/delete',
+                data: {
+                    'id': $recall.attr('value')
+                }
+            }).done(function () {
+                $('#recall-' + $recall.attr('value')).hide();
+            }).fail(function () {
+                console.log('fail');
+            });
+        }
+    }
+</script>

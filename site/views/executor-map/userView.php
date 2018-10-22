@@ -74,7 +74,6 @@ $this->setBreadcrumbs([
                uk-slider-item="previous"></a>
             <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next
                uk-slider-item="next"></a>
-
         </div>
 
         <div class="content-block p-40 content-block_shadow uk-background-default">
@@ -84,9 +83,9 @@ $this->setBreadcrumbs([
                 <a href="" class="choose-city">
                     <span class="choose-city__fa fas fa-map-marker-alt"></span>
                     <span class="choose-city__text">
-                            <?php echo Html::encode($data['model']->profile->city->name); ?>,
+                        <?php echo Html::encode($data['model']->profile->city->name); ?>,
                         <?php echo Html::encode($data['model']->profile->address); ?>
-                        </span>
+                    </span>
                 </a>
             </div>
 
@@ -123,14 +122,14 @@ $this->setBreadcrumbs([
                         <div class="vote">
                             <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
                             <span class="vote__digits">
-                        <span class="vote__digit vote__digit_color_green">
-                            <?php echo Html::encode($data['model']->account->assessment_like); ?>
-                        </span>
+                                <span class="vote__digit vote__digit_color_green">
+                                    <?php echo Html::encode($data['model']->account->assessment_like); ?>
+                                </span>
 
-                        <span class="vote__digit vote__digit_color_red">
-                            <?php echo Html::encode($data['model']->account->assessment_dislike); ?>
-                        </span>
-                    </span>
+                                <span class="vote__digit vote__digit_color_red">
+                                    <?php echo Html::encode($data['model']->account->assessment_dislike); ?>
+                                </span>
+                            </span>
                         </div>
                     </div>
                 </div>

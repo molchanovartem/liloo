@@ -8,6 +8,7 @@ use admin\models\AdminNotice;
 use api\graphql\errors\AttributeValidationError;
 use common\core\service\ModelService;
 use site\models\Recall;
+use site\forms\ComplaintForm;
 
 /**
  * Class RecallService
@@ -29,6 +30,7 @@ class RecallService extends ModelService
     {
         $this->setData([
             'recalls' => Recall::find()->andWhere(['user_id' => Yii::$app->user->getId()])->with('answer')->all(),
+            'complaint' => new ComplaintForm(),
         ]);
     }
 
@@ -60,11 +62,32 @@ class RecallService extends ModelService
 
     /**
      * @param int $id
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      */
     public function deleteRecall(int $id)
     {
-        Recall::findOne($id)->delete();
+        Recall::deleteAll('id = :id OR parent_id = :id', [':id' => $id]);
+    }
+
+    public function complaint()
+    {
+        $complaint = new ComplaintForm();
+        $complaint->load($this->getData('post'));
+        $recall = $this->getRecall($complaint->recallId);
+
+        Yii::$app->adminNotice->createNotice(
+            AdminNotice::TYPE_CLIENT_COMPLAINT,
+            AdminNotice::STATUS_UNREAD,
+            $complaint->getComplaint(),
+            $recall
+        );
+    }
+
+    /**
+     * @param $id
+     * @return array|bool|null|\yii\db\ActiveRecord
+     */
+    public function getRecall($id)
+    {
+        return Recall::find()->where(['id' => $id])->one() ?? false;
     }
 }

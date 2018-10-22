@@ -2,7 +2,6 @@
 
 namespace site\widgets\complaint;
 
-use site\forms\ComplaintForm;
 use yii\base\Widget;
 
 /**
@@ -12,9 +11,7 @@ use yii\base\Widget;
 class Complaint extends Widget
 {
     public $recallId;
-
-    const COMPLAINT_TYPE_LIE = 'Ложь';
-    const COMPLAINT_TYPE_DIRT = 'Оскорбление';
+    public $complaint;
 
     /**
      * @return string
@@ -23,7 +20,8 @@ class Complaint extends Widget
     {
         return $this->render('index', [
             'recallId' => $this->recallId,
-            'model' => new ComplaintForm(),
+            'model' => $this->complaint,
+            'complaintList' => $this->complaint->getComplaints(),
         ]);
     }
 }
