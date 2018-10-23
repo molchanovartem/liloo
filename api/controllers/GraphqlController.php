@@ -5,8 +5,8 @@ namespace api\controllers;
 use yii\rest\Controller;
 use yii\helpers\Json;
 use yii\filters\Cors;
-use api\graphql\TypeRegistry;
-use api\graphql\GraphQL;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\GraphQL;
 
 /**
  * Class GraphqlController

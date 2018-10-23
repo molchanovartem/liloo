@@ -2,7 +2,7 @@
 
 namespace api\graphql\lk\buffers;
 
-use api\graphql\ActiveBuffer;
+use api\graphql\core\ActiveBuffer;
 
 /**
  * Class ClientBuffer

@@ -5,8 +5,8 @@ namespace api\graphql\common\types\entity;
 use common\models\SalonService;
 use common\models\Service;
 use common\models\User;
-use api\graphql\QueryTypeInterface;
-use api\graphql\TypeRegistry;
+use api\graphql\core\QueryTypeInterface;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class ServiceType

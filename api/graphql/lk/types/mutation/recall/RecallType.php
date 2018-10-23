@@ -3,9 +3,9 @@
 namespace api\graphql\lk\types\mutation\recall;
 
 use common\models\Recall;
-use api\graphql\TypeRegistry;
-use api\graphql\MutationFieldsTypeInterface;
-use api\services\lk\RecallService;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\MutationFieldsTypeInterface;
+use api\graphql\lk\services\RecallService;
 
 /**
  * Class RecallType

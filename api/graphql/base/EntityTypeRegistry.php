@@ -2,7 +2,7 @@
 
 namespace api\graphql\base;
 
-use api\graphql\AdditionalTypeRegistry;
+use api\graphql\core\AdditionalTypeRegistry;
 use api\graphql\base\types\entity\AccountTariffType;
 use api\graphql\base\types\entity\AccountType;
 use api\graphql\base\types\entity\AppointmentItemType;

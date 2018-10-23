@@ -4,7 +4,6 @@ namespace api\services;
 
 use Yii;
 use yii\base\Component;
-use yii\db\Exception;
 
 /**
  * Class Service
@@ -16,7 +15,7 @@ class Service extends Component
     /**
      * @param callable $function
      * @return null
-     * @throws Exception
+     * @throws \yii\db\Exception
      */
     protected function wrappedTransaction(callable $function)
     {
@@ -25,7 +24,7 @@ class Service extends Component
         try {
             $result = $function();
             $transaction->commit();
-        } catch (Exception $exception) {
+        } catch (\Exception $exception) {
             $transaction->rollBack();
             throw $exception;
         }

@@ -2,8 +2,8 @@
 
 namespace api\graphql\common\types\entity;
 
-use api\graphql\QueryTypeInterface;
-use api\graphql\TypeRegistry;
+use api\graphql\core\QueryTypeInterface;
+use api\graphql\core\TypeRegistry;
 use common\models\Master;
 use common\models\SalonMaster;
 
@@ -19,6 +19,15 @@ class MasterType implements QueryTypeInterface
         $entityRegistry = $typeRegistry->getEntityRegistry();
 
         return [
+            'master' => [
+                'type' => $entityRegistry->master(),
+                'args' => [
+                    'id' => $typeRegistry->nonNull($typeRegistry->id())
+                ],
+                'resolve' => function ($root, $args) {
+                    return Master::findOne($args['id']);
+                }
+            ],
             'masters' => [
                 'type' => $typeRegistry->listOff($entityRegistry->master()),
                 'args' => [

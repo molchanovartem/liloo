@@ -3,7 +3,7 @@
 namespace api\graphql\lk\types\mutation\master;
 
 use GraphQL\Type\Definition\InputObjectType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class MasterCreateInputType

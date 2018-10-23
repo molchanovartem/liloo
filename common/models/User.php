@@ -11,7 +11,7 @@ use common\queries\Query;
  */
 class User extends \yii\db\ActiveRecord
 {
-    const TYPE_MASTER = 1;
+    const TYPE_EXECUTOR = 1;
     const TYPE_CLIENT = 2;
 
     const STATUS_ACTIVE = 1;

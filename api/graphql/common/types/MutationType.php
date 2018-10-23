@@ -4,7 +4,7 @@ namespace api\graphql\common\types;
 
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\common\types\mutation\UserType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class MutationType

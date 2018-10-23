@@ -3,8 +3,8 @@
 namespace api\graphql\lk\types\entity;
 
 use common\models\Tariff;
-use api\graphql\TypeRegistry;
-use api\graphql\QueryTypeInterface;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\QueryTypeInterface;
 
 /**
  * Class TariffType

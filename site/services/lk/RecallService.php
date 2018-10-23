@@ -5,7 +5,7 @@ namespace site\services\lk;
 use Yii;
 use yii\base\Event;
 use admin\models\AdminNotice;
-use api\graphql\errors\AttributeValidationError;
+use api\graphql\core\errors\AttributeValidationError;
 use common\core\service\ModelService;
 use site\models\Recall;
 

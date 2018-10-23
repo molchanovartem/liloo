@@ -3,7 +3,7 @@
 namespace api\graphql\base\types\entity;
 
 use common\models\User;
-use api\graphql\EntityType;
+use api\graphql\core\EntityType;
 
 /**
  * Class UserType

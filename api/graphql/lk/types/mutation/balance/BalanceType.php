@@ -4,8 +4,8 @@ namespace api\graphql\lk\types\mutation\balance;
 
 use Yii;
 use common\models\BalanceJournal;
-use api\graphql\MutationFieldsTypeInterface;
-use api\graphql\TypeRegistry;
+use api\graphql\core\MutationFieldsTypeInterface;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class BalanceType

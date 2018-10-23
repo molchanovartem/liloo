@@ -2,7 +2,7 @@
 
 namespace api\graphql\lk\types\mutation\master\schedule;
 
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class MasterScheduleCreateInputType

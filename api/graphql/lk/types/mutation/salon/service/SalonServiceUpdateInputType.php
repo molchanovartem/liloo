@@ -3,7 +3,7 @@
 namespace api\graphql\lk\types\mutation\salon\service;
 
 use GraphQL\Type\Definition\InputObjectType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class SalonServiceUpdateInputType

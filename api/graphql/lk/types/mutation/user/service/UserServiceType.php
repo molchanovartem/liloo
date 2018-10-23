@@ -2,8 +2,8 @@
 
 namespace api\graphql\lk\types\mutation\user\service;
 
-use api\graphql\TypeRegistry;
-use api\graphql\MutationFieldsTypeInterface;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\MutationFieldsTypeInterface;
 
 /**
  * Class UserServiceType

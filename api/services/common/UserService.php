@@ -6,7 +6,7 @@ use GraphQL\Error\Error;
 use Yii;
 use common\models\User;
 use api\services\Service;
-use api\graphql\errors\AttributeValidationError;
+use api\graphql\core\errors\AttributeValidationError;
 
 /**
  * Class UserService

@@ -2,9 +2,9 @@
 
 namespace api\graphql\lk\types\mutation\user\schedule;
 
-use api\graphql\TypeRegistry;
-use api\graphql\MutationFieldsTypeInterface;
-use api\services\lk\UserService;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\MutationFieldsTypeInterface;
+use api\graphql\lk\services\UserService;
 
 /**
  * Class UserScheduleType

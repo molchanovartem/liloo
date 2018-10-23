@@ -4,7 +4,7 @@ namespace api\graphql\lk\types;
 
 use api\graphql\lk\types\entity\AccountType;
 use GraphQL\Type\Definition\ObjectType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 use api\graphql\lk\types\entity\AccountTariffType;
 use api\graphql\lk\types\entity\AppointmentItemType;
 use api\graphql\lk\types\entity\AppointmentType;

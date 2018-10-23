@@ -3,7 +3,7 @@
 namespace api\graphql\lk\types\mutation\user\schedule;
 
 use GraphQL\Type\Definition\InputObjectType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class UserScheduleCreateInputType

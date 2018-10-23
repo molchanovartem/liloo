@@ -3,8 +3,8 @@
 namespace api\graphql\lk\types\entity;
 
 use GraphQL\Deferred;
-use api\graphql\TypeRegistry;
-use api\graphql\QueryTypeInterface;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\QueryTypeInterface;
 use api\models\lk\Client;
 use common\models\Appointment;
 use api\models\lk\AppointmentItem;

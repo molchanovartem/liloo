@@ -3,8 +3,8 @@
 namespace api\graphql\common\types\entity;
 
 use common\models\Specialization;
-use api\graphql\QueryTypeInterface;
-use api\graphql\TypeRegistry;
+use api\graphql\core\QueryTypeInterface;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class SpecializationType

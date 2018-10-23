@@ -2,7 +2,7 @@
 
 namespace api\controllers;
 
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 use api\graphql\common\EntityTypeRegistry;
 use api\graphql\common\MutationTypeRegistry;
 use api\graphql\common\types\QueryType;

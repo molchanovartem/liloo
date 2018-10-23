@@ -3,8 +3,9 @@
 namespace api\graphql\site\types;
 
 use api\graphql\common\types\mutation\UserType;
+use api\graphql\site\types\mutation\appointment\AppointmentType;
 use GraphQL\Type\Definition\ObjectType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class MutationType
@@ -23,7 +24,8 @@ class MutationType extends ObjectType
         parent::__construct([
             'fields' => function () use ($typeRegistry) {
                 return array_merge(
-                    UserType::getMutationFieldsType($typeRegistry)
+                    UserType::getMutationFieldsType($typeRegistry),
+                    AppointmentType::getMutationFieldsType($typeRegistry)
                 );
             }
         ]);

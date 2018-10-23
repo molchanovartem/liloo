@@ -3,7 +3,7 @@
 namespace api\graphql\site\types;
 
 use GraphQL\Type\Definition\ObjectType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 
 /**
  * Class QueryType
@@ -21,7 +21,7 @@ class QueryType extends ObjectType
     {
         parent::__construct([
             'fields' => function () use ($typeRegistry) {
-                return array_merge([]);
+                return [];
             }
         ]);
     }

@@ -3,7 +3,7 @@
 namespace api\graphql\lk\types;
 
 use GraphQL\Type\Definition\ObjectType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 use api\graphql\lk\types\mutation\balance\BalanceType;
 use api\graphql\lk\types\mutation\appointment\AppointmentType;
 use api\graphql\lk\types\mutation\client\ClientType;

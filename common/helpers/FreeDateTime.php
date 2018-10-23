@@ -2,6 +2,8 @@
 
 namespace common\helpers;
 
+use yii\helpers\ArrayHelper;
+
 /**
  * Class FreeDateTime
  *
@@ -29,6 +31,9 @@ class FreeDateTime
     {
         $this->schedules = $schedules;
         $this->appointments = $appointments;
+
+        ArrayHelper::multisort($this->schedules, 'start_date');
+        ArrayHelper::multisort($this->appointments, 'start_date');
     }
 
     /**
@@ -36,72 +41,56 @@ class FreeDateTime
      */
     public function getFreeTimes(): \Generator
     {
-        $appointments = $this->appointments;
-        $count = count($appointments);
-
-        // черт ногу сломит, расписать логику
         foreach ($this->schedules as $schedule) {
             $scheduleStart = strtotime($schedule['start_date']);
             $scheduleEnd = strtotime($schedule['end_date']);
+            $start = $scheduleStart;
+            $end = null;
 
-            $i = 0;
-            reset($appointments);
+            $appointments = $this->getAppointmentsRangeDateTime($schedule['start_date'], $schedule['end_date']);
 
             while (true) {
-                $i++;
+                if ($scheduleEnd === $end) break;
 
-                if ($count === 0) {
-                    yield [
-                        'start_time' => date('Y-m-d H:i:s', $scheduleStart),
-                        'end_time' => date('Y-m-d H:i:s', $scheduleEnd),
-                    ];
+                $end = $scheduleEnd;
+                $appCurr = $appointments->current();
+                $appointments->next();
 
-                    break;
-                } else if ($i > $count) {
-                    $start = strtotime($appointments[$count - 1]['end_date']);
-                    $end = $scheduleEnd;
+                if ($appCurr) {
+                    $end = strtotime($appCurr['start_date']);
 
-                    yield [
-                        'start_time' => date('Y-m-d H:i:s', $start),
-                        'end_time' => date('Y-m-d H:i:s', $end),
-                    ];
-                    break;
-                }
-
-                $key = key($appointments);
-                $appointment = $appointments[$key];
-                $appointmentStart = strtotime($appointment['start_date']);
-                $appointmentEnd = strtotime($appointment['end_date']);
-
-                $prevAppointment = $appointments[$key - 1] ?? null;
-                $prevAppointmentEnd = $prevAppointment ? strtotime($prevAppointment['end_date']) : null;
-
-                $nextAppointment = $appointments[$key + 1] ?? null;
-                $nextAppointmentStart = $nextAppointment ? strtotime($nextAppointment['start_date']) : null;
-
-                if ($appointmentStart >= $scheduleStart) {
-                    if ($appointmentStart > $scheduleStart) {
-                        $start = ($key == 0) ? $scheduleStart : ($prevAppointmentEnd < $scheduleStart ? $scheduleStart : $prevAppointmentEnd);
-                        $end = ($key == 0 || $appointmentStart < $scheduleEnd) ? $appointmentStart : $scheduleEnd;
-                    } else {
-                        if ($appointmentStart == $scheduleStart) {
-                            if ($appointmentEnd > $scheduleEnd) continue;
-
-                            $start = $appointmentEnd;
-                            $end = ($nextAppointment === null || $nextAppointmentStart > $scheduleEnd) ? $scheduleEnd : $nextAppointmentStart;
-                        }
+                    if ($scheduleStart === strtotime($appCurr['start_date'])) {
+                        $start = strtotime($appCurr['end_date']);
+                        continue;
                     }
-
-                    yield [
-                        'start_time' => date('Y-m-d H:i:s', $start),
-                        'end_time' => date('Y-m-d H:i:s', $end),
-                    ];
-
-                    if ($end == $scheduleEnd) break;
                 }
-                next($appointments);
+
+                if ($start === $end) break;
+
+                yield [
+                    'start_time' => date('Y-m-d H:i:s', $start + 60), // +60 секунд перерыв
+                    'end_time' => date('Y-m-d H:i:s', $end),
+                ];
+
+                if ($appCurr) $start = strtotime($appCurr['end_date']);
             }
         }
+    }
+
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @return \Generator
+     */
+    private function getAppointmentsRangeDateTime($startDate, $endDate): \Generator
+    {
+        foreach ($this->appointments as $appointment) {
+            if (strtotime($appointment['start_date']) >= strtotime($startDate) &&
+                strtotime($appointment['end_date']) <= strtotime($endDate)) {
+                yield $appointment;
+            }
+        }
+        yield;
     }
 
     /**

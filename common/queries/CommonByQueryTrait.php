@@ -135,4 +135,9 @@ trait CommonByQueryTrait
     {
         return $this->andWhere(['id' => Yii::$app->user->getId()]);
     }
+
+    public function byType($type)
+    {
+        return $this->andWhere(['type' => $type]);
+    }
 }

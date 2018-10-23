@@ -2,9 +2,9 @@
 
 namespace api\graphql\lk\types\mutation\service;
 
-use api\graphql\TypeRegistry;
-use api\graphql\MutationFieldsTypeInterface;
-use api\services\lk\ServiceService;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\MutationFieldsTypeInterface;
+use api\graphql\lk\services\ServiceService;
 
 /**
  * Class ServiceType

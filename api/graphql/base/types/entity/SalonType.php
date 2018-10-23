@@ -4,7 +4,7 @@ namespace api\graphql\base\types\entity;
 
 use common\models\SalonSpecialization;
 use common\models\SalonConvenience;
-use api\graphql\EntityType;
+use api\graphql\core\EntityType;
 use common\models\Master;
 use common\models\SalonMaster;
 use common\models\Convenience;

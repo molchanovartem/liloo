@@ -2,7 +2,7 @@
 
 namespace api\graphql\base\types\entity;
 
-use api\graphql\EntityType;
+use api\graphql\core\EntityType;
 
 /**
  * Class MasterType

@@ -6,7 +6,7 @@ use Yii;
 use common\validators\CityExistValidator;
 use common\validators\CountryExistValidator;
 use common\behaviors\AccountBehavior;
-use api\graphql\BufferInterface;
+use api\graphql\core\BufferInterface;
 use api\graphql\lk\buffers\ClientBuffer;
 
 /**

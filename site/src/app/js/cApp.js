@@ -1,8 +1,8 @@
-// var CNotification = function (text) {
-//     text = text || '';
-//
-//     UIkit.notification(text, {pos: 'top-right'})
-// };
+var cNotification = function (text) {
+    text = text || '';
+
+    UIkit.notification(text, {pos: 'top-right'});
+};
 
 var cApp = {
     init: function () {

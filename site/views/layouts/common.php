@@ -1,6 +1,4 @@
 <?php $this->beginContent('@site/views/layouts/main.php'); ?>
-<div class="header bg_color_e4eff9">
-
+<?php echo \site\widgets\header\Header::widget(); ?>
 <?= $content; ?>
-</div>
 <?php $this->endContent(); ?>

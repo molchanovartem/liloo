@@ -4,7 +4,7 @@ namespace api\graphql\base\types\entity;
 
 use common\models\TariffPrice;
 use common\models\Tariff;
-use api\graphql\EntityType;
+use api\graphql\core\EntityType;
 
 /**
  * Class TariffType

@@ -4,8 +4,8 @@ namespace api\graphql\common\types\entity;
 
 use GraphQL\Type\Definition\Type;
 use common\models\Convenience;
-use api\graphql\TypeRegistry;
-use api\graphql\QueryTypeInterface;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\QueryTypeInterface;
 
 /**
  * Class ConvenienceType

@@ -5,9 +5,10 @@ namespace api\graphql\common\types;
 use api\graphql\common\types\entity\FreeTimeType;
 use api\graphql\common\types\entity\MasterType;
 use api\graphql\common\types\entity\ServiceType;
+use api\graphql\common\types\entity\UserType;
 use GraphQL\Type\Definition\ObjectType;
 use api\graphql\common\types\entity\CommonServiceType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 use api\graphql\common\types\entity\CityType;
 use api\graphql\common\types\entity\ConvenienceType;
 use api\graphql\common\types\entity\CountryType;
@@ -41,7 +42,8 @@ class QueryType extends ObjectType
                     TariffPriceType::getFieldsQueryType($typeRegistry),
                     MasterType::getFieldsQueryType($typeRegistry),
                     ServiceType::getFieldsQueryType($typeRegistry),
-                    FreeTimeType::getFieldsQueryType($typeRegistry)
+                    FreeTimeType::getFieldsQueryType($typeRegistry),
+                    UserType::getFieldsQueryType($typeRegistry)
                 );
             }
         ]);

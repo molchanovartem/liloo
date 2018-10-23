@@ -5,8 +5,8 @@ namespace api\graphql\lk\types\entity;
 use Yii;
 use common\models\Account;
 use api\models\lk\AccountTariff;
-use api\graphql\TypeRegistry;
-use api\graphql\QueryTypeInterface;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\QueryTypeInterface;
 
 /**
  * Class AccountType

@@ -2,7 +2,7 @@
 
 namespace api\models\lk;
 
-use api\graphql\BufferInterface;
+use api\graphql\core\BufferInterface;
 use api\graphql\lk\buffers\AppointmentItemBuffer;
 
 /**

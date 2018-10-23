@@ -3,7 +3,7 @@ $this->registerJs('executorCatalog();');
 
 $this->setHeading('Лучшие мастера сайта Liloo.ru');
 $this->setBreadcrumbs([
-    ['label' => 'Исполнители', 'url' => ['index']]
+    ['label' => 'Каталог']
 ]);
 ?>
 <div id="catalog" style="display: none" :style="{display: isShow ? 'block' : 'none'}">
@@ -180,14 +180,9 @@ $this->setBreadcrumbs([
                     <div class="performers-select__schedule">
                         <div class="font_type_3 t-a_c">Ближайшее время:</div>
                         <div class="schedule-items mt-10">
-                            <div class="schedule-item schedule-items__item" v-for="freeTime in item.freeTime">
+                            <div class="schedule-item schedule-items__item" v-if="index < 3" v-for="(freeTime, index) in item.freeTime">
                                 <span class="schedule-item__time">{{freeTime | time}}</span>
                             </div>
-
-                            <!--                            <div class="schedule-item schedule-items__item">-->
-                            <!--                                <span class="schedule-item__time">17:00</span>-->
-                            <!--                                <span class="schedule-item__date">20 мая</span>-->
-                            <!--                            </div>-->
                         </div>
                         <div class="t-a_c mt-10">
                             <a href="" class="font_type_11">Все свободное время ???</a>

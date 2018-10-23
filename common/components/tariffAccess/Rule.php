@@ -2,7 +2,7 @@
 
 namespace common\components\tariffAccess;
 
-use api\graphql\errors\NotTariffAccess;
+use api\graphql\core\errors\NotTariffAccess;
 
 /**
  * Class Rule

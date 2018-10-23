@@ -447,5 +447,8 @@ a.ui-button:active,
 }
 
 .ui-draggable .ui-dialog-titlebar {
-	background-color: white;
+	background-color: #ffffff;
+	border-color: #ffffff;
+	width: 0px;
+	float: right;
 }

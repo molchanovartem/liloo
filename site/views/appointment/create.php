@@ -3,7 +3,7 @@
         <div v-show="isViewTypeForm()">
             <div class="uk-grid uk-grid-small uk-grid-divider">
                 <div class="uk-width-1-2 uk-first-column">
-                    <div class="uk-flex uk-flex-middle">
+                    <div class="uk-flex uk-flex-middle uk-margin">
                         <div class="uk-width-auto">
                             <v-btn icon @click="onPrevDate()">
                                 <v-icon>mdi-chevron-left</v-icon>
@@ -42,13 +42,19 @@
                         </div>
                     </div>
 
-                    <div>
-                        <v-btn
-                                v-for="item in freeTimes"
-                                :outline="hasDateTimeSelected(item)"
-                                @click="onDateTimeSelected(item)"
-                        >{{item | time}}
-                        </v-btn>
+                    <div class="uk-margin">
+                        <div v-if="freeTimes.length > 0">
+                            <v-btn
+                                    v-for="item in freeTimes"
+                                    :outline="hasDateTimeSelected(item)"
+                                    @click="onDateTimeSelected(item)"
+                                    round
+                            >{{item | time}}
+                            </v-btn>
+                        </div>
+                        <div v-else class="uk-text-center">
+                            Нет свободного времени
+                        </div>
                     </div>
                 </div>
                 <div class="uk-width-1-2">
@@ -102,12 +108,11 @@
                                     item-text="name"
                                     label="Услуги"
                                     append-icon="mdi-chevron-down"
-                                    outline
                                     hide-details
                             />
                         </div>
                         <div class="uk-width-auto">
-                            <v-btn outline fab @click="onAdd">
+                            <v-btn round @click="onAdd">
                                 <v-icon>mdi-plus</v-icon>
                             </v-btn>
                         </div>
@@ -132,13 +137,19 @@
                     </ul>
 
                     <div>
-                        <ul>
+                        <ul class="uk-list uk-margin">
                             <li>Сумма: {{sum | currency}}</li>
                             <li>Длительность: {{duration | duration}}</li>
-                            <li>
-                                <v-btn @click="onAppointmentCreate" v-show="cpdIsAppointment">Записаться</v-btn>
-                            </li>
                         </ul>
+                        <div v-show="cpdIsAppointment" class="uk-margin uk-text-center">
+                            <button
+                                    class="button button_color_red button_width_270"
+                                    @click="onAppointmentCreate"
+                                    v-show="cpdIsAppointment"
+                            >
+                                Записаться
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,45 +160,56 @@
                     <v-icon>mdi-chevron-left</v-icon>
                 </v-btn>
             </div>
-            <div class="uk-grid uk-flex-center">
-                <div class="uk-width-1-2">
-                    <div class="uk-margin-small">
-                        <ul class="uk-list uk-list-divider">
-                            <li>
-                                <i class="mdi mdi-calendar"></i> {{attributes.dateTime}}
-                            </li>
-                            <li>
-                                <i class="mdi mdi-clock"></i> {{duration}}
-                            </li>
-                            <li>
-                                <i class="mdi mdi-cash"></i> {{sum}}
-                            </li>
-                            <li>
-                                Данные мастера
-                            </li>
+            <v-form ref="form">
+                <div class="uk-grid uk-flex-center">
+                    <div class="uk-width-1-2">
+                        <div class="uk-margin">
+                            <ul class="uk-list uk-list-divider">
+                                <li>
+                                    <i class="mdi mdi-account"></i> {{executorFullName}}
+                                </li>
+                                <li>
+                                    <i class="mdi mdi-calendar"></i> {{attributes.dateTime}}
+                                </li>
+                                <li>
+                                    <i class="mdi mdi-clock"></i> {{duration}}
+                                </li>
+                                <li>
+                                    <i class="mdi mdi-cash"></i> {{sum}}
+                                </li>
+                            </ul>
+                        </div>
+                        <h5>Услуги</h5>
+                        <ul class="uk-list">
+                            <li v-for="item in getServicesByServicesId()">{{item.name}}</li>
                         </ul>
-                    </div>
-                    <div class="uk-margin-small">
-                        <div class="uk-margin-small">
-                            <v-text-field
-                                    v-model="attributes.name"
-                                    label="Имя"
-                                    outline
-                            />
+                        <div class="uk-margin">
+                            <div class="uk-margin-small">
+                                <v-text-field
+                                        v-model="attributes.name"
+                                        :rules="rules.name"
+                                        label="Имя"
+                                        outline
+                                />
+                            </div>
+                            <div class="uk-margin-small">
+                                <v-text-field
+                                        v-model="attributes.phone"
+                                        :rules="rules.phone"
+                                        label="Телефон"
+                                        mask="+7-###-###-##-##"
+                                        outline
+                                        counter
+                                        minLength="11"
+                                />
+                            </div>
                         </div>
-                        <div class="uk-margin-small">
-                            <v-text-field
-                                    v-model="attributes.phone"
-                                    label="Телефон"
-                                    outline
-                            />
+                        <div class="uk-margin uk-text-center">
+                            <button class="button button_color_red button_width_270" @click.prevent="onCheckout">Оформить заказ</button>
                         </div>
-                    </div>
-                    <div class="uk-margin-small">
-                        <v-btn>Оформить заказ</v-btn>
                     </div>
                 </div>
-            </div>
+            </v-form>
         </div>
     </div>
 </div>
@@ -237,7 +259,7 @@ $this->registerjs("catalogFormInit({$data});");
                 },
                 data: {
                     scenario: null,
-                    viewType: VIEW_TYPE_CHECKOUT,
+                    viewType: VIEW_TYPE_FORM,
                     services: [],
                     masters: [],
                     freeTimes: [],
@@ -248,6 +270,7 @@ $this->registerjs("catalogFormInit({$data});");
                     date: '',
                     sum: 0,
                     duration: 0,
+                    user: null,
 
                     attributes: {
                         userId: null,
@@ -257,6 +280,16 @@ $this->registerjs("catalogFormInit({$data});");
                         servicesId: [],
                         name: null,
                         phone: null
+                    },
+
+                    rules: {
+                        name: [
+                            v => !!v || 'Обязательное поле'
+                        ],
+                        phone: [
+                            v => !!v || 'Обязательное поле',
+                            v => !!v && v.length === 11 || ''
+                        ]
                     }
                 },
                 computed: {
@@ -276,6 +309,14 @@ $this->registerjs("catalogFormInit({$data});");
                                 this.attributes.dateTime) return true;
                         }
                         return false;
+                    },
+                    executorFullName() {
+                        if (this.isScenarioSalon()) {
+                            let executor = this.getMasterSelected();
+
+                            return executor ? `${executor.surname} ${executor.name}` : null;
+                        }
+                        return this.user ? `${this.user.profile.surname} ${this.user.profile.name}` : null;
                     }
                 },
                 methods: {
@@ -285,6 +326,7 @@ $this->registerjs("catalogFormInit({$data});");
                             $.post('http://liloo/api/common', JSON.stringify({
                                 query: `query (${this.isScenarioSalon() ? '$salonId: ID!' : '$userId: ID!'}) {
                                      ${this.isScenarioSalon() ? 'masters(salon_id: $salonId) {id, surname, name, patronymic}' : ''}
+                                     ${this.isScenarioMaster() ? 'user(id: $userId) {id, profile {surname, name, patronymic, date_birth}}' : ''}
                                      ${this.isScenarioSalon() ? 'servicesSalon(salon_id: $salonId)' : 'servicesUser(user_id: $userId)'} {
                                         id, specialization_id, name, price, duration
                                      }
@@ -297,15 +339,18 @@ $this->registerjs("catalogFormInit({$data});");
                             }))
                                 .done(({data}) => {
                                     if (this.isScenarioSalon()) {
+
                                         this.masters = data.masters;
 
                                         if (this.masters.length > 0) {
                                             this.attributes.masterId = this.masters[1].id;
                                         }
-                                    }
 
-                                    if (this.isScenarioSalon()) this.services = data.servicesSalon;
-                                    else this.services = data.servicesUser;
+                                        this.services = data.servicesSalon
+                                    } else {
+                                        this.user = data.user;
+                                        this.services = data.servicesUser;
+                                    }
 
                                     //cSpinner.hide();
                                     resolve(true);
@@ -365,6 +410,8 @@ $this->registerjs("catalogFormInit({$data});");
                         }
                     },
                     onDelete(serviceId) {
+                        this.attributes.dateTime = null;
+
                         let index = this.attributes.servicesId.indexOf(+serviceId);
 
                         if (index !== -1) this.attributes.servicesId.splice(index, 1);
@@ -395,6 +442,11 @@ $this->registerjs("catalogFormInit({$data});");
                         this.loadFreeTime();
                     },
                     onDateTimeSelected(item) {
+                        if (this.attributes.servicesId.length === 0) {
+                            cNotification('Выберите услугу');
+                            return;
+                        }
+
                         this.attributes.dateTime = item;
                     },
                     onServiceSelect(service) {
@@ -412,6 +464,41 @@ $this->registerjs("catalogFormInit({$data});");
                     },
                     onForwardForm() {
                         this.viewType = VIEW_TYPE_FORM;
+                    },
+                    onCheckout() {
+                        if (!this.$refs.form.validate()) {
+
+                            return;
+                        }
+
+                        $.post('http://liloo/api/site/index', JSON.stringify({
+                            query: `mutation ($attributes: AppointmentCreateInput!) {
+                                appointmentCreate(attributes: $attributes)
+                            }`,
+                            variables: {
+                                attributes: {
+                                    user_id: this.attributes.userId,
+                                    //salon_id: this.attributes.salonId,
+                                    //master_id: this.attributes.masterId,
+                                    client_name: this.attributes.name,
+                                    client_phone: this.attributes.phone,
+                                    start_date: this.attributes.dateTime,
+                                    end_date: moment(this.attributes.dateTime).add(this.duration, 'minute').format("YYYY-MM-DD HH:mm:ss"),
+                                    items: this.attributes.servicesId.map(item => {
+                                        return {service_id: item, quantity: 1}
+                                    })
+                                }
+                            }
+                        }))
+                            .done(({data}) => {
+                                console.log(data);
+                                if (data.appointmentCreate) {
+                                    var window = cWindow.getWindowByType('normalModal');
+                                    window.dialog('close');
+
+                                    cNotification('Запись создана');
+                                }
+                            });
                     },
 
                     hasDateTimeSelected(item) {
@@ -446,7 +533,16 @@ $this->registerjs("catalogFormInit({$data});");
                             return this.getService(serviceId);
                         });
                     },
+                    getMasterById(id) {
+                        let master = this.masters.find(item => {
+                            return +item.id === +id;
+                        });
 
+                        return master;
+                    },
+                    getMasterSelected() {
+                        return this.getMasterById(this.attributes.masterId);
+                    }
                 },
                 filters: {
                     currency(value) {

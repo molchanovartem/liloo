@@ -2,8 +2,8 @@
 
 namespace api\graphql\common\types\mutation;
 
-use api\graphql\TypeRegistry;
-use api\graphql\MutationFieldsTypeInterface;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\MutationFieldsTypeInterface;
 use api\services\common\UserService;
 
 /**

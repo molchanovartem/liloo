@@ -2,9 +2,9 @@
 
 namespace api\graphql\lk\types\mutation\specialization;
 
-use api\graphql\MutationFieldsTypeInterface;
-use api\graphql\TypeRegistry;
-use api\services\lk\SpecializationService;
+use api\graphql\core\MutationFieldsTypeInterface;
+use api\graphql\core\TypeRegistry;
+use api\graphql\lk\services\SpecializationService;
 
 /**
  * Class SpecializationType

@@ -3,7 +3,7 @@
 namespace api\graphql\lk\buffers;
 
 use yii\helpers\ArrayHelper;
-use api\graphql\ActiveBuffer;
+use api\graphql\core\ActiveBuffer;
 use api\models\lk\AppointmentItem;
 
 /**

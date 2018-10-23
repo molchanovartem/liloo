@@ -6,7 +6,7 @@ use yii\filters\auth\HttpBearerAuth;
 use api\graphql\lk\MutationTypeRegistry;
 use api\graphql\lk\types\MutationType;
 use api\graphql\lk\types\QueryType;
-use api\graphql\TypeRegistry;
+use api\graphql\core\TypeRegistry;
 use api\graphql\lk\EntityTypeRegistry;
 
 /**

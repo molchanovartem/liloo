@@ -2,7 +2,7 @@
 
 namespace api\graphql\base;
 
-use api\graphql\AdditionalTypeRegistry;
+use api\graphql\core\AdditionalTypeRegistry;
 
 /**
  * Class MutationTypeRegistry

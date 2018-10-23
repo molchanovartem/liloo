@@ -2,9 +2,9 @@
 
 namespace api\graphql\lk\types\mutation\convenience;
 
-use api\services\lk\ConvenienceService;
-use api\graphql\TypeRegistry;
-use api\graphql\MutationFieldsTypeInterface;
+use api\graphql\lk\services\ConvenienceService;
+use api\graphql\core\TypeRegistry;
+use api\graphql\core\MutationFieldsTypeInterface;
 
 /**
  * Class ConvenienceType

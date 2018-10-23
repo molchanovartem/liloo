@@ -51,6 +51,33 @@ class Appointment extends ActiveRecord
                     $this->addError($attribute, '"end_date" меньше "start_date"');
                 }
             }],
+            ['client_id', function ($attribute) {
+                $client = Client::find()
+                    ->where(['id' => $this->$attribute])
+                    ->andWhere(['account_id' => $this->account_id])
+                    ->one();
+                if (empty($client)) {
+                    $this->addError($attribute, 'Данному аккаунту не принадлежит этот клиент');
+                }
+            }],
+            ['master_id', function ($attribute) {
+                $client = Master::find()
+                    ->where(['id' => $this->$attribute])
+                    ->andWhere(['account_id' => $this->account_id])
+                    ->one();
+                if (empty($client)) {
+                    $this->addError($attribute, 'Данному аккаунту не принадлежит этот мастер');
+                }
+            }],
+            ['salon_id', function ($attribute) {
+                $client = Salon::find()
+                    ->where(['id' => $this->$attribute])
+                    ->andWhere(['account_id' => $this->account_id])
+                    ->one();
+                if (empty($client)) {
+                    $this->addError($attribute, 'Данному аккаунту не принадлежит этот салон');
+                }
+            }],
         ];
     }
 
