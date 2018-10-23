@@ -2069,3 +2069,10 @@ hr {
 .pagination__item.pagination__item_pos_last {
     margin-left: 25px;
 }
+.button_color_white {
+    color: #03aef4;
+    background-color: #ffffff;
+    -webkit-box-shadow: 0 12px 24px 0 rgba(255, 255, 255, 0.51);
+    -moz-box-shadow: 0 12px 24px 0 rgba(21,146,230,0.51);
+    box-shadow: 0 12px 24px 0 rgba(255, 255, 255, 0.51);
+}

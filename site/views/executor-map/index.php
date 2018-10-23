@@ -98,12 +98,12 @@ $this->setBreadcrumbs(['Исполнители']);
 
                     <div class="uk-grid uk-grid-small">
                         <div class="uk-width-1-1">
-                            <button @click.prevent="onSubmit"
-                                    class="uk-button uk-button-primary uk-button-small">
+                            <button @click.prevent="onSubmit" class="button button_color_blue button_in_header">
                                 <i class="mdi mdi-magnify uk-text-large"></i>
                             </button>
+
                             <button @click.prevent="onReset"
-                                    class="uk-button uk-button-primary uk-button-small">
+                                    class="button button_color_white button_in_header uk-margin-small-left">
                                 <i class="mdi mdi-refresh uk-text-large"></i>
                             </button>
                         </div>
@@ -113,19 +113,17 @@ $this->setBreadcrumbs(['Исполнители']);
         </div>
     </div>
 
-    <div class="uk-container uk-margin-medium-top">
+    <div class="uk-container">
         <div class="uk-margin-small-bottom">
             <button
-                    @click="viewTypeCatalog"
-                    class="uk-button uk-button-small"
-                    :class="[isViewTypeCatalog() ?  'uk-button-primary': 'uk-button-default']"
+                    @click="viewTypeCatalog" class="button"
+                    :class="[isViewTypeCatalog() ?  'button_color_blue': 'button_color_blue-empty']"
             >
                 <i class="mdi mdi-menu uk-text-large"></i>
             </button>
             <button
-                    @click="viewTypeMap"
-                    class="uk-button uk-button-small"
-                    :class="[isViewTypeMap() ? 'uk-button-primary': 'uk-button-default']"
+                    @click="viewTypeMap" class="button uk-margin-small-left"
+                    :class="[isViewTypeMap() ? 'button_color_blue': 'button_color_blue-empty']"
             >
                 <i class="mdi mdi-map-marker-radius uk-text-large"></i>
             </button>
@@ -160,9 +158,13 @@ $this->setBreadcrumbs(['Исполнители']);
                                     <div class="vote">
                                         <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
                                         <span class="vote__digits">
-                                                <span class="vote__digit vote__digit_color_green">+{{item.assessment_like}}</span>
-                                                <span class="vote__digit vote__digit_color_red">-{{item.assessment_dislike}}</span>
+                                            <span class="vote__digit vote__digit_color_green">
+                                                +{{item.assessment_like}}
                                             </span>
+                                            <span class="vote__digit vote__digit_color_red">
+                                                -{{item.assessment_dislike}}
+                                            </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +181,8 @@ $this->setBreadcrumbs(['Исполнители']);
                     <div class="performers-select__schedule">
                         <div class="font_type_3 t-a_c">Ближайшее время:</div>
                         <div class="schedule-items mt-10">
-                            <div class="schedule-item schedule-items__item" v-if="index < 3" v-for="(freeTime, index) in item.freeTime">
+                            <div class="schedule-item schedule-items__item" v-if="index < 3"
+                                 v-for="(freeTime, index) in item.freeTime">
                                 <span class="schedule-item__time">{{freeTime | time}}</span>
                             </div>
                         </div>
@@ -187,7 +190,9 @@ $this->setBreadcrumbs(['Исполнители']);
                             <a href="" class="font_type_11">Все свободное время ???</a>
                         </div>
                         <div class="button button_color_red button_width_270 mt-10">
-                            <a href="#" class="uk-button uk-link-reset" @click.prevent="onAppointmentCreate(item)">Записаться</a>
+                            <a href="#" class="uk-button uk-link-reset" @click.prevent="onAppointmentCreate(item)">
+                                Записаться
+                            </a>
                         </div>
                     </div>
                 </div>
