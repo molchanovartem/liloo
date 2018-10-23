@@ -323,7 +323,7 @@ $this->registerjs("catalogFormInit({$data});");
                     loadCommonData() {
                         return new Promise((resolve, reject) => {
                             //cSpinner.show();
-                            $.post('http://liloo/api/common', JSON.stringify({
+                            $.post(cUrl.getApiCommon(), JSON.stringify({
                                 query: `query (${this.isScenarioSalon() ? '$salonId: ID!' : '$userId: ID!'}) {
                                      ${this.isScenarioSalon() ? 'masters(salon_id: $salonId) {id, surname, name, patronymic}' : ''}
                                      ${this.isScenarioMaster() ? 'user(id: $userId) {id, profile {surname, name, patronymic, date_birth}}' : ''}
@@ -359,7 +359,7 @@ $this->registerjs("catalogFormInit({$data});");
                     },
                     loadFreeTime() {
                         //cSpinner.show();
-                        $.post('http://liloo/api/common', JSON.stringify({
+                        $.post(cUrl.getApiCommon(), JSON.stringify({
                             query: `query(${this.isScenarioSalon() ? '$masterId: ID!' : '$userId: ID!'}, $date: Date!, $period: Int, $unaccountedTime: Int) {
                                 ${this.isScenarioSalon() ? 'masterFreeTimes(master_id: $masterId, date: $date, period: $period, unaccountedTime: $unaccountedTime)' :
                                 'userFreeTimes(user_id: $userId, date: $date, period: $period, unaccountedTime: $unaccountedTime)'
@@ -471,7 +471,7 @@ $this->registerjs("catalogFormInit({$data});");
                             return;
                         }
 
-                        $.post('http://liloo/api/site/index', JSON.stringify({
+                        $.post(cUrl.getApiSite(), JSON.stringify({
                             query: `mutation ($attributes: AppointmentCreateInput!) {
                                 appointmentCreate(attributes: $attributes)
                             }`,

@@ -140,7 +140,7 @@ $this->setBreadcrumbs(['Исполнители']);
                             <div class="performer__info">
                                 <div class="label-status label-status_bg_black label-status_fz_14">Profi
                                 </div>
-                                <a :href="getLinkViewExecutor(item)" data-ajax-content="true" class="uk-link-reset">
+                                <a :href="getExecutorUrl(item)" data-ajax-content="true" class="uk-link-reset">
                                     <div class="performer__name">{{item.name}}</div>
                                 </a>
                                 <div class="performer__profession">
@@ -398,11 +398,6 @@ $this->setBreadcrumbs(['Исполнители']);
                         map.showCity(city.latitude, city.longitude);
                     }
                 },
-                getLinkViewExecutor(executor) {
-                    let str = executor.isSalon ? 'salon-view' : 'user-view';
-
-                    return './' + str + '?id=' + executor.id;
-                },
                 clearAttributes() {
                     this.attributes.specializationId = null;
                     this.attributes.serviceId = null;
@@ -451,6 +446,11 @@ $this->setBreadcrumbs(['Исполнители']);
                             resolve(true);
                         }
                     });
+                },
+                getExecutorUrl(executor) {
+                    let str = executor.isSalon ? 'salon-view' : 'user-view';
+
+                    return cUrl.create('executor-map/' + str, {id: executor.id});
                 }
             },
             filters: {
