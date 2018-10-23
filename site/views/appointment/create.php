@@ -443,7 +443,7 @@ $this->registerjs("catalogFormInit({$data});");
                     },
                     onDateTimeSelected(item) {
                         if (this.attributes.servicesId.length === 0) {
-                            cNotification('Выберите услугу');
+                            cNotification.primary('Выберите услугу');
                             return;
                         }
 

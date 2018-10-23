@@ -2,9 +2,7 @@
 $this->registerJs('executorCatalog();');
 
 $this->setHeading('Лучшие мастера сайта Liloo.ru');
-$this->setBreadcrumbs([
-    ['label' => 'Каталог']
-]);
+$this->setBreadcrumbs(['Исполнители']);
 ?>
 <div id="catalog" style="display: none" :style="{display: isShow ? 'block' : 'none'}">
     <div class="uk-margin">
@@ -13,7 +11,7 @@ $this->setBreadcrumbs([
                 <form ref="filter">
                     <div class="uk-grid uk-grid-small uk-child-width-1-4">
                         <div>
-                            <div class="uk-background-default">
+                            <div class="uk-background-default executor-filter-border-radius">
                                 <v-autocomplete
                                         outline
                                         :items="specializations"
@@ -27,7 +25,7 @@ $this->setBreadcrumbs([
                             </div>
                         </div>
                         <div>
-                            <div class="uk-background-default">
+                            <div class="uk-background-default executor-filter-border-radius">
                                 <v-autocomplete
                                         outline
                                         :items="services"
@@ -41,7 +39,7 @@ $this->setBreadcrumbs([
                             </div>
                         </div>
                         <div>
-                            <div class="uk-background-default">
+                            <div class="uk-background-default executor-filter-border-radius">
                                 <v-menu
                                         lazy
                                         transition="scale-transition"
@@ -57,6 +55,7 @@ $this->setBreadcrumbs([
                                             readonly
                                             hide-details
                                             outline
+                                            height="60px"
                                     ></v-text-field>
                                     <v-date-picker
                                             v-model="attributes.date"
@@ -68,7 +67,7 @@ $this->setBreadcrumbs([
                             </div>
                         </div>
                         <div>
-                            <div class="uk-background-default">
+                            <div class="uk-background-default uk-width-4-5 executor-filter-custom-time">
                                 <div class="uk-grid uk-grid-small uk-flex-middle">
                                     <div class="uk-width-expand">
                                         <div class="uk-grid uk-grid-small uk-flex-middle">
@@ -81,7 +80,7 @@ $this->setBreadcrumbs([
                                                         hide-details
                                                 />
                                             </div>
-                                            <div class="uk-width-auto">:</div>
+                                            <div class="uk-width-auto uk-text-lead">:</div>
                                             <div class="uk-width-expand">
                                                 <v-select
                                                         v-model="attributes.minute"
@@ -114,8 +113,8 @@ $this->setBreadcrumbs([
         </div>
     </div>
 
-    <div class="uk-container">
-        <div class="uk-margin">
+    <div class="uk-container uk-margin-medium-top">
+        <div class="uk-margin-small-bottom">
             <button
                     @click="viewTypeCatalog"
                     class="uk-button uk-button-small"

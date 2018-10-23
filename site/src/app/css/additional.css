@@ -40,6 +40,9 @@
 .mt--300 {
     margin-top: -300px;
 }
+.mt--250 {
+    margin-top: -250px;
+}
 
 .mtb-15 {
     margin-top: 15px;
@@ -95,6 +98,9 @@
 }
 .pb-300 {
     padding-bottom: 300px;
+}
+.pb-250 {
+    padding-bottom: 250px;
 }
 
 .ptb-30 {
@@ -249,12 +255,10 @@ a[class*="font_"]:hover {
     font-family: Roboto, sans-serif;
 }
 
-
-
 .bg_image_header-main {
     background-image: url(./images/bg_header-page-main.jpg);
-    background-size: cover;
-    background-position: center;
+    background-size: 100%;
+    background-position: 0px -100px;
     background-repeat: no-repeat;
 }
 .bg_color_f8 {
@@ -266,8 +270,6 @@ a[class*="font_"]:hover {
 .bg_color_fffcfe {
     background-color: #FFFCFE;
 }
-
-
 
 .j-c_s-b, .j-c_c, .a-i_c {
     display: flex;
@@ -283,4 +285,14 @@ a[class*="font_"]:hover {
 }
 .t-a_c {
     text-align: center;
+}
+
+.button_color_red_without_shadow {
+    color: #fff;
+    background-image: linear-gradient(to bottom, #fe4375, #ff4d6a, #ff5760, #ff6257, #fd6c4e);
+}
+
+.popular-service-index {
+    margin-top: -100px;
+    height: 180px;
 }

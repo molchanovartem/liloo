@@ -8,7 +8,7 @@ use common\core\service\ViewService;
 
 /**
  * Class Controller
- * @package app\modules\lk\controllers
+ * @package site\controllers
  */
 abstract class Controller extends \yii\web\Controller
 {
@@ -19,12 +19,12 @@ abstract class Controller extends \yii\web\Controller
     /**
      * @var string
      */
-    public $layout = '@site/views/layouts/content.php';
+    public $layout = '@site/views/layouts/flexible.php';
 
     /**
      * @var string
      */
-    public $mainLayout = '@site/views/layouts/common.php';
+    public $mainLayout = '@site/views/layouts/option/common.php';
 
     /**
      * @var ModelService

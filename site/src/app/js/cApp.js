@@ -1,7 +1,13 @@
-var cNotification = function (text) {
+var cNotification = function (text, status = 'default') {
     text = text || '';
 
-    UIkit.notification(text, {pos: 'top-right'});
+    UIkit.notification({message: text, status: status, pos: 'top-right'});
+};
+
+cNotification.primary = function (text) {
+    let notification = this;
+
+    notification(text, 'primary');
 };
 
 var cApp = {
