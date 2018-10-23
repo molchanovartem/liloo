@@ -296,3 +296,7 @@ a[class*="font_"]:hover {
     margin-top: -100px;
     height: 180px;
 }
+
+.recall-list-shadow {
+    box-shadow: 0 12px 24px 0 rgba(0,0,0,.1);
+}

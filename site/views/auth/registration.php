@@ -47,7 +47,7 @@ $this->setHeading('Регистрируйся и записывайся к лу�
             <div class="uk-width-1-2">
                 <?= $form->field($model, 'type')->radio([
                     'label' => 'Я мастер, ищу работу',
-                    'value' => \site\models\User::TYPE_MASTER,
+                    'value' => \site\models\User::TYPE_EXECUTOR,
                     'id' => 'input_1_2',
                 ]) ?>
             </div>

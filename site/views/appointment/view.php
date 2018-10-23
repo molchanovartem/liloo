@@ -529,9 +529,9 @@
                     },
 
                     loadDataNew() {
-                        $.get('http://liloo/site/web/appointment/appointment-data-new', {
+                        $.get(cUrl.create('appointment/appointment-data-new', {
                             page: this.pagination.page
-                        })
+                        }))
                             .done(data => {
                                 this.countNew = data.total;
                                 this.appointmentsNew = [];
@@ -546,9 +546,9 @@
                     },
 
                     loadDataCanceled() {
-                        $.get('http://liloo/site/web/appointment/appointment-data-canceled', {
+                        $.get(cUrl.create('appointment/appointment-data-canceled', {
                             page: this.pagination.page
-                        })
+                        }))
                             .done(data => {
                                 this.countCanceled = data.total;
                                 this.appointmentsCanceled = [];
@@ -586,10 +586,10 @@
                     },
 
                     cancelSession(id) {
-                        $.get('http://liloo/site/web/appointment/cancel', {
+                        $.get(cUrl.create('appointment/cancel', {
                             id: id,
                             reason: this.reason
-                        })
+                        }))
                             .done(data => {
                                 if (data) {
                                     this.dialog = false;
@@ -602,12 +602,12 @@
                             });
                     },
                     toComment(accountId, appointmentId) {
-                        $.get('http://liloo/site/web/recall/create', {
+                        $.get(cUrl.create('recall/create', {
                             accountId: accountId,
                             appointmentId: appointmentId,
                             assessment: this.comment.assessment,
                             text: this.comment.text
-                        })
+                        }))
                             .done(data => {
                                 if (data) {
                                     this.dialogComment = false;
@@ -643,9 +643,9 @@
                     },
                     deleteRecall(id) {
                         if (confirm('Вы уверены что хотите удалить отзыв ?')) {
-                            $.get('/site/web/recall/delete', {
-                                id: id,
-                            })
+                            $.get(cUrl.create('recall/delete', {
+                                id: id
+                            }))
                                 .done(data => {
                                     this.loadDataCanceled();
                                 });
