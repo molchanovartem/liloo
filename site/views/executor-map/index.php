@@ -261,7 +261,7 @@ $this->setBreadcrumbs(['Исполнители']);
 
                 loadCommonData() {
                     return new Promise((resolve, reject) => {
-                        $.post('http://liloo/api/common/index', JSON.stringify({
+                        $.post(cUrl.getApiCommon(), JSON.stringify({
                             query: `query {
                                      specializations {id, name}
                                      commonServices {id, name, price, duration}
@@ -280,12 +280,12 @@ $this->setBreadcrumbs(['Исполнители']);
                 loadData() {
                     cSpinner.show();
                     this.setCityId().then(() => {
-                        $.get('http://liloo/site/web/executor-map/catalog-data', {
+                        $.get(cUrl.create('executor-map/catalog-data', {
                             specialization_id: this.attributes.specializationId,
                             city_id: this.attributes.cityId,
                             service_id: this.attributes.serviceId,
                             date_time: this.getDateTime(),
-                        })
+                        }))
                             .done(data => {
                                 this.executors = [];
                                 this.showMapCity();
@@ -550,10 +550,10 @@ $this->setBreadcrumbs(['Исполнители']);
             let window = cWindow.getWindowByType('normalModal');
 
             if (window) {
-                $.get('http://liloo/site/web/appointment/create', {
+                $.get(cUrl.create('appointment/create', {
                     [userId ? 'user_id' : 'salon_id']: userId || salonId,
                     date: date
-                })
+                }))
                     .done(({content}) => {
                         if (content !== undefined) {
                             window.html(content);
