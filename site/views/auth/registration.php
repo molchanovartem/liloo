@@ -3,35 +3,13 @@
 use yii\helpers\Html;
 use yii\captcha\Captcha;
 use site\widgets\activeForm\ActiveForm;
+use site\widgets\MaskedTextInputWidget as MasketWidget;
 
 $this->setHeading('Регистрируйся и записывайся к лучшим и проверенным мастерам');
 
 ?>
 <div class="content-width content-width_w_550">
     <?php $form = ActiveForm::begin(); ?>
-
-    <!--    <div class="j-c_c">-->
-    <!--        <div class="type-switcher mt-25 js-switch-register type-switcher_in_register">-->
-    <!--            --><? //= $form->field($model, 'type')->radio([
-    //                'label' => false,
-    //                'class' => 'type-switcher__input',
-    //                'value' => \site\models\User::TYPE_CLIENT,
-    //                'id' => 'input_1_1',
-    //                'checked' => 'checked'
-    //            ]); ?>
-    <!---->
-    <!--            <label for="input_1_1" class="type-switcher__value font_Gilroy-17-800-000000">Я клиент, ищу мастера</label>-->
-    <!--            --><? //= $form->field($model, 'type')->radio([
-    //                'label' => false,
-    //                'class' => 'type-switcher__input',
-    //                'value' => \site\models\User::TYPE_MASTER,
-    //                'id' => 'input_1_2',
-    //            ]) ?>
-    <!---->
-    <!--            <label for="input_1_2" class="type-switcher__value font_Gilroy-17-800-000000">Я мастер, ищу работу</label>-->
-    <!--            <div class="type-switcher__active"></div>-->
-    <!--        </div>-->
-    <!--    </div>-->
 
     <div class="block_type_1 mt-35">
         <div class="uk-grid">
@@ -49,7 +27,7 @@ $this->setHeading('Регистрируйся и записывайся к лу�
                     'label' => 'Я мастер, ищу работу',
                     'value' => \site\models\User::TYPE_EXECUTOR,
                     'id' => 'input_1_2',
-                ]) ?>
+                ]); ?>
             </div>
         </div>
 
@@ -59,20 +37,13 @@ $this->setHeading('Регистрируйся и записывайся к лу�
 
         <div class="input-box">
             <div class="input-box__wrap">
-                <?= $form->field($model, 'phone')->textInput([
-                    'autofocus' => true,
-                    'required' => true,
-                ])->label('Введите ваш телефон'); ?>
+                <?= $form->field($model, 'phone')
+                    ->widget(MasketWidget::class, ['pattern' => '(99) 9999-9999'])
+                    ->label('Введите ваш телефон');
+                ?>
             </div>
         </div>
 
-        <div class="input-box mt-20">
-            <div class="input-box__wrap">
-                <?= $form->field($model, 'password')->passwordInput([
-                    'required' => true,
-                ])->label('Введите пароль'); ?>
-            </div>
-        </div>
         <br>
         <div class="uk-text-center">
             <b class="mt-20">Введите текст с картинки</b>
@@ -104,7 +75,6 @@ $this->setHeading('Регистрируйся и записывайся к лу�
         </div>
 
         <?php ActiveForm::end(); ?>
-
     </div>
 
     <div class="font_type_8 mt-40 t-a_c">Быстрая регистрация</div>

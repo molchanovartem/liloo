@@ -1,9 +1,9 @@
 <?php $this->setBreadcrumbs(['Записи']); ?>
 
-<div id="appointment-view">
+<div id="appointment-view" class="uk-margin-top uk-border-rounded">
     <div>
 
-        <v-tabs fixed-tabs color="#e4eff9" v-model="tabType" slot="extension" centered>
+        <v-tabs fixed-tabs color="#ffffff" v-model="tabType" slot="extension" centered>
             <v-tabs-slider></v-tabs-slider>
             <v-tab class="uk-padding" href="#tab-appointment-new" @click="tabTypeAppointmentNew">
                 <p>Открытые</p>
@@ -45,38 +45,10 @@
                                         </p>
 
                                         <div v-show="props.item.open">
-
-                                            <v-dialog v-model="dialog" width="500">
-                                                <v-btn class="uk-margin-bottom" slot="activator" color="red lighten-2"
-                                                       dark>
-                                                    Отменить сеанс
-                                                </v-btn>
-
-                                                <v-card>
-                                                    <v-card-title class="headline grey lighten-2" primary-title>
-                                                        Вы уверены ?
-                                                    </v-card-title>
-
-                                                    <v-card-text>
-                                                        Опишите причину
-                                                        <v-textarea
-                                                                name="input-7-1"
-                                                                v-model="reason"
-                                                        ></v-textarea>
-
-                                                    </v-card-text>
-
-                                                    <v-divider></v-divider>
-
-                                                    <v-card-actions>
-                                                        <v-spacer></v-spacer>
-                                                        <v-btn color="primary" flat
-                                                               @click="cancelSession(props.item.id)">
-                                                            Я Уверен
-                                                        </v-btn>
-                                                    </v-card-actions>
-                                                </v-card>
-                                            </v-dialog>
+                                            <v-btn class="uk-margin-bottom" slot="activator" color="red lighten-2"
+                                                   @click="setCanceledSession(props.item.id)" dark>
+                                                Отменить сеанс
+                                            </v-btn>
 
                                             <v-data-table
                                                     :headers="headers"
@@ -113,31 +85,10 @@
                                         <div v-show="props.item.open">
                                             <v-dialog v-model="dialog" width="500">
                                                 <v-btn class="uk-margin-bottom" slot="activator" color="red lighten-2"
-                                                       dark>
+                                                       @click="setCanceledSession(props.item.id)" dark>
                                                     Отменить сеанс
                                                 </v-btn>
 
-                                                <v-card>
-                                                    <v-card-title class="headline grey lighten-2" primary-title>
-                                                        Вы уверены ?
-                                                    </v-card-title>
-
-                                                    <v-card-text>
-                                                        Опишите причину
-                                                        <v-textarea name="input-7-1" v-model="reason"></v-textarea>
-
-                                                    </v-card-text>
-
-                                                    <v-divider></v-divider>
-
-                                                    <v-card-actions>
-                                                        <v-spacer></v-spacer>
-                                                        <v-btn color="primary" flat
-                                                               @click="cancelSession(props.item.id)">
-                                                            Я Уверен
-                                                        </v-btn>
-                                                    </v-card-actions>
-                                                </v-card>
                                             </v-dialog>
                                             <v-data-table
                                                     :headers="headers"
@@ -438,6 +389,32 @@
         </v-tabs-items>
     </div>
 
+    <v-dialog v-model="dialog" width="500">
+
+        <v-card>
+            <v-card-title class="headline grey lighten-2" primary-title>
+                Вы уверены ?
+            </v-card-title>
+
+            <v-card-text>
+                Опишите причину
+                <v-textarea
+                        name="input-7-1"
+                        v-model="reason"
+                ></v-textarea>
+
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" flat @click="cancelSession()">
+                    Я Уверен
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
 </div>
 
 <script>
@@ -511,6 +488,8 @@
                     },
                     isLike: false,
                     isDislike: false,
+
+                    canceledSession: null
                 },
                 methods: {
                     hasTabType() {
@@ -585,16 +564,16 @@
                         else if (tabType === TAB_TYPE_APPOINTMENT_CANCELED) this.tabTypeAppointmentCanceled();
                     },
 
-                    cancelSession(id) {
+                    cancelSession() {
                         $.get(cUrl.create('appointment/cancel', {
-                            id: id,
+                            id: this.canceledSession,
                             reason: this.reason
                         }))
                             .done(data => {
                                 if (data) {
                                     this.dialog = false;
                                     this.appointmentsNew.forEach(function (item, i, arr) {
-                                        if (item.id === id) {
+                                        if (item.id === this.canceledSession) {
                                             arr.splice(i, 1);
                                         }
                                     });
@@ -650,6 +629,11 @@
                                     this.loadDataCanceled();
                                 });
                         }
+                    },
+
+                    setCanceledSession(id) {
+                        this.dialog = true;
+                        this.canceledSession = id;
                     }
                 },
                 watch: {

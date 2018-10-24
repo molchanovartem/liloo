@@ -2,9 +2,9 @@
 
 namespace site\services;
 
+use Yii;
 use common\core\service\ModelService;
 use common\models\Notice;
-use Yii;
 
 /**
  * Class NoticeService

@@ -340,6 +340,7 @@ class ExecutorService extends ModelService
         if (($model = User::find()
                 ->with(['specializations'])
                 ->with(['profile'])
+                ->with(['conveniences'])
                 ->where(['id' => $id])
                 ->one()) == null) throw new \Exception('Not find any user');
 
@@ -358,6 +359,7 @@ class ExecutorService extends ModelService
         if (($model = Salon::find()
                 ->with(['specializations'])
                 ->with(['masters'])
+                ->with(['conveniences'])
                 ->where(['id' => $id])
                 ->one()) == null) throw new \Exception('Not find any salon');
         $specialization = $this->getSpecializationServiceByAccountId($model->account_id);
@@ -420,7 +422,7 @@ class ExecutorService extends ModelService
     public function getServiceBySpecializationId(int $specializationId, int $accountId)
     {
         return Service::find()
-            ->select(['name', 'price', 'specialization_id'])
+            ->select(['name', 'price', 'specialization_id', 'duration'])
             ->where(['specialization_id' => $specializationId])
             ->andWhere(['account_id' => $accountId])
             ->asArray()

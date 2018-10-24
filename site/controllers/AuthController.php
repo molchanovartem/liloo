@@ -3,7 +3,7 @@
 namespace site\controllers;
 
 use Yii;
-use common\services\AuthService;
+use site\services\AuthService;
 use site\forms\LoginForm;
 
 /**
@@ -55,15 +55,14 @@ class AuthController extends Controller
             return $this->redirect(['/dashboard']);
         }
 
-        $model = new LoginForm();
-        $model->load(Yii::$app->request->post());
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-
+        if ($this->modelService->login()) {
             return $this->redirect(['/dashboard']);
         }
 
+        $data = $this->modelService->getData();
+
         return $this->render('login', [
-            'model' => $model,
+            'model' => $data['model'],
         ]);
     }
 
@@ -89,7 +88,7 @@ class AuthController extends Controller
         }
 
         if ($this->modelService->registration()) {
-            return $this->redirect(['/dashboard']);
+            return $this->redirect(['/']);
         }
 
         $data = $this->modelService->getData();

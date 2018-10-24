@@ -31,7 +31,7 @@ use site\widgets\cityWidget\Widget as CityWidget;
                 echo Html::beginForm(['/auth/logout'], 'post')
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->login . ')',
-                    ['class' => 'button button_color_blue button_in_header']
+                    ['class' => 'button button_color_red button_in_header']
                 )
                 . Html::endForm(); ?>
         <?php endif; ?>

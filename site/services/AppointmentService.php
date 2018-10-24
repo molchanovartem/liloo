@@ -116,15 +116,30 @@ class AppointmentService extends ModelService
      */
     public function cancelSession(int $id, $reason)
     {
-        $appointment = Appointment::findOne($id);
+        $appointment = Appointment::find()
+            ->alias('a')
+            ->leftJoin(Client::tableName() . ' c', 'c.id = a.client_id')
+            ->where(['a.id' => $id])
+            ->andWhere(['c.user_id' => Yii::$app->user->getId()])
+            ->one();
+
+        if (empty($appointment)) {
+            return false;
+        }
+
         $appointment->status = Appointment::STATUS_CANCELED;
         $data = [$appointment, $reason];
 
-        if ($appointment->save()) {
+        if ($appointment->save(false)) {
             $this->trigger(self::EVENT_USER_CANCELED_SESSION, new Event(['sender' => $data]));
             return true;
         }
 
         return false;
+    }
+
+    protected function validate()
+    {
+
     }
 }

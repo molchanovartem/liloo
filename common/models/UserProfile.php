@@ -34,6 +34,7 @@ class UserProfile extends \yii\db\ActiveRecord
             [['date_birth'], 'date', 'format' => 'php: Y-m-d'],
             [['surname', 'name', 'patronymic', 'address'], 'string', 'max' => 255],
             [['latitude', 'longitude'], 'number'],
+            ['phone', 'unique'],
 
             ['country_id', CountryExistValidator::class],
             ['city_id', CityExistValidator::class],
