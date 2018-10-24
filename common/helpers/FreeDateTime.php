@@ -68,7 +68,7 @@ class FreeDateTime
                 if ($start === $end) break;
 
                 yield [
-                    'start_time' => date('Y-m-d H:i:s', $start + 60), // +60 секунд перерыв
+                    'start_time' => date('Y-m-d H:i:s', $start), // +60 секунд перерыв
                     'end_time' => date('Y-m-d H:i:s', $end),
                 ];
 

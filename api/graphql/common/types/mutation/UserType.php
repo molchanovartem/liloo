@@ -4,7 +4,7 @@ namespace api\graphql\common\types\mutation;
 
 use api\graphql\core\TypeRegistry;
 use api\graphql\core\MutationFieldsTypeInterface;
-use api\services\common\UserService;
+use api\graphql\common\services\UserService;
 
 /**
  * Class UserType

@@ -2,6 +2,9 @@
 
 namespace site\services;
 
+use common\models\Convenience;
+use common\models\SalonConvenience;
+use common\models\UserConvenience;
 use yii\base\DynamicModel;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
@@ -104,6 +107,19 @@ class ExecutorService extends ModelService
             ->asArray()
             ->all();
 
+        $arConveniences = Convenience::find()
+            ->alias('t1')
+            ->select(['t1.*', 't2.user_id', 't2.convenience_id'])
+            ->leftJoin(UserConvenience::tableName() . ' t2', '`t1`.`id` = `t2`.`convenience_id`')
+            ->where(['in', 't2.user_id', ArrayHelper::getColumn($arUsers, 'id')])
+            ->asArray()
+            ->all();
+
+        $conveniences = [];
+        foreach ($arConveniences as $convenience) {
+            $conveniences[$convenience['user_id']][] = $convenience;
+        }
+
         $specializations = ArrayHelper::map($arSpecializations, 'specialization_id', function ($item) {
             return ['id' => $item['specialization_id'], 'name' => $item['name']];
         }, 'user_id');
@@ -154,6 +170,7 @@ class ExecutorService extends ModelService
                 'name' => $user['name'],
                 'address' => $user['address'],
                 'specializations' => $specializations[$user['id']] ?? [],
+                'conveniences' => $conveniences[$user['id']] ?? [],
                 'services' => $services[$user['account_id']] ?? [],
                 'freeTime' => array_unique($periods, SORT_REGULAR),
                 'isSalon' => false,
@@ -197,6 +214,19 @@ class ExecutorService extends ModelService
             ->orderBy(['start_date' => SORT_ASC])
             ->asArray()
             ->all();
+
+        $arConveniences = Convenience::find()
+            ->alias('t1')
+            ->select(['t1.*', 't2.salon_id', 't2.convenience_id'])
+            ->leftJoin(SalonConvenience::tableName() . ' t2', '`t1`.`id` = `t2`.`convenience_id`')
+            ->where(['in', 't2.salon_id', ArrayHelper::getColumn($arSalons, 'id')])
+            ->asArray()
+            ->all();
+
+        $conveniences = [];
+        foreach ($arConveniences as $convenience) {
+            $conveniences[$convenience['salon_id']][] = $convenience;
+        }
 
         $arSpecializations = Specialization::find()
             ->alias('t1')
@@ -265,6 +295,7 @@ class ExecutorService extends ModelService
                 'name' => $salon['name'],
                 'address' => $salon['address'],
                 'specializations' => $specializations[$salon['id']] ?? [],
+                'conveniences' => $conveniences[$salon['id']] ?? [],
                 'services' => $services[$salon['id']] ?? [],
                 'freeTime' => array_unique($periods, SORT_REGULAR),
                 'isSalon' => true,

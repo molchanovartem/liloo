@@ -143,12 +143,17 @@ $this->setBreadcrumbs(['Исполнители']);
                                 <a :href="getExecutorUrl(item)" data-ajax-content="true" class="uk-link-reset">
                                     <div class="performer__name">{{item.name}}</div>
                                 </a>
-                                <div class="performer__profession">
+                                <div class="performer__profession"><i class="mdi mdi-map-marker"></i> {{item.address}}</div>
+                                <div class="performer__profession">Спициализации:
                                     <span v-for="specialization in item.specializations">
                                         {{specialization.name}},
                                     </span>
                                 </div>
-                                <div class="performer__profession">{{item.address}}</div>
+                                <div class="performer__profession">Плюшки:
+                                    <span v-for="item in item.conveniences">
+                                        {{item.name}},
+                                    </span>
+                                </div>
                                 <div class="performer__extra">
                                     <div class="stars">
                                         <div class="fas fa-star stars__star stars__star_active"></div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace api\services\common;
+namespace api\graphql\common\services;
 
 use yii\db\Expression;
 use common\models\MasterSchedule;
@@ -12,7 +12,7 @@ use api\services\Service;
 /**
  * Class FreeTimeService
  *
- * @package api\services\common
+ * @package api\graphql\common\services
  */
 class FreeTimeService extends Service
 {

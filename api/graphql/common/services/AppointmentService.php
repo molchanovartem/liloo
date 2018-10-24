@@ -93,7 +93,7 @@ abstract class AppointmentService extends \api\services\Service
                 ->from('{{%appointment}}')
                 ->where(['and',
                     ['<=', 'start_date', $attributes['start_date']],
-                    ['>=', 'end_date', $attributes['start_date']],
+                    ['>', 'end_date', $attributes['start_date']],
                 ])
                 ->orWhere(['and',
                     ['<=', 'start_date', $attributes['end_date']],
@@ -114,7 +114,7 @@ abstract class AppointmentService extends \api\services\Service
                 ->from('{{%appointment}}')
                 ->where(['and',
                     ['<=', 'start_date', $attributes['start_date']],
-                    ['>=', 'end_date', $attributes['start_date']],
+                    ['>', 'end_date', $attributes['start_date']],
                 ])
                 ->orWhere(['and',
                     ['<=', 'start_date', $attributes['end_date']],

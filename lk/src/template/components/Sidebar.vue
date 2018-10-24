@@ -9,21 +9,9 @@
 <!--        <router-link :to="{name: 'portfolioManager'}" class="menu-blocks__item">
             <span class="menu-blocks__item-name">Портфолио</span>
         </router-link>-->
-        <router-link :to="{name: 'userProfileView'}" class="menu-blocks__item">
-            <span class="menu-blocks__item-name">Профиль</span>
-        </router-link>
   <!--      <router-link :to="{name: 'reviewManager'}" class="menu-blocks__item">
             <span class="menu-blocks__item-name">Отзывы</span>
         </router-link>-->
-        <router-link :to="{name: 'balanceIncrease'}" class="menu-blocks__item">
-            <span class="menu-blocks__item-name">Пополнить баланс</span>
-        </router-link>
-        <router-link :to="{name: 'tariffList'}" class="menu-blocks__item">
-            <span class="menu-blocks__item-name">Тарифы</span>
-        </router-link>
-        <router-link :to="{name: 'tariffManager'}" class="menu-blocks__item">
-            <span class="menu-blocks__item-name">Мои тарифы</span>
-        </router-link>
 
         <div class="uk-text-center uk-margin-large-top"><h4>Справочник</h4></div>
         <hr/>

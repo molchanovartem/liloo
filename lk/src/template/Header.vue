@@ -28,6 +28,32 @@
                         <span class="button-phone__fa fas fa-phone fa-flip-horizontal"></span>
                         <span class="button-phone__text">8 800 234-55-33</span>
                     </a>
+                    <v-btn fab depressed small outline @click="$router.push({name: 'userProfileView'})">
+                        <v-icon>mdi-account</v-icon>
+                    </v-btn>
+                    <v-menu offset-y>
+                        <v-btn
+                                slot="activator"
+                                fab
+                                depressed
+                                small
+                                outline
+                        >
+                            <v-icon>mdi-currency-usd</v-icon>
+                        </v-btn>
+                        <v-list>
+                            <v-list-tile @click="$router.push({name: 'balanceIncrease'})">
+                                <v-list-tile-title>Пополнить баланс</v-list-tile-title>
+                            </v-list-tile>
+                            <v-list-tile @click="$router.push({name: 'tariffList'})">
+                                <v-list-tile-title>Тарифы</v-list-tile-title>
+                            </v-list-tile>
+                            <v-list-tile @click="$router.push({name: 'tariffManager'})">
+                                <v-list-tile-title>Мои тарифы</v-list-tile-title>
+                            </v-list-tile>
+                        </v-list>
+                    </v-menu>
+
                     <div class="cloud-wrap">
 
                         <span class="button-hamburger">

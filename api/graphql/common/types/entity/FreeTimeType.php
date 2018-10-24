@@ -4,7 +4,7 @@ namespace api\graphql\common\types\entity;
 
 use api\graphql\core\QueryTypeInterface;
 use api\graphql\core\TypeRegistry;
-use api\services\common\FreeTimeService;
+use api\graphql\common\services\FreeTimeService;
 
 /**
  * Class FreeTimeType

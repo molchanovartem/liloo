@@ -2,7 +2,8 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     csso = require('gulp-csso'),
-    gzip = require('gulp-gzip');
+    gzip = require('gulp-gzip'),
+    babel = require('gulp-babel');
 
 gulp.task('js', function () {
     return gulp.src([
@@ -10,6 +11,9 @@ gulp.task('js', function () {
         './src/app/js/widgets/*.js',
     ])
     //.pipe(uglify())
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
         .pipe(concat('script.min.js'))
         // .pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
@@ -27,7 +31,7 @@ gulp.task('css', function () {
 
 gulp.task('app', ['js', 'css']);
 
-gulp.task('jsVendor', function() {
+gulp.task('jsVendor', function () {
     return gulp.src([
         './src/vendors/jquery/*.js',
         './src/vendors/dialog/js/*.js',
@@ -38,7 +42,7 @@ gulp.task('jsVendor', function() {
         './src/vendors/leaflet/js/*.js',
         './src/vendors/momentjs/*.js',
     ])
-        //.pipe(uglify())
+    //.pipe(uglify())
         .pipe(concat('vendor.min.js'))
         // .pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));
