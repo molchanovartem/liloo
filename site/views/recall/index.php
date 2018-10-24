@@ -5,6 +5,7 @@ use site\models\Recall;
 use site\widgets\complaint\Complaint;
 
 $this->setBreadcrumbs(['Отзывы']);
+Yii::$app->timeZone = 'Asia/Omsk';
 ?>
 
 <div class="uk-margin-top font_type_12 uk-margin-bottom">Отзывы:</div>
@@ -12,17 +13,17 @@ $this->setBreadcrumbs(['Отзывы']);
     <?php foreach ($data['recalls'] as $recall): ?>
         <div class="uk-width-1-2" id="recall-<?php echo $recall->id; ?>">
             <div class="uk-panel uk-margin-small-left uk-margin-bottom">
-                <div class="review-slide__content">
+                <div class="review-slide__content recall-list-shadow">
                     <div class="review-slide__extra">
                         <div class="vote uk-inline">
                             <div class="review-slide__author-profession">
-                                <?php echo Html::encode($recall->create_time); ?>
+                                <?php echo Html::encode(Yii::$app->formatter->asTime($recall->create_time, 'Y.m.d H:i:s')); ?>
                             </div>
                             <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
                             <span class="vote__digits">
                                 <?php if (Html::encode($recall->assessment) == Recall::ASSESSMENT_DISLIKE): ?>
                                     <i class="mdi mdi-heart-broken"></i>
-                                <?php elseif(Html::encode($recall->assessment)  == Recall::ASSESSMENT_LIKE): ?>
+                                <?php elseif (Html::encode($recall->assessment) == Recall::ASSESSMENT_LIKE): ?>
                                     <i class="mdi mdi-heart"></i>
                                 <?php endif; ?>
                             </span>
@@ -73,7 +74,7 @@ $this->setBreadcrumbs(['Отзывы']);
 
                             <div id="modal-example" uk-modal>
                                 <div class="uk-modal-dialog uk-modal-body">
-                                    <h2 class="uk-modal-title"><?php echo Html::encode($recall->answer->create_time); ?></h2>
+                                    <h2 class="uk-modal-title"><?php echo Html::encode(Yii::$app->formatter->asTime($recall->answer->create_time, 'Y.m.d H:i:s')); ?></h2>
                                     <p><?php echo Html::encode($recall->answer->text); ?></p>
                                     <p class="uk-text-right">
                                         <button class="uk-button uk-button-default uk-modal-close" type="button">
@@ -114,16 +115,15 @@ $this->setBreadcrumbs(['Отзывы']);
         var $recall = $(recall);
 
         if (confirm('Вы уверены что хотите удалить отзыв ?')) {
-            $.get({
-                url: 'recall/delete',
-                data: {
-                    'id': $recall.attr('value')
-                }
-            }).done(function () {
-                $('#recall-' + $recall.attr('value')).hide();
-            }).fail(function () {
-                console.log('fail');
-            });
+            $.get(cUrl.create('recall/delete', {
+                id: $recall.attr('value')
+            }))
+                .done(function () {
+                    $('#recall-' + $recall.attr('value')).hide();
+                })
+                .fail(function () {
+                    console.log('fail');
+                });
         }
     }
 </script>

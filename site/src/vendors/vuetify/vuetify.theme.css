@@ -28,9 +28,10 @@
 }
 
 .executor-filter-custom-time {
-    border: 2px solid #e4eff9;
+    border: 2px solid #ffffff;
     border-radius: 4px;
     padding: 2.5px;
+    box-shadow: 0 12px 24px 0 rgba(0,0,0,.1);
 }
 
 .theme--light.v-text-field--outline:not(.v-input--is-focused) .v-input__slot:hover {
@@ -50,11 +51,15 @@
 }
 
 .theme--light.v-text-field--outline .v-input__slot {
-    border: 2px solid #e4eff9;
+    border: 2px solid #ffffff;
 }
 
 .custom-input-index-filter.v-autocomplete.v-text-field--enclosed:not(.v-text-field--solo):not(.v-text-field--single-line) .v-select__slot>input {
     margin-bottom: 8px;
     margin-left: 8px;
     margin-top: 0;
+}
+
+.v-text-field.v-text-field--enclosed .v-input__slot {
+    box-shadow: 0 12px 24px 0 rgba(0,0,0,.1);
 }

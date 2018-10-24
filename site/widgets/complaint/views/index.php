@@ -44,10 +44,7 @@ use yii\widgets\ActiveForm;
             url: $form.attr('action'),
             data: $form.serialize()
         }).done(function () {
-            UIkit.notification({
-                message: 'Жалоба направлена на рассмотрение.',
-                status: 'success'
-            })
+            cNotification.primary('Жалоба направлена на рассмотрение.');
         }).fail(function () {
             console.log('fail');
         });

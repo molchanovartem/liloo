@@ -5,7 +5,7 @@
             <div class="uk-drop-grid uk-child-width-1-1">
                 <div class="uk-card uk-card-default uk-position-relative uk-padding">
                     <button @click="onToggle" class="uk-position-top-right">
-                        <i class="mdi mdi-close uk-text-large"></i>
+                        <i class="mdi mdi-close uk-text-large uk-margin-small-right"></i>
                     </button>
                     <div class="uk-grid uk-grid-small uk-flex-bottom">
                         <div class="uk-width-expand">
