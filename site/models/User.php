@@ -2,8 +2,8 @@
 
 namespace site\models;
 
-use common\models\UserProfile;
 use yii\web\IdentityInterface;
+use common\models\UserProfile;
 
 /**
  * Class User
@@ -40,15 +40,6 @@ class User extends \common\models\User implements IdentityInterface
             ->leftJoin(UserProfile::tableName() . ' up', 'up.user_id = u.id')
             ->where(['up.phone' => $phone])
             ->one();
-    }
-
-    /**
-     * @param $password
-     * @return bool
-     */
-    public function validatePassword($password)
-    {
-        return ($this->password == md5($password)) ? true : false;
     }
 
     public static function findIdentityByAccessToken($token, $type = null)

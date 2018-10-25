@@ -23,6 +23,7 @@
     "babel-preset-latest": "^6.24.1",
     "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
-    "remove": "^0.1.5"
+    "remove": "^0.1.5",
+    "vanilla-masker": "^1.2.0"
   }
 }

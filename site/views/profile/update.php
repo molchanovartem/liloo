@@ -40,7 +40,7 @@ $this->setBreadcrumbs([
                     ]) ?>
                 </div>
 
-                <?= $form->field($data['model'], 'phone')->textInput(['maxlength' => true]) ?>
+                <?= $form->field($data['model'], 'phone')->textInput(['id' => 'phone']) ?>
                 <!--                    --><? //= $form->field($data['model'], 'phone')->widget(\yii\widgets\MaskedInput::class, [
                 //                        'mask' => '+7 (999) 999-99-99',
                 //                        'options' => [
@@ -62,15 +62,6 @@ $this->setBreadcrumbs([
                         ]); ?>
                 </div>
 
-                <div class="uk-width-small">
-                    <?= $form->field($data['model'], 'country_id')
-                        ->dropDownList($data['countries'], [
-                            'class' => 'uk-input uk-form-small',
-                            'prompt' => '  Выберите город...',
-                            'id' => 'country-id',
-                        ]); ?>
-                </div>
-
             </div>
 
             <?php ActiveForm::end(); ?>
@@ -84,7 +75,7 @@ $this->setBreadcrumbs([
         selectOnClose: true
     });
 
-    $("#country-id").select2({
-        selectOnClose: true
+    $(function () {
+        VMasker(document.getElementById('phone')).maskPattern('(99) 9999-9999');
     });
 </script>

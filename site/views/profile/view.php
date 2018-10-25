@@ -11,8 +11,7 @@ $this->setBreadcrumbs(['Профиль']);
 
         <div class="j-c_s-b">
             <div class="content-block__title">Информация обо мне</div>
-            <?php echo Html::encode($data['model']->profile->country->name); ?>
-            , <?php echo Html::encode($data['model']->profile->city->name); ?>
+            <?php echo Html::encode($data['model']->profile->city->name); ?>
         </div>
 
         <div class="performer mt-40">

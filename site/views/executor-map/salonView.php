@@ -112,14 +112,12 @@ $this->setBreadcrumbs([
                             <?php echo $specialization['name']; ?>
                         <?php endforeach; ?>
                     </div>
+                    <div class="performer__profession">
+                        <?php foreach ($data['model']->conveniences as $convenience): ?>
+                            <?php echo Html::encode($convenience['name']); ?>
+                        <?php endforeach; ?>
+                    </div>
                     <div class="performer__extra">
-                        <div class="stars">
-                            <div class="fas fa-star stars__star"></div>
-                            <div class="fas fa-star stars__star"></div>
-                            <div class="fas fa-star stars__star"></div>
-                            <div class="fas fa-star stars__star"></div>
-                            <div class="fas fa-star stars__star"></div>
-                        </div>
                         <div class="vote">
                             <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
                             <span class="vote__digits">
@@ -263,7 +261,7 @@ $this->setBreadcrumbs([
             <ul class="uk-slider-items uk-child-width-1-2">
                 <?php foreach ($data['model']->account->recalls as $recall): ?>
                     <li>
-                        <div class="uk-panel uk-width-5-6">
+                        <div class="uk-panel uk-margin-small-left">
                             <div class="review-slide__content">
                                 <div class="review-slide__extra">
                                     <div class="vote uk-inline">
@@ -278,14 +276,6 @@ $this->setBreadcrumbs([
                                                 <i class="mdi mdi-heart"></i>
                                             <?php endif; ?>
                                         </span>
-                                    </div>
-
-                                    <div class="stars">
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star stars__star_active"></div>
-                                        <div class="fas fa-star stars__star"></div>
                                     </div>
                                 </div>
                                 <?php if (strlen($recall->text) > 40) : ?>
@@ -317,22 +307,22 @@ $this->setBreadcrumbs([
                                         </div>
                                     </div>
                                 <?php endif; ?>
-                                <div class="review-slide__author">
-                                    <div class="review-slide__author-img"
-                                         style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
-                                    <div class="review-slide__author-info">
-                                        <div class="review-slide__author-name">
-                                            <?php echo Html::encode($recall->appointment->client->user->profile->name); ?>
-                                            ,
-                                            <?php echo Html::encode($recall->appointment->client->user->profile->surname); ?>
-                                        </div>
-                                        <div class="review-slide__author-profession">
-                                            <?php echo Html::encode($recall->appointment->client->user->profile->city->name); ?>
-                                        </div>
+
+                            </div>
+                            <div class="review-slide__author">
+                                <div class="review-slide__author-img"
+                                     style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                                <div class="review-slide__author-info">
+                                    <div class="review-slide__author-name">
+                                        <?php echo Html::encode($recall->appointment->client->user->profile->name); ?>
+                                        ,
+                                        <?php echo Html::encode($recall->appointment->client->user->profile->surname); ?>
+                                    </div>
+                                    <div class="review-slide__author-profession">
+                                        <?php echo Html::encode($recall->appointment->client->user->profile->city->name); ?>
                                     </div>
                                 </div>
                             </div>
-
                     </li>
                 <?php endforeach; ?>
             </ul>

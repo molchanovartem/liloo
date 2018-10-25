@@ -51,21 +51,11 @@ class LoginForm extends Model
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Неверный адрес электронной почты или пароль.');
+
+            if (!$user || !Yii::$app->security->validatePassword($this->password, $user->password)) {
+                $this->addError($attribute, 'Неверный номер телефона или пароль.');
             }
         }
-    }
-
-    /**
-     * @return bool
-     */
-    public function login()
-    {
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser());
-        }
-        return false;
     }
 
     /**

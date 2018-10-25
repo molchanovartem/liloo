@@ -111,14 +111,12 @@ $this->setBreadcrumbs([
                             <?php echo Html::encode($specialization['name']); ?>
                         <?php endforeach; ?>
                     </div>
+                    <div class="performer__profession">
+                        <?php foreach ($data['model']->conveniences as $convenience): ?>
+                            <?php echo Html::encode($convenience['name']); ?>
+                        <?php endforeach; ?>
+                    </div>
                     <div class="performer__extra">
-                        <div class="stars">
-                            <div class="fas fa-star stars__star"></div>
-                            <div class="fas fa-star stars__star"></div>
-                            <div class="fas fa-star stars__star"></div>
-                            <div class="fas fa-star stars__star"></div>
-                            <div class="fas fa-star stars__star"></div>
-                        </div>
                         <div class="vote">
                             <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
                             <span class="vote__digits">
@@ -158,7 +156,7 @@ $this->setBreadcrumbs([
                                     мин.</span>
                         </div>
                         <div class="workers-list__part">
-                                <span class="workers-list__detail">от <?php echo Html::encode($service['price']); ?>
+                                <span class="workers-list__detail"><?php echo Html::encode($service['price']); ?>
                                     руб.</span>
                         </div>
                         <div class="workers-list__part">

@@ -38,7 +38,7 @@ class User extends \yii\db\ActiveRecord
         return [
             [['account_id', 'type', 'status', 'login', 'password', 'refresh_token'], 'required'],
             [['account_id', 'type', 'status'], 'integer'],
-            [['login', 'password', 'token', 'refresh_token'], 'string', 'max' => 255],
+            [['login', 'password', 'token', 'refresh_token'], 'string', 'min' => 6, 'max' => 255],
             ['status', 'default', 'value' => self::STATUS_NOT_ACTIVE]
         ];
     }

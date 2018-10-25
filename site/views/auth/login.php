@@ -5,6 +5,8 @@ use yii\captcha\Captcha;
 use site\widgets\activeForm\ActiveForm;
 
 ?>
+<script src="https://unpkg.com/imask"></script>
+
 <h1 class="h1 h1_page_performers uk-text-center">Вход</h1>
 <div class="content-width content-width_w_550">
 
@@ -17,8 +19,7 @@ use site\widgets\activeForm\ActiveForm;
         <div class="input-box">
             <div class="input-box__wrap">
                 <?= $form->field($model, 'phone')->textInput([
-                    'autofocus' => true,
-                    'required' => true,
+                    'id' => 'phone',
                 ])->label('Введите ваш телефон'); ?>
             </div>
         </div>
@@ -73,3 +74,6 @@ use site\widgets\activeForm\ActiveForm;
     </div>
 
 </div>
+<script>
+    VMasker(document.getElementById('phone')).maskPattern('(99) 9999-9999');
+</script>
