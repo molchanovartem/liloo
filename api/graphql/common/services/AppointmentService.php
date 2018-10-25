@@ -2,6 +2,7 @@
 
 namespace api\graphql\common\services;
 
+use common\core\service\ModelService;
 use Yii;
 use yii\db\Query;
 use yii\db\Exception;
@@ -17,15 +18,15 @@ use api\models\lk\Service;
 /**
  * Class AppointmentService
  *
- * @package api\services
+ * @package api\graphql\common\services
  */
-abstract class AppointmentService extends \api\services\Service
+abstract class AppointmentService extends ModelService
 {
     /**
      * @param Appointment $model
      * @param array $attributes
      * @return null
-     * @throws Exception
+     * @throws \Exception
      */
     protected function save(Appointment $model, array $attributes)
     {

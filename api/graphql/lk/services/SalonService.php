@@ -2,6 +2,7 @@
 
 namespace api\graphql\lk\services;
 
+use common\core\service\ModelService;
 use Yii;
 use yii\db\Exception;
 use yii\db\Expression;
@@ -22,7 +23,7 @@ use api\models\lk\SalonService as SalonServiceModel;
  *
  * @package api\graphql\lk\services
  */
-class SalonService extends \api\services\Service
+class SalonService extends ModelService
 {
     /**
      * @param array $data

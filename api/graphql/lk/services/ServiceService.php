@@ -5,13 +5,14 @@ namespace api\graphql\lk\services;
 use api\graphql\core\errors\AttributeValidationError;
 use api\graphql\core\errors\NotFoundEntryError;
 use api\models\lk\Service;
+use common\core\service\ModelService;
 
 /**
  * Class ServiceService
  *
  * @package api\graphql\lk\services
  */
-class ServiceService extends \api\services\Service
+class ServiceService extends ModelService
 {
     /**
      * @param $attributes

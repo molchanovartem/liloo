@@ -34,16 +34,16 @@ class Service extends Component
     /**
      * @return int
      */
-    protected function getUserId()
-    {
-        return Yii::$app->user->getId();
-    }
+//    protected function getUserId()
+//    {
+//        return Yii::$app->user->getId();
+//    }
 
     /**
      * @return mixed
      */
-    protected function getAccountId()
-    {
-        return Yii::$app->account->getId();
-    }
+//    protected function getAccountId()
+//    {
+//        return Yii::$app->account->getId();
+//    }
 }

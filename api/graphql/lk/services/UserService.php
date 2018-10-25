@@ -2,6 +2,7 @@
 
 namespace api\graphql\lk\services;
 
+use common\core\service\ModelService;
 use Yii;
 use yii\db\Expression;
 use common\models\Account;
@@ -9,7 +10,6 @@ use common\models\UserSpecialization;
 use common\models\UserConvenience;
 use common\models\User;
 use common\models\UserProfile;
-use api\services\Service;
 use api\validators\UserScheduleValidator;
 use api\graphql\core\errors\AttributeValidationError;
 use api\graphql\core\errors\NotFoundEntryError;
@@ -20,7 +20,7 @@ use api\models\lk\UserSchedule;
  *
  * @package api\graphql\lk\services
  */
-class UserService extends Service
+class UserService extends ModelService
 {
     /**
      * @param array $attributes

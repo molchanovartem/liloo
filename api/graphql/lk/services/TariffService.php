@@ -2,10 +2,10 @@
 
 namespace api\graphql\lk\services;
 
+use common\core\service\ModelService;
 use Yii;
 use common\models\BalanceJournal;
 use common\models\TariffPrice;
-use api\services\Service;
 use api\graphql\core\errors\AttributeValidationError;
 use api\models\lk\AccountTariff;
 
@@ -14,7 +14,7 @@ use api\models\lk\AccountTariff;
  *
  * @package api\graphql\lk\services
  */
-class TariffService extends Service
+class TariffService extends ModelService
 {
     /**
      * @param int $priceId

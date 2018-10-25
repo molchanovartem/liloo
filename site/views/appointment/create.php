@@ -165,18 +165,10 @@
                     <div class="uk-width-1-2">
                         <div class="uk-margin">
                             <ul class="uk-list uk-list-divider">
-                                <li>
-                                    <i class="mdi mdi-account"></i> {{executorFullName}}
-                                </li>
-                                <li>
-                                    <i class="mdi mdi-calendar"></i> {{attributes.dateTime}}
-                                </li>
-                                <li>
-                                    <i class="mdi mdi-clock"></i> {{duration}}
-                                </li>
-                                <li>
-                                    <i class="mdi mdi-cash"></i> {{sum}}
-                                </li>
+                                <li><i class="mdi mdi-account"></i> {{executorFullName}}</li>
+                                <li><i class="mdi mdi-calendar"></i> {{attributes.dateTime}}</li>
+                                <li><i class="mdi mdi-clock"></i> {{duration}}</li>
+                                <li><i class="mdi mdi-cash"></i> {{sum}}</li>
                             </ul>
                         </div>
                         <h5>Услуги</h5>
@@ -205,7 +197,7 @@
                             </div>
                         </div>
                         <div class="uk-margin uk-text-center">
-                            <button class="button button_color_red button_width_270" @click.prevent="onCheckout">Оформить заказ</button>
+                            <button class="button button_color_red button_width_270" @click.prevent="onCheckout">Записаться</button>
                         </div>
                     </div>
                 </div>

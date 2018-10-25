@@ -2,19 +2,19 @@
 
 namespace api\graphql\common\services;
 
+use common\core\service\ModelService;
 use yii\db\Expression;
 use common\models\MasterSchedule;
 use common\models\UserSchedule;
 use common\helpers\FreeDateTime;
 use common\models\Appointment;
-use api\services\Service;
 
 /**
  * Class FreeTimeService
  *
  * @package api\graphql\common\services
  */
-class FreeTimeService extends Service
+class FreeTimeService extends ModelService
 {
     /**
      * @param int $userId

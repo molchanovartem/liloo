@@ -2,7 +2,7 @@
 
 namespace api\graphql\lk\services;
 
-use api\services\Service;
+use common\core\service\ModelService;
 use Yii;
 use yii\base\Event;
 use admin\models\AdminNotice;
@@ -15,7 +15,7 @@ use common\models\Appointment;
  *
  * @package api\graphql\lk\services
  */
-class RecallService extends Service
+class RecallService extends ModelService
 {
     const EVENT_USER_RECALL = 'recall';
 

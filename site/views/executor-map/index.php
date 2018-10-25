@@ -186,7 +186,7 @@ $this->setBreadcrumbs(['Исполнители']);
                     <div class="performers-select__schedule">
                         <div class="font_type_3 t-a_c">Ближайшее время:</div>
                         <div class="schedule-items mt-10">
-                            <div class="schedule-item schedule-items__item" v-if="index < 3"
+                            <div class="schedule-item schedule-items__item"
                                  v-for="(freeTime, index) in item.freeTime">
                                 <span class="schedule-item__time">{{freeTime | time}}</span>
                             </div>

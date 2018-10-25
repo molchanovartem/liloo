@@ -68,7 +68,7 @@ class FreeDateTime
                 if ($start === $end) break;
 
                 yield [
-                    'start_time' => date('Y-m-d H:i:s', $start), // +60 секунд перерыв
+                    'start_time' => date('Y-m-d H:i:s', $start),
                     'end_time' => date('Y-m-d H:i:s', $end),
                 ];
 
@@ -106,13 +106,31 @@ class FreeDateTime
             $begin = new \DateTime($dateTime['start_time']);
             $end = new \DateTime($dateTime['end_time']);
 
+            /*
+             * Ошибка
+             * Пример: 14:00:00 - 14:30:00
+             * Время на услугу 20 мин, отнимаем 14:30:00 - 20 мин = 14:10:00
+             * Округляем, получаем 14:00:00 - 14:00:00
+             * Время не выводиться, хотя можно было записаться
+             */
+
             if ($unaccountedTime) {
                 $end = new \DateTime();
                 $end->setTimestamp(strtotime($dateTime['end_time']) - $unaccountedTime);
             }
 
             if ($roundByMinute) {
-                $begin->setTime($begin->format('H'), ceil($begin->format('i') / 10) * 10);
+                $beginMinute = $begin->format('i');
+                $endMinute = $end->format('i');
+
+                if ($beginMinute > 0 && $beginMinute < 30) $beginMinute = 30;
+                if ($beginMinute > 30) $beginMinute = 60;
+
+                if ($endMinute > 0 && $endMinute < 30) $endMinute = '00';
+                if ($endMinute > 30) $endMinute = 30;
+
+                $begin->setTime($begin->format('H'), $beginMinute);
+                $end->setTime($end->format('H'), $endMinute);
             }
 
             $interval = new \DateInterval(sprintf('PT%uM', $minute));

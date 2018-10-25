@@ -2,10 +2,10 @@
 
 namespace api\graphql\lk\services;
 
+use common\core\service\ModelService;
 use Yii;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
-use api\services\Service;
 use api\validators\MasterExistValidator;
 use api\validators\MasterScheduleValidator;
 use api\validators\SalonExistValidator;
@@ -23,7 +23,7 @@ use api\models\lk\MasterService as MasterServiceModel;
  *
  * @package api\graphql\lk\services
  */
-class MasterService extends Service
+class MasterService extends ModelService
 {
     const ACTION_BEFORE_CREATE = 'beforeCreate';
     const ACTION_CREATE = 'create';

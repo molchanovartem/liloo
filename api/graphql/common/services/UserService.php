@@ -1,19 +1,19 @@
 <?php
 
-namespace api\services\common;
+namespace api\graphql\common\services;
 
+use common\core\service\ModelService;
 use GraphQL\Error\Error;
 use Yii;
 use common\models\User;
-use api\services\Service;
 use api\graphql\core\errors\AttributeValidationError;
 
 /**
  * Class UserService
  *
- * @package api\services\common
+ * @package api\graphql\common\services
  */
-class UserService extends Service
+class UserService extends ModelService
 {
     /**
      * @param $login

@@ -25,20 +25,8 @@ class CommonServiceType extends \api\graphql\base\types\entity\CommonServiceType
             'commonServices' => [
                 'type' => $typeRegistry->listOff($entityRegistry->commonService()),
                 'description' => 'Коллекция базовых услуг',
-                'args' => [
-                    'limit' => [
-                        'type' => $typeRegistry->int(),
-                        'defaultValue' => 30,
-                    ],
-                    'offset' => [
-                        'type' => $typeRegistry->int(),
-                        'defaultValue' => 0
-                    ]
-                ],
                 'resolve' => function ($root, $args) {
                     return CommonService::find()
-                        ->limit($args['limit'])
-                        ->offset($args['offset'])
                         ->all();
                 }
             ],

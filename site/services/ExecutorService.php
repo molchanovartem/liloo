@@ -139,9 +139,10 @@ class ExecutorService extends ModelService
             $services[$arService['account_id']][] = $service;
         }
 
-        $schedule = [];
+
+        $schedules = [];
         foreach ($arSchedules as $schedule) {
-            $schedule[$schedule['user_id']][] = $schedule;
+            $schedules[$schedule['user_id']][] = $schedule;
         }
 
         $items = [];
@@ -149,8 +150,8 @@ class ExecutorService extends ModelService
             $isShow = false;
 
             $periods = [];
-            if (!empty($schedule[$user['id']])) {
-                $freeTime = new FreeDateTime($schedule[$user['id']], $appointments[$user['id']] ?? []);
+            if (!empty($schedules[$user['id']])) {
+                $freeTime = new FreeDateTime($schedules[$user['id']], $appointments[$user['id']] ?? []);
 
                 $unaccountedTime = $selectedService ? $selectedService['duration'] * 60 : null;
 
