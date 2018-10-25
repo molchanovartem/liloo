@@ -2,6 +2,7 @@
 
 namespace common\behaviors;
 
+use Yii;
 use yii\base\Behavior;
 use yii\base\Model;
 
@@ -23,7 +24,6 @@ class AccountBehavior extends Behavior
 
     public function beforeValidate($event)
     {
-        //$this->owner->{$this->attribute} = Yii::$app->account->getId();
-        $this->owner->{$this->attribute} = 1;
+        $this->owner->{$this->attribute} = Yii::$app->account->getId();
     }
 }

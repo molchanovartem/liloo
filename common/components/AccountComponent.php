@@ -14,11 +14,14 @@ use common\models\AccountTariff;
 class AccountComponent extends BaseObject
 {
     /**
-     * @return int
+     * @return mixed
+     * @throws \Throwable
      */
     public function getId()
     {
-        return 1;
+        $identity = Yii::$app->user->getIdentity();
+
+        return $identity->getAccountId();
     }
 
     public function getBalance()

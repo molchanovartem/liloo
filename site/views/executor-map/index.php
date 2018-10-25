@@ -59,6 +59,7 @@ $this->setBreadcrumbs(['Исполнители']);
                                     ></v-text-field>
                                     <v-date-picker
                                             v-model="attributes.date"
+                                            :min="getMinDate()"
                                             prev-icon="mdi-chevron-left"
                                             next-icon="mdi-chevron-right"
                                             no-title
@@ -186,8 +187,11 @@ $this->setBreadcrumbs(['Исполнители']);
                     <div class="performers-select__schedule">
                         <div class="font_type_3 t-a_c">Ближайшее время:</div>
                         <div class="schedule-items mt-10">
-                            <div class="schedule-item schedule-items__item"
-                                 v-for="(freeTime, index) in item.freeTime">
+                            <div
+                                    class="schedule-item schedule-items__item"
+                                 v-for="(freeTime, index) in item.freeTime"
+                                    v-if="index < 3"
+                            >
                                 <span class="schedule-item__time">{{freeTime | time}}</span>
                             </div>
                         </div>
@@ -319,6 +323,7 @@ $this->setBreadcrumbs(['Исполнители']);
 
                     this.attributes.specializationId = params.get('specialization_id');
                     this.attributes.serviceId = params.get('service_id');
+                    // @todo добавить проверку на дату, прошлое
                     this.attributes.date = params.get('date');
                     this.attributes.hour = params.get('hour');
                     this.attributes.minute = params.get('minute');
@@ -461,6 +466,9 @@ $this->setBreadcrumbs(['Исполнители']);
                     let str = executor.isSalon ? 'salon-view' : 'user-view';
 
                     return cUrl.create('executor-map/' + str, {id: executor.id});
+                },
+                getMinDate() {
+                    return moment().format('YYYY-MM-DD');
                 }
             },
             filters: {

@@ -2,73 +2,68 @@
 
 namespace site\services;
 
-use site\forms\LoginForm;
-use Yii;
 use Exception;
+use Yii;
 use yii\base\Event;
 use common\models\Account;
 use common\models\User;
 use common\models\UserProfile;
+use site\forms\LoginForm;
 use site\forms\RegistrationForm;
 
 /**
  * Class AuthService
+ *
  * @package site\services
  */
 class AuthService extends \common\services\AuthService
 {
     /**
      * @return bool
-     * @throws \yii\base\Exception
-     * @throws \yii\db\Exception
+     * @throws Exception
      */
-    public function registration()
+    public function registration(): bool
     {
-        $model = new RegistrationForm();
-        $this->setData(['model' => $model]);
-        if ($model->load($this->getData('post')) && $model->validate()) {
-            $account = new Account();
-            $account->save();
+        $form = new RegistrationForm();
+        $this->setData(['form' => $form]);
 
-            $user = new User();
-            $userProfile = new UserProfile();
+        if ($form->load($this->getData('post')) && $form->validate()) {
+            return $this->wrappedTransaction(function () use ($form) {
+                $account = new Account();
+                $account->save(false);
 
-            $user->login = Yii::$app->security->generateRandomString();
-            $user->password = Yii::$app->security->generateRandomString(10);
-            $user->account_id = $account->id;
-            $user->type = $model->type;
-            $user->refresh_token = Yii::$app->security->generateRandomString(255);
-
-            $transaction = Yii::$app->db->beginTransaction();
-            try {
+                $user = new User([
+                    'account_id' => $account->id,
+                    'status' => User::STATUS_ACTIVE,
+                    'refresh_token' => Yii::$app->security->generateRandomString(255)
+                ]);
+                $user->setAttributes($form->getAttributes());
                 $user->save(false);
-                $userProfile->user_id = $user->id;
-                $userProfile->phone = $model->phone;
+
+                $userProfile = new UserProfile([
+                    'user_id' => $user->id,
+                    'phone' => $form->phone,
+                ]);
                 $userProfile->save(false);
-                $transaction->commit();
+
                 $this->trigger(self::EVENT_USER_REGISTRATION, new Event(['sender' => $userProfile]));
-
                 return true;
-            } catch (Exception $exception) {
-                $transaction->rollBack();
-
-                throw $exception;
-            }
+            });
         }
+        return false;
     }
 
     /**
      * @return bool
      */
-    public function login()
+    public function login(): bool
     {
-        $model = new LoginForm();
-        $this->setData(['model' => $model]);
+        $form = new LoginForm();
+        $this->setData(['form' => $form]);
 
-        if ($model->load($this->getData('post')) && $model->validate()) {
-            return Yii::$app->user->login($model->getUser());
+        if ($form->load($this->getData('post')) && $form->validate()) {
+            return Yii::$app->user->login($form->getUser());
         }
-
         return false;
     }
 }

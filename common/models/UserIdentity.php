@@ -13,8 +13,7 @@ class UserIdentity extends User implements IdentityInterface
 {
     public static function findIdentity($id)
     {
-        return self::find()
-            ->one();
+        return self::findOne($id);
     }
 
     public static function findIdentityByAccessToken($token, $type = null)
@@ -27,6 +26,11 @@ class UserIdentity extends User implements IdentityInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getAccountId()
+    {
+        return $this->account_id;
     }
 
     public function getAuthKey()

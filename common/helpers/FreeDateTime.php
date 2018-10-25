@@ -106,14 +106,6 @@ class FreeDateTime
             $begin = new \DateTime($dateTime['start_time']);
             $end = new \DateTime($dateTime['end_time']);
 
-            /*
-             * Ошибка
-             * Пример: 14:00:00 - 14:30:00
-             * Время на услугу 20 мин, отнимаем 14:30:00 - 20 мин = 14:10:00
-             * Округляем, получаем 14:00:00 - 14:00:00
-             * Время не выводиться, хотя можно было записаться
-             */
-
             if ($unaccountedTime) {
                 $end = new \DateTime();
                 $end->setTimestamp(strtotime($dateTime['end_time']) - $unaccountedTime);

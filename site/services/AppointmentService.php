@@ -20,24 +20,12 @@ use site\models\User;
  */
 class AppointmentService extends ModelService
 {
-    /**
-     * @return bool
-     */
-//    public function save()
-//    {
-//        $model = new Appointment();
-//        $this->setData([
-//            'model' => $model
-//        ]);
-//
-//        return $model->load($this->getData('post')) && $model->save();
-//    }
-
     const EVENT_USER_CANCELED_SESSION = 'canceled';
 
     public function init()
     {
         parent::init();
+
         $this->on(self::EVENT_USER_CANCELED_SESSION, function ($model) {
             Yii::$app->notice->createNotice($model->sender[0]->account_id, Notice::TYPE_USER_CANCELED_SESSION, Notice::STATUS_UNREAD, $model->sender[1], $model->sender[0]);
         });
@@ -136,10 +124,5 @@ class AppointmentService extends ModelService
         }
 
         return false;
-    }
-
-    protected function validate()
-    {
-
     }
 }

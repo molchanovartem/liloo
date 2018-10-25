@@ -2,10 +2,10 @@
 
 namespace api\graphql\common\services;
 
-use common\core\service\ModelService;
 use Yii;
 use yii\db\Query;
 use yii\db\Exception;
+use common\core\service\ModelService;
 use common\models\Appointment;
 use common\models\SalonService;
 use common\models\AppointmentItem;
@@ -28,13 +28,13 @@ abstract class AppointmentService extends ModelService
      * @return null
      * @throws \Exception
      */
-    protected function save(Appointment $model, array $attributes)
+    protected function save($model, array $attributes)
     {
         return $this->wrappedTransaction(function () use ($model, $attributes) {
             $model->setAttributes($attributes);
 
-            if (!$this->validateSchedulesDate($attributes)) throw new ValidationError('Не рабочее время');
-            if ($this->validateAppointmentDate($attributes)) throw new ValidationError('Это время занято');
+            if (!$this->validateSchedulesDate($model)) throw new ValidationError('Не рабочее время');
+            if ($this->validateAppointmentDate($model)) throw new ValidationError('Это время занято');
 
             if (!$model->save()) throw new AttributeValidationError($model->getErrors());
 
@@ -49,33 +49,33 @@ abstract class AppointmentService extends ModelService
      * @param $attributes
      * @return bool
      */
-    private function validateSchedulesDate($attributes)
+    private function validateSchedulesDate($model)
     {
-        if (!empty($attributes['master_id']) && !empty($attributes['salon_id'])) {
+        if (!empty($attributes['master_id']) && !empty($model['salon_id'])) {
             $schedules = (new Query())->select(['start_date', 'end_date'])
                 ->from('{{%master_schedule}}')
-                ->where(['master_id' => $attributes['master_id']])
-                ->andWhere(['salon_id' => $attributes['salon_id']])
+                ->where(['master_id' => $model['master_id']])
+                ->andWhere(['salon_id' => $model['salon_id']])
                 ->andWhere(['and',
-                    ['<=', 'start_date', $attributes['start_date']],
-                    ['>=', 'end_date', $attributes['start_date']],
+                    ['<=', 'start_date', $model['start_date']],
+                    ['>=', 'end_date', $model['start_date']],
                 ])
                 ->andWhere(['and',
-                    ['<=', 'start_date', $attributes['end_date']],
-                    ['>=', 'end_date', $attributes['end_date']],
+                    ['<=', 'start_date', $model['end_date']],
+                    ['>=', 'end_date', $model['end_date']],
                 ])
                 ->all();
         } else {
             $schedules = (new Query())->select(['start_date', 'end_date'])
                 ->from('{{%user_schedule}}')
-                ->where(['user_id' => $attributes['user_id']])
+                ->where(['user_id' => $model['user_id']])
                 ->andWhere(['and',
-                    ['<=', 'start_date', $attributes['start_date']],
-                    ['>=', 'end_date', $attributes['start_date']],
+                    ['<=', 'start_date', $model['start_date']],
+                    ['>=', 'end_date', $model['start_date']],
                 ])
                 ->andWhere(['and',
-                    ['<=', 'start_date', $attributes['end_date']],
-                    ['>=', 'end_date', $attributes['end_date']],
+                    ['<=', 'start_date', $model['end_date']],
+                    ['>=', 'end_date', $model['end_date']],
                 ])
                 ->all();
         }
@@ -87,46 +87,46 @@ abstract class AppointmentService extends ModelService
      * @param $attributes
      * @return bool
      */
-    private function validateAppointmentDate($attributes)
+    private function validateAppointmentDate($model)
     {
-        if (!empty($attributes['master_id']) && !empty($attributes['salon_id'])) {
+        if (!empty($attributes['master_id']) && !empty($model['salon_id'])) {
             $appointmentDates = (new Query())->select(['start_date', 'end_date'])
                 ->from('{{%appointment}}')
                 ->where(['and',
-                    ['<=', 'start_date', $attributes['start_date']],
-                    ['>', 'end_date', $attributes['start_date']],
+                    ['<=', 'start_date', $model['start_date']],
+                    ['>', 'end_date', $model['start_date']],
                 ])
                 ->orWhere(['and',
-                    ['<=', 'start_date', $attributes['end_date']],
-                    ['>=', 'end_date', $attributes['end_date']],
+                    ['<=', 'start_date', $model['end_date']],
+                    ['>=', 'end_date', $model['end_date']],
                 ])
                 ->orWhere(['and',
-                    ['>=', 'start_date', $attributes['start_date']],
-                    ['<=', 'end_date', $attributes['end_date']],
+                    ['>=', 'start_date', $model['start_date']],
+                    ['<=', 'end_date', $model['end_date']],
                 ])
                 ->andWhere(['and',
-                    ['master_id' => $attributes['master_id']],
-                    ['salon_id' => $attributes['salon_id']],
+                    ['master_id' => $model['master_id']],
+                    ['salon_id' => $model['salon_id']],
                 ])
-                ->andFilterWhere(['!=', 'id', $attributes['id'] ?? null])
+                ->andFilterWhere(['!=', 'id', $model['id'] ?? null])
                 ->all();
         } else {
             $appointmentDates = (new Query())->select(['start_date', 'end_date'])
                 ->from('{{%appointment}}')
                 ->where(['and',
-                    ['<=', 'start_date', $attributes['start_date']],
-                    ['>', 'end_date', $attributes['start_date']],
+                    ['<=', 'start_date', $model['start_date']],
+                    ['>', 'end_date', $model['start_date']],
                 ])
                 ->orWhere(['and',
-                    ['<=', 'start_date', $attributes['end_date']],
-                    ['>=', 'end_date', $attributes['end_date']],
+                    ['<=', 'start_date', $model['end_date']],
+                    ['>=', 'end_date', $model['end_date']],
                 ])
                 ->orWhere(['and',
-                    ['>=', 'start_date', $attributes['start_date']],
-                    ['<=', 'end_date', $attributes['end_date']],
+                    ['>=', 'start_date', $model['start_date']],
+                    ['<=', 'end_date', $model['end_date']],
                 ])
-                ->andWhere(['user_id' => $attributes['user_id']])
-                ->andFilterWhere(['!=', 'id', $attributes['id'] ?? null])
+                ->andWhere(['user_id' => $model['user_id']])
+                ->andFilterWhere(['!=', 'id', $model['id'] ?? null])
                 ->all();
         }
 
@@ -134,14 +134,14 @@ abstract class AppointmentService extends ModelService
     }
 
     /**
-     * @param Appointment $appointment
+     * @param $appointment
      * @param array $items
      * @return bool
      * @throws AttributeValidationError
      * @throws Exception
      * @throws NotFoundEntryError
      */
-    private function saveItems(Appointment $appointment, array $items): bool
+    private function saveItems($appointment, array $items): bool
     {
         /*
          * @todo

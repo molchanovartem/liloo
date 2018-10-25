@@ -51,6 +51,8 @@ class Appointment extends ActiveRecord
                     $this->addError($attribute, '"end_date" меньше "start_date"');
                 }
             }],
+
+            // Перенести в отдельные валидаторы
             ['client_id', function ($attribute) {
                 $client = Client::find()
                     ->where(['id' => $this->$attribute])

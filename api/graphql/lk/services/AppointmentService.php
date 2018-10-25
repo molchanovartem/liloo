@@ -6,7 +6,6 @@ use GraphQL\Error\Error;
 use Yii;
 use yii\db\Exception;
 use common\models\Client;
-use api\graphql\core\errors\AttributeValidationError;
 use api\graphql\core\errors\NotFoundEntryError;
 use api\models\lk\Appointment;
 use api\models\lk\AppointmentItem;
@@ -20,9 +19,8 @@ class AppointmentService extends \api\graphql\common\services\AppointmentService
 {
     /**
      * @param array $attributes
-     * @return null
-     * @throws AttributeValidationError
-     * @throws Exception
+     * @return \common\models\Appointment|null
+     * @throws \Exception
      */
     public function create(array $attributes)
     {
@@ -53,10 +51,10 @@ class AppointmentService extends \api\graphql\common\services\AppointmentService
     }
 
     /**
-     * @param Appointment $model
+     * @param \common\models\Appointment $model
      * @param array $attributes
-     * @return null
-     * @throws Exception
+     * @return \common\models\Appointment|null
+     * @throws \Exception
      */
     protected function save($model, array $attributes)
     {
@@ -64,7 +62,7 @@ class AppointmentService extends \api\graphql\common\services\AppointmentService
          * @todo
          * Не нравится, какой-то говнокод, отрефакторить
          */
-        $model = $this->save($model, $attributes);
+        $model = parent::save($model, $attributes);
 
         if ($model && $model->status !== Appointment::STATUS_NEW && $model->status !== Appointment::STATUS_CONFIRMED) {
             $this->wrappedTransaction(function () use ($model, $attributes) {

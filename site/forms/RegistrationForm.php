@@ -2,6 +2,7 @@
 
 namespace site\forms;
 
+use Yii;
 use yii\base\Model;
 
 /**
@@ -10,10 +11,11 @@ use yii\base\Model;
  */
 class RegistrationForm extends Model
 {
+    public $login;
     public $phone;
     public $password;
-    public $verifyCode;
     public $type;
+    public $verifyCode;
 
     /**
      * @return array
@@ -21,7 +23,7 @@ class RegistrationForm extends Model
     public function rules()
     {
         return [
-            [['phone', 'password', 'type'], 'required', 'message' => 'Заполните поле'],
+            [['login', 'phone', 'password', 'type'], 'required'],
             ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
         ];
     }
@@ -36,5 +38,14 @@ class RegistrationForm extends Model
             'password' => 'Пароль',
             'type'     => 'Тип',
         ];
+    }
+
+    public function beforeValidate()
+    {
+        $this->login = Yii::$app->security->generateRandomString(10);
+        //$this->password = Yii::$app->security->generatePasswordHash(rand(900000, 9999999));
+        $this->password = Yii::$app->security->generatePasswordHash('123');
+
+        return parent::beforeValidate();
     }
 }

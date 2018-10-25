@@ -4,7 +4,6 @@ namespace site\controllers;
 
 use Yii;
 use site\services\AuthService;
-use site\forms\LoginForm;
 
 /**
  * Class AuthController
@@ -59,11 +58,7 @@ class AuthController extends Controller
             return $this->redirect(['/dashboard']);
         }
 
-        $data = $this->modelService->getData();
-
-        return $this->render('login', [
-            'model' => $data['model'],
-        ]);
+        return $this->render('login', ['data' => $this->modelService->getData()]);
     }
 
     /**
@@ -73,13 +68,12 @@ class AuthController extends Controller
     {
         Yii::$app->user->logout();
 
-        return $this->redirect(['/site/index']);
+        return $this->redirect(['/']);
     }
 
     /**
      * @return string|\yii\web\Response
-     * @throws \yii\base\Exception
-     * @throws \yii\db\Exception
+     * @throws \Exception
      */
     public function actionRegistration()
     {
@@ -91,10 +85,6 @@ class AuthController extends Controller
             return $this->redirect(['/']);
         }
 
-        $data = $this->modelService->getData();
-
-        return $this->render('registration', [
-            'model' => $data['model']
-        ]);
+        return $this->render('registration', ['data' => $this->modelService->getData()]);
     }
 }

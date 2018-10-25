@@ -20,14 +20,15 @@ use site\widgets\cityWidget\Widget as CityWidget;
             <span class="choose-city__text"></span>
         </a>
 
-        <?php echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", '/site/web/executor-map'); ?>
+        <?php echo Html::a("<button class='button button_color_blue button_in_header'>Каталог</button>", ['/executor-map']); ?>
 
         <?php if (Yii::$app->user->isGuest): ?>
-            <?php echo Html::a("<button class='button button_color_blue button_in_header'>Регистрация для исполнителя</button>", '/site/web/auth/registration'); ?>
+            <?php echo Html::a("<button class='button button_color_blue button_in_header'>Регистрация для исполнителя</button>", ['/auth/registration']); ?>
 
-            <?php echo Html::a("Войти", '/site/web/auth/login', ['class' => 'font_Gilroy-17-800-000000']); ?>
+            <?php echo Html::a("Войти", ['/auth/login'], ['class' => 'font_Gilroy-17-800-000000']); ?>
         <?php else: ?>
             <?php
+        // @todo сделать простой переход в контроллер, зачем форма?
                 echo Html::beginForm(['/auth/logout'], 'post')
                 . Html::submitButton(
                     'Logout (' . Yii::$app->user->identity->login . ')',

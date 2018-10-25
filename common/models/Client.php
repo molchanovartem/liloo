@@ -32,7 +32,7 @@ class Client extends \yii\db\ActiveRecord
             [['account_id', 'user_id', 'country_id', 'city_id', 'status', 'total_appointment', 'total_failure_appointment'], 'integer'],
             [['total_spent_money'], 'number'],
             [['surname', 'name', 'patronymic', 'address'], 'string', 'max' => 255],
-            ['phone', 'string', 'max' => 20],
+            //['phone', 'string', 'max' => 15],
             [['date_birth', 'date_last_appointment'], 'date', 'format' => 'php:Y-m-d'],
             ['status', 'in', 'range' => array_keys(self::getStatusList())]
         ];

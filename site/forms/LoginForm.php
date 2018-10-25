@@ -4,7 +4,8 @@ namespace site\forms;
 
 use Yii;
 use yii\base\Model;
-use site\models\User;
+use common\models\UserProfile;
+use common\models\UserIdentity;
 
 /**
  * Class LoginForm
@@ -16,7 +17,7 @@ class LoginForm extends Model
     public $phone;
     public $password;
     public $verifyCode;
-    private $_user = false;
+    private $user = null;
 
     /**
      * @return array
@@ -24,10 +25,11 @@ class LoginForm extends Model
     public function rules()
     {
         return [
+            // Формат телефона, длина
             [['phone', 'password'], 'required'],
-            [['phone'], 'string'],
-            ['password', 'validatePassword'],
+            [['phone'], 'integer'],
             ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
+            ['password', 'validatePassword'],
         ];
     }
 
@@ -59,13 +61,18 @@ class LoginForm extends Model
     }
 
     /**
-     * @return bool
+     * @return array|null|\yii\db\ActiveRecord
      */
     public function getUser()
     {
-        if ($this->_user === false) {
-            $this->_user = User::findByPhone($this->phone);
+        if (!$this->user) {
+            $this->user = UserIdentity::find()
+                ->alias('u')
+                ->leftJoin(UserProfile::tableName() . ' up', 'up.user_id = u.id')
+                ->where(['up.phone' => $this->phone])
+                ->andWhere(['u.type' => UserIdentity::TYPE_CLIENT])
+                ->one();
         }
-        return $this->_user;
+        return $this->user;
     }
 }

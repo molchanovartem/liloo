@@ -52,10 +52,36 @@ class AppointmentService extends \api\graphql\common\services\AppointmentService
         $attributes['account_id'] = $executor['account_id'];
         $attributes['status'] = \common\models\Appointment::STATUS_NEW;
 
+        $userId = null;
+        if (!empty($attributes['client_id'])) {
+            $client = Client::find()
+                ->byUserId($attributes['client_id'])
+                ->byAccountId($attributes['account_id'])
+                ->one();
+
+            if ($client) {
+                $attributes['client_id'] = $client->id;
+            } else {
+                $user = User::find()
+                    ->with(['profile'])
+                    ->byId($attributes['client_id'])
+                    ->one();
+
+                if (!$user) throw new NotFoundEntryError();
+                $userId = $user->id;
+
+                unset($attributes['client_id']);
+
+                $attributes['client_name'] = $user->profile->name;
+                $attributes['client_phone'] = $user->profile->phone;
+            }
+        }
+
         if (empty($attributes['client_id'])) {
-            return (bool) $this->wrappedTransaction(function () use ($model, &$attributes) {
+            return (bool)$this->wrappedTransaction(function () use ($model, &$attributes, $userId) {
                 $client = new Client([
                     'account_id' => $attributes['account_id'],
+                    'user_id' => $userId,
                     'country_id' => 1, // Russia
                     'status' => Client::STATUS_ACTIVE,
                     'name' => $attributes['client_name'] ?? null,
@@ -69,6 +95,6 @@ class AppointmentService extends \api\graphql\common\services\AppointmentService
                 return $this->save($model, $attributes);
             });
         }
-        return (bool) $this->save($model, $attributes);
+        return (bool)$this->save($model, $attributes);
     }
 }

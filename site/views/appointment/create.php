@@ -26,6 +26,7 @@
                             >
                                 <v-date-picker
                                         v-model="date"
+                                        :min="getMinDate()"
                                         prev-icon="mdi-chevron-left"
                                         next-icon="mdi-chevron-right"
                                         no-title
@@ -175,19 +176,19 @@
                         <ul class="uk-list">
                             <li v-for="item in getServicesByServicesId()">{{item.name}}</li>
                         </ul>
-                        <div class="uk-margin">
+                        <div class="uk-margin" v-if="attributes.clientId === null">
                             <div class="uk-margin-small">
                                 <v-text-field
-                                        v-model="attributes.name"
-                                        :rules="rules.name"
+                                        v-model="attributes.clientName"
+                                        :rules="rules.clientName"
                                         label="Имя"
                                         outline
                                 />
                             </div>
                             <div class="uk-margin-small">
                                 <v-text-field
-                                        v-model="attributes.phone"
-                                        :rules="rules.phone"
+                                        v-model="attributes.clientPhone"
+                                        :rules="rules.clientPhone"
                                         label="Телефон"
                                         mask="+7-###-###-##-##"
                                         outline
@@ -217,13 +218,15 @@ if (!empty($params['user_id'])) $data['userId'] = $params['user_id'];
 if (!empty($params['salon_id'])) $data['salonId'] = $params['salon_id'];
 if (!empty($params['date'])) $data['date'] = $params['date'];
 
+if (!Yii::$app->user->isGuest) $data['clientId'] = Yii::$app->user->getId();
+
 $data = json_encode($data);
 
 $this->registerjs("catalogFormInit({$data});");
 ?>
 
 <script>
-    function catalogFormInit({userId = null, salonId = null, date = null}) {
+    function catalogFormInit({userId = null, salonId = null, clientId = null, date = null}) {
         const SCENARIO_MASTER = 'master';
         const SCENARIO_SALON = 'salon';
 
@@ -241,6 +244,7 @@ $this->registerjs("catalogFormInit({$data});");
 
                     this.attributes.userId = userId;
                     this.attributes.salonId = salonId;
+                    this.attributes.clientId = clientId;
                     this.date = date;
                 },
                 beforeMount() {
@@ -270,15 +274,16 @@ $this->registerjs("catalogFormInit({$data});");
                         masterId: null,
                         dateTime: null,
                         servicesId: [],
-                        name: null,
-                        phone: null
+                        clientId: null,
+                        clientName: null,
+                        clientPhone: null
                     },
 
                     rules: {
-                        name: [
+                        clientName: [
                             v => !!v || 'Обязательное поле'
                         ],
-                        phone: [
+                        clientPhone: [
                             v => !!v || 'Обязательное поле',
                             v => !!v && v.length === 11 || ''
                         ]
@@ -418,9 +423,14 @@ $this->registerjs("catalogFormInit({$data});");
                         }
                     },
                     onPrevDate() {
-                        let date = new Date(this.date);
+                        let currentDate = new Date(),
+                            date = new Date(this.date);
 
+                        currentDate.setHours(0);
+                        currentDate.setMinutes(0);
                         date.setDate(date.getDate() - 1);
+
+                        if (currentDate > date) return;
 
                         this.date = moment(date).format('YYYY-MM-DD');
                         this.loadFreeTime();
@@ -459,7 +469,6 @@ $this->registerjs("catalogFormInit({$data});");
                     },
                     onCheckout() {
                         if (!this.$refs.form.validate()) {
-
                             return;
                         }
 
@@ -472,8 +481,9 @@ $this->registerjs("catalogFormInit({$data});");
                                     user_id: this.attributes.userId,
                                     //salon_id: this.attributes.salonId,
                                     //master_id: this.attributes.masterId,
-                                    client_name: this.attributes.name,
-                                    client_phone: this.attributes.phone,
+                                    client_id: this.attributes.clientId,
+                                    client_name: this.attributes.clientName,
+                                    client_phone: this.attributes.clientPhone,
                                     start_date: this.attributes.dateTime,
                                     end_date: moment(this.attributes.dateTime).add(this.duration, 'minute').format("YYYY-MM-DD HH:mm:ss"),
                                     items: this.attributes.servicesId.map(item => {
@@ -534,6 +544,9 @@ $this->registerjs("catalogFormInit({$data});");
                     },
                     getMasterSelected() {
                         return this.getMasterById(this.attributes.masterId);
+                    },
+                    getMinDate() {
+                        return moment().format('YYYY-MM-DD');
                     }
                 },
                 filters: {
