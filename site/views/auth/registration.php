@@ -12,25 +12,22 @@ $this->setHeading('Регистрируйся и записывайся к лу�
     <div class="uk-flex uk-flex-center">
         <div class="uk-width-xlarge block_type_1">
             <?php $form = ActiveForm::begin(); ?>
-            <ul>@todo
-                <li>Ошибка radio</li>
-            </ul>
 
             <?= $form->errorSummary($data['form']); ?>
 
             <div class="uk-margin">
                 <div class="uk-grid uk-child-width-1-2">
-                    <?= $form->field($data['form'], 'type')->radio([
+                    <?php echo $form->field($data['form'], 'type')->radio([
                         'label' => 'Я клиент, ищу мастера',
                         'value' => User::TYPE_CLIENT,
                         'id' => 'input_1_1',
                         'checked' => 'checked'
                     ]); ?>
-                    <?php /* $form->field($data['form'], 'type')->radio([
-                    'label' => 'Я мастер, ищу работу',
-                    'value' => User::TYPE_EXECUTOR,
-                    'id' => 'input_1_2',
-                ]); */ ?>
+                    <?php echo $form->field($data['form'], 'type')->radio([
+                        'label' => 'Я мастер, ищу работу',
+                        'value' => User::TYPE_EXECUTOR,
+                        'id' => 'input_1_2',
+                    ]); ?>
                 </div>
             </div>
             <div class="uk-margin input-box">
