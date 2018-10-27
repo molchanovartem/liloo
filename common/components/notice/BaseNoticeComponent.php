@@ -3,12 +3,14 @@
 namespace common\components\notice;
 
 use yii\base\Component;
+use common\components\notice\models\site\ClientRecallNoticeData;
+use common\models\Appointment;
+use common\models\Recall;
 use common\models\UserProfile;
 use admin\models\AdminNotice;
 use common\components\notice\models\admin\ClientComplaintNoticeData;
 use common\components\notice\models\admin\UserRegisterNoticeData;
 use common\components\notice\models\site\UserCanceledSessionNoticeData;
-use common\models\Notice;
 
 /**
  * Class BaseNoticeComponent
@@ -16,22 +18,25 @@ use common\models\Notice;
  */
 abstract class BaseNoticeComponent extends Component
 {
-    abstract function getNotice();
+    /**
+     * @return mixed
+     */
+    abstract function getNoticeModel();
+
     /**
      * @param int $type
      * @param int $status
-     * @param $text
+     * @param string $text
      * @param $data
-     * @return mixed|void
      */
-    function createNotice(int $type, int $status, $text, $data)
+    function createNotice(int $type, int $status, string $text, $data)
     {
-        $notice = $this->getNotice();
+        $notice = $this->getNoticeModel();
 
         $notice->type = $type;
         $notice->status = $status;
         $notice->text = $text;
-        $notice->data = $this->currentModel($type, $data);;
+        $notice->data = $this->currentModel($type, $data);
 
         $notice->save(false);
     }
@@ -43,31 +48,10 @@ abstract class BaseNoticeComponent extends Component
     abstract function checkNotice(int $id);
 
     /**
-     * @param int $type
-     * @return mixed
-     */
-    protected function getTypeData(int $type)
-    {
-        return $this->getNoticeDataList()[$type];
-    }
-
-    /**
-     * @return array
-     */
-    protected function getNoticeDataList()
-    {
-        return [
-            Notice::TYPE_USER_CANCELED_SESSION => new UserCanceledSessionNoticeData(),
-            AdminNotice::TYPE_USER_REGISTRATION => new UserRegisterNoticeData(),
-            AdminNotice::TYPE_CLIENT_COMPLAINT => new ClientComplaintNoticeData(),
-        ];
-    }
-
-    /**
      * @param UserProfile $model
      * @return false|string
      */
-    function convertModelToUserRegistrationModel(UserProfile $model)
+    function createUserRegisterNoticeData(UserProfile $model)
     {
         $newModel = new UserRegisterNoticeData();
 
@@ -78,15 +62,50 @@ abstract class BaseNoticeComponent extends Component
     }
 
     /**
-     * @param $model
-     * @return array
+     * @param Recall $model
+     * @return false|string
      */
-    protected function getNoticeDataMethods($model)
+    function createClientComplaintNoticeData(Recall $model)
     {
-        return [
-            AdminNotice::TYPE_USER_REGISTRATION => call_user_func([$this, 'convertModelToUserRegistrationModel'], $model),
-        ];
+
+        $newModel = new ClientComplaintNoticeData();
+
+        $newModel->recallId = $model->id;
+        $newModel->text = $model->text;
+
+        return json_encode($newModel);
     }
+
+    /**
+     * @param Appointment $model
+     * @return false|string
+     */
+    function createUserCanceledSessionNoticeData(Appointment $model)
+    {
+        $newModel = new UserCanceledSessionNoticeData();
+
+        $newModel->appointmentId = $model->id;
+        $newModel->startDate = $model->start_date;
+        $newModel->clientId = $model->client_id;
+
+        return json_encode($newModel);
+    }
+
+    /**
+     * @param Recall $model
+     * @return false|string
+     */
+    function createClientRecallNoticeData(Recall $model)
+    {
+        $newModel = new ClientRecallNoticeData();
+
+        $newModel->recallId = $model->id;
+        $newModel->text = $model->text;
+
+        return json_encode($newModel);
+    }
+
+    abstract function getNoticeDataMethods($type, $model);
 
     /**
      * @param int $type
@@ -95,7 +114,7 @@ abstract class BaseNoticeComponent extends Component
      */
     protected function currentModel(int $type, $model)
     {
-        return $this->getNoticeDataMethods($model)[$type];
+        return $this->getNoticeDataMethods($type, $model);
     }
 
     /**
@@ -116,7 +135,7 @@ abstract class BaseNoticeComponent extends Component
      */
     public function findNotice(int $id)
     {
-        if (($model = ($this->getNotice())::findOne($id)) == null) throw new \Exception('Not find any notice');
+        if (($model = ($this->getNoticeModel())::findOne($id)) == null) throw new \Exception('Not find any notice');
 
         return $model;
     }

@@ -2,13 +2,13 @@
 
 namespace api\graphql\lk\services;
 
-use common\core\service\ModelService;
 use Yii;
 use yii\base\Event;
-use admin\models\AdminNotice;
 use api\graphql\core\errors\AttributeValidationError;
 use api\models\lk\Recall;
 use common\models\Appointment;
+use common\core\service\ModelService;
+use common\models\Notice;
 
 /**
  * Class RecallService
@@ -23,7 +23,7 @@ class RecallService extends ModelService
     {
         parent::init();
         $this->on(self::EVENT_USER_RECALL, function ($model) {
-            Yii::$app->adminNotice->createNotice(AdminNotice::TYPE_USER_RECALL, AdminNotice::STATUS_UNREAD, 'text', $model->sender);
+            Yii::$app->Notice->createNotice(Notice::TYPE_USER_RECALL, Notice::STATUS_UNREAD, 'text', $model->sender);
         });
     }
 

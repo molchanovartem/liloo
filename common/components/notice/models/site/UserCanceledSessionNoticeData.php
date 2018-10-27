@@ -12,8 +12,17 @@ class UserCanceledSessionNoticeData extends Model
 {
     public $appointmentId;
     public $startDate;
-    public $endDate;
     public $clientId;
-    public $masterId;
 
+    /**
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            [['appointmentId', 'startDate', 'clientId',], 'required'],
+            [['appointmentId', 'clientId'], 'integer'],
+            [['start_date',], 'date', 'format' => 'php:Y-m-d H:i:s'],
+        ];
+    }
 }

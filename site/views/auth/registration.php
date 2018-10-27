@@ -33,7 +33,7 @@ $this->setHeading('Регистрируйся и записывайся к лу�
             <div class="uk-margin input-box">
                 <div class="input-box__wrap">
                     <?= $form->field($data['form'], 'phone')
-                        ->widget(MasketWidget::class, ['pattern' => '(99) 9999-9999'])
+                        ->widget(MasketWidget::class, ['pattern' => '9(999) 999-99-99'])
                         ->label('Введите ваш телефон');
                     ?>
                 </div>

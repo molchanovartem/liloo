@@ -1,14 +1,14 @@
 <?php
 
-namespace common\components\notice\models\admin;
+namespace common\components\notice\models\site;
 
 use yii\base\Model;
 
 /**
- * Class ClientComplaintNoticeData
- * @package common\components\notice\models\admin
+ * Class ClientRecallNoticeData
+ * @package common\components\notice\models\site\
  */
-class ClientComplaintNoticeData extends Model
+class ClientRecallNoticeData extends Model
 {
     public $recallId;
     public $text;
