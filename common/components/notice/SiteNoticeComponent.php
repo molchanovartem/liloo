@@ -2,8 +2,8 @@
 
 namespace common\components\notice;
 
-use common\models\Notice;
 use Yii;
+use common\models\Notice;
 
 /**
  * Class SiteNoticeComponent
@@ -17,6 +17,19 @@ class SiteNoticeComponent extends BaseNoticeComponent
     function getNoticeModel()
     {
         return new Notice();
+    }
+
+    function createNotice(int $accountId, int $type, int $status, string $text, $data)
+    {
+        $notice = $this->getNoticeModel();
+
+        $notice->account_id = $accountId;
+        $notice->type = $type;
+        $notice->status = $status;
+        $notice->text = $text;
+        $notice->data = $this->currentModel($type, $data);
+
+        $notice->save(false);
     }
 
     /**
@@ -39,7 +52,7 @@ class SiteNoticeComponent extends BaseNoticeComponent
      */
     public function getUserNotice()
     {
-        return Notice::find()->where(['account_id' => Yii::$app->account->getId()])->all();
+        return ($this->getNoticeModel())->where(['account_id' => Yii::$app->account->getId()])->all();
     }
 
     /**
