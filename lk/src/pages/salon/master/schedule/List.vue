@@ -103,6 +103,10 @@
                     y_property: "master_id"
                 });
 
+                this.scheduler.templates.matrix_cell_class = function(evs, date, section){
+                    return evs ? "uk-background-muted" : '';
+                };
+
                 this.scheduler.templates.matrix_cell_value = (evs, date) => {
                     if (!evs) return '';
 

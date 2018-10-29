@@ -84,8 +84,8 @@
 </template>
 
 <script>
-    import Vue from 'vue';
     import gql from 'graphql-tag';
+    import {EVENT_DELETE} from "../../../js/eventCollection";
 
     export default {
         name: "SalonMasterManager",
@@ -94,6 +94,11 @@
                 type: String,
                 required: true
             }
+        },
+        created() {
+            this.$on(EVENT_DELETE, () => {
+                this.$notification.delete();
+            });
         },
         mounted() {
             this.loadData();
@@ -216,10 +221,10 @@
                     })
                         .then(({data}) => {
                             if (data.salonMasterDelete) {
-                                this.$emit('delete');
                                 this.salonMasters.splice(index, 1);
-
                                 this.refreshMasterItems();
+
+                                this.$emit(EVENT_DELETE);
                             }
                         });
                 }

@@ -39,7 +39,7 @@
                 </ul>
             </div>
             <div class="uk-width-3-5">
-                <h4>Мастера салона</h4>
+                <h4>Услуги салона</h4>
                 <ul v-if="salonServices.length > 0" class="uk-list uk-list-divider">
                     <li v-for="item in salonServices">
                         <div class="uk-flex uk-flex-middle">
@@ -89,6 +89,7 @@
 
 <script>
     import gql from 'graphql-tag';
+    import {EVENT_SAVE, EVENT_DELETE} from "../../../js/eventCollection";
     import {formRules} from "../../../js/formRules";
     import {commonFilters} from "../../../js/mixins/commonFilters";
 
@@ -101,6 +102,15 @@
             }
         },
         mixins: [commonFilters],
+        created() {
+            this.$on(EVENT_SAVE, () => {
+                this.$notification.save();
+            });
+
+            this.$on(EVENT_DELETE, () => {
+                this.$notification.delete();
+            });
+        },
         mounted() {
             this.loadData();
         },
@@ -220,7 +230,7 @@
                                 item.service_price = data.salonServiceUpdate.service_price;
                                 item.service_duration = data.salonServiceUpdate.service_duration;
 
-                                this.$emit('save', data.salonServiceUpdate);
+                                this.$emit(EVENT_SAVE, data.salonServiceUpdate);
                             }
                         });
                 }
@@ -237,10 +247,10 @@
                     })
                         .then(({data}) => {
                             if (data.salonServiceDelete) {
-                                this.$emit('delete');
                                 this.salonServices.splice(index, 1);
-
                                 this.refreshServiceItems();
+
+                                this.$emit(EVENT_DELETE);
                             }
                         })
                 }

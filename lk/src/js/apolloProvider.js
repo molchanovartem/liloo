@@ -10,7 +10,6 @@ import {onError} from "apollo-link-error";
 
 Vue.use(VueApollo);
 
-
 // @todo рефакторинг
 const linkError = onError(({graphQLErrors, networkError}) => {
     const status = networkError && networkError.statusCode ? networkError.statusCode : null;
@@ -19,7 +18,6 @@ const linkError = onError(({graphQLErrors, networkError}) => {
         graphQLErrors.map(({category, extensions, message, locations, path}) => {
                 if (category === 'graphql') errorCollection.push(errorCollection.CATEGORY_GRAPHQL, message);
                 if (category === 'validation') errorCollection.push(errorCollection.CATEGORY_VALIDATION, message);
-
                 if (category === 'attributeValidation') errorCollection.push(errorCollection.CATEGORY_ATTRIBUTE_VALIDATION, extensions);
                 /*
                 console.log(

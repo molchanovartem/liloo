@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-form ref="form">
-            <div class="uk-grid">
+            <div class="uk-grid uk-margin">
                 <div class="uk-width-1-2">
                     <v-date-picker
                             v-model="attributes.dateSelected"
@@ -62,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <div class="uk-card-footer uk-padding-small">
+            <div class="uk-margin">
                 <v-btn @click="onSubmit()" color="primary">Ok</v-btn>
             </div>
         </v-form>
@@ -72,10 +72,16 @@
 <script>
     import gql from 'graphql-tag';
     import dateformat from 'dateformat';
+    import {EVENT_SAVE} from "../../../js/eventCollection";
     import {formRules} from "../../../js/formRules";
 
     export default {
         name: "UserMasterSchedule",
+        created() {
+            this.$on(EVENT_SAVE, () => {
+                this.$notification.save();
+            });
+        },
         data() {
             return {
                 attributes: {
@@ -141,7 +147,7 @@
                         variables: {items: itemsOnSave}
                     }).then(({data}) => {
                         if (data.userSchedulesCreate) {
-                            this.$emit('save');
+                            this.$emit(EVENT_SAVE);
                         }
                         this.clearAttributes();
                     });

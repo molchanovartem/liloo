@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import {MasterSettings} from "../settings/MasterSettings";
 
 export default {

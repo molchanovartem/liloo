@@ -357,4 +357,9 @@ class UserService extends ModelService
                 ])
         )->execute();
     }
+
+    private function getUserId()
+    {
+        return Yii::$app->user->getId();
+    }
 }

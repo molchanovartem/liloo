@@ -87,6 +87,7 @@
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';
     import {formRules} from "../../js/formRules";
+    import {EVENT_SAVE, EVENT_CREATED, EVENT_UPDATED} from "../../js/eventCollection";
     import {appointmentStatus, APPOINTMENT_STATUS_CONFIRMED} from "./status";
 
     export default {
@@ -263,10 +264,10 @@
                     }
                 }).then(({data}) => {
                     if (data.appointmentCreate || data.appointmentUpdate) {
-                        this.$emit('save', data.appointmentCreate || data.appointmentUpdate);
+                        this.$emit(EVENT_SAVE, data.appointmentCreate || data.appointmentUpdate);
 
-                        if (this.isScenarioCreate()) this.$emit('created', data.appointmentCreate);
-                        else this.$emit('updated', data.appointmentUpdate);
+                        if (this.isScenarioCreate()) this.$emit(EVENT_CREATED, data.appointmentCreate);
+                        else this.$emit(EVENT_UPDATED, data.appointmentUpdate);
                     }
                 });
             },

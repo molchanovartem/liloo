@@ -16,6 +16,8 @@
 
 <script>
     import gql from 'graphql-tag';
+    import {EVENT_SAVE} from "../../../../js/eventCollection";
+    import {formMixin} from "../../../../js/mixins/formMixin";
 
     export default {
         name: "MasterServiceManager",
@@ -28,6 +30,12 @@
                 type: String,
                 required: true
             }
+        },
+        mixins: [formMixin],
+        created() {
+            this.$on(EVENT_SAVE, () => {
+                this.$router.push({name: 'salonMasterManager', params: {id: this.salonId}});
+            });
         },
         mounted() {
             this.loadData();
@@ -78,7 +86,7 @@
                     variables: {masterId: this.masterId, salonId: this.salonId, servicesId: this.selected}
                 }).then(({data}) => {
                     if (data.masterServicesUpdate) {
-                        this.$emit('save');
+                        this.$emit(EVENT_SAVE);
                     }
                 });
             }

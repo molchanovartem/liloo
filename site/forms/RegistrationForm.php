@@ -11,9 +11,7 @@ use yii\base\Model;
  */
 class RegistrationForm extends Model
 {
-    public $login;
     public $phone;
-    public $password;
     public $type;
     public $verifyCode;
 
@@ -23,7 +21,7 @@ class RegistrationForm extends Model
     public function rules()
     {
         return [
-            [['login', 'phone', 'password', 'type'], 'required'],
+            [['phone', 'type'], 'required'],
             ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
         ];
     }
@@ -38,14 +36,5 @@ class RegistrationForm extends Model
             'password' => 'Пароль',
             'type'     => 'Тип',
         ];
-    }
-
-    public function beforeValidate()
-    {
-        $this->login = Yii::$app->security->generateRandomString(10);
-        //$this->password = Yii::$app->security->generatePasswordHash(rand(900000, 9999999));
-        $this->password = Yii::$app->security->generatePasswordHash('123');
-
-        return parent::beforeValidate();
     }
 }

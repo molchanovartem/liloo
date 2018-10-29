@@ -40,8 +40,8 @@
 <script>
     import gql from 'graphql-tag';
     import {formRules} from "../../js/formRules";
-
-    const EVENT_SAVE = 'save';
+    import {formMixin} from "../../js/mixins/formMixin";
+    import {EVENT_SAVE} from "../../js/eventCollection";
 
     export default {
         name: "Form",
@@ -52,9 +52,10 @@
             },
             id: null
         },
+        mixins: [formMixin],
         created() {
-            this.$on(EVENT_SAVE, (data) => {
-                alert('ok');
+            this.$on(EVENT_SAVE, () => {
+                this.$router.push({name: 'masterManager'});
             });
         },
         mounted() {

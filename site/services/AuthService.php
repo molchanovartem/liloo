@@ -4,7 +4,7 @@ namespace site\services;
 
 use Exception;
 use Yii;
-use yii\base\Event;
+use site\events\RegistrationEvent;
 use common\models\Account;
 use common\models\User;
 use common\models\UserProfile;
@@ -32,8 +32,13 @@ class AuthService extends \common\services\AuthService
                 $account = new Account();
                 $account->save(false);
 
+                $login = Yii::$app->security->generateRandomString(10);
+                $password = 123;
+
                 $user = new User([
                     'account_id' => $account->id,
+                    'login' => $login,
+                    'password' => Yii::$app->security->generatePasswordHash($password),
                     'status' => User::STATUS_ACTIVE,
                     'refresh_token' => Yii::$app->security->generateRandomString(255)
                 ]);
@@ -43,10 +48,18 @@ class AuthService extends \common\services\AuthService
                 $userProfile = new UserProfile([
                     'user_id' => $user->id,
                     'phone' => $form->phone,
+                    'name' => 'Новый пользователь'
                 ]);
                 $userProfile->save(false);
 
-                $this->trigger(self::EVENT_USER_REGISTRATION, new Event(['sender' => $userProfile]));
+                $event = new RegistrationEvent([
+                    'login' => $login,
+                    'password' => $password,
+                    'phone' => $userProfile->phone,
+                    'sender' => $userProfile
+                ]);
+
+                $this->trigger(self::EVENT_USER_REGISTRATION, $event);
                 return true;
             });
         }

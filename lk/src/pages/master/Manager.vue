@@ -1,7 +1,7 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
         <div>
-            <v-btn @click="onCreate()" round outline color="primary" depressed>
+            <v-btn @click="$router.push({name: 'masterCreate'})" round outline color="primary" depressed>
                 <v-icon>mdi-plus</v-icon>
             </v-btn>
         </div>
@@ -10,13 +10,13 @@
                 :items="items"
                 hide-actions
         >
-            <template slot="items" slot-scope="props">
-                <td>{{ props.item.name }}</td>
+            <template slot="items" slot-scope="{item}">
+                <td>{{ item.name }}</td>
                 <td width="150px" align="right">
-                    <v-btn fab small depressed @click.prevent="updateItem(props.item.id)">
+                    <v-btn fab small depressed @click.prevent="$router.push({name: 'masterUpdate', params: {id: item.id}})">
                         <v-icon>mdi-pencil</v-icon>
                     </v-btn>
-                    <v-btn fab small depressed @click.prevent="deleteItem(props.item.id)">
+                    <v-btn fab small depressed @click.prevent="deleteItem(item.id)">
                         <v-icon>mdi-delete</v-icon>
                     </v-btn>
                 </td>
@@ -27,9 +27,12 @@
 
 <script>
     import gql from 'graphql-tag';
+    import {EVENT_DELETE} from "../../js/eventCollection";
+    import {managerMixin} from "../../js/mixins/managerMixin";
 
     export default {
         name: "MasterManager",
+        mixins: [managerMixin],
         mounted() {
             this.loadData();
         },
@@ -39,13 +42,9 @@
                     {text: 'Имя', value: 'name'},
                     {text: null, value: null, sortable: false}
                 ],
-                items: []
             };
         },
         methods: {
-            onCreate() {
-              this.$router.push({name: 'masterCreate'});
-            },
             loadData() {
                 this.$apollo.query({
                     query: gql`query {
@@ -59,9 +58,7 @@
                 this.$router.push({name: 'masterUpdate', params: {id: id}});
             },
             deleteItem(id) {
-                let index = this.items.findIndex(item => {
-                    return +item.id === +id;
-                });
+                let index = this.getItemIndex(id);
 
                 if (index !== -1 && confirm('Удалить')) {
                     this.$apollo.mutate({
@@ -71,6 +68,8 @@
                         variables: {id: id}
                     }).then(({data}) => {
                         this.items.splice(index, 1);
+
+                        this.$emit(EVENT_DELETE, id);
                     });
                 }
             },

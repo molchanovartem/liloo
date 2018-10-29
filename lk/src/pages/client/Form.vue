@@ -1,44 +1,67 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
         <v-form ref="form" v-model="valid">
-            <v-autocomplete
-                    label="Статус"
-                    v-model="attributes.status"
-                    :items="statusList"
-                    :rules="rules.status"
-                    required
-                    outline
-            />
-            <v-autocomplete
-                    v-model="attributes.country_id"
-                    :items="countryList"
-                    :rules="rules.countryId"
-                    item-text="name"
-                    item-value="id"
-                    label="Страна"
-                    @change="loadCitiesData"
-                    outline
-            />
-            <v-autocomplete
-                    label="Город"
-                    v-model="attributes.city_id"
-                    :items="cityList"
-                    item-text="name"
-                    item-value="id"
-                    :disabled="cityList.length === 0"
-                    outline
-            />
-            <v-text-field v-model="attributes.surname" label="Фамилия" outline/>
-            <v-text-field v-model="attributes.name" :rules="rules.name" label="Имя" outline/>
-            <v-text-field v-model="attributes.patronymic" label="Отчество" outline/>
-            <v-text-field
-                    v-model="attributes.phone"
-                    label="Телефон"
-                    :mask="phoneMask"
-                    :rules="rules.phone"
-                    outline
-            />
-            <v-text-field v-model="attributes.address" label="Адрес" outline/>
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-width-1-3">
+                    <v-autocomplete
+                            label="Статус"
+                            v-model="attributes.status"
+                            :items="statusList"
+                            :rules="rules.status"
+                            required
+                            outline
+                    />
+                </div>
+                <div class="uk-width-2-3">
+                    <v-text-field
+                            v-model="attributes.phone"
+                            label="Телефон"
+                            :mask="phoneMask"
+                            :rules="rules.phone"
+                            outline
+                    />
+                </div>
+            </div>
+            <div class="uk-grid uk-grid-small uk-child-width-1-3">
+                <div>
+                    <v-text-field v-model="attributes.surname" label="Фамилия" outline/>
+                </div>
+                <div>
+                    <v-text-field v-model="attributes.name" :rules="rules.name" label="Имя" outline/>
+                </div>
+                <div>
+                    <v-text-field v-model="attributes.patronymic" label="Отчество" outline/>
+                </div>
+
+            </div>
+            <div class="uk-grid uk-grid-small uk-child-width-1-3">
+                <div>
+                    <v-autocomplete
+                            v-model="attributes.country_id"
+                            :items="countryList"
+                            :rules="rules.countryId"
+                            item-text="name"
+                            item-value="id"
+                            label="Страна"
+                            @change="loadCitiesData"
+                            outline
+                    />
+                </div>
+                <div>
+                    <v-autocomplete
+                            label="Город"
+                            v-model="attributes.city_id"
+                            :items="cityList"
+                            item-text="name"
+                            item-value="id"
+                            :disabled="cityList.length === 0"
+                            outline
+                    />
+                </div>
+                <div>
+                    <v-text-field v-model="attributes.address" label="Адрес" outline/>
+                </div>
+            </div>
 
             <div class="uk-margin-small-top">
                 <v-btn round outline large color="primary" @click="submit()">
@@ -53,18 +76,10 @@
 <script>
     import gql from 'graphql-tag';
     import {formRules} from "../../js/formRules";
-
-    const EVENT_SAVE = 'save';
+    import {formMixin} from "../../js/mixins/formMixin";
+    import {EVENT_SAVE} from "../../js/eventCollection";
 
     export default {
-        created() {
-            this.$on(EVENT_SAVE, (data) => {
-                alert('save');
-            });
-        },
-        mounted() {
-            this.loadData();
-        },
         props: {
             type: {
                 type: String,
@@ -73,6 +88,15 @@
             id: {
                 type: String
             }
+        },
+        mixins: [formMixin],
+        created() {
+            this.$on(EVENT_SAVE, () => {
+                this.$router.push({name: 'clientManager'});
+            });
+        },
+        mounted() {
+            this.loadData();
         },
         data() {
             return {

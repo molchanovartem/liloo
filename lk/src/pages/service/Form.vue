@@ -57,18 +57,10 @@
 <script>
     import gql from 'graphql-tag';
     import {formRules} from "../../js/formRules";
-
-    const EVENT_SAVE = 'save';
+    import {formMixin} from "../../js/mixins/formMixin";
+    import {EVENT_SAVE} from "../../js/eventCollection";
 
     export default {
-        created() {
-            this.$on(EVENT_SAVE, data => {
-                alert('save');
-            });
-        },
-        mounted() {
-            this.loadData();
-        },
         props: {
             type: {
                 type: String,
@@ -78,6 +70,15 @@
                 type: String,
                 default: null
             }
+        },
+        mixins: [formMixin],
+        created() {
+            this.$on(EVENT_SAVE, () => {
+                this.$router.push({name: 'serviceManager'});
+            });
+        },
+        mounted() {
+            this.loadData();
         },
         data() {
             return {
@@ -222,7 +223,7 @@
         },
         watch: {
             'id'() {
-                this.loadData();
+                //this.loadData(); ???
             }
         }
     }

@@ -3,12 +3,21 @@
         <h1>График работы</h1>
 
         <!--<ul>@todo-->
-            <!--<li>event можно перенести за график, время не урезается</li>-->
-            <!--<li>event каскадность</li>-->
-            <!--<li>локализация</li>-->
+        <!--<li>event можно перенести за график, время не урезается</li>-->
+        <!--<li>event каскадность</li>-->
+        <!--<li>локализация</li>-->
         <!--</ul>-->
+        <v-menu ref="masterSchedule" offset-y :close-on-content-click="false">
+            <v-btn slot="activator">Мастер создания графика работы</v-btn>
 
-        <v-master-schedule @save="onMasterScheduleSave"/>
+            <div class="uk-width-xxlarge uk-card uk-card-default uk-padding uk-position-relative">
+                <v-btn class="uk-position-top-right" icon small @click="$refs.masterSchedule.isActive = false">
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+
+                <v-master-schedule @save="onMasterScheduleSave"/>
+            </div>
+        </v-menu>
 
         <div>
             <div id="userScheduleManager" class="dhx_cal_container" style='width:100%; height:1000px;'>
@@ -30,8 +39,11 @@
     import 'dhtmlx-scheduler/codebase/dhtmlxscheduler.js';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_timeline';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_daytimeline.js';
+    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_collision'; // Предотвращение двойное событие во временном интервале
+    import 'dhtmlx-scheduler/codebase/locale/locale_ru';
 
     import gql from 'graphql-tag';
+    import {EVENT_SAVE, EVENT_DELETE} from "../../../js/eventCollection";
     import commonMixin from './commonMixin';
     import VMasterSchedule from './MasterSchedule.vue';
 
@@ -40,6 +52,15 @@
         mixins: [commonMixin],
         components: {
             VMasterSchedule
+        },
+        created() {
+            this.$on(EVENT_SAVE, () => {
+                this.$notification.save();
+            });
+
+            this.$on(EVENT_DELETE, () => {
+                this.$notification.delete()
+            });
         },
         mounted() {
             this.initScheduler();
@@ -64,6 +85,8 @@
                 this.scheduler.config.xml_date = "%Y-%m-%d %H:%i";
                 this.scheduler.config.dblclick_create = false;
                 this.scheduler.config.preserve_length = true;
+                this.scheduler.config.time_step = 10;
+
 
                 var viewName = 'timeline';
                 this.scheduler.createTimelineView({
@@ -94,14 +117,15 @@
                     return date;
                 };
 
-                this.scheduler.templates.event_bar_text = (start,end,event) => {
+                this.scheduler.templates.event_bar_text = (start, end, event) => {
                     return this.formatTime(start, end);
                 };
             },
             initSchedulerEvents() {
                 var viewName = 'timeline';
 
-                this.scheduler.showLightbox = function () {};
+                this.scheduler.showLightbox = function () {
+                };
 
                 this.scheduler.attachEvent("onYScaleClick", (index, section, e) => {
                     if (this.scheduler.getState().mode === viewName) {
@@ -213,9 +237,9 @@
                     },
                 }).then(({data}) => {
                     if (data.userScheduleCreate) {
-                        this.$emit('save');
-
                         this.addEvent(data.userScheduleCreate);
+
+                        this.$emit(EVENT_SAVE);
                     }
                 });
             },
@@ -238,9 +262,9 @@
                     }
                 }).then(({data}) => {
                     if (data.userScheduleUpdate) {
-                        this.$emit('save');
-
                         this.scheduler.updateEvent(this.addEvent(data.userScheduleUpdate));
+
+                        this.$emit(EVENT_SAVE);
                     }
                 });
             },
@@ -252,9 +276,9 @@
                     variables: {id: id}
                 }).then(({data}) => {
                     if (data.userScheduleDelete) {
-                        this.$emit('delete');
-
                         this.scheduler.deleteEvent(id);
+
+                        this.$emit(EVENT_DELETE);
                     }
                 });
             },

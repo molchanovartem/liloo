@@ -1,11 +1,47 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
         <v-form ref="form" v-model="valid">
-            <v-text-field v-model="attributes.surname" label="Фамилия" :rules="rules.surname" outline/>
-            <v-text-field v-model="attributes.name" label="Имя" :rules="rules.name" outline/>
-            <v-text-field v-model="attributes.patronymic" label="Отчество" :rules="rules.patronymic" outline/>
+            <div class="uk-grid uk-grid-small uk-child-width-1-3">
+                <div>
+                    <v-text-field v-model="attributes.surname" label="Фамилия" :rules="rules.surname" outline/>
+                </div>
+                <div>
+                    <v-text-field v-model="attributes.name" label="Имя" :rules="rules.name" outline/>
+                </div>
+                <div>
+                    <v-text-field v-model="attributes.patronymic" label="Отчество" :rules="rules.patronymic" outline/>
+                </div>
+            </div>
             <v-text-field v-model="attributes.phone" label="Телефон" :rules="rules.phone" outline/>
             <v-textarea rows="3" v-model="attributes.description" label="Описание" outline/>
+
+            <div class="uk-grid uk-grid-small uk-child-width-1-3">
+                <div>
+                    <v-autocomplete
+                            v-model="attributes.country_id"
+                            :items="countryList"
+                            item-text="name"
+                            item-value="id"
+                            label="Страна"
+                            @change="loadCitiesData"
+                            outline
+                    />
+                </div>
+                <div>
+                    <v-autocomplete
+                            label="Город"
+                            v-model="attributes.city_id"
+                            :items="cityList"
+                            item-text="name"
+                            item-value="id"
+                            :disabled="cityList.length === 0"
+                            outline
+                    />
+                </div>
+                <div>
+                    <v-text-field v-model="attributes.address" label="Адрес" outline/>
+                </div>
+            </div>
 
             <v-select
                     label="Специализация"
@@ -27,25 +63,6 @@
                     multiple
                     outline
             />
-            <v-autocomplete
-                    v-model="attributes.country_id"
-                    :items="countryList"
-                    item-text="name"
-                    item-value="id"
-                    label="Страна"
-                    @change="loadCitiesData"
-                    outline
-            />
-            <v-autocomplete
-                    label="Город"
-                    v-model="attributes.city_id"
-                    :items="cityList"
-                    item-text="name"
-                    item-value="id"
-                    :disabled="cityList.length === 0"
-                    outline
-            />
-            <v-text-field v-model="attributes.address" label="Адрес" outline/>
 
             <div class="uk-margin-small-top">
                 <v-btn round outline large color="primary" @click="submit()">
@@ -60,13 +77,14 @@
 <script>
     import gql from 'graphql-tag';
     import {formRules} from "../../../js/formRules";
-
-    const EVENT_SAVE = 'save';
+    import {formMixin} from "../../../js/mixins/formMixin";
+    import {EVENT_SAVE} from "../../../js/eventCollection";
 
     export default {
+        mixins: [formMixin],
         created() {
-            this.$on(EVENT_SAVE, (data) => {
-                alert('ok');
+            this.$on(EVENT_SAVE, () => {
+                this.$router.push({name: 'userProfileView'});
             });
         },
         mounted() {

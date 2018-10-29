@@ -37,6 +37,8 @@
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_quick_info.js';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_limit.js';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_timeline';
+    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_collision'; // Предотвращение двойное событие во временном интервале
+    import 'dhtmlx-scheduler/codebase/locale/locale_ru';
 
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';

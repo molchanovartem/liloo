@@ -92,6 +92,7 @@
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';
     import {formRules} from "../../../js/formRules";
+    import {EVENT_SAVE, formMixin} from "../../../js/mixins/formMixin";
 
     export default {
         name: "SalonAppointmentForm",

@@ -33,11 +33,14 @@
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_quick_info.js';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_limit.js';
     import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_timeline';
+    import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_collision'; // Предотвращение двойное событие во временном интервале
+    import 'dhtmlx-scheduler/codebase/locale/locale_ru';
 
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';
-    import VForm from './Form.vue';
+    import {EVENT_SAVE, EVENT_DELETE} from "../../js/eventCollection";
     import {APPOINTMENT_STATUS_NOT_COME, APPOINTMENT_STATUS_CANCELED} from "./status";
+    import VForm from './Form.vue';
 
     export default {
         name: "SalonAppointment",
@@ -45,10 +48,15 @@
             VForm
         },
         created() {
-            this.$on('save', (appointment) => {
-                alert('save');
-            });
             this.scheduler = Scheduler.getSchedulerInstance();
+
+            this.$on(EVENT_SAVE, () => {
+                this.$notification.save();
+            });
+
+            this.$on(EVENT_DELETE, () => {
+                this.$notification.delete();
+            });
         },
         mounted() {
             this.initScheduler();
@@ -271,9 +279,9 @@
                     var event = this.scheduler.getEvent(id);
 
                     //if (event.important)
-                        this.scheduler.config.icons_select = ["icon_details"];
+                    this.scheduler.config.icons_select = ["icon_details"];
                     //else
-                        //this.scheduler.config.icons_select = ["icon_details", "icon_delete"];
+                    //this.scheduler.config.icons_select = ["icon_details", "icon_delete"];
 
                     return true;
                 });
@@ -312,7 +320,9 @@
 
                     // Если время или masterId изменился
                     if ((startDateBeforeDrag !== this.dateFormat(appointment.start_date)) && !appointment.isNew) {
-                        this.saveOnDragAppointment(appointment.id, startDate, endDate);
+                        this.saveOnDragAppointment(appointment.id, startDate, endDate).then(({data}) => {
+                            this.$emit(EVENT_SAVE, data);
+                        });
                     }
                     return true;
                 });
@@ -347,7 +357,11 @@
                         id
                     }
                 }).then(({data}) => {
-                    if (data.appointmentDelete) this.scheduler.deleteEvent(id);
+                    if (data.appointmentDelete) {
+                        this.scheduler.deleteEvent(id);
+
+                        this.$emit(EVENT_DELETE, id);
+                    }
                 });
             },
 
