@@ -9,16 +9,16 @@ $this->setBreadcrumbs([
 ?>
 
 <?php $this->beginBlock('aboveSidebar'); ?>
-    <div class="content-block uk-padding content-block_shadow uk-background-default uk-margin-top">
-        <div class="t-a_c font_type_2">Нажмите на кнопку и сделайте запись</div>
-        <div class="t-a_c">
-            <div class="button button_color_red button_width_270 mt-10">
-                <a href="../appointment/create" class="uk-button uk-link-reset"
-                   data-window="true"
-                   data-window-type="bigModal">Записаться</a>
-            </div>
+<div class="content-block uk-padding content-block_shadow uk-background-default uk-margin-top">
+    <div class="t-a_c font_type_2">Нажмите на кнопку и сделайте запись</div>
+    <div class="t-a_c">
+        <div class="button button_color_red button_width_270 mt-10">
+            <a href="../appointment/create" class="uk-button uk-link-reset"
+               data-window="true"
+               data-window-type="bigModal">Записаться</a>
         </div>
     </div>
+</div>
 <?php $this->endBlock(); ?>
 
 <div class="content-columns uk-margin-top">
@@ -109,7 +109,7 @@ $this->setBreadcrumbs([
                     </div>
                     <div class="performer__profession">
                         <?php foreach ($data['specialization'] as $specialization): ?>
-                            <?php echo $specialization['name']; ?>
+                            <?php echo Html::encode($specialization['name']); ?>
                         <?php endforeach; ?>
                     </div>
                     <div class="performer__profession">
@@ -145,18 +145,20 @@ $this->setBreadcrumbs([
         </div>
 
         <?php foreach ($data['specialization'] as $specialization): ?>
-            <div class="font_type_12 mtb-25"><?php echo $specialization['name'] ?></div>
+            <div class="font_type_12 mtb-25"><?php echo Html::encode($specialization['name']); ?></div>
             <?php foreach ($specialization['service'] as $service): ?>
                 <div class="workers-list">
                     <div class="workers-list__item">
                         <div class="workers-list__part">
-                            <div class="workers-list__detail"><?php echo $service['name']; ?></div>
+                            <div class="workers-list__detail"><?php echo Html::encode($service['name']); ?></div>
                         </div>
                         <div class="workers-list__part">
-                            <span class="workers-list__detail"><?php echo $service['duration']; ?> мин.</span>
+                            <span class="workers-list__detail"><?php echo Html::encode($service['duration']); ?>
+                                мин.</span>
                         </div>
                         <div class="workers-list__part">
-                            <span class="workers-list__detail">от <?php echo $service['price']; ?> руб.</span>
+                            <span class="workers-list__detail">от <?php echo Html::encode($service['price']); ?>
+                                руб.</span>
                         </div>
                         <div class="workers-list__part">
                             <div class="button button_color_red_without_shadow button_width_270 mt-10">

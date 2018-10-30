@@ -4,6 +4,7 @@
 <?php
 
 use admin\widgets\activeForm\ActiveForm;
+use site\widgets\MaskedTextInputWidget as MasketWidget;
 
 $this->setBreadcrumbs([
     ['label' => 'Профиль', 'url' => ['view']],
@@ -40,18 +41,10 @@ $this->setBreadcrumbs([
                     ]) ?>
                 </div>
 
-                <?= $form->field($data['model'], 'phone')->textInput(['id' => 'phone']) ?>
-                <!--                    --><? //= $form->field($data['model'], 'phone')->widget(\yii\widgets\MaskedInput::class, [
-                //                        'mask' => '+7 (999) 999-99-99',
-                //                        'options' => [
-                //                            'class' => 'uk-form-small uk-input',
-                //                            'id' => 'userprofile-phone',
-                //                            'placeholder' => ('Телефон')
-                //                        ],
-                //                        'clientOptions' => [
-                //                            'clearIncomplete' => true
-                //                        ]
-                //                    ]); ?>
+<!--                --><?//= $form->field($data['model'], 'phone')->textInput(['id' => 'phone']) ?>
+                <?= $form->field($data['model'], 'phone')
+                        ->widget(MasketWidget::class, ['pattern' => '9 (999) 999 99 99', 'options' => ['class' => 'uk-form-small uk-input', 'placeholder' => '9 (999) 999 99 99', 'id' => 'phone']]);
+                ?>
 
                 <div class="uk-width-small">
                     <?= $form->field($data['model'], 'city_id')

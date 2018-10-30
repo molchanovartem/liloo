@@ -22,9 +22,9 @@ class ProfileService extends ModelService
     public function findUser()
     {
         if (($model = User::find()
-                          ->with(['profile'])
-                          ->where(['id' => Yii::$app->user->getId()])
-                          ->one()) == null) throw new \Exception('Not find any user');
+                ->with(['profile'])
+                ->where(['id' => Yii::$app->user->getId()])
+                ->one()) == null) throw new \Exception('Not find any user');
 
         $this->setData(['model' => $model]);
     }
@@ -32,6 +32,13 @@ class ProfileService extends ModelService
     public function update()
     {
         $model = UserProfile::find()->where(['user_id' => Yii::$app->user->getId()])->one();
+
+        if (!empty($this->getData('post'))) {
+            $model->load($this->getData('post'));
+            $model->phone = (int)filter_var($this->getData('post')['UserProfile']['phone'], FILTER_SANITIZE_NUMBER_INT);
+
+            $model->save();
+        }
         $cities = $this->getCities();
         $countries = $this->getCountries();
 
@@ -39,9 +46,7 @@ class ProfileService extends ModelService
             'model' => $model,
             'cities' => $cities,
             'countries' => $countries,
-            ]);
-
-        $model->load($this->getData('post')) && $model->save();
+        ]);
     }
 
     /**

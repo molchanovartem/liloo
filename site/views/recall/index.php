@@ -11,7 +11,7 @@ Yii::$app->timeZone = 'Asia/Omsk';
 <div class="uk-margin-top font_type_12 uk-margin-bottom">Отзывы:</div>
 <div class="uk-grid">
     <?php foreach ($data['recalls'] as $recall): ?>
-        <div class="uk-width-1-2" id="recall-<?php echo $recall->id; ?>">
+        <div class="uk-width-1-2" id="recall-<?php echo Html::encode($recall->id); ?>">
             <div class="uk-panel uk-margin-small-left uk-margin-bottom">
                 <div class="review-slide__content recall-list-shadow">
                     <div class="review-slide__extra">
@@ -46,7 +46,7 @@ Yii::$app->timeZone = 'Asia/Omsk';
                             <div class="fas fa-star stars__star"></div>
                         </div>
                         <button type="button" uk-close onclick="recallDelete(this)"
-                                value="<?php echo $recall->id; ?>"></button>
+                                value="<?php echo Html::encode($recall->id); ?>"></button>
                     </div>
 
                     <?php if (strlen($recall->text) > 40) : ?>
@@ -97,11 +97,11 @@ Yii::$app->timeZone = 'Asia/Omsk';
                          style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
                     <div class="review-slide__author-info">
                         <div class="review-slide__author-name">
-                            <?php echo $recall->profile->name; ?>,
-                            <?php echo $recall->profile->surname; ?>
+                            <?php echo Html::encode($recall->profile->name); ?>,
+                            <?php echo Html::encode($recall->profile->surname); ?>
                         </div>
                         <div class="review-slide__author-profession">
-                            <?php echo $recall->profile->city->name; ?>
+                            <?php echo Html::encode($recall->profile->city->name); ?>
                         </div>
                     </div>
                 </div>

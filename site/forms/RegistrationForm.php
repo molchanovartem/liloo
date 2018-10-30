@@ -16,6 +16,7 @@ class RegistrationForm extends Model
     public $password;
     public $type;
     public $verifyCode;
+    public $deal;
 
     /**
      * @return array
@@ -23,7 +24,7 @@ class RegistrationForm extends Model
     public function rules()
     {
         return [
-            [['login', 'phone', 'password', 'type'], 'required'],
+            [['login', 'phone', 'password', 'type', 'deal'], 'required'],
             ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
         ];
     }
@@ -37,6 +38,7 @@ class RegistrationForm extends Model
             'phone'    => 'Телефон',
             'password' => 'Пароль',
             'type'     => 'Тип',
+            'deal'     => '',
         ];
     }
 

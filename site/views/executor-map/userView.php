@@ -9,16 +9,16 @@ $this->setBreadcrumbs([
 ?>
 
 <?php $this->beginBlock('aboveSidebar'); ?>
-    <div class="content-block uk-padding content-block_shadow uk-background-default uk-margin-top">
-        <div class="t-a_c font_type_2">Нажмите на кнопку и сделайте запись</div>
-        <div class="t-a_c">
-            <div class="button button_color_red button_width_270 mt-10">
-                <a href="../appointment/create" class="uk-button uk-link-reset"
-                   data-window="true"
-                   data-window-type="bigModal">Записаться</a>
-            </div>
+<div class="content-block uk-padding content-block_shadow uk-background-default uk-margin-top">
+    <div class="t-a_c font_type_2">Нажмите на кнопку и сделайте запись</div>
+    <div class="t-a_c">
+        <div class="button button_color_red button_width_270 mt-10">
+            <a href="../appointment/create" class="uk-button uk-link-reset"
+               data-window="true"
+               data-window-type="bigModal">Записаться</a>
         </div>
     </div>
+</div>
 <?php $this->endBlock(); ?>
 
 <div class="content-columns uk-margin-top">

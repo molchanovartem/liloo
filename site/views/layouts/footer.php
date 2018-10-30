@@ -13,7 +13,9 @@
                 </a>
             </div>
 
-            <a class="logo mt-35" href="/"><img src="http://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" alt="logo" class="logo__img"></a>
+            <a class="logo mt-35" href="/">
+                <img src="http://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" alt="logo" class="logo__img">
+            </a>
 
         </div>
 

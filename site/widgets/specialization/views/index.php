@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 ?>
@@ -16,13 +17,13 @@ use yii\helpers\Url;
                         <div class="service-list-item__img"
                              style="background-image: url(https://leonardo.osnova.io/c5591b46-aefc-5aa2-7be1-9ba41cef3ea0/)"></div>
                         <div class="service-list-item__wrap">
-                            <span class="service-list-item__name"><?php echo $specialization['name']; ?></span>
+                            <span class="service-list-item__name"><?php echo Html::encode($specialization['name']); ?></span>
                             <div class="service-list-item__row">
                                     <span class="service-list-item__prices">
-                                        Цены: от <?php echo $specialization['price']; ?> руб.
+                                        Цены: от <?php echo Html::encode($specialization['price']); ?> руб.
                                     </span>
-                                <span class="service-list-item__more">Подробнее</span>
                             </div>
+                            <span class="service-list-item__more uk-float-right uk-margin-top">Подробнее</span>
                         </div>
                     </div>
                 </a>

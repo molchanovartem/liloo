@@ -11,7 +11,7 @@ use common\models\Client;
 use common\models\Notice;
 use common\models\Salon;
 use common\models\UserProfile;
-use site\models\User;
+use common\models\User;
 
 /**
  * Class AppointmentService

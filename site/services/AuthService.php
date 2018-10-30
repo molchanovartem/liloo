@@ -42,7 +42,7 @@ class AuthService extends \common\services\AuthService
 
                 $userProfile = new UserProfile([
                     'user_id' => $user->id,
-                    'phone' => $form->phone,
+                    'phone' => (int) filter_var($form->phone, FILTER_SANITIZE_NUMBER_INT),
                 ]);
                 $userProfile->save(false);
 
