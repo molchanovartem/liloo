@@ -2,6 +2,7 @@
 
 namespace site\controllers;
 
+use site\forms\ResetPasswordForm;
 use site\services\ProfileService;
 use yii\filters\AccessControl;
 
@@ -62,5 +63,14 @@ class ProfileController extends Controller
         $this->modelService->update();
 
         return $this->extraRender('/profile/update', ['data' => $this->modelService->getData()]);
+    }
+
+    public function actionResetPassword()
+    {
+        if ($this->modelService->resetPassword()) {
+            return $this->redirect(['/auth/logout']);
+        }
+
+        return $this->extraRender('/profile/resetPassword', ['data' => $this->modelService->getData()]);
     }
 }

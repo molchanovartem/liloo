@@ -2,6 +2,7 @@
 
 namespace site\services;
 
+use site\forms\ResetPasswordForm;
 use Yii;
 use yii\helpers\ArrayHelper;
 use common\core\service\ModelService;
@@ -67,5 +68,31 @@ class ProfileService extends ModelService
         $array = Country::find()->select('*')->asArray()->all();
 
         return ArrayHelper::map($array, 'id', 'name');
+    }
+
+    public function resetPassword()
+    {
+        $model = new ResetPasswordForm();
+        $this->setData(['model' => $model]);
+
+        if ($model->load($this->getData('post')) && $model->validate()) {
+            $this->setPassword($model->newPassword);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $password
+     * @throws \yii\base\Exception
+     */
+    protected function setPassword($password)
+    {
+        $user = User::findOne(Yii::$app->user->getId());
+        $user->password = Yii::$app->security->generatePasswordHash($password);
+
+        $user->save(false);
     }
 }

@@ -26,6 +26,7 @@ class RegistrationForm extends Model
         return [
             [['login', 'phone', 'password', 'type', 'deal'], 'required'],
             ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
+            ['phone', 'unique'],
         ];
     }
 

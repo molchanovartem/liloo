@@ -1,8 +1,20 @@
-<?php $this->setBreadcrumbs(['Записи']); ?>
+<?php use yii\helpers\Html;
+
+$this->setBreadcrumbs(['Записи']); ?>
 
 <div id="appointment-view" class="uk-margin-top uk-border-rounded">
-    <div>
 
+    <div v-if="appointmentsNew.length === 0 && appointmentsCanceled.length === 0">
+        <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-margin-top uk-border-rounded">
+            <h3 class="uk-text-center">Вы не записаны ни на один сеанс.</h3>
+            <h3 class="uk-margin-remove uk-text-center">После записи на этой странице появиться таблица с вашими
+                записями.</h3>
+            <div class="uk-text-center">
+                <?php echo Html::a("<button class='button button_color_red button_in_header uk-margin-top uk-margin-bottom'>Подобрать мастера</button>", ['/executor-map']); ?>
+            </div>
+        </div>
+    </div>
+    <div v-else>
         <v-tabs fixed-tabs color="#ffffff" v-model="tabType" slot="extension" centered>
             <v-tabs-slider></v-tabs-slider>
             <v-tab class="uk-padding" href="#tab-appointment-new" @click="tabTypeAppointmentNew">
@@ -18,7 +30,6 @@
             <v-tab-item id='tab-appointment-new'>
                 <v-card>
                     <v-card-text>
-
                         <v-data-iterator
                                 :items="appointmentsNew"
                                 :total-items="countNew"
@@ -515,7 +526,7 @@
                                 this.countNew = data.total;
                                 this.appointmentsNew = [];
 
-                                if (data.appointments) {
+                                if (data.appointments.length !== 0) {
                                     for (let i = 0, appointment; appointment = data.appointments[i]; i++) {
                                         appointment.open = false;
                                         this.appointmentsNew.push(appointment)
@@ -532,7 +543,7 @@
                                 this.countCanceled = data.total;
                                 this.appointmentsCanceled = [];
 
-                                if (data.appointments) {
+                                if (data.appointments.length !== 0) {
                                     for (let i = 0, appointment; appointment = data.appointments[i]; i++) {
                                         appointment.open = false;
                                         this.appointmentsCanceled.push(appointment)

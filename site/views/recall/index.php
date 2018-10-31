@@ -5,10 +5,24 @@ use site\models\Recall;
 use site\widgets\complaint\Complaint;
 
 $this->setBreadcrumbs(['Отзывы']);
+$this->setHeading('Отзывы');
 Yii::$app->timeZone = 'Asia/Omsk';
 ?>
+<?php if (empty($data['recalls'])) : ?>
+    <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-margin-top uk-border-rounded">
+        <h3 class="uk-text-center">Вы не оставляли отзывов.</h3>
+        <h3 class="uk-margin-remove uk-text-center">Оставить отзыв можно к сеансу на котором вы присутствовали.</h3>
+        <div class="uk-text-center">
+            <?php echo Html::a(
+                "<button class='button button_color_red button_in_header uk-margin-top uk-margin-bottom'>Оставить отзыв</button>",
+                ['/appointment/view?tab_type=tab-appointment-canceled']);
+            ?>
+        </div>
 
-<div class="uk-margin-top font_type_12 uk-margin-bottom">Отзывы:</div>
+        <img src="/site/web/public/dist/images/recall.gif" alt="">
+    </div>
+<?php endif; ?>
+
 <div class="uk-grid">
     <?php foreach ($data['recalls'] as $recall): ?>
         <div class="uk-width-1-2" id="recall-<?php echo Html::encode($recall->id); ?>">

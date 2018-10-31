@@ -9,17 +9,25 @@ namespace site\controllers;
  */
 class SiteController extends Controller
 {
-    public $layout = 'static';
-
-    public $mainLayout = '/layouts/option/girl';
-
     /**
      * @return mixed
      */
     public function actionIndex()
     {
+        $this->layout = 'static';
+        $this->mainLayout = '/layouts/option/girl';
+
         return $this->extraRender('index', [
             'modelService' => $this->modelService
         ]);
+    }
+
+    /**
+     * @return array|string
+     */
+    public function actionRecalls()
+    {
+        $this->layout = 'staticRecall';
+        return $this->extraRender('recalls');
     }
 }

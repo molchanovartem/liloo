@@ -29,7 +29,6 @@ class LoginForm extends Model
             ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
             ['password', 'validatePassword'],
             ['phone', 'match', 'pattern' => '/^\8\s\([0-9]{3}\)\s[0-9]{3}\s[0-9]{2}\s[0-9]{2}$/', 'message' => 'Что-то не так с номером телефона'],
-            ['phone', 'unique'],
         ];
     }
 

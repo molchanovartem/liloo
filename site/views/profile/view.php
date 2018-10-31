@@ -45,14 +45,10 @@ $this->setBreadcrumbs(['Профиль']);
                 </h5>
             </div>
 
-            <div class="font_type_3 mt-25">
-                <h5>
-                    <b>Описание:</b> <?php echo Html::encode($data['model']->profile->description); ?>
-                </h5>
-            </div>
         </div>
         <div class="font_type_3 mt-25">
-            <?php echo Html::a("Редактировать", '/site/web/profile/update', ['class' => 'button button_color_blue-empty']); ?>
+            <?php echo Html::a('Редактировать', 'update', ['class' => 'button button_color_blue-empty']); ?>
+            <?php echo Html::a('Сброс пароля', 'reset-password', ['class' => 'button button_color_gray-empty']); ?>
         </div>
 
     </div>
