@@ -10,17 +10,17 @@ $this->setHeading('Регистрируйся и записывайся к лу�
 
 ?>
 <div class="uk-container">
-    <div class="uk-flex uk-flex-center" onsubmit="return checkForm(this);">
+    <div class="uk-flex uk-flex-center">
 
         <?php $form = ActiveForm::begin(); ?>
         <div class="j-c_c uk-margin-medium-bottom">
             <div class="type-switcher mt-25 js-switch-register type-switcher_in_register">
                 <input type="radio" name="RegistrationForm[type]" id="input_1_1" class="type-switcher__input"
-                       onclick="bgBlue()" value="<?php echo User::TYPE_CLIENT; ?>" checked="checked">
+                       onclick="registrationBgBlue()" value="<?php echo User::TYPE_CLIENT; ?>" checked="checked">
                 <label for="input_1_1" class="type-switcher__value font_Gilroy-17-800-000000">Я клиент, ищу
                     мастера</label>
                 <input type="radio" name="RegistrationForm[type]" id="input_1_2" class="type-switcher__input"
-                       onclick="bgWhite()" value="<?php echo User::TYPE_EXECUTOR; ?>">
+                       onclick="registrationBgWhite()" value="<?php echo User::TYPE_EXECUTOR; ?>">
                 <label for="input_1_2" class="type-switcher__value font_Gilroy-17-800-000000">Я мастер, ищу
                     работу</label>
                 <div class="type-switcher__active"></div>
@@ -31,23 +31,6 @@ $this->setHeading('Регистрируйся и записывайся к лу�
 
             <?= $form->errorSummary($data['form']); ?>
 
-            <!--            <div class="uk-margin">-->
-            <!--                <div class="uk-grid uk-child-width-1-2">-->
-            <!--                    --><?php //echo $form->field($data['form'], 'type')->radio([
-            //                        'label' => 'Я клиент, ищу мастера',
-            //                        'value' => User::TYPE_CLIENT,
-            //                        'id' => 'input_1_1',
-            //                        'checked' => 'checked',
-            //                        'class' => 'type-switcher__value font_Gilroy-17-800-000000',
-            //                    ]); ?>
-            <!--                    --><?php //echo $form->field($data['form'], 'type')->radio([
-            //                        'label' => 'Я мастер, ищу работу',
-            //                        'value' => User::TYPE_EXECUTOR,
-            //                        'id' => 'input_1_2',
-            //                        'class' => 'type-switcher__value font_Gilroy-17-800-000000',
-            //                    ]); ?>
-            <!--                </div>-->
-            <!--            </div>-->
             <div class="uk-margin input-box">
                 <div class="input-box__wrap">
                     <?= $form->field($data['form'], 'phone')
@@ -87,20 +70,6 @@ $this->setHeading('Регистрируйся и записывайся к лу�
                 <span class="checkbox__mark"></span>
             </label>
 
-<!--            <label class="checkbox mt-35">-->
-<!---->
-<!--                <?//= $form->field($data['form'], 'deal')
-//                    ->checkbox([ 'required' => true,])->label(false); ?>
-<!--<!---->
-<!---->
-<!---->
-<!--                <input type="checkbox" >-->
-<!--                <label class="checkbox__text checkbox__text_color_000">-->
-<!--                    Нажимая на кнопку «Зарегистрироваться», я даю согласие на обработку персональных-->
-<!--                    данных, соглашаюсь с публичной офертой ООО «Лилу» и правилами сайта.-->
-<!--                </label>-->
-<!--                <span class="checkbox__mark"></span>-->
-<!--            </label>-->
             <div class="mt-35 between-25">
                 <input type="submit" class="button button_color_red" value="Зарегистрироваться">
                 <?php echo Html::a("У меня есть аккаунт", ['/auth/login'], ['class' => 'font_Gilroy-17-800-000000']); ?>
