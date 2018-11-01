@@ -2,7 +2,7 @@
 
 namespace admin\controllers;
 
-use admin\services\NoticeService;
+use Yii;
 
 /**
  * Class NoticeController
@@ -11,29 +11,12 @@ use admin\services\NoticeService;
 class NoticeController extends Controller
 {
     /**
-     * NoticeController constructor.
-     * @param string $id
-     * @param $module
-     * @param NoticeService $noticeService
-     * @param array $config
-     */
-    public function __construct(string $id, $module, NoticeService $noticeService, array $config = [])
-    {
-        $this->modelService = $noticeService;
-
-        parent::__construct($id, $module, $config);
-    }
-
-    /**
      * @return string
      */
     public function actionIndex()
     {
-        $this->modelService->getAllNotices();
-        $data = $this->modelService->getData();
-
         return $this->render('index', [
-            'notices' => $data['notices'],
+            'notices' => Yii::$app->adminNotice->getAllNotice(),
         ]);
     }
 
@@ -42,9 +25,9 @@ class NoticeController extends Controller
      * @return \yii\web\Response
      * @throws \Exception
      */
-    public function actionDelete($id)
+    public function actionDelete(int $id)
     {
-        $this->modelService->delete($id);
+        Yii::$app->adminNotice->delete($id);
 
         return $this->redirect(['index']);
     }
@@ -56,7 +39,7 @@ class NoticeController extends Controller
      */
     public function actionCheck($id)
     {
-        $this->modelService->check($id);
+        Yii::$app->adminNotice->checkNotice($id);
 
         return $this->redirect(['index']);
     }

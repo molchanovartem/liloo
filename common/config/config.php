@@ -13,8 +13,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'adminNotice' => 'common\components\notice\AdminNoticeComponent',
+        'siteNotice' => 'common\components\notice\SiteNoticeComponent',
         'sms' => 'common\components\SmsComponent',
-        'adminNotice' => 'common\components\AdminNoticeComponent',
         'notice' => 'common\components\NoticeComponent',
         'balance' => 'common\components\BalanceComponent',
         'account' => 'common\components\AccountComponent',

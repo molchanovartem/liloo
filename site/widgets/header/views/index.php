@@ -27,14 +27,7 @@ use site\widgets\cityWidget\Widget as CityWidget;
 
             <?php echo Html::a("Войти", ['/auth/login'], ['class' => 'font_Gilroy-17-800-000000']); ?>
         <?php else: ?>
-            <?php
-        // @todo сделать простой переход в контроллер, зачем форма?
-                echo Html::beginForm(['/auth/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->login . ')',
-                    ['class' => 'button button_color_red button_in_header']
-                )
-                . Html::endForm(); ?>
+            <?php echo Html::a("<button class='button button_color_red button_in_header'>Logout (" . Yii::$app->user->identity->login . ")</button>", ['/auth/logout']); ?>
         <?php endif; ?>
     </div>
 

@@ -14,6 +14,7 @@ class RegistrationForm extends Model
     public $phone;
     public $type;
     public $verifyCode;
+    public $deal;
 
     /**
      * @return array
@@ -35,6 +36,7 @@ class RegistrationForm extends Model
             'phone'    => 'Телефон',
             'password' => 'Пароль',
             'type'     => 'Тип',
+            'deal' => ''
         ];
     }
 }

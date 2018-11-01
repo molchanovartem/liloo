@@ -30,7 +30,7 @@ class UserProfile extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'name', 'phone'], 'required'],
-            [['user_id', 'phone', 'country_id', 'city_id'], 'integer'],
+            [['user_id', 'country_id', 'city_id'], 'integer'],
             [['date_birth'], 'date', 'format' => 'php: Y-m-d'],
             [['surname', 'name', 'patronymic', 'address'], 'string', 'max' => 255],
             [['latitude', 'longitude'], 'number'],
@@ -43,11 +43,11 @@ class UserProfile extends \yii\db\ActiveRecord
             [['avatarDelete'], 'integer'],
 
             ['description', 'string'],
-            ['phone', 'string', 'max' => 15]
+
         ];
     }
 
-     /**
+    /**
      * @return array
      */
     public static function modelAttributeLabels(): array

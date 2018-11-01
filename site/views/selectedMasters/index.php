@@ -3,7 +3,21 @@
 use yii\helpers\Html;
 
 $this->setBreadcrumbs(['Избранные мастера']);
+$this->setHeading('Избранные мастера');
 ?>
+
+<?php if (empty($data['model'])) : ?>
+    <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-margin-top uk-border-rounded">
+        <h3 class="uk-text-center">Вы еще никого не добавили.</h3>
+        <h3 class="uk-margin-remove uk-text-center"> Сделать это вы можете в профиле мастера.</h3>
+        <div class="uk-text-center">
+            <?php echo Html::a("<button class='button button_color_red button_in_header uk-margin-top uk-margin-bottom'>Подобрать мастера</button>", ['/executor-map']); ?>
+        </div>
+
+        <img src="/site/web/public/dist/images/selectedMaster.gif" alt="">
+    </div>
+<?php endif; ?>
+
 <?php foreach ($data['model'] as $selectedMaster): ?>
     <?php if (!$selectedMaster->is_salon): ?>
         <div class="uk-card uk-card-default uk-card-body uk-margin-top uk-margin-bottom uk-padding-remove-vertical uk-border-rounded">
@@ -19,7 +33,11 @@ $this->setBreadcrumbs(['Избранные мастера']);
                                 <div class="performer__name">
                                     <?php echo Html::encode($selectedMaster->user->profile->name); ?>
                                     <?php echo Html::encode($selectedMaster->user->profile->surname); ?>
+                                    <a href="/site/web/selected-masters/add-to-selected?executorId=<?php echo Html::encode($selectedMaster->executor_id); ?>&isSalon=0">
+                                        <i class="mdi mdi-star uk-text-warning" uk-tooltip="Убрать из избранного"></i>
+                                    </a>
                                 </div>
+
                             </a>
                             <div class="performer__profession">
                                 <?php echo Html::encode($selectedMaster->user->profile->description); ?>

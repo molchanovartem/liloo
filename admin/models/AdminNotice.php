@@ -14,8 +14,7 @@ class AdminNotice extends ActiveRecord
     const STATUS_READ = 1;
 
     const TYPE_USER_REGISTRATION = 1;
-    const TYPE_USER_RECALL = 2;
-    const TYPE_CLIENT_COMPLAINT = 3;
+    const TYPE_CLIENT_COMPLAINT = 2;
 
     /**
      * @return string
@@ -42,7 +41,6 @@ class AdminNotice extends ActiveRecord
     {
         return [
             self::TYPE_USER_REGISTRATION => 'Регистрация',
-            self::TYPE_USER_RECALL => 'Отзыв',
         ];
     }
 

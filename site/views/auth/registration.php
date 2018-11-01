@@ -1,6 +1,7 @@
 <?php
 
 use yii\captcha\Captcha;
+use yii\helpers\Html;
 use site\widgets\activeForm\ActiveForm;
 use site\widgets\MaskedTextInputWidget as MasketWidget;
 use common\models\User;
@@ -9,35 +10,49 @@ $this->setHeading('Регистрируйся и записывайся к лу�
 
 ?>
 <div class="uk-container">
-    <div class="uk-flex uk-flex-center">
+    <div class="uk-flex uk-flex-center" onsubmit="return checkForm(this);">
+
+        <?php $form = ActiveForm::begin(); ?>
+        <div class="j-c_c uk-margin-medium-bottom">
+            <div class="type-switcher mt-25 js-switch-register type-switcher_in_register">
+                <input type="radio" name="RegistrationForm[type]" id="input_1_1" class="type-switcher__input"
+                       onclick="bgBlue()" value="<?php echo User::TYPE_CLIENT; ?>" checked="checked">
+                <label for="input_1_1" class="type-switcher__value font_Gilroy-17-800-000000">Я клиент, ищу
+                    мастера</label>
+                <input type="radio" name="RegistrationForm[type]" id="input_1_2" class="type-switcher__input"
+                       onclick="bgWhite()" value="<?php echo User::TYPE_EXECUTOR; ?>">
+                <label for="input_1_2" class="type-switcher__value font_Gilroy-17-800-000000">Я мастер, ищу
+                    работу</label>
+                <div class="type-switcher__active"></div>
+            </div>
+        </div>
+
         <div class="uk-width-xlarge block_type_1">
-            <?php $form = ActiveForm::begin(); ?>
-            <ul>@todo
-                <li>Ошибка radio</li>
-            </ul>
 
             <?= $form->errorSummary($data['form']); ?>
 
-            <div class="uk-margin">
-                <div class="uk-grid uk-child-width-1-2">
-                    <?= $form->field($data['form'], 'type')->radio([
-                        'label' => 'Я клиент, ищу мастера',
-                        'value' => User::TYPE_CLIENT,
-                        'id' => 'input_1_1',
-                        'checked' => 'checked'
-                    ]); ?>
-                    <?php /* $form->field($data['form'], 'type')->radio([
-                    'label' => 'Я мастер, ищу работу',
-                    'value' => User::TYPE_EXECUTOR,
-                    'id' => 'input_1_2',
-                ]); */ ?>
-                </div>
-            </div>
+            <!--            <div class="uk-margin">-->
+            <!--                <div class="uk-grid uk-child-width-1-2">-->
+            <!--                    --><?php //echo $form->field($data['form'], 'type')->radio([
+            //                        'label' => 'Я клиент, ищу мастера',
+            //                        'value' => User::TYPE_CLIENT,
+            //                        'id' => 'input_1_1',
+            //                        'checked' => 'checked',
+            //                        'class' => 'type-switcher__value font_Gilroy-17-800-000000',
+            //                    ]); ?>
+            <!--                    --><?php //echo $form->field($data['form'], 'type')->radio([
+            //                        'label' => 'Я мастер, ищу работу',
+            //                        'value' => User::TYPE_EXECUTOR,
+            //                        'id' => 'input_1_2',
+            //                        'class' => 'type-switcher__value font_Gilroy-17-800-000000',
+            //                    ]); ?>
+            <!--                </div>-->
+            <!--            </div>-->
             <div class="uk-margin input-box">
                 <div class="input-box__wrap">
                     <?= $form->field($data['form'], 'phone')
-                        ->widget(MasketWidget::class, ['pattern' => '(99) 9999-9999'])
-                        ->label('Введите ваш телефон');
+                        ->widget(MasketWidget::class, ['pattern' => '9 (999) 999 99 99', 'options' => ['class' => 'uk-form-small input-box__input', 'placeholder' => '9 (999) 999 99 99']])
+                        ->label(false);
                     ?>
                 </div>
             </div>
@@ -62,24 +77,47 @@ $this->setHeading('Регистрируйся и записывайся к лу�
                     ]
                 ])->label(false); ?>
             </div>
-            <div class="uk-margin uk-text-center">
-                <button class="button button_color_red">Регистрация</button>
+
+            <label class="checkbox mt-35">
+                <span class="checkbox__text checkbox__text_color_000">
+                    Нажимая на кнопку «Зарегистрироваться», я даю согласие на обработку персональных
+                    данных, соглашаюсь с публичной офертой ООО «Лилу» и правилами сайта.
+                </span>
+                <input name="RegistrationForm[deal]" type="checkbox" required>
+                <span class="checkbox__mark"></span>
+            </label>
+
+<!--            <label class="checkbox mt-35">-->
+<!---->
+<!--                <?//= $form->field($data['form'], 'deal')
+//                    ->checkbox([ 'required' => true,])->label(false); ?>
+<!--<!---->
+<!---->
+<!---->
+<!--                <input type="checkbox" >-->
+<!--                <label class="checkbox__text checkbox__text_color_000">-->
+<!--                    Нажимая на кнопку «Зарегистрироваться», я даю согласие на обработку персональных-->
+<!--                    данных, соглашаюсь с публичной офертой ООО «Лилу» и правилами сайта.-->
+<!--                </label>-->
+<!--                <span class="checkbox__mark"></span>-->
+<!--            </label>-->
+            <div class="mt-35 between-25">
+                <input type="submit" class="button button_color_red" value="Зарегистрироваться">
+                <?php echo Html::a("У меня есть аккаунт", ['/auth/login'], ['class' => 'font_Gilroy-17-800-000000']); ?>
             </div>
+
+
             <?php ActiveForm::end(); ?>
         </div>
     </div>
 
-    <!---->
-    <!--    <div class="font_type_8 mt-40 t-a_c">Быстрая регистрация</div>-->
-    <!--    <div class="social-buttons mt-30">-->
-    <!--        <a href="" class="button button_color_vk"><span class="fab button__icon fa-vk"></span>-->
-    <!--            <span class="">ВКонтакте</span>-->
-    <!--        </a>-->
-    <!--        <a href="" class="button button_color_fb"><span class="fab button__icon fa-facebook-square"></span>-->
-    <!--            <span class="">Facebook</span>-->
-    <!--        </a>-->
-    <!--        <a href="" class="button button_color_ok"><span class="fab button__icon fa-odnoklassniki"></span>-->
-    <!--            <span class="">Одноклассники</span>-->
-    <!--        </a>-->
-    <!--    </div>-->
 </div>
+<script>
+    function bgWhite() {
+        $('#appContent').find('.bg_color_e4eff9').css('background-color', '#ffffff');
+    }
+
+    function bgBlue() {
+        $('#appContent').find('.bg_color_e4eff9').css('background-color', '#e4eff9');
+    }
+</script>

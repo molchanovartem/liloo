@@ -14,6 +14,7 @@ class Notice extends ActiveRecord
     const STATUS_READ = 1;
 
     const TYPE_USER_CANCELED_SESSION = 1;
+    const TYPE_USER_RECALL = 2;
 
     /**
      * @return string

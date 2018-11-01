@@ -1,3 +1,4 @@
+<?php use yii\helpers\Html; ?>
 <footer class="footer content-width">
 
     <div class="footer__parts">
@@ -13,7 +14,9 @@
                 </a>
             </div>
 
-            <a class="logo mt-35" href="/"><img src="http://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" alt="logo" class="logo__img"></a>
+            <a class="logo mt-35" href="/">
+                <img src="http://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png" alt="logo" class="logo__img">
+            </a>
 
         </div>
 
@@ -23,8 +26,8 @@
                 <div class="footer-menu__name">Профиль</div>
                 <div class="footer-menu__uls">
                     <ul class="footer-menu__ul">
-                        <li class="footer-menu__li"><a href="" class="footer-menu__a">Войти</a></li>
-                        <li class="footer-menu__li"><a href="" class="footer-menu__a">Зарегистрироваться</a></li>
+                        <li class="footer-menu__li"><?php echo Html::a("Войти", ['/auth/login'], ['class' => 'footer-menu__a']); ?></li>
+                        <li class="footer-menu__li"><?php echo Html::a("Зарегистрироваться", ['/auth/registration'], ['class' => 'footer-menu__a']); ?></li>
                         <li class="footer-menu__li"><a href="" class="footer-menu__a">Восстановить доступ</a></li>
                     </ul>
                 </div>

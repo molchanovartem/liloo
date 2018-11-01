@@ -17,9 +17,10 @@ use site\widgets\MaskedTextInputWidget as MasketWidget;
             <div class="uk-margin input-box">
                 <div class="input-box__wrap">
                     <?= $form->field($data['form'], 'phone')
-                        ->widget(MasketWidget::class, ['pattern' => '(99) 9999-9999'])
-                        ->label('Введите ваш телефон');
+                        ->widget(MasketWidget::class, ['pattern' => '9 (999) 999 99 99', 'options' => ['class' => 'uk-form-small input-box__input', 'placeholder' => '9 (999) 999 99 99']])
+                        ->label(false);
                     ?>
+
                 </div>
             </div>
             <div class="uk-margin input-box">
@@ -53,18 +54,5 @@ use site\widgets\MaskedTextInputWidget as MasketWidget;
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-
-    <!--    <div class="font_type_8 mt-40 t-a_c">Быстрая регистрация</div>-->
-    <!--    <div class="social-buttons mt-30">-->
-    <!--        <a href="" class="button button_color_vk"><span class="fab button__icon fa-vk"></span>-->
-    <!--            <span class="">ВКонтакте</span>-->
-    <!--        </a>-->
-    <!--        <a href="" class="button button_color_fb"><span class="fab button__icon fa-facebook-square"></span>-->
-    <!--            <span class="">Facebook</span>-->
-    <!--        </a>-->
-    <!--        <a href="" class="button button_color_ok"><span class="fab button__icon fa-odnoklassniki"></span>-->
-    <!--            <span class="">Одноклассники</span>-->
-    <!--        </a>-->
-    <!--    </div>-->
 
 </div>

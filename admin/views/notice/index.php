@@ -12,11 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="uk-grid uk-grid-small uk-flex-middle">
                     <div class="uk-width-auto">
                         <?php if ($notice->status) : ?>
-                            <a href="check?id=<?php echo $notice->id; ?>"
+                            <a href="/admin/web/notice/check?id=<?php echo $notice->id; ?>"
                                class="uk-icon-button uk-margin-small-right uk-background-primary uk-light"
                                uk-icon="check"></a>
                         <?php else: ?>
-                            <a href="check?id=<?php echo $notice->id; ?>" class="uk-icon-button uk-margin-small-right"
+                            <a href="/admin/web/notice/check?id=<?php echo $notice->id; ?>" class="uk-icon-button uk-margin-small-right"
                                uk-icon="check"></a>
                         <?php endif; ?>
                     </div>

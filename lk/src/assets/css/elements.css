@@ -64,6 +64,13 @@
     line-height: 40px;
 }
 
+.button_color_gray-empty {
+    color: gray;
+    background: none;
+    border: 2px solid;
+    line-height: 40px;
+}
+
 .button_color_red:hover, .button_color_blue:hover {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;

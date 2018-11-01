@@ -31,7 +31,6 @@ class MaskedTextInputWidget extends InputWidget
         $id = $this->options['id'];
         $pattern = $this->pattern;
         $script = "VMasker(document.getElementById('{$id}')).maskPattern('{$pattern}')";
-
         $this->view->registerJs($script);
     }
 }

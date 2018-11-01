@@ -65,14 +65,14 @@ $this->registerJs('indexForm();');
                 </div>
             </form>
 
-            <a href="" class="anchor-more mt-65">
+            <a href="executor-map" class="anchor-more mt-65">
                 <span class="anchor-more__arrow fas fa-arrow-down"></span>
                 <span class="anchor-more__text">Все услуги</span>
             </a>
         </div>
 
         <div class="header__content-part">
-            <div uk-slideshow="animation: slide">
+            <div uk-slideshow="autoplay: true; autoplay-interval: 4000">
 
                 <div class="popular-service-index uk-position-relative uk-visible-toggle uk-light uk-background-default uk-padding-small uk-border-rounded">
 
@@ -84,10 +84,12 @@ $this->registerJs('indexForm();');
                                      style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
                                 <div class="service-popular__row">
                                     <span class="service-popular__name">Ресницы, брови</span>
-                                    <span class="service-popular__prices">Цены: от 300 руб.</span>
+                                    <span class="service-popular__prices">Цены: от 200 руб.</span>
                                 </div>
                             </div>
-                            <span class="service-popular__more service-popular_custom">Подробнее</span>
+                            <a href="executor-map/index?specialization_id=1033">
+                                <span class="service-popular__more service-popular_custom">Подробнее</span>
+                            </a>
                         </li>
                         <li>
                             <span class="service-popular__tip">Популярная услуга в вашем городе</span>
@@ -95,11 +97,13 @@ $this->registerJs('indexForm();');
                                 <div class="service-popular__img"
                                      style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
                                 <div class="service-popular__row">
-                                    <span class="service-popular__name">Ресницы, брови</span>
-                                    <span class="service-popular__prices">Цены: от 300 руб.</span>
+                                    <span class="service-popular__name">Волосы</span>
+                                    <span class="service-popular__prices">Цены: от 500 руб.</span>
                                 </div>
                             </div>
-                            <span class="service-popular__more">Подробнее</span>
+                            <a href="executor-map/index?specialization_id=1032">
+                                <span class="service-popular__more">Подробнее</span>
+                            </a>
                         </li>
                         <li>
                             <span class="service-popular__tip">Популярная услуга в вашем городе</span>
@@ -107,18 +111,15 @@ $this->registerJs('indexForm();');
                                 <div class="service-popular__img"
                                      style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png)"></div>
                                 <div class="service-popular__row">
-                                    <span class="service-popular__name">Ресницы, брови</span>
-                                    <span class="service-popular__prices">Цены: от 300 руб.</span>
+                                    <span class="service-popular__name">Ногти</span>
+                                    <span class="service-popular__prices">Цены: от 100 руб.</span>
                                 </div>
                             </div>
-                            <span class="service-popular__more">Подробнее</span>
+                            <a href="executor-map/index?specialization_id=1034">
+                                <span class="service-popular__more">Подробнее</span>
+                            </a>
                         </li>
                     </ul>
-
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#"
-                       uk-slidenav-previous uk-slideshow-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#"
-                       uk-slidenav-next uk-slideshow-item="next"></a>
 
                 </div>
 
@@ -317,7 +318,7 @@ $this->registerJs('indexForm();');
         </div>
 
         <div class="mt-80">
-            <a href="" class="font_Gilroy-17-800-000000">Больше отзывов</a>
+            <a href="site/recalls" class="font_Gilroy-17-800-000000">Больше отзывов</a>
         </div>
     </div>
 </div>

@@ -25,11 +25,10 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // Формат телефона, длина
             [['phone', 'password'], 'required'],
-            [['phone'], 'integer'],
             ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
             ['password', 'validatePassword'],
+            ['phone', 'match', 'pattern' => '/^\8\s\([0-9]{3}\)\s[0-9]{3}\s[0-9]{2}\s[0-9]{2}$/', 'message' => 'Что-то не так с номером телефона'],
         ];
     }
 
@@ -69,10 +68,11 @@ class LoginForm extends Model
             $this->user = UserIdentity::find()
                 ->alias('u')
                 ->leftJoin(UserProfile::tableName() . ' up', 'up.user_id = u.id')
-                ->where(['up.phone' => $this->phone])
+                ->where(['up.phone' => (int)filter_var($this->phone, FILTER_SANITIZE_NUMBER_INT)])
                 ->andWhere(['u.type' => UserIdentity::TYPE_CLIENT])
                 ->one();
         }
+
         return $this->user;
     }
 }
