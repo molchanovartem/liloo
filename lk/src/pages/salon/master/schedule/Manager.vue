@@ -176,7 +176,8 @@
                             salon_id: $salonId,
                             master_id: $masterId,
                             start_date: $startDate,
-                            end_date: $endDate
+                            end_date: $endDate,
+                            limit: -1
                          ) {
                             id, type, start_date, end_date
                         }

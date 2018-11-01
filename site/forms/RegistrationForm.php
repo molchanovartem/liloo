@@ -24,12 +24,12 @@ class RegistrationForm extends Model
         return [
             [['phone', 'type'], 'required'],
             ['verifyCode', 'captcha', 'captchaAction' => '/auth/captcha'],
-            ['phone', function ($attribute) {
-                $user = UserProfile::find()->where(['phone' => $this->setNormalizePhone(), 'type' => $this->type])->one();
-                if (!empty($user)) {
-                    $this->addError($attribute, 'Пользователь с таким телефоном уже существует.');
-                }
-            }],
+//            ['phone', function ($attribute) {
+//                $user = UserProfile::find()->where(['phone' => $this->setNormalizePhone(), 'type' => $this->type])->one();
+//                if (!empty($user)) {
+//                    $this->addError($attribute, 'Пользователь с таким телефоном уже существует.');
+//                }
+//            }],
         ];
     }
 

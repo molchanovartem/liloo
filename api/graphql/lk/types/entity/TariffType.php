@@ -29,11 +29,21 @@ class TariffType implements QueryTypeInterface
                     'status' => [
                         'type' => $typeRegistry->int(),
                         'defaultValue' => null
-                    ]
+                    ],
+                    'limit' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 30,
+                    ],
+                    'offset' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 0,
+                    ],
                 ],
                 'resolve' => function ($root, $args) {
                     return Tariff::find()
                         ->andFilterWhere(['status' => $args['status']])
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
                         ->all();
                 }
             ],

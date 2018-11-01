@@ -188,7 +188,7 @@
 
                 this.$apollo.query({
                     query: gql`query ($startDate: DateTime, $endDate: DateTime) {
-                        userSchedules(start_date: $startDate, end_date: $endDate) {
+                        userSchedules(start_date: $startDate, end_date: $endDate, limit: -1) {
                             id, type, start_date, end_date
                         }
                     }`,

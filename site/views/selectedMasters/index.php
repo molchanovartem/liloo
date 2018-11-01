@@ -80,9 +80,10 @@ $this->setHeading('Избранные мастера');
                     </div>
                 </div>
                 <div class="button button_color_red button_width_270 mt-10">
-                    <a href="../appointment/create" class="uk-button uk-link-reset"
-                       data-window="true"
-                       data-window-type="bigModal">Записаться</a>
+                    <button class="uk-button uk-link-reset"
+                            onclick="modalAppointmentCreate({userId:<?php echo $selectedMaster->executor_id; ?>})">
+                        Записаться
+                    </button>
                 </div>
             </div>
 
@@ -141,9 +142,10 @@ $this->setHeading('Избранные мастера');
                     </div>
                 </div>
                 <div class="button button_color_red button_width_270 mt-10">
-                    <a href="../appointment/create" class="uk-button uk-link-reset"
-                       data-window="true"
-                       data-window-type="bigModal">Записаться</a>
+                    <button class="uk-button uk-link-reset"
+                            onclick="modalAppointmentCreate({salonId:<?php echo $selectedMaster->executor_id; ?>})">
+                        Записаться
+                    </button>
                 </div>
             </div>
 

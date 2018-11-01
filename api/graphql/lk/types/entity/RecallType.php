@@ -30,9 +30,19 @@ class RecallType implements QueryTypeInterface
                         'type' => $typeRegistry->int(),
                         'defaultValue' => null
                     ],
+                    'limit' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 30,
+                    ],
+                    'offset' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 0,
+                    ],
                 ],
                 'resolve' => function ($root, $args) {
                     return Recall::find()
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
                         ->byAppointmentId($args['appointment_id'])
                         ->allByCurrentAccountId();
                 }

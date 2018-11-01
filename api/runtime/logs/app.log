@@ -2235,3 +2235,186 @@ $_SERVER = [
     'argv' => []
     'argc' => 0
 ]
+2018-11-01 08:00:41 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-01 08:00:41 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = [
+    '{\"query\":\"mutation_($attributes:_AppointmentCreateInput!)_{\\n________________________________appointmentCreate(attributes:_$attributes)\\n____________________________}\",\"variables\":{\"attributes\":{\"user_id\":\"52\",\"client_id\":null,\"client_name\":\"Артем\",\"client_phone\":\"79963942641\",\"start_date\":\"2018-11-01_12:00:00\",\"end_date\":\"2018-11-01_13:01:00\",\"items\":' => [
+        '{\"service_id\":51,\"quantity\":1}' => ''
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_csrf' => '42d07f6a3df4601a9c11affd2ceba582dfa1d8a6ececdd2477629e5adf36797aa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"h6Qn4L4wfi26zSZ-g_TQD64OJA9aLqqh\";}'
+    'PHPSESSID' => 'qd63cl4bljq3a2lhhqvbe0ch4rusdg03'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '394'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://liloo'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_REFERER' => 'http://liloo/site/web/executor-map?date=2018-11-01&hour=10&minute=00&view_type=catalog&specialization_id=&service_id='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_csrf=42d07f6a3df4601a9c11affd2ceba582dfa1d8a6ececdd2477629e5adf36797aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22h6Qn4L4wfi26zSZ-g_TQD64OJA9aLqqh%22%3B%7D; PHPSESSID=qd63cl4bljq3a2lhhqvbe0ch4rusdg03'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '5025'
+    'REDIRECT_URL' => '/api/site'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/site'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541048441.778
+    'REQUEST_TIME' => 1541048441
+    'argv' => []
+    'argc' => 0
+]
+2018-11-01 08:03:01 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-01 08:03:01 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = [
+    '{\"query\":\"mutation_($attributes:_AppointmentCreateInput!)_{\\n________________________________appointmentCreate(attributes:_$attributes)\\n____________________________}\",\"variables\":{\"attributes\":{\"user_id\":\"52\",\"client_id\":null,\"client_name\":\"вЯчаыфва\",\"client_phone\":\"75959599789\",\"start_date\":\"2018-11-01_14:00:00\",\"end_date\":\"2018-11-01_14:30:00\",\"items\":' => [
+        '{\"service_id\":52,\"quantity\":1}' => ''
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_csrf' => '42d07f6a3df4601a9c11affd2ceba582dfa1d8a6ececdd2477629e5adf36797aa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"h6Qn4L4wfi26zSZ-g_TQD64OJA9aLqqh\";}'
+    'PHPSESSID' => 'qd63cl4bljq3a2lhhqvbe0ch4rusdg03'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '400'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://liloo'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_REFERER' => 'http://liloo/site/web/executor-map?date=2018-11-01&hour=10&minute=00&view_type=catalog&specialization_id=&service_id='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_csrf=42d07f6a3df4601a9c11affd2ceba582dfa1d8a6ececdd2477629e5adf36797aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22h6Qn4L4wfi26zSZ-g_TQD64OJA9aLqqh%22%3B%7D; PHPSESSID=qd63cl4bljq3a2lhhqvbe0ch4rusdg03'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '5111'
+    'REDIRECT_URL' => '/api/site'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/site'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541048581.653
+    'REQUEST_TIME' => 1541048581
+    'argv' => []
+    'argc' => 0
+]
+2018-11-01 08:07:41 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-01 08:07:41 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = [
+    '{\"query\":\"mutation_($attributes:_AppointmentCreateInput!)_{\\n________________________________appointmentCreate(attributes:_$attributes)\\n____________________________}\",\"variables\":{\"attributes\":{\"user_id\":\"52\",\"client_id\":94,\"client_name\":null,\"client_phone\":null,\"start_date\":\"2018-11-01_15:00:00\",\"end_date\":\"2018-11-01_16:01:00\",\"items\":' => [
+        '{\"service_id\":51,\"quantity\":1}' => ''
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => '5ds4rvv84iq84lcg3n6fb1d3m6jhl5am'
+    '_csrf' => '73394fea1ef1af749813aed729ab0b7971817b0af801c70c824918e0cf06b27aa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"ZTgo4zAPIM8VTv-evGBtUihHDcsuFi22\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '375'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://liloo'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_REFERER' => 'http://liloo/site/web/index.php/executor-map?date=2018-11-01&hour=10&minute=30&view_type=catalog&specialization_id=&service_id='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=5ds4rvv84iq84lcg3n6fb1d3m6jhl5am; _csrf=73394fea1ef1af749813aed729ab0b7971817b0af801c70c824918e0cf06b27aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22ZTgo4zAPIM8VTv-evGBtUihHDcsuFi22%22%3B%7D'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '5314'
+    'REDIRECT_URL' => '/api/site'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/site'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541048861.806
+    'REQUEST_TIME' => 1541048861
+    'argv' => []
+    'argc' => 0
+]

@@ -5,6 +5,8 @@ namespace api\graphql\lk\types\entity;
 use api\graphql\core\QueryTypeInterface;
 use api\graphql\core\TypeRegistry;
 use api\models\lk\Client;
+use GraphQL\Type\Definition\InputObjectType;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class ClientType
@@ -20,12 +22,22 @@ class ClientType implements QueryTypeInterface
     public static function getFieldsQueryType(TypeRegistry $typeRegistry): array
     {
         $entityRegistry = $typeRegistry->getEntityRegistry();
+        $filterType = new InputObjectType([
+            'name' => 'ClientFilter',
+            'fields' => function() use ($typeRegistry) {
+                return [
+                    'phone' => $typeRegistry->string(),
+                    'surname_contains' => $typeRegistry->string(),
+                ];
+            }
+        ]);
 
         return [
             'clients' => [
                 'type' => $typeRegistry->listOff($entityRegistry->client()),
                 'description' => 'Коллекция клиентов',
                 'args' => [
+                    'filter' => $filterType,
                     'limit' => [
                         'type' => $typeRegistry->int(),
                         'defaultValue' => 30,
@@ -36,10 +48,16 @@ class ClientType implements QueryTypeInterface
                     ]
                 ],
                 'resolve' => function ($root, $args) {
-                    return Client::find()
-                        ->limit($args['limit'])
-                        ->offset($args['offset'])
-                        ->allByCurrentAccountId();
+                    $query = Client::find()->limit($args['limit'])->offset($args['offset']);
+                    if ($phone = ArrayHelper::getValue($args, 'filter.phone')) {
+                        $query->andWhere(['phone' => $phone]);
+                    }
+
+                    if ($surname = ArrayHelper::getValue($args, 'filter.surname_contains')) {
+                        $query->andWhere(['like', 'surname', $surname]);
+                    }
+
+                    return $query->allByCurrentAccountId();
                 }
             ],
             'client' => [
@@ -56,6 +74,12 @@ class ClientType implements QueryTypeInterface
                         ->oneById($args['id']);
                 }
             ],
+            'clientTotalCount' => [
+                'type' => $typeRegistry->int(),
+                'resolve' => function ($root, $args) {
+                    return Client::find()->countByCurrentAccountId();
+                }
+            ]
         ];
     }
 }

@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 gulp.task('js', function () {
     return gulp.src([
         './src/app/js/*.js',
-        './src/app/js/widgets/*.js',
+        './src/app/js/*/*.js',
     ])
     //.pipe(uglify())
         .pipe(babel({

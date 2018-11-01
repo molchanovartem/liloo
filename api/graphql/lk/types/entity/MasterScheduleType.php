@@ -43,11 +43,21 @@ class MasterScheduleType implements QueryTypeInterface
                         'description' => 'Дата окончания, формат "Y-m-d H:i:s"',
                         'defaultValue' => date('Y-m-t 23:59:59')
                     ],
+                    'limit' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 30,
+                    ],
+                    'offset' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 0,
+                    ],
                 ],
                 'resolve' => function ($root, $args) {
                     return MasterSchedule::find()
                         ->where(['between', 'start_date', $args['start_date'], $args['end_date']])
                         ->andFilterWhere(['salon_id' => $args['salon_id'], 'master_id' => $args['master_id']])
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
                         ->allByCurrentAccountId();
                 }
             ],

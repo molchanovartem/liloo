@@ -75,6 +75,7 @@ class AppointmentService extends ModelService
             ->leftJoin(UserProfile::tableName() . ' uspr', 'uspr.user_id = us.id')
             ->leftJoin(Salon::tableName() . ' sal', 'app.salon_id = sal.id')
             ->with('appointmentItems')
+            ->with('userProfile')
             ->where(['us.id' => \Yii::$app->user->getId()]);
 
         if ($isCanceled) {

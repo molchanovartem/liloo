@@ -41,7 +41,8 @@ class AuthService extends \common\services\AuthService
                     'login' => $login,
                     'password' => Yii::$app->security->generatePasswordHash($password),
                     'status' => User::STATUS_ACTIVE,
-                    'refresh_token' => Yii::$app->security->generateRandomString(255)
+                    'refresh_token' => Yii::$app->security->generateRandomString(255),
+                    'token' => Yii::$app->security->generateRandomString(255),
                 ]);
                 $user->setAttributes($form->getAttributes());
                 $user->save(false);

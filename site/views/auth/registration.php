@@ -79,14 +79,4 @@ $this->setHeading('Регистрируйся и записывайся к лу�
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-
 </div>
-<script>
-    function bgWhite() {
-        $('#appContent').find('.bg_color_e4eff9').css('background-color', '#ffffff');
-    }
-
-    function bgBlue() {
-        $('#appContent').find('.bg_color_e4eff9').css('background-color', '#e4eff9');
-    }
-</script>

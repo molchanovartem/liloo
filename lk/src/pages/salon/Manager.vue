@@ -8,7 +8,7 @@
         <v-data-table
                 :headers="headers"
                 :items="items"
-                hide-actions
+                :rows-per-page-items="[rowsPerPage]"
         >
             <template slot="items" slot-scope="{item}">
                 <td>{{ item.name }}</td>
@@ -44,7 +44,7 @@
 <script>
     import gql from 'graphql-tag';
     import {EVENT_DELETE} from "../../js/eventCollection";
-    import {managerMixin} from "../../js/mixins/managerMixin";
+    import {managerMixin} from "../js/mixins/managerMixin";
 
     export default {
         mixins: [managerMixin],
@@ -54,12 +54,21 @@
         data() {
             return {
                 headers: [
-                    {text: 'Имя', value: 'name'},
-                    {text: null, value: null},
+                    {text: 'Имя', value: 'name', sortable: false},
+                    {text: null, value: null, sortable: false},
                 ],
             };
         },
         methods: {
+            loadData() {
+                this.$apollo.query({
+                    query: gql`query{
+                        salons {id, name}
+                    }`,
+                }).then(({data}) => {
+                    this.items = Array.from(data.salons);
+                });
+            },
             onMasterManager(branchId) {
                 this.$router.push({name: 'salonMasterManager', params: {id: branchId}});
             },
@@ -82,13 +91,6 @@
                     });
                 }
             },
-            loadData() {
-                this.$apollo.query({
-                    query: gql`{salons {id, name}}`
-                }).then(({data}) => {
-                    this.items = Array.from(data.salons);
-                });
-            }
         }
     };
 </script>
