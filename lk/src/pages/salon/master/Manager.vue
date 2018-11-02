@@ -129,7 +129,7 @@
             loadData() {
                 this.$apollo.query({
                     query: gql`query ($salonId: ID!) {
-                        salonMasters(salon_id: $salonId) {salon_id, master_id, master {id, name}}
+                        salonMasters(salon_id: $salonId, limit: -1) {salon_id, master_id, master {id, name}}
                     }`,
                     variables: {
                         salonId: this.salonId

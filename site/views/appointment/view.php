@@ -34,6 +34,7 @@ $this->setBreadcrumbs(['Записи']); ?>
                                 :items="appointmentsNew"
                                 :total-items="countNew"
                                 :pagination.sync="pagination"
+                                :rows-per-page-items="5"
                                 prev-icon="mdi-chevron-left"
                                 next-icon="mdi-chevron-right"
                                 row
@@ -81,7 +82,7 @@ $this->setBreadcrumbs(['Записи']); ?>
                                 <div v-else>
                                     <div class="uk-margin-top">
                                         <a :href="'/site/web/index.php/executor-map/user-view?id=' + props.item.user_id">
-                                            {{props.item.name + ' ' + props.item.surname}}
+                                            {{props.item.userProfile.name + ' ' + props.item.userProfile.surname}}
                                         </a>
 
                                         <span v-if="props.item.status == constants.APPOINTMENT_STATUS_NEW"
@@ -132,12 +133,13 @@ $this->setBreadcrumbs(['Записи']); ?>
                     <v-card-text>
 
                         <v-data-iterator
+                                :total-items="countCanceled"
                                 :items="appointmentsCanceled"
-                                row
-                                wrap
+                                :rows-per-page-items="5"
                                 prev-icon="mdi-chevron-left"
                                 next-icon="mdi-chevron-right"
-                                :total-items="countCanceled"
+                                row
+                                wrap
                         >
                             <div slot="item" slot-scope="props">
 
@@ -310,7 +312,6 @@ $this->setBreadcrumbs(['Записи']); ?>
                                                     </div>
                                                 </div>
                                             </div>
-
 
                                         </div>
                                     </div>

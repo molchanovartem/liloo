@@ -208,7 +208,7 @@
 </div>
 
 <?php
-// Убрать это безобразие
+//TODO Убрать это безобразие
 
 $params = Yii::$app->request->getQueryParams();
 

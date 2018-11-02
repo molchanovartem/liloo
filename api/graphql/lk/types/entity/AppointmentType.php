@@ -8,6 +8,8 @@ use api\graphql\core\QueryTypeInterface;
 use api\models\lk\Client;
 use common\models\Appointment;
 use api\models\lk\AppointmentItem;
+use GraphQL\Type\Definition\InputObjectType;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class AppointmentType
@@ -52,42 +54,73 @@ class AppointmentType extends \api\graphql\base\types\entity\AppointmentType imp
     public static function getFieldsQueryType(TypeRegistry $typeRegistry): array
     {
         $entityRegistry = $typeRegistry->getEntityRegistry();
+        $filterType = new InputObjectType([
+            'name' => 'AppointmentFilter',
+            'fields' => function () use ($typeRegistry) {
+                return [
+                    'start_date' => $typeRegistry->date(),
+                    'end_date' => $typeRegistry->date(),
+                    'start_time' => $typeRegistry->dateTime(),
+                    'end_time' => $typeRegistry->dateTime(),
+                    'user_id' => $typeRegistry->id(),
+                    'salon_id' => $typeRegistry->id(),
+                    'master_id' => $typeRegistry->id(),
+                ];
+            }
+        ]);
 
         return [
             'appointments' => [
                 'type' => $typeRegistry->listOff($entityRegistry->appointment()),
                 'description' => 'Коллекция записей',
                 'args' => [
-                    'start_date' => [
-                        'type' => $typeRegistry->dateTime(),
-                        'description' => 'Дата начала, фомат "Y-m-d H:i:s"',
-                        'defaultValue' => date('Y-m-01 00:00:00')
+                    'filter' => $filterType,
+                    'limit' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 30,
                     ],
-                    'end_date' => [
-                        'type' => $typeRegistry->dateTime(),
-                        'description' => 'Дата окончания, фомат "Y-m-d H:i:s"',
-                        'defaultValue' => date('Y-m-t 23:59:59')
+                    'offset' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 0,
                     ],
-                    'user_id' => [
-                        'type' => $typeRegistry->id(),
-                        'defaultValue' => null
-                    ],
-                    'salon_id' => [
-                        'type' => $typeRegistry->id(),
-                        'defaultValue' => null
-                    ],
-                    'master_id' => [
-                        'type' => $typeRegistry->id(),
-                        'defaultValue' => null
-                    ]
                 ],
                 'resolve' => function ($root, $args, $context, $info) {
-                    return Appointment::find()
-                        ->where(['between', 'start_date', $args['start_date'], $args['end_date']])
-                        ->andFilterWhere(['user_id' => $args['user_id']])
-                        ->andFilterWhere(['salon_id' => $args['salon_id']])
-                        ->andFilterWhere(['master_id' => $args['master_id']])
-                        ->allByCurrentAccountId();
+                    $query = Appointment::find()->limit($args['limit'])->offset($args['offset']);
+
+                    if ($startDate = ArrayHelper::getValue($args, 'filter.start_date', date('Y-m-d 00:00:00'))
+                        && $endDate = ArrayHelper::getValue($args, 'filter.end_date', date('Y-m-d 23:59:59'))
+                    ) {
+                        $query->where(['between', 'start_date', $startDate, $endDate]);
+                    }
+                    
+                    if ($startDate = ArrayHelper::getValue($args, 'filter.start_date', date('Y-m-d 00:00:00'))
+                        && $endDate = ArrayHelper::getValue($args, 'filter.end_date', date('Y-m-d 23:59:59'))
+                    ) {
+                        $query->where(['between', 'start_date', $startDate, $endDate]);
+                    }
+
+                    if ($userId = ArrayHelper::getValue($args, 'filter.user_id')) {
+                        $query->andFilterWhere(['user_id' => $userId]);
+                    }
+                    if ($salonId = ArrayHelper::getValue($args, 'filter.salon_id')) {
+                        $query->andFilterWhere(['salon_id' => $salonId]);
+                    }
+                    if ($masterId = ArrayHelper::getValue($args, 'filter.master_id')) {
+                        $query->andFilterWhere(['salon_id' => $masterId]);
+                    }
+
+                    return $query->all();
+
+
+
+//                    return Appointment::find()
+//                        ->where(['between', 'start_date', $args['filter']['start_date'], $args['filter']['end_date']])
+//                        ->andFilterWhere(['user_id' => $args['filter']['user_id']])
+//                        ->andFilterWhere(['salon_id' => $args['filter']['salon_id']])
+//                        ->andFilterWhere(['master_id' => $args['filter']['master_id']])
+//                        ->limit($args['limit'])
+//                        ->offset($args['offset'])
+//                        ->allByCurrentAccountId();
                 }
             ],
             'appointment' => [

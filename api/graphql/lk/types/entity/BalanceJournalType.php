@@ -25,8 +25,21 @@ class BalanceJournalType implements QueryTypeInterface
             'balanceJournal' => [
                 'type' => $typeRegistry->listOff($entityRegistry->balanceJournal()),
                 'description' => 'Журнал',
+                'args' => [
+                    'limit' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 30,
+                    ],
+                    'offset' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 0,
+                    ],
+                ],
                 'resolve' => function ($root, $args) {
-                    return BalanceJournal::find()->allByCurrentAccountId();
+                    return BalanceJournal::find()
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
+                        ->allByCurrentAccountId();
                 }
             ],
         ];

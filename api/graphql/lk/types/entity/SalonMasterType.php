@@ -26,9 +26,19 @@ class SalonMasterType implements QueryTypeInterface
                 'type' => $typeRegistry->listOff($entityRegistry->salonMaster()),
                 'args' => [
                     'salon_id' => $typeRegistry->nonNull($typeRegistry->id()),
+                    'limit' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 30,
+                    ],
+                    'offset' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 0
+                    ],
                 ],
                 'resolve' => function ($root, $args) {
                     return SalonMaster::find()
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
                         ->bySalonId($args['salon_id'])
                         ->allByCurrentAccountId();
                 }

@@ -37,17 +37,19 @@ class AuthService extends \common\services\AuthService
 
                 $user = new User([
                     'account_id' => $account->id,
+                    'type' => $form->type,
                     'login' => $login,
                     'password' => Yii::$app->security->generatePasswordHash($password),
                     'status' => User::STATUS_ACTIVE,
-                    'refresh_token' => Yii::$app->security->generateRandomString(255)
+                    'refresh_token' => Yii::$app->security->generateRandomString(255),
+                    'token' => Yii::$app->security->generateRandomString(255),
                 ]);
                 $user->setAttributes($form->getAttributes());
                 $user->save(false);
 
                 $userProfile = new UserProfile([
                     'user_id' => $user->id,
-                    'phone' => $form->phone,
+                    'phone' => $form->setNormalizePhone(),
                     'name' => 'Новый пользователь'
                 ]);
                 $userProfile->save(false);
@@ -60,9 +62,11 @@ class AuthService extends \common\services\AuthService
                 ]);
 
                 $this->trigger(self::EVENT_USER_REGISTRATION, $event);
+
                 return true;
             });
         }
+
         return false;
     }
 

@@ -25,8 +25,27 @@ class AccountTariffType implements QueryTypeInterface
             'accountTariffs' => [
                 'type' => $typeRegistry->listOff($entityRegistry->accountTariff()),
                 'description' => 'Коллекция цен тарифов',
+                'args' => [
+                    'limit' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 30,
+                    ],
+                    'offset' => [
+                        'type' => $typeRegistry->int(),
+                        'defaultValue' => 0,
+                    ],
+                ],
                 'resolve' => function ($root, $args) {
-                    return AccountTariff::find()->allByCurrentAccountId();
+                    return AccountTariff::find()
+                        ->limit($args['limit'])
+                        ->offset($args['offset'])
+                        ->allByCurrentAccountId();
+                }
+            ],
+            'accountTariffsTotalCount' => [
+                'type' => $typeRegistry->int(),
+                'resolve' => function ($root, $args) {
+                    return AccountTariff::find()->countByCurrentAccountId();
                 }
             ],
         ];

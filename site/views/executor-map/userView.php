@@ -13,9 +13,10 @@ $this->setBreadcrumbs([
     <div class="t-a_c font_type_2">Нажмите на кнопку и сделайте запись</div>
     <div class="t-a_c">
         <div class="button button_color_red button_width_270 mt-10">
-            <a href="../appointment/create" class="uk-button uk-link-reset"
-               data-window="true"
-               data-window-type="bigModal">Записаться</a>
+            <button class="uk-button uk-link-reset"
+                    onclick="modalAppointmentCreate({userId:<?php echo $data['model']->id; ?>})">
+                Записаться
+            </button>
         </div>
     </div>
 </div>

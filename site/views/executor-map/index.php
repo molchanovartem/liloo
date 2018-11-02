@@ -139,7 +139,7 @@ $this->setBreadcrumbs(['Исполнители']);
                             <div class="performer__info">
                                 <div class="label-status label-status_bg_black label-status_fz_14">Profi
                                 </div>
-                                <a :href="getExecutorUrl(item)" data-ajax-content="true" class="uk-link-reset">
+                                <a :href="getExecutorUrl(item)" data-ajax-content="false" class="uk-link-reset">
                                     <div class="performer__name">{{item.name}}</div>
                                 </a>
                                 <div class="performer__profession"><i class="mdi mdi-map-marker"></i> {{item.address}}</div>
@@ -267,7 +267,7 @@ $this->setBreadcrumbs(['Исполнители']);
                     this.onSubmit();
                 },
                 onAppointmentCreate(item) {
-                    appointmentCreate({
+                    modalAppointmentCreate({
                         [item.isSalon ? 'salonId' : 'userId']: +item.id,
                         date: this.attributes.date
                     });
@@ -535,7 +535,7 @@ $this->setBreadcrumbs(['Исполнители']);
 
                 buttonAppointment.setAttribute('class', 'uk-button uk-button-small uk-button-link uk-float-right');
                 buttonAppointment.addEventListener('click', () => {
-                    appointmentCreate({
+                    modalAppointmentCreate({
                         [executor.isSalon ? 'salonId' : 'userId']: +executor.id,
                         date: wm.attributes.date
                     })
@@ -561,23 +561,6 @@ $this->setBreadcrumbs(['Исполнители']);
 
                 wrapper.innerHTML = string;
                 return wrapper.firstChild;
-            }
-        }
-
-        function appointmentCreate({userId = null, salonId = null, date}) {
-            let window = cWindow.getWindowByType('normalModal');
-
-            if (window) {
-                $.get(cUrl.create('appointment/create', {
-                    [userId ? 'user_id' : 'salon_id']: userId || salonId,
-                    date: date
-                }))
-                    .done(({content}) => {
-                        if (content !== undefined) {
-                            window.html(content);
-                            window.dialog('open');
-                        }
-                    });
             }
         }
     }

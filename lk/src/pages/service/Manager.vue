@@ -8,7 +8,7 @@
         <v-data-table
                 :headers="headers"
                 :items="items"
-                hide-actions
+                :rows-per-page-items="[rowsPerPage]"
         >
             <template slot="items" slot-scope="{item}">
                 <td width="300px">{{ item.name }}</td>
@@ -30,7 +30,7 @@
 <script>
     import gql from 'graphql-tag';
     import {EVENT_DELETE} from "../../js/eventCollection";
-    import {managerMixin} from "../../js/mixins/managerMixin";
+    import {managerMixin} from "../js/mixins/managerMixin";
 
     export default {
         mixins: [managerMixin],
@@ -40,9 +40,9 @@
         data() {
             return {
                 headers: [
-                    {text: "Имя", value: 'name'},
-                    {text: "Цена", value: 'price'},
-                    {text: "Длительность", value: 'duration'},
+                    {text: "Имя", value: 'name', sortable: false},
+                    {text: "Цена", value: 'price', sortable: false},
+                    {text: "Длительность", value: 'duration', sortable: false},
                     {text: null, value: null, sortable: false}
                 ],
             };
