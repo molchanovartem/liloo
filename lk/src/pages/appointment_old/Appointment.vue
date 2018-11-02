@@ -250,11 +250,11 @@
                         $endDate: DateTime,
                         $userId: ID!
                     ) {
-                        appointments(
+                        appointments(filter: {
                             start_date: $startDate,
                             end_date: $endDate,
                             user_id: $userId
-                         ) {
+                         }) {
                             id, user_id, client_id, owner_id, status, start_date, end_date,
                             items {id, appointment_id, service_id, service_name, service_price, service_duration, quantity},
                             client {id, surname, name, patronymic, date_birth}

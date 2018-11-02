@@ -43,7 +43,7 @@
     import VForm from './Form.vue';
 
     export default {
-        name: "SalonAppointment",
+        name: "Appointment",
         components: {
             VForm
         },
@@ -88,7 +88,7 @@
 
                 this.$apollo.query({
                     query: gql`query ($startDate: DateTime,$endDate: DateTime) {
-                            appointments(start_date: $startDate, end_date: $endDate, limit: -1) {
+                            appointments(filter: {start_date: $startDate, end_date: $endDate}, limit: -1) {
                                     id, salon_id, user_id, master_id, client_id, owner_id, status, start_date, end_date,
                                     items {id, appointment_id, service_id, service_name, service_price, service_duration, quantity},
                                     client {id, surname, name, patronymic, date_birth},

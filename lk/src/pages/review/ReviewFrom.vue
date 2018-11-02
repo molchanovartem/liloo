@@ -82,8 +82,6 @@
                 };
 
                 this.errors = validate(this.attributes, constraints);
-
-
             }
         }
     }
