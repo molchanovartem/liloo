@@ -10,7 +10,7 @@ gulp.task('js', function () {
         './src/app/js/*.js',
         './src/app/js/widgets/*.js',
     ])
-    //.pipe(uglify())
+        //.pipe(uglify())
         .pipe(babel({
             presets: ['@babel/env']
         }))
@@ -43,7 +43,7 @@ gulp.task('jsVendor', function () {
         './src/vendors/momentjs/*.js',
         './src/vendors/vanila-masker/*.js',
     ])
-    //.pipe(uglify())
+        //.pipe(uglify())
         .pipe(concat('vendor.min.js'))
         // .pipe(gzip())
         .pipe(gulp.dest('./web/public/dist'));

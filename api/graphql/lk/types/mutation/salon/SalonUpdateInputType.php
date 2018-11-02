@@ -28,6 +28,8 @@ class SalonUpdateInputType extends InputObjectType
                     'name' => $typeRegistry->string(),
                     'address' => $typeRegistry->string(),
                     'phone' => $typeRegistry->string(),
+                    'latitude' => $typeRegistry->float(),
+                    'longitude' => $typeRegistry->float(),
                     'specializations_id' => $typeRegistry->listOff($typeRegistry->id()),
                     'conveniences_id' => $typeRegistry->listOff($typeRegistry->id())
                 ];

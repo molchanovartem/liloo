@@ -5,6 +5,7 @@ namespace api\graphql\lk\types\mutation\user\profile;
 use api\graphql\core\TypeRegistry;
 use api\graphql\core\MutationFieldsTypeInterface;
 use api\graphql\lk\services\UserService;
+use yii\web\UploadedFile;
 
 /**
  * Class UserProfileType
@@ -32,6 +33,18 @@ class UserProfileType implements MutationFieldsTypeInterface
                    return (new UserService())->updateProfile($args['attributes']);
                }
            ],
+
+           // Доделать
+           'userAvatarUpload' => [
+               'type' => $typeRegistry->string(),
+               'args' => [
+                   'userId' => $typeRegistry->nonNull($typeRegistry->id()),
+                   'attribute' => $typeRegistry->string()
+               ],
+               'resolve' => function ($root, $args) {
+                   return UploadedFile::getInstanceByName($args['attribute'])->getBaseName();
+               }
+           ]
        ];
     }
 

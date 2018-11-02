@@ -20,6 +20,7 @@ $config = [
         'balance' => 'common\components\BalanceComponent',
         'account' => 'common\components\AccountComponent',
         'tariffAccess' => 'common\components\tariffAccess\TariffAccess',
+        'geocoder' => 'common\components\GeocoderComponent',
 
         'user' => [
             'identityClass' => 'common\models\UserIdentity',

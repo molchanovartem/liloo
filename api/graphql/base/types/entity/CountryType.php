@@ -19,9 +19,9 @@ class CountryType extends EntityType
         return [
             'id' => $this->typeRegistry->id(),
             'name' => $this->typeRegistry->string(),
-            'currency_code' => $this->typeRegistry->int(),
+            'currency_code' => $this->typeRegistry->string(),
             'currency_string_code' => $this->typeRegistry->string(),
-            'phone_code' => $this->typeRegistry->int()
+            'phone_code' => $this->typeRegistry->string()
         ];
     }
 }

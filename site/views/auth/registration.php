@@ -1,9 +1,9 @@
 <?php
 
-use yii\captcha\Captcha;
 use yii\helpers\Html;
+use yii\captcha\Captcha;
 use site\widgets\activeForm\ActiveForm;
-use site\widgets\MaskedTextInputWidget as MasketWidget;
+use site\widgets\MaskedTextInputWidget as MaskedWidget;
 use common\models\User;
 
 $this->setHeading('Регистрируйся и записывайся к лучшим и проверенным мастерам');
@@ -51,7 +51,7 @@ $this->setHeading('Регистрируйся и записывайся к лу�
             <div class="uk-margin input-box">
                 <div class="input-box__wrap">
                     <?= $form->field($data['form'], 'phone')
-                        ->widget(MasketWidget::class, ['pattern' => '9 (999) 999 99 99', 'options' => ['class' => 'uk-form-small input-box__input', 'placeholder' => '9 (999) 999 99 99']])
+                        ->widget(MaskedWidget::class, ['pattern' => '9 (999) 999 99 99', 'options' => ['class' => 'uk-form-small input-box__input', 'placeholder' => '9 (999) 999 99 99']])
                         ->label(false);
                     ?>
                 </div>
@@ -91,8 +91,7 @@ $this->setHeading('Регистрируйся и записывайся к лу�
 <!---->
 <!--                <?//= $form->field($data['form'], 'deal')
 //                    ->checkbox([ 'required' => true,])->label(false); ?>
-<!--<!---->
-<!---->
+
 <!---->
 <!--                <input type="checkbox" >-->
 <!--                <label class="checkbox__text checkbox__text_color_000">-->
@@ -105,8 +104,6 @@ $this->setHeading('Регистрируйся и записывайся к лу�
                 <input type="submit" class="button button_color_red" value="Зарегистрироваться">
                 <?php echo Html::a("У меня есть аккаунт", ['/auth/login'], ['class' => 'font_Gilroy-17-800-000000']); ?>
             </div>
-
-
             <?php ActiveForm::end(); ?>
         </div>
     </div>

@@ -17,9 +17,9 @@ class m180416_071001_country extends Migration
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'currency_code' => $this->integer(3)->notNull(),
+            'currency_code' => $this->char(3)->notNull(),
             'currency_string_code' => $this->char(3)->notNull(),
-            'phone_code' => $this->integer()->notNull()
+            'phone_code' => $this->string(15)->notNull()
         ]);
     }
 
