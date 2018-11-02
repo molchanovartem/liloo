@@ -31,6 +31,8 @@ class UserProfileUpdateInputType extends InputObjectType
                     'description' => $typeRegistry->string(),
                     'phone' => $typeRegistry->string(),
                     'address' => $typeRegistry->string(),
+                    'latitude' => $typeRegistry->float(),
+                    'longitude' => $typeRegistry->float(),
                 ];
             }
         ]);

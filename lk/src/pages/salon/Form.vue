@@ -26,30 +26,36 @@
             <div class="uk-grid uk-grid-small">
                 <div class="uk-width-1-4">
                     <v-autocomplete
-                            v-model="attributes.country_id"
                             :items="countryList"
+                            :value="attributes.country_id"
+                            @input="onChangeCountry"
                             :rules="rules.countryId"
                             item-text="name"
                             item-value="id"
                             label="Страна"
-                            @change="loadCitiesData"
                             outline
                     />
                 </div>
                 <div class="uk-width-1-4">
                     <v-autocomplete
                             label="Город"
-                            v-model="attributes.city_id"
-                            :items="cityList"
+                            :value="attributes.city_id"
+                            @input="onChangeCity"
+                            :items="cities"
+                            :rules="rules.cityId"
                             item-text="name"
                             item-value="id"
-                            :disabled="cityList.length === 0"
-                            :rules="rules.cityId"
+                            :disabled="cities.length === 0"
                             outline
                     />
                 </div>
                 <div class="uk-width-1-2">
-                    <v-text-field v-model="attributes.address" label="Адрес" outline/>
+                    <v-text-field
+                            v-model="attributes.address"
+                            :rules="rules.address"
+                            label="Адрес"
+                            outline
+                    />
                 </div>
             </div>
 
@@ -74,8 +80,19 @@
                     outline
             />
 
+            <l-map
+                    :zoom="15"
+                    :center="center"
+                    @click="onMapClick"
+                    style="height: 600px; z-index: 0">
+                <l-tile-layer
+                        :url="url"
+                        :attribution="attribution"/>
+                <l-marker :lat-lng="markerCoordinates" @moveend="onMoveMarker" :draggable="true"/>
+            </l-map>
+
             <div class="uk-margin-small-top">
-                <v-btn round outline large color="primary" @click="submit()">
+                <v-btn round outline large color="primary" @click="onSubmit">
                     Сохранить
                     <v-icon right>mdi-content-save</v-icon>
                 </v-btn>
@@ -89,9 +106,26 @@
     import {formRules} from "../../js/formRules";
     import {formMixin} from "../../js/mixins/formMixin";
     import {EVENT_SAVE} from "../../js/eventCollection";
+    import {LMap, LTileLayer, LMarker, LPopup} from 'vue2-leaflet';
+
+    delete L.Icon.Default.prototype._getIconUrl;
+
+    L.Icon.Default.mergeOptions({
+        iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+        iconUrl: require('leaflet/dist/images/marker-icon.png'),
+        shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+    });
+
+    import "leaflet/dist/leaflet.css";
 
     export default {
         mixins: [formMixin],
+        components: {
+            LMap,
+            LTileLayer,
+            LMarker,
+            LPopup
+        },
         created() {
             this.$on(EVENT_SAVE, () => {
                 this.$router.push({name: 'salonManager'});
@@ -109,9 +143,14 @@
         },
         data() {
             return {
+                center: L.latLng(1, 1), // city
+                url: 'http://tiles.maps.sputnik.ru/{z}/{x}/{y}.png?apikey=5032f91e8da6431d8605-f9c0c9a00357',
+                attribution: '&copy; <a href="http://maps.sputnik.ru/">Спутник</a> | &copy; <a rel="nofollow" href="http://osm.org/copyright">OpenStreetMap</a> | &copy; Ростелеком',
+
+
                 valid: false,
                 countryList: [],
-                cityList: [],
+                cities: [],
                 statusList: [
                     {value: 1, text: 'Активный'},
                     {value: 2, text: 'Не активный'}
@@ -122,6 +161,8 @@
                     status: null,
                     name: null,
                     address: null,
+                    latitude: null,
+                    longitude: null,
                     specializations_id: [],
                     conveniences_id: [],
                 },
@@ -141,6 +182,9 @@
                         v => formRules.required(v),
                         v => formRules.length(v, {maximum: 255})
                     ],
+                    address: [
+                        v => formRules.required(v),
+                    ],
                     specializationsId: [
                         v => formRules.required(v),
                     ],
@@ -150,6 +194,14 @@
                 },
             }
         },
+        computed: {
+            markerCoordinates() {
+                if (this.attributes.latitude !== null && this.attributes.longitude !== null) {
+                    return [this.attributes.latitude, this.attributes.longitude];
+                }
+                return L.latLng(1, 1);
+            }
+        },
         methods: {
             loadData() {
                 if (this.type === 'update') {
@@ -157,7 +209,7 @@
                             specializations {id, name},
                             conveniences {id, name},
                             countries {id, name, currency_code, phone_code},
-                            salon(id: $id) { id, country_id, city_id, status, name, address, specializations {id}, conveniences {id}}
+                            salon(id: $id) { id, country_id, city_id, status, name, address, latitude, longitude, specializations {id}, conveniences {id}}
                         }`).then(({data}) => {
                         this.specializationItems = data.specializations;
                         this.convenienceItems = data.conveniences;
@@ -174,8 +226,11 @@
                         this.attributes.conveniences_id = Array.from(data.salon.conveniences).map(item => {
                             return item.id
                         });
+                        this.attributes.latitude = data.salon.latitude;
+                        this.attributes.longitude = data.salon.longitude;
 
                         this.loadCitiesData();
+                        this.updateMapCenter();
                     });
                 } else {
                     this.$apollo.query({
@@ -193,12 +248,43 @@
             },
             loadCitiesData() {
                 this.requestQuery(gql`query ($countryId: ID!) {
-                    cities(country_id: $countryId) {id, name}
+                    cities(country_id: $countryId) {id, name, latitude, longitude}
                 }`).then(({data}) => {
-                    this.cityList = data.cities;
+                    this.cities = data.cities;
+
+                    if (this.attributes.city_id) this.updateMapCenter();
                 });
             },
-            submit() {
+
+            onChangeCountry(value) {
+                this.attributes.country_id = value;
+                this.attributes.city_id = null;
+
+                this.loadCitiesData();
+            },
+            onChangeCity(value) {
+                this.attributes.city_id = value;
+                this.attributes.latitude = null;
+                this.attributes.longitude = null;
+
+                this.updateMapCenter();
+            },
+            onMoveMarker(event) {
+                let latlng = event.target.getLatLng();
+
+                this.attributes.latitude = latlng.lat;
+                this.attributes.longitude = latlng.lng;
+                this.updateMapCenter();
+
+            },
+            onMapClick(event) {
+                let latlng = event.latlng;
+
+                this.attributes.latitude = latlng.lat;
+                this.attributes.longitude = latlng.lng;
+                this.updateMapCenter();
+            },
+            onSubmit() {
                 if (this.$refs.form.validate()) {
                     if (this.type === 'create') {
                         this.add().then(({data}) => {
@@ -211,6 +297,7 @@
                     }
                 }
             },
+
             add() {
                 return this.requestMutate(gql`mutation ($attributes: SalonCreateInput!) {
                         salonCreate(attributes: $attributes) {id, name}
@@ -239,6 +326,24 @@
                         attributes: this.attributes,
                     }
                 });
+            },
+            updateMapCenter() {
+                if (this.attributes.latitude === null && this.attributes.latitude === null) {
+                    let city = this.getCitySelected();
+
+                    if (city) {
+                        this.attributes.latitude = city.latitude;
+                        this.attributes.longitude = city.longitude;
+                    }
+                }
+
+                this.center = L.latLng(this.attributes.latitude, this.attributes.longitude);
+            },
+            getCitySelected() {
+                let city = this.cities.find(item => {
+                    return +item.id === +this.attributes.city_id;
+                });
+                return city || null;
             },
         }
     }
