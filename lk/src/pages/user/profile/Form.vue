@@ -84,11 +84,11 @@
             </div>
         </v-form>
 
-        <hr>
-        <div>
-            <button @click="onTest">test</button>
-            <input type="file" ref="file">
-        </div>
+        <!--<hr>-->
+        <!--<div>-->
+            <!--<button @click="onTest">test</button>-->
+            <!--<input type="file" ref="file">-->
+        <!--</div>-->
     </div>
 </template>
 
@@ -188,22 +188,22 @@
             }
         },
         methods: {
-            onTest() {
-                let data = new FormData();
-
-                data.append('query', `mutation {userAvatarUpload(userId: 52, attribute: "123")}`);
-                data.append('123', this.$refs.file.files[0]);
-
-                // use the file endpoint
-                fetch('http://liloo/api/lk', {
-                    method: 'POST',
-                    body: data
-                }).then(response => {
-                    return response.json()
-                }).then(value => {
-                    console.log(value);
-                })
-            },
+            // onTest() {
+            //     let data = new FormData();
+            //
+            //     data.append('query', `mutation {userAvatarUpload(userId: 52, attribute: "123")}`);
+            //     data.append('123', this.$refs.file.files[0]);
+            //
+            //     // use the file endpoint
+            //     fetch('http://liloo/api/lk', {
+            //         method: 'POST',
+            //         body: data
+            //     }).then(response => {
+            //         return response.json()
+            //     }).then(value => {
+            //         console.log(value);
+            //     })
+            // },
 
             loadData() {
                 this.$apollo.query({
