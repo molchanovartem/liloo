@@ -27,7 +27,7 @@ use site\widgets\cityWidget\Widget as CityWidget;
 
             <?php echo Html::a("Войти", ['/auth/login'], ['class' => 'font_Gilroy-17-800-000000']); ?>
         <?php else: ?>
-            <?php echo Html::a("<button class='button button_color_red button_in_header'>Logout (" . Yii::$app->user->identity->login . ")</button>", ['/auth/logout']); ?>
+            <?php echo Html::a("<button class='button button_color_red button_in_header'>Logout</button>", ['/auth/logout']); ?>
         <?php endif; ?>
     </div>
 

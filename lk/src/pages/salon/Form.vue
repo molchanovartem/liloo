@@ -1,11 +1,11 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
-        @todo
+        <!--@todo-->
 
-        <ul>
-            <li>Изображение</li>
-            <li>Часы работы</li>
-        </ul>
+        <!--<ul>-->
+            <!--<li>Изображение</li>-->
+            <!--<li>Часы работы</li>-->
+        <!--</ul>-->
 
         <v-form ref="form" v-model="valid">
             <div class="uk-grid uk-grid-small">

@@ -1,8 +1,8 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
-        <ul>@todo
-            <li>Дата рождения</li>
-        </ul>
+        <!--<ul>@todo-->
+            <!--<li>Дата рождения</li>-->
+        <!--</ul>-->
         <v-form ref="form" v-model="valid">
             <v-autocomplete
                     v-model="attributes.specializationsId"

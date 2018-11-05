@@ -2418,3 +2418,1296 @@ $_SERVER = [
     'argv' => []
     'argc' => 0
 ]
+2018-11-05 08:53:43 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 08:53:43 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '504'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/client/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '7078'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397223.075
+    'REQUEST_TIME' => 1541397223
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 08:53:58 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 08:53:58 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '532'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/client/update/1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '7113'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397238.836
+    'REQUEST_TIME' => 1541397238
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 08:54:09 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 08:54:09 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '532'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/client/update/1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '7113'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397249.443
+    'REQUEST_TIME' => 1541397249
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 08:54:34 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 08:54:34 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '532'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/client/update/1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '7185'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397274.116
+    'REQUEST_TIME' => 1541397274
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 08:57:28 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 08:57:27 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '465'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/client/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '7485'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397447.969
+    'REQUEST_TIME' => 1541397447
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 08:58:25 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 08:58:25 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '532'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/client/update/1'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '7586'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397505.021
+    'REQUEST_TIME' => 1541397505
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:04:54 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:04:54 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '8457'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397894.643
+    'REQUEST_TIME' => 1541397894
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:04:59 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:04:59 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '8457'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397899.232
+    'REQUEST_TIME' => 1541397899
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:04:59 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:04:59 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '8457'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397899.56
+    'REQUEST_TIME' => 1541397899
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:04:59 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:04:59 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '8457'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397899.784
+    'REQUEST_TIME' => 1541397899
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:05:00 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:04:59 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '8457'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397899.976
+    'REQUEST_TIME' => 1541397899
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:05:03 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:05:03 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '8457'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541397903.84
+    'REQUEST_TIME' => 1541397903
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:09:51 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:09:51 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '9060'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541398191.212
+    'REQUEST_TIME' => 1541398191
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:10:36 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:10:36 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '9169'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541398236.661
+    'REQUEST_TIME' => 1541398236
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:11:06 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:11:06 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '9242'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541398266.556
+    'REQUEST_TIME' => 1541398266
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:11:25 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:11:25 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '432'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/update/28'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '9301'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541398285.583
+    'REQUEST_TIME' => 1541398285
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:11:38 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:11:37 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '412'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/update/28'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '9301'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541398297.974
+    'REQUEST_TIME' => 1541398297
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:11:43 [127.0.0.1][100][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:11:43 [127.0.0.1][100][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '412'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/update/28'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '9301'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541398303.18
+    'REQUEST_TIME' => 1541398303
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:31:09 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:31:09 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = [
+    '{\"query\":\"mutation_($attributes:_AppointmentCreateInput!)_{\\n________________________________appointmentCreate(attributes:_$attributes)\\n____________________________}\",\"variables\":{\"attributes\":{\"user_id\":\"100\",\"client_id\":null,\"client_name\":\"Винтер\",\"client_phone\":\"78005553535\",\"start_date\":\"2018-11-05_14:30:00\",\"end_date\":\"2018-11-05_15:30:00\",\"items\":' => [
+        '{\"service_id\":58,\"quantity\":1}' => ''
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_csrf' => '6c169ba109b53d21c8028dbd50f776a83b2b4406b6728b59d3f5a7ff1fd836bba:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"m7-uWxUJmj6nBcJXKSdPiiJ5tvFffOeH\";}'
+    'PHPSESSID' => '45ld6faflhmfp5g7fma8id7bmtba6ce4'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '397'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://liloo'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_REFERER' => 'http://liloo/site/web/index.php/executor-map?date=2018-11-05&hour=11&minute=30&view_type=catalog&specialization_id=&service_id='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_csrf=6c169ba109b53d21c8028dbd50f776a83b2b4406b6728b59d3f5a7ff1fd836bba%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22m7-uWxUJmj6nBcJXKSdPiiJ5tvFffOeH%22%3B%7D; PHPSESSID=45ld6faflhmfp5g7fma8id7bmtba6ce4'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '11959'
+    'REDIRECT_URL' => '/api/site'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/site'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541399469.275
+    'REQUEST_TIME' => 1541399469
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:36:22 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:36:22 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = [
+    '{\"query\":\"mutation_($attributes:_AppointmentCreateInput!)_{\\n________________________________appointmentCreate(attributes:_$attributes)\\n____________________________}\",\"variables\":{\"attributes\":{\"user_id\":\"100\",\"client_id\":null,\"client_name\":\"asda\",\"client_phone\":\"75676445641\",\"start_date\":\"2018-11-05_11:00:00\",\"end_date\":\"2018-11-05_12:00:00\",\"items\":' => [
+        '{\"service_id\":58,\"quantity\":1}' => ''
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_csrf' => 'b678ba80af250e626564219de7132e1abfb6b9e8d355c8d58f0e51ae4969439ca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"IEPwLahNj1o6s6fT44925m7A2SjR0HsL\";}'
+    'PHPSESSID' => 'l14lk2smonqhg6jdlcdtkq7t918747nb'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '389'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://liloo'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_REFERER' => 'http://liloo/site/web/executor-map?service_id=&date=2018-11-05&hour=12&minute=00&view_type=catalog&specialization_id='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_csrf=b678ba80af250e626564219de7132e1abfb6b9e8d355c8d58f0e51ae4969439ca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22IEPwLahNj1o6s6fT44925m7A2SjR0HsL%22%3B%7D; PHPSESSID=l14lk2smonqhg6jdlcdtkq7t918747nb'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '12638'
+    'REDIRECT_URL' => '/api/site'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/site'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541399782.005
+    'REQUEST_TIME' => 1541399782
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:42:33 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:42:33 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = [
+    '{\"query\":\"mutation_($attributes:_AppointmentCreateInput!)_{\\n________________________________appointmentCreate(attributes:_$attributes)\\n____________________________}\",\"variables\":{\"attributes\":{\"user_id\":\"100\",\"client_id\":null,\"client_name\":\"88888\",\"client_phone\":\"78888888888\",\"start_date\":\"2018-11-05_14:30:00\",\"end_date\":\"2018-11-05_17:30:00\",\"items\":' => [
+        '{\"service_id\":58,\"quantity\":1},{\"service_id\":58,\"quantity\":1},{\"service_id\":58,\"quantity\":1}' => ''
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    '_csrf' => 'b678ba80af250e626564219de7132e1abfb6b9e8d355c8d58f0e51ae4969439ca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"IEPwLahNj1o6s6fT44925m7A2SjR0HsL\";}'
+    'PHPSESSID' => 'l14lk2smonqhg6jdlcdtkq7t918747nb'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '452'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://liloo'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_REFERER' => 'http://liloo/site/web/executor-map?service_id=&date=2018-11-05&hour=12&minute=00&view_type=catalog&specialization_id='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => '_csrf=b678ba80af250e626564219de7132e1abfb6b9e8d355c8d58f0e51ae4969439ca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22IEPwLahNj1o6s6fT44925m7A2SjR0HsL%22%3B%7D; PHPSESSID=l14lk2smonqhg6jdlcdtkq7t918747nb'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '13393'
+    'REDIRECT_URL' => '/api/site'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/site'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541400153.272
+    'REQUEST_TIME' => 1541400153
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 09:44:11 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 09:44:10 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = [
+    '{\"query\":\"mutation_($attributes:_AppointmentCreateInput!)_{\\n________________________________appointmentCreate(attributes:_$attributes)\\n____________________________}\",\"variables\":{\"attributes\":{\"user_id\":\"100\",\"client_id\":101,\"client_name\":null,\"client_phone\":null,\"start_date\":\"2018-11-05_16:30:00\",\"end_date\":\"2018-11-05_17:30:00\",\"items\":' => [
+        '{\"service_id\":58,\"quantity\":1}' => ''
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'f0gmp0knsn0mimp7n6c4f3ukk58i0tg1'
+    '_csrf' => '6bb46b30e0a294922db3c318c635c3830e873f201a7beecd41e7ee00a6f26bfca:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"JFUiv0FvbTwvi-KNwOKXljxL-oSsBp1Y\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '377'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://liloo'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_REFERER' => 'http://liloo/site/web/index.php/executor-map/index?specialization_id=1032&date=2018-11-05&hour=12&minute=00&view_type=catalog&service_id='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=f0gmp0knsn0mimp7n6c4f3ukk58i0tg1; _csrf=6bb46b30e0a294922db3c318c635c3830e873f201a7beecd41e7ee00a6f26bfca%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22JFUiv0FvbTwvi-KNwOKXljxL-oSsBp1Y%22%3B%7D'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '13614'
+    'REDIRECT_URL' => '/api/site'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/site'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541400250.947
+    'REQUEST_TIME' => 1541400250
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 10:07:39 [127.0.0.1][-][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 10:07:38 [127.0.0.1][-][-][info][application] $_GET = []
+
+$_POST = [
+    '{\"query\":\"mutation_($attributes:_AppointmentCreateInput!)_{\\n________________________________appointmentCreate(attributes:_$attributes)\\n____________________________}\",\"variables\":{\"attributes\":{\"user_id\":\"120\",\"client_id\":119,\"client_name\":null,\"client_phone\":null,\"start_date\":\"2018-11-05_11:00:00\",\"end_date\":\"2018-11-05_12:00:00\",\"items\":' => [
+        '{\"service_id\":58,\"quantity\":1}' => ''
+    ]
+]
+
+$_FILES = []
+
+$_COOKIE = [
+    'PHPSESSID' => 'g1l8ue6nr5jc57e5iceea4sglt4m9reo'
+    '_csrf' => '7c8f3d6a12ed1cb2f1d26b88147adab05165729deb8ac4c0554e29b2d22a748aa:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"_jTkSXdJarwVrTEBrIs5WdcaEwzbSnC7\";}'
+]
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '377'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://liloo'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_REFERER' => 'http://liloo/site/web/index.php/executor-map?date=2018-11-05&hour=12&minute=30&view_type=catalog&specialization_id=&service_id='
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'HTTP_COOKIE' => 'PHPSESSID=g1l8ue6nr5jc57e5iceea4sglt4m9reo; _csrf=7c8f3d6a12ed1cb2f1d26b88147adab05165729deb8ac4c0554e29b2d22a748aa%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22_jTkSXdJarwVrTEBrIs5WdcaEwzbSnC7%22%3B%7D'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '16607'
+    'REDIRECT_URL' => '/api/site'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/site'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541401658.936
+    'REQUEST_TIME' => 1541401658
+    'argv' => []
+    'argc' => 0
+]
+2018-11-05 10:32:49 [127.0.0.1][120][-][error][yii\i18n\PhpMessageSource::loadFallbackMessages] The message file for category 'app' does not exist: C:\OSPanel\domains\liloo\api/messages/ru-RU/app.php Fallback file does not exist as well: C:\OSPanel\domains\liloo\api/messages/ru/app.php
+2018-11-05 10:32:49 [127.0.0.1][120][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'REDIRECT_STATUS' => '200'
+    'HTTP_HOST' => 'liloo'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'CONTENT_LENGTH' => '403'
+    'HTTP_ACCEPT' => '*/*'
+    'HTTP_ORIGIN' => 'http://localhost:8080'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+    'CONTENT_TYPE' => 'application/json'
+    'HTTP_REFERER' => 'http://localhost:8080/salon/create'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'HTTP_ACCEPT_LANGUAGE' => 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'
+    'PATH' => 'c:\\ospanel\\modules\\php\\PHP-7.1-x64\\ext;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear;c:\\ospanel\\modules\\php\\PHP-7.1-x64\\pear\\bin;c:\\ospanel\\modules\\php\\PHP-7.1-x64;c:\\ospanel\\modules\\imagemagick;c:\\ospanel\\modules\\wget\\bin;c:\\ospanel\\modules\\git;c:\\ospanel\\modules\\git\\bin;c:\\ospanel\\modules\\git\\mingw\\bin;c:\\ospanel\\modules\\git\\cmd;c:\\ospanel\\modules\\database\\MySQL-5.7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64\\bin;c:\\ospanel\\modules\\http\\Apache-PHP-7-x64;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\system32\\Wbem;C:\\Windows\\SysWOW64'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => ''
+    'SERVER_SOFTWARE' => 'Apache'
+    'SERVER_NAME' => 'liloo'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'C:/OSPanel/domains/liloo'
+    'SERVER_ADMIN' => '[no address given]'
+    'SCRIPT_FILENAME' => 'C:/OSPanel/domains/liloo/api/index.php'
+    'REMOTE_PORT' => '19754'
+    'REDIRECT_URL' => '/api/lk/index'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => ''
+    'REQUEST_URI' => '/api/lk/index'
+    'SCRIPT_NAME' => '/api/index.php'
+    'PHP_SELF' => '/api/index.php'
+    'REQUEST_TIME_FLOAT' => 1541403169.812
+    'REQUEST_TIME' => 1541403169
+    'argv' => []
+    'argc' => 0
+]

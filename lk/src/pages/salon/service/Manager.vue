@@ -1,8 +1,8 @@
 <template>
     <div class="content-block p-40 content-block_shadow">
-        <ul>@todo
-            <li>Валидация</li>
-        </ul>
+        <!--<ul>@todo-->
+            <!--<li>Валидация</li>-->
+        <!--</ul>-->
 
         <div class="uk-grid uk-grid-small">
             <div class="uk-width-2-5">

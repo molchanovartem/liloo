@@ -319,7 +319,7 @@ $this->setBreadcrumbs(['Записи']); ?>
                                 <div v-else>
                                     <div class="uk-margin-top">
                                         <a :href="'/site/web/index.php/executor-map/user-view?id=' + props.item.user_id">
-                                            {{props.item.name + ' ' + props.item.surname}}
+                                            {{props.item.userProfile.name + ' ' + props.item.userProfile.surname}}
                                         </a>
 
                                         <span v-else class="uk-label uk-label-success">Подтверждено</span>

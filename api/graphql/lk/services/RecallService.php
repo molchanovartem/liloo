@@ -21,9 +21,8 @@ class RecallService extends ModelService
 
     public function init()
     {
-        parent::init();
         $this->on(self::EVENT_USER_RECALL, function ($model) {
-            Yii::$app->Notice->createNotice(Notice::TYPE_USER_RECALL, Notice::STATUS_UNREAD, 'text', $model->sender);
+            Yii::$app->siteNotice->createNotice(100, Notice::TYPE_USER_RECALL, Notice::STATUS_UNREAD, 'text', $model->sender);
         });
     }
 

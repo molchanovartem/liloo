@@ -19,6 +19,13 @@ class SiteNoticeComponent extends BaseNoticeComponent
         return new Notice();
     }
 
+    /**
+     * @param int $accountId
+     * @param int $type
+     * @param int $status
+     * @param string $text
+     * @param $data
+     */
     function createNotice(int $accountId, int $type, int $status, string $text, $data)
     {
         $notice = $this->getNoticeModel();

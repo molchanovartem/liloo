@@ -50,7 +50,8 @@ class AuthService extends \common\services\AuthService
                 $userProfile = new UserProfile([
                     'user_id' => $user->id,
                     'phone' => $form->setNormalizePhone(),
-                    'name' => 'Новый пользователь'
+                    'name' => 'Новый пользователь',
+                    'country_id' => 1, //Россия
                 ]);
                 $userProfile->save(false);
 

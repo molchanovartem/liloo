@@ -17,8 +17,8 @@ use site\widgets\MaskedTextInputWidget as MasketWidget;
             <div class="uk-margin input-box">
                 <div class="input-box__wrap">
                     <?= $form->field($data['form'], 'phone')
-                        ->widget(MasketWidget::class, ['pattern' => '(99) 9999-9999'])
-                        ->label('Введите ваш телефон');
+                        ->widget(MasketWidget::class, ['pattern' => '9 (999) 999 99 99', 'options' => ['class' => 'uk-form-small input-box__input', 'placeholder' => '9 (999) 999 99 99']])
+                        ->label(false);
                     ?>
                 </div>
             </div>

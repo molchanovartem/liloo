@@ -240,12 +240,12 @@ $this->setBreadcrumbs([
             <div class="halfs__half map map_in_half" id="map"></div>
         </div>
 
+        <?php if (count($data['model']->recalls) != 0) : ?>
+            <div class="uk-position-relative uk-visible-toggle" style="max-width: 760px;" uk-slider>
+                <div class="mt-90 mb-25 j-c_s-b a-i_c">
+                    <div class="font_type_12">Отзывы:</div>
 
-        <div class="uk-position-relative uk-visible-toggle" style="max-width: 760px;" uk-slider>
-            <div class="mt-90 mb-25 j-c_s-b a-i_c">
-                <div class="font_type_12">Отзывы:</div>
-
-                <div class="a-i_c">
+                    <div class="a-i_c">
                         <span class="vote__digits">
                             <span class="vote__digit vote__digit_color_green">
                                 +<?php echo Html::encode($data['model']->account->assessment_like); ?>
@@ -255,86 +255,88 @@ $this->setBreadcrumbs([
                             </span>
                         </span>
 
-                    <div class="uk-clearfix ">
-                        <div class="uk-float-right">
-                            <a class="uk-position-small" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                            <a class="uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                        <div class="uk-clearfix ">
+                            <div class="uk-float-right">
+                                <a class="uk-position-small" href="#" uk-slidenav-previous
+                                   uk-slider-item="previous"></a>
+                                <a class="uk-position-small" href="#" uk-slidenav-next uk-slider-item="next"></a>
+                            </div>
                         </div>
+
                     </div>
-
                 </div>
-            </div>
 
-            <ul class="uk-slider-items uk-child-width-1-2">
-                <?php foreach ($data['model']->recalls as $recall): ?>
-                    <li>
-                        <div class="uk-panel uk-margin-small-left">
-                            <div class="review-slide__content">
-                                <div class="review-slide__extra">
-                                    <div class="vote uk-inline">
-                                        <div class="review-slide__author-profession">
-                                            <?php echo Html::encode($recall->create_time); ?>
-                                        </div>
-                                        <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
-                                        <span class="vote__digits">
+                <ul class="uk-slider-items uk-child-width-1-2">
+                    <?php foreach ($data['model']->recalls as $recall): ?>
+                        <li>
+                            <div class="uk-panel uk-margin-small-left">
+                                <div class="review-slide__content">
+                                    <div class="review-slide__extra">
+                                        <div class="vote uk-inline">
+                                            <div class="review-slide__author-profession">
+                                                <?php echo Html::encode($recall->create_time); ?>
+                                            </div>
+                                            <i class="fas fa-comment-alt-dots vote__icon vote__icon_color_gray"></i>
+                                            <span class="vote__digits">
                                             <?php if (Html::encode($recall->assessment) == \common\models\Recall::ASSESSMENT_DISLIKE): ?>
                                                 <i class="mdi mdi-heart-broken"></i>
                                             <?php else: ?>
                                                 <i class="mdi mdi-heart"></i>
                                             <?php endif; ?>
                                         </span>
-                                    </div>
-                                </div>
-                                <?php if (strlen($recall->text) > 40) : ?>
-                                    <div class="toggle-animation-queued  review-slide__text uk-text-truncate">
-                                        <?php echo Html::encode($recall->text); ?>
-                                    </div>
-                                    <div class=" toggle-animation-queued review-slide__text" hidden>
-                                        <?php echo Html::encode($recall->text); ?>
-                                    </div>
-
-                                    <button class="uk-button uk-button-text uk-margin-small-top" type="button"
-                                            uk-toggle="target: .toggle-animation-queued; animation: uk-animation-fade; queued: true; duration: 0">
-                                        Читать полностью
-                                    </button>
-                                <?php else : ?>
-                                    <div class="review-slide__text">
-                                        <?php echo Html::encode($recall->text); ?>
-                                    </div>
-                                <?php endif; ?>
-
-                                <?php if (!empty($recall->answer)) : ?>
-                                    <div class="uk-inline">
-                                        <button class="uk-button uk-button-text uk-margin-small-top" type="button">
-                                            Показать ответ
-                                        </button>
-                                        <div uk-dropdown="mode: click">
-                                            <b><?php echo Html::encode($recall->answer->create_time); ?></b>
-                                            <?php echo Html::encode($recall->answer->text); ?>
                                         </div>
                                     </div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="review-slide__author">
-                                <div class="review-slide__author-img"
-                                     style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
-                                <div class="review-slide__author-info">
-                                    <div class="review-slide__author-name">
-                                        <?php echo Html::encode($recall->appointment->client->user->profile->name); ?>
-                                        ,
-                                        <?php echo Html::encode($recall->appointment->client->user->profile->surname); ?>
-                                    </div>
-                                    <div class="review-slide__author-profession">
-                                        <?php echo Html::encode($recall->appointment->client->user->profile->city->name); ?>
+                                    <?php if (strlen($recall->text) > 40) : ?>
+                                        <div class="toggle-animation-queued  review-slide__text uk-text-truncate">
+                                            <?php echo Html::encode($recall->text); ?>
+                                        </div>
+                                        <div class=" toggle-animation-queued review-slide__text" hidden>
+                                            <?php echo Html::encode($recall->text); ?>
+                                        </div>
+
+                                        <button class="uk-button uk-button-text uk-margin-small-top" type="button"
+                                                uk-toggle="target: .toggle-animation-queued; animation: uk-animation-fade; queued: true; duration: 0">
+                                            Читать полностью
+                                        </button>
+                                    <?php else : ?>
+                                        <div class="review-slide__text">
+                                            <?php echo Html::encode($recall->text); ?>
+                                        </div>
+                                    <?php endif; ?>
+
+                                    <?php if (!empty($recall->answer)) : ?>
+                                        <div class="uk-inline">
+                                            <button class="uk-button uk-button-text uk-margin-small-top" type="button">
+                                                Показать ответ
+                                            </button>
+                                            <div uk-dropdown="mode: click">
+                                                <b><?php echo Html::encode($recall->answer->create_time); ?></b>
+                                                <?php echo Html::encode($recall->answer->text); ?>
+                                            </div>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="review-slide__author">
+                                    <div class="review-slide__author-img"
+                                         style="background-image: url(https://i.pinimg.com/favicons/e68f90563f3f2328774620cfc5ef4f800f0b4756e5b58f65220fb81b.png);"></div>
+                                    <div class="review-slide__author-info">
+                                        <div class="review-slide__author-name">
+                                            <?php echo Html::encode($recall->appointment->client->user->profile->name); ?>
+                                            ,
+                                            <?php echo Html::encode($recall->appointment->client->user->profile->surname); ?>
+                                        </div>
+                                        <div class="review-slide__author-profession">
+                                            <?php echo Html::encode($recall->appointment->client->user->profile->city->name); ?>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
 
-        </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>

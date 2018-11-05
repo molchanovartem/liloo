@@ -9,6 +9,7 @@ use api\graphql\core\errors\AttributeValidationError;
 use common\core\service\ModelService;
 use site\models\Recall;
 use site\forms\ComplaintForm;
+use common\models\Notice;
 
 /**
  * Class RecallService
@@ -22,7 +23,7 @@ class RecallService extends ModelService
     {
         parent::init();
         $this->on(self::EVENT_USER_RECALL, function ($model) {
-            Yii::$app->adminNotice->createNotice(AdminNotice::TYPE_USER_RECALL, AdminNotice::STATUS_UNREAD, 'text', $model->sender);
+            Yii::$app->siteNotice->createNotice(100, Notice::TYPE_USER_RECALL, Notice::STATUS_UNREAD, 'text', $model->sender);
         });
     }
 
