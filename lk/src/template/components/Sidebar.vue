@@ -1,5 +1,8 @@
 <template>
     <div class="menu-blocks">
+        <router-link :to="{name: 'appointmentList'}" class="menu-blocks__item">
+            <span class="menu-blocks__item-name">Записи</span>
+        </router-link>
         <router-link :to="{name: 'appointmentManager'}" class="menu-blocks__item">
             <span class="menu-blocks__item-name">Журнал</span>
         </router-link>

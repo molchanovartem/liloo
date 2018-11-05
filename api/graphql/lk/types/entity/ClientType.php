@@ -26,7 +26,7 @@ class ClientType implements QueryTypeInterface
             'name' => 'ClientFilter',
             'fields' => function() use ($typeRegistry) {
                 return [
-                    'phone' => $typeRegistry->string(),
+                    'phone_contains' => $typeRegistry->string(),
                     'surname_contains' => $typeRegistry->string(),
                 ];
             }
@@ -49,8 +49,8 @@ class ClientType implements QueryTypeInterface
                 ],
                 'resolve' => function ($root, $args) {
                     $query = Client::find()->limit($args['limit'])->offset($args['offset']);
-                    if ($phone = ArrayHelper::getValue($args, 'filter.phone')) {
-                        $query->andWhere(['phone' => $phone]);
+                    if ($phone = ArrayHelper::getValue($args, 'filter.phone_contains')) {
+                        $query->andWhere(['like','phone', $phone]);
                     }
 
                     if ($surname = ArrayHelper::getValue($args, 'filter.surname_contains')) {

@@ -58,13 +58,13 @@ class AppointmentType extends \api\graphql\base\types\entity\AppointmentType imp
             'name' => 'AppointmentFilter',
             'fields' => function () use ($typeRegistry) {
                 return [
-                    'start_date' => $typeRegistry->date(),
-                    'end_date' => $typeRegistry->date(),
-                    'start_time' => $typeRegistry->dateTime(),
-                    'end_time' => $typeRegistry->dateTime(),
+                    'start_date' => $typeRegistry->dateTime(),
+                    'end_date' => $typeRegistry->dateTime(),
                     'user_id' => $typeRegistry->id(),
                     'salon_id' => $typeRegistry->id(),
                     'master_id' => $typeRegistry->id(),
+                    'client_id' => $typeRegistry->id(),
+                    'client_id_in' => $typeRegistry->listOff($typeRegistry->id()),
                 ];
             }
         ]);
@@ -87,18 +87,14 @@ class AppointmentType extends \api\graphql\base\types\entity\AppointmentType imp
                 'resolve' => function ($root, $args, $context, $info) {
                     $query = Appointment::find()->limit($args['limit'])->offset($args['offset']);
 
-                    if ($startDate = ArrayHelper::getValue($args, 'filter.start_date', date('Y-m-d 00:00:00'))
-                        && $endDate = ArrayHelper::getValue($args, 'filter.end_date', date('Y-m-d 23:59:59'))
-                    ) {
-                        $query->where(['between', 'start_date', $startDate, $endDate]);
-                    }
-                    
-                    if ($startDate = ArrayHelper::getValue($args, 'filter.start_date', date('Y-m-d 00:00:00'))
-                        && $endDate = ArrayHelper::getValue($args, 'filter.end_date', date('Y-m-d 23:59:59'))
-                    ) {
-                        $query->where(['between', 'start_date', $startDate, $endDate]);
-                    }
+                    $startDate = ArrayHelper::getValue($args, 'filter.start_date');
+                    $endDate = ArrayHelper::getValue($args, 'filter.end_date');
 
+                    if (!empty($startDate) && !empty($endDate)) {
+                        $query->andFilterWhere(['between', 'start_date', $startDate, $endDate]);
+                    } elseif (!empty($startDate)) {
+                        $query->andFilterWhere(['>', 'start_date', $startDate]);
+                    }
                     if ($userId = ArrayHelper::getValue($args, 'filter.user_id')) {
                         $query->andFilterWhere(['user_id' => $userId]);
                     }
@@ -108,19 +104,14 @@ class AppointmentType extends \api\graphql\base\types\entity\AppointmentType imp
                     if ($masterId = ArrayHelper::getValue($args, 'filter.master_id')) {
                         $query->andFilterWhere(['salon_id' => $masterId]);
                     }
+                    if ($clientId = ArrayHelper::getValue($args, 'filter.client_id')) {
+                        $query->andFilterWhere(['client_id' => $clientId]);
+                    }
+                    if ($clientIdIn = ArrayHelper::getValue($args, 'filter.client_id_in')) {
+                        $query->andFilterWhere(['in', 'client_id', $clientIdIn]);
+                    }
 
-                    return $query->all();
-
-
-
-//                    return Appointment::find()
-//                        ->where(['between', 'start_date', $args['filter']['start_date'], $args['filter']['end_date']])
-//                        ->andFilterWhere(['user_id' => $args['filter']['user_id']])
-//                        ->andFilterWhere(['salon_id' => $args['filter']['salon_id']])
-//                        ->andFilterWhere(['master_id' => $args['filter']['master_id']])
-//                        ->limit($args['limit'])
-//                        ->offset($args['offset'])
-//                        ->allByCurrentAccountId();
+                    return $query->allByCurrentAccountId();
                 }
             ],
             'appointment' => [
@@ -134,7 +125,42 @@ class AppointmentType extends \api\graphql\base\types\entity\AppointmentType imp
                         ->byCurrentAccountId()
                         ->oneById($args['id']);
                 }
-            ]
+            ],
+            'appointmentTotalCount' => [
+                'type' => $typeRegistry->int(),
+                'args' => [
+                    'filter' => $filterType,
+                ],
+                'resolve' => function ($root, $args) {
+                    $query = Appointment::find();
+                    $startDate = ArrayHelper::getValue($args, 'filter.start_date');
+                    $endDate = ArrayHelper::getValue($args, 'filter.end_date');
+
+                    if (!empty($startDate) && !empty($endDate)) {
+                        $query->andFilterWhere(['between', 'start_date', $startDate, $endDate]);
+                    } elseif (!empty($startDate)) {
+                        $query->andFilterWhere(['>', 'start_date', $startDate]);
+                    }
+
+                    if ($userId = ArrayHelper::getValue($args, 'filter.user_id')) {
+                        $query->andFilterWhere(['user_id' => $userId]);
+                    }
+                    if ($salonId = ArrayHelper::getValue($args, 'filter.salon_id')) {
+                        $query->andFilterWhere(['salon_id' => $salonId]);
+                    }
+                    if ($masterId = ArrayHelper::getValue($args, 'filter.master_id')) {
+                        $query->andFilterWhere(['salon_id' => $masterId]);
+                    }
+                    if ($clientId = ArrayHelper::getValue($args, 'filter.client_id')) {
+                        $query->andFilterWhere(['client_id' => $clientId]);
+                    }
+                    if ($clientIdIn = ArrayHelper::getValue($args, 'filter.client_id_in')) {
+                        $query->andFilterWhere(['in', 'client_id', $clientIdIn]);
+                    }
+
+                    return $query->countByCurrentAccountId();
+                }
+            ],
         ];
     }
 }

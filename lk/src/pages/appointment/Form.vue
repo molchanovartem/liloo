@@ -91,7 +91,7 @@
     import {appointmentStatus, APPOINTMENT_STATUS_CONFIRMED} from "./status";
 
     export default {
-        name: "SalonAppointmentForm",
+        name: "AppointmentForm",
         data() {
             return {
                 valid: false,

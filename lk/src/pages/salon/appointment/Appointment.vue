@@ -131,12 +131,12 @@
                         $startDate: DateTime,
                         $endDate: DateTime
                     ) {
-                            appointments(
+                            appointments(filter: {
                                 salon_id: $salonId,
                                 master_id: $masterId
                                 start_date: $startDate,
                                 end_date: $endDate
-                            ) {
+                            }) {
                                     id, salon_id, user_id, master_id, client_id, owner_id, status, start_date, end_date,
                                     items {id, appointment_id, service_id, service_name, service_price, service_duration, quantity},
                                     client {id, surname, name, patronymic, date_birth},
