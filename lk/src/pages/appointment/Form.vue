@@ -87,18 +87,18 @@
     import gql from 'graphql-tag';
     import dateFormat from 'dateformat';
     import {formRules} from "../../js/formRules";
+    import {formMixin} from "../../js/mixins/formMixin";
     import {EVENT_SAVE, EVENT_CREATED, EVENT_UPDATED} from "../../js/eventCollection";
     import {appointmentStatus, APPOINTMENT_STATUS_CONFIRMED} from "./status";
 
     export default {
         name: "AppointmentForm",
+        mixins: [formMixin],
         data() {
             return {
                 valid: false,
                 scenario: null,
-                // Клиентов
                 clients: [],
-                // Услуги
                 services: [],
 
                 cancel: null,
