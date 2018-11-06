@@ -15,19 +15,8 @@
             <v-text-field v-model="attributes.phone" label="Телефон" :rules="rules.phone" outline/>
             <v-textarea rows="3" v-model="attributes.description" label="Описание" outline/>
 
-            <div class="uk-grid uk-grid-small uk-child-width-1-3">
-                <div>
-                    <v-autocomplete
-                            :items="countryList"
-                            :value="attributes.country_id"
-                            @input="onChangeCountry"
-                            item-text="name"
-                            item-value="id"
-                            label="Страна"
-                            outline
-                    />
-                </div>
-                <div>
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-width-1-3">
                     <v-autocomplete
                             label="Город"
                             :value="attributes.city_id"
@@ -36,11 +25,17 @@
                             item-text="name"
                             item-value="id"
                             :disabled="cities.length === 0"
+                            :rules="rules.cityId"
                             outline
                     />
                 </div>
-                <div>
-                    <v-text-field v-model="attributes.address" label="Адрес" outline/>
+                <div class="uk-width-2-3">
+                    <v-text-field
+                            v-model="attributes.address"
+                            :rules="rules.address"
+                            label="Адрес"
+                            outline
+                    />
                 </div>
             </div>
 
@@ -169,6 +164,9 @@
                     name: [
                         v => formRules.required(v),
                         v => formRules.length(v, {maximum: 255})
+                    ],
+                    address: [
+                        v => formRules.required(v),
                     ],
                     specializationsId: [
                         v => formRules.required(v),

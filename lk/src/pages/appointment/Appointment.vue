@@ -385,7 +385,8 @@
             onCreated(appointment) {
                 if (+appointment.status !== APPOINTMENT_STATUS_NOT_COME && +appointment.status !== APPOINTMENT_STATUS_CANCELED) {
                     this.addAppointment(appointment);
-                    this.scheduler.updateView();
+                    //this.scheduler.updateView();
+                    this.loadData();
                 }
 
                 this.modalClose();
@@ -396,7 +397,6 @@
                 } else {
                     this.scheduler.updateEvent(this.addAppointment(appointment));
                 }
-
                 this.scheduler.updateView();
                 this.modalClose();
             },

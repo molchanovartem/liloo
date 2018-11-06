@@ -33,10 +33,11 @@ abstract class AppointmentService extends ModelService
         return $this->wrappedTransaction(function () use ($model, $attributes) {
             $model->setAttributes($attributes);
 
+            if (!$model->validate()) throw new AttributeValidationError($model->getErrors());
             if (!$this->validateSchedulesDate($model)) throw new ValidationError('Не рабочее время');
             if ($this->validateAppointmentDate($model)) throw new ValidationError('Это время занято');
 
-            if (!$model->save()) throw new AttributeValidationError($model->getErrors());
+            $model->save(false);
 
             if (!empty($attributes['items'])) {
                 $this->saveItems($model, $attributes['items']);
@@ -51,7 +52,7 @@ abstract class AppointmentService extends ModelService
      */
     private function validateSchedulesDate($model)
     {
-        if (!empty($attributes['master_id']) && !empty($model['salon_id'])) {
+        if (!empty($model['master_id']) && !empty($model['salon_id'])) {
             $schedules = (new Query())->select(['start_date', 'end_date'])
                 ->from('{{%master_schedule}}')
                 ->where(['master_id' => $model['master_id']])
@@ -109,6 +110,7 @@ abstract class AppointmentService extends ModelService
                     ['salon_id' => $model['salon_id']],
                 ])
                 ->andFilterWhere(['!=', 'id', $model['id'] ?? null])
+                ->andWhere(['in', 'status', [Appointment::STATUS_NEW, Appointment::STATUS_COMPLETED, Appointment::STATUS_CONFIRMED]])
                 ->all();
         } else {
             $appointmentDates = (new Query())->select(['start_date', 'end_date'])
@@ -127,6 +129,7 @@ abstract class AppointmentService extends ModelService
                 ])
                 ->andWhere(['user_id' => $model['user_id']])
                 ->andFilterWhere(['!=', 'id', $model['id'] ?? null])
+                ->andWhere(['in', 'status', [Appointment::STATUS_NEW, Appointment::STATUS_COMPLETED, Appointment::STATUS_CONFIRMED]])
                 ->all();
         }
 

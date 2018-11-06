@@ -19,9 +19,6 @@
             <tr>
                 <td>Телефон</td><td>{{data.profile.phone}}</td>
             </tr>
-            <tr>
-                <td>Дата рождения</td><td>{{data.profile.date_birth}}</td>
-            </tr>
             </tbody>
         </table>
     </div>

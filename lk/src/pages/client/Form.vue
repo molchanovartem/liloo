@@ -34,20 +34,8 @@
                 </div>
 
             </div>
-            <div class="uk-grid uk-grid-small uk-child-width-1-3">
-                <div>
-                    <v-autocomplete
-                            v-model="attributes.country_id"
-                            :items="countryList"
-                            :rules="rules.countryId"
-                            item-text="name"
-                            item-value="id"
-                            label="Страна"
-                            @change="loadCitiesData"
-                            outline
-                    />
-                </div>
-                <div>
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-width-1-3">
                     <v-autocomplete
                             label="Город"
                             v-model="attributes.city_id"
@@ -58,7 +46,7 @@
                             outline
                     />
                 </div>
-                <div>
+                <div class="uk-width-2-3">
                     <v-text-field v-model="attributes.address" label="Адрес" outline/>
                 </div>
             </div>
@@ -108,7 +96,7 @@
                     {value: 2, text: 'Не активный'}
                 ],
                 attributes: {
-                    country_id: null,
+                    country_id: 1, // Россия
                     city_id: null,
                     status: null,
                     surname: null,
@@ -157,21 +145,14 @@
                          client(id: $id) {
                             id, country_id, city_id, status, surname, name, patronymic, date_birth, phone, address
                          },
-                         countries {id, name, currency_code, phone_code},
                     }`).then(({data}) => {
                         Object.keys(data.client).map((param) => {
                             if (this.attributes[param] !== undefined) this.attributes[param] = data.client[param];
                         });
-                        this.countryList = data.countries;
-
                         this.loadCitiesData();
                     });
                 } else {
-                    this.requestQuery(gql`query {
-                        countries {id, name, phone_code},
-                    }`).then(({data}) => {
-                        this.countryList = Array.from(data.countries);
-                    });
+                    this.loadCitiesData();
                 }
             },
             loadCitiesData() {

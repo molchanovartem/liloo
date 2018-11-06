@@ -21,7 +21,7 @@ class m180595_081962_tariff extends Migration
             'type' => $this->integer()->notNull(),
             'status' => $this->integer()->notNull(),
             'quantity' => $this->integer(),
-            'data' => $this->string()->notNull(),
+            'access' => $this->string()->notNull(),
         ]);
     }
 
