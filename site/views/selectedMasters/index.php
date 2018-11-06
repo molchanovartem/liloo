@@ -81,7 +81,7 @@ $this->setHeading('Избранные мастера');
                 </div>
                 <div class="button button_color_red button_width_270 mt-10">
                     <button class="uk-button uk-link-reset"
-                            onclick="modalAppointmentCreate({userId:<?php echo $selectedMaster->executor_id; ?>})">
+                            onclick="modalAppointmentCreate({userId:<?php echo $selectedMaster->executor_id; ?>, date: moment().format('YYYY-MM-DD')})">
                         Записаться
                     </button>
                 </div>

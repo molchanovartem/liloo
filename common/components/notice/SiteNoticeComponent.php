@@ -73,7 +73,7 @@ class SiteNoticeComponent extends BaseNoticeComponent
             case Notice::TYPE_USER_CANCELED_SESSION:
                 return call_user_func([$this, 'createUserCanceledSessionNoticeData'], $model);
             case Notice::TYPE_USER_RECALL:
-                return call_user_func([$this, 'convertModelToUserRegistrationModel'], $model);
+                return call_user_func([$this, 'createClientRecallNoticeData'], $model);
         }
     }
 }

@@ -14,7 +14,7 @@ $this->setBreadcrumbs([
     <div class="t-a_c">
         <div class="button button_color_red button_width_270 mt-10">
             <button class="uk-button uk-link-reset"
-                    onclick="modalAppointmentCreate({userId:<?php echo $data['model']->id; ?>})">
+                    onclick="modalAppointmentCreate({userId:<?php echo $data['model']->id; ?>, date: moment().format('YYYY-MM-DD')})">
                 Записаться
             </button>
         </div>
@@ -162,9 +162,10 @@ $this->setBreadcrumbs([
                         </div>
                         <div class="workers-list__part">
                             <div class="button button_color_red_without_shadow button_width_270 mt-10">
-                                <a href="../appointment/create" class="uk-button uk-link-reset"
-                                   data-window="true"
-                                   data-window-type="bigModal">Записаться</a>
+                                <button class="uk-button uk-link-reset"
+                                        onclick="modalAppointmentCreate({userId:<?php echo $data['model']->id; ?>, date: moment().format('YYYY-MM-DD')})">
+                                    Записаться
+                                </button>
                             </div>
                         </div>
                     </div>

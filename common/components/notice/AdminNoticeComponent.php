@@ -18,6 +18,12 @@ class AdminNoticeComponent extends BaseNoticeComponent
         return new AdminNotice();
     }
 
+    /**
+     * @param int $type
+     * @param int $status
+     * @param string $text
+     * @param $data
+     */
     function createNotice(int $type, int $status, string $text, $data)
     {
         $notice = $this->getNoticeModel();

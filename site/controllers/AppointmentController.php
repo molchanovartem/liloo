@@ -66,6 +66,8 @@ class AppointmentController extends Controller
      * @param $id
      * @param $reason
      * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionCancel($id, $reason)
     {

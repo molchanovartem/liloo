@@ -37,7 +37,6 @@ class ProfileService extends ModelService
         if (!empty($this->getData('post'))) {
             $model->load($this->getData('post'));
             $model->phone = (int)filter_var($this->getData('post')['UserProfile']['phone'], FILTER_SANITIZE_NUMBER_INT);
-
             $model->save();
         }
         $cities = $this->getCities();

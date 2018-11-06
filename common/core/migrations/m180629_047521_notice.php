@@ -11,6 +11,7 @@ class m180529_041521_notice extends Migration
 
     /**
      * @return bool|void
+     * @throws \yii\base\Exception
      */
     public function safeUp()
     {
@@ -20,6 +21,7 @@ class m180529_041521_notice extends Migration
             'type' => $this->integer()->notNull(),
             'status' => $this->integer()->notNull(),
             'text' => $this->string()->notNull(),
+            'data' => $this->json(),
         ]);
 
         $this->execute("ALTER TABLE {$this->tableName} ADD `data` JSON NULL AFTER `text`;");
